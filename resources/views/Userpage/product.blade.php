@@ -95,7 +95,7 @@ Product
 
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
-												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Quick Viewx</a>
+												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Quick View</a>
 											</div>
 										</div>
 										{{-- <span class="product-new-top">New</span> --}}
