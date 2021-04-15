@@ -14,12 +14,10 @@ class loginController extends Controller
     	$username=$re->username;
     	$password=md5($re->password);
     	$result=DB::table('khachhang')->where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
-
-        
     	if($result)
     	{
     		session::put("khTen",$result->khTen);
-    		return Redirect::to('/');
+    		return Redirect::to('product');
     	}
     	else
     	{

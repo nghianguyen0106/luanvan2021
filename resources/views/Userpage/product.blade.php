@@ -8,22 +8,27 @@ Product
 <div class="men-wear">
 	<div class="container-fluid">
 		<div class="col-md-2 products-left">
+			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
+			<form class="form" action=""  method="get" accept-charset="utf-8">
+				<div class="row">
 			
-			<div class="css-treeview">
-				<h4>LỌC SẢN PHẨM</h4>
-				<ul>
-					<li>Lọc theo giá
-						<ul>
-							<li>
-								<label>Giá từ<input type="text/submit/hidden/button/etc" name="" value=""></label>
-							</li>
-							<li>
-								<label>Giá đến<input type="text/submit/hidden/button/etc" name="" value=""></label>
-							</li>
-						</ul></li>
-				</ul>	
-			</div>
-			
+					<div class="col-1">
+						<div class="input-group mb-1">
+							 <span class=" input-group-text">Giá từ</span>
+							  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+						</div>
+					</div>
+					<div class="col-1">
+						<div class="input-group mb-1">
+							  <span class="input-group-text">Giá đến</span>
+							  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+						</div>
+					</div>
+				</div>
+				
+
+			</form>
+	<hr>
 			<div class="clearfix"></div>
 		</div>
 		<div class="col-md-8 products-right">
@@ -31,7 +36,7 @@ Product
 
 			{{-- QUICK SORT --}}
 			 <div class="sort-grid">
-			{{--	<div class="sorting">
+				<div class="sorting">
 					<h6>Sort By</h6>
 					<select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
 						<option value="null">Default</option>
@@ -54,7 +59,7 @@ Product
 					</select>
 					<div class="clearfix"></div>
 				</div>
-				<div class="clearfix"></div>--}}
+				<div class="clearfix"></div>
 			</div> 
 
 
@@ -85,7 +90,7 @@ Product
 						{{-- Item --}}
 						
 					@foreach($db as $i)	
-				<div class="col-md-3 product-men p-4" style="height: 350px">
+				<div class="col-md-3 product-men p-4" style="height: 400px">
 					<div class="men-pro-item simpleCart_shelfItem">
 						<div class="men-thumb-item">
 								
@@ -96,7 +101,7 @@ Product
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
 
-												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Quick View</a>
+												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Xem sản phẩm</a>
 								
 											</div>
 										</div>
@@ -109,7 +114,7 @@ Product
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
 									
 									</div>
-									<a href="#" class="item_add single-item hvr-outline-out button2">Add to cart</a>									
+									<a href="#" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
 						</div>
 					</div>
 				</div>
@@ -118,56 +123,7 @@ Product
 				<div class="clearfix"></div>
 		</div>
 		<div class="clearfix"></div>
-		<div class=" row single-pro">
-			
-			<div class="css-treeview">
-				<h4>SẢN PHẨM ĐỀ XUẤT</h4>
-			
-			</div>
-				<div class="col-md-4 product-men">
-							
-							<img src="{{URL::asset('public/images/products/'.$dbprorand->spHinh)}}" alt="" class="pro-image">
-							{{-- <img src="{{URL::asset('public/images/products/'.$dbprorand->spHinh)}}" alt="" class="pro-image-back"> --}}
-
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-												<a href="{{URL::to('proinfo/'.$dbprorand->spMa)}}" class="link-product-add-cart">Quick View</a>
-											</div>
-										</div>
-										{{-- <span class="product-new-top">New</span> --}}
-										
-						
-						<div class="item-info-product ">
-									<h4><a href="{{URL::to('proinfo/'.$dbprorand->spMa)}}">{{$dbprorand->spTen}}</a></h4>
-									<div class="info-product-price">
-										<span class="item_price">{{number_format($dbprorand->spGia)}}</span>
-										{{-- <del>$69.71</del> --}}
-									</div>
-									<a href="#" class="item_add single-item hvr-outline-out button2">Add to cart</a>			
-						</div></div>
-						<div class="col-4"></div>
-						<div class="col-4">
-					{{-- 		@foreach($dbprorand as $i)
-					<ul class="list-group">
-						
-						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
-						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
-						<li class="list-group-item"><label for="list-group-item">Chuột: </label> {{$i->chuot}}</li>
-						<li class="list-group-item"><label for="list-group-item">Màn hình: </label> {{$i->banphim}}</li>
-						<li class="list-group-item"><label for="list-group-item">PSU: </label> {{$i->psu}}</li>
-						<li class="list-group-item"><label for="list-group-item">Mainboard: </label> {{$i->mainboard}}</li>
-						<li class="list-group-item"><label for="list-group-item">Ổ Cứng:</label> {{$i->ocung}}</li>
-						<li class="list-group-item"><label for="list-group-item">VGA: </label> {{$i->vga}}</li>
-						<li class="list-group-item"><label for="list-group-item">Vỏ Case: </label> {{$i->vocase}}</li>
-						<li class="list-group-item"><label for="list-group-item">Pin: </label> {{$i->pin}}</li>
-						<li class="list-group-item"><label for="list-group-item">Tản nhiệt: </label> {{$i->tannhiet}}</li>		 
-						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
-					</ul>
-					@endforeach --}}
-						</div>
-	
-			<div class="clearfix"></div>
-		</div>
+		
 		{{-- PAGING --}}
 		{{-- <div class="pagination-grid text-right">
 			<ul class="pagination paging">
@@ -213,7 +169,7 @@ Product
 		</div>
 	</div>
 </div>
-
+{{-- 
 <!-- login -->
 			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
@@ -276,7 +232,7 @@ Product
 					</div>
 				</div>
 			</div>
-<!-- //login -->
+<!-- //login --> --}}
 </body>
 </html>
 @endsection

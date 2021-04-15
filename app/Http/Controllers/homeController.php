@@ -16,9 +16,9 @@ class homeController extends Controller
     public function product()
     {
         $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
-        $dbprorand = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->join('mota','mota.spMa','=','sanpham.spMa')->inRandomOrder()->first();
+       
 
-    	return view('Userpage.product',compact('db','dbprorand'));
+    	return view('Userpage.product',compact('db',));
     }
      public function checkout()
     {
@@ -36,9 +36,19 @@ class homeController extends Controller
 // PRODUCT
     public function proinfo(Request $re)
     {
-        $db=DB::table('sanpham')->where('spMa',$re->id)->get();
-        $hinh=DB::table('hinh')->where('spMa',$re->id)->get();
-        $mota=DB::table('mota')->where('spMa',$re->id)->get();         
-        return view('Userpage.productinfo',compact('db','hinh','mota'));
+        $imgs=DB::table('hinh')->where('spMa',$re->id)->get();
+        $details=DB::table('mota')->where('spMa',$re->id)->get(); 
+        $proinfo=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->select('thuonghieu.thTen','thuonghieu.thMa','loai.loaiMa','sanpham.spTen','sanpham.spGia','sanpham.spTinhtrang','sanpham.spMa')->get();
+        foreach ($proinfo as  $v) 
+        {
+            $cateid=$v->loaiMa;
+            $brandid=$v->thMa;
+        }
+
+        $related_prod=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$cateid)->where('thuonghieu.thMa',$brandid)->get();
+   
+     
+ 
+        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod'));
     }
 }

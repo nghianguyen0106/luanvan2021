@@ -20,7 +20,7 @@
 						</script>
 					<!-- //FlexSlider-->
 					<ul class="slides">
-						@foreach($hinh as $v)
+						@foreach($imgs as $v)
 						<li data-thumb="{{URL::asset('public/images/products/'.$v->spHinh)}}">
 							<div class="thumb-image"> <img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" data-imagezoom="true" class="img-responsive"> </div>
 						</li>
@@ -31,11 +31,58 @@
 			</div>
 		</div>
 		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-			@foreach($db as $v)
-					<h3>{{$v->spTen}}</h3>
-					<p><span class="item_price">{{$v->spGia}} VND</span> </p>
 
-					@foreach($mota as $i)
+			<form action="" method="post" accept-charset="utf-8">
+				{{ csrf_field() }}
+			@foreach($proinfo as $v)
+					<h3>{{$v->spTen}}</h3>
+					<p><span style="color: red;" class="item_price">{{number_format($v->spGia)}} VND</span> </p>
+					<p>Thương hiệu:<span> {{$v->thTen}}</span></p>
+					<p>Tình trạng:<span> 
+						@if($v->spTinhtrang>0)
+							Còn hàng
+						@else
+							Hết hàng
+						@endif
+					</span></p>
+					<p> Số lượng: <span>
+						<select name="quanty"  class="form-select" aria-label="Default select example">
+							@for($i=1;$i<11;$i++)
+							
+							<option value="{{$i}}">{{$i}}</option>}
+							
+							@endfor
+
+						</select>
+					</span></p>
+					<div class="occasion-cart">
+						<a href="{{URL::to('savecart/'.$v->spMa)}}" class="item_add hvr-outline-out button2">Thêm vào giỏ hàng</a>
+					</div>
+			@endforeach
+
+			</form>
+			
+		</div>
+				<div class="clearfix"> </div>
+
+				<div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
+					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+						<ul id="myTab" class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Thông tin chi tiết sản phẩm</a></li>
+							<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Đánh giá</a></li>
+							{{-- <li role="presentation" class="dropdown">
+								<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+									<li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">cleanse</a></li>
+									<li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">fanny</a></li>
+								</ul>
+							</li> --}}
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
+								{{-- <h5>Product Brief Description</h5> --}}
+								
+					@foreach($details as $i)
 					<ul class="list-group">
 						
 						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
@@ -52,33 +99,45 @@
 						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
 					</ul>
 					@endforeach
-		
-					<div class="occasion-cart">
-						<a href="#" class="item_add hvr-outline-out button2">Add to cart</a>
-					</div>
-			@endforeach
-		</div>
-				<div class="clearfix"> </div>
-
-				<div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
-					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-						<ul id="myTab" class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
-							<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews(1)</a></li>
-							<li role="presentation" class="dropdown">
-								<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-									<li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">cleanse</a></li>
-									<li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">fanny</a></li>
-								</ul>
-							</li>
-						</ul>
-						<div id="myTabContent" class="tab-content">
-							<div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
-								<h5>Product Brief Description</h5>
-								<p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-									<span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
 							</div>
+							<div class=" row single-pro">
+			<div class="css-treeview">
+				<h4>SẢN PHẨM ĐỀ XUẤT</h4>
+			
+			</div>
+				@foreach($related_prod as $i)
+				<div class="col-md-3 product-men p-4" style="height: 350px">
+					<div class="men-pro-item simpleCart_shelfItem">
+						<div class="men-thumb-item">
+								
+								<img style="height: 200px" src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-front">
+								<img style="height: 200px"  src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-back">							
+							
+
+										<div class="men-cart-pro">
+											<div class="inner-men-cart-pro">
+
+												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Xem sản phẩm</a>
+								
+											</div>
+										</div>
+										{{-- <span class="product-new-top">New</span> --}}
+										
+						</div>
+						<div class="item-info-product ">
+									<h4><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></h4>
+									<div class="info-product-price">
+										<span class="item_price">{{number_format($i->spGia)}} VND</span>
+									
+									</div>
+									<a href="#" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
+						</div>
+					</div>
+				</div>
+				@endforeach
+						<div class="col-4"></div>
+			<div class="clearfix"></div>
+		</div>
 							<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
 								<div class="bootstrap-tab-text-grids">
 									<div class="bootstrap-tab-text-grid">
