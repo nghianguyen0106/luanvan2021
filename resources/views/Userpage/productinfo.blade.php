@@ -21,7 +21,7 @@
 					<!-- //FlexSlider-->
 					<ul class="slides">
 						@foreach($imgs as $v)
-						<li data-thumb="{{URL::asset('public/images/products/'.$v->spHinh)}}">
+						<li style="list-style-type: none;" data-thumb="{{URL::asset('public/images/products/'.$v->spHinh)}}">
 							<div class="thumb-image"> <img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" data-imagezoom="true" class="img-responsive"> </div>
 						</li>
 						@endforeach
@@ -81,10 +81,9 @@
 						<div id="myTabContent" class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
 								{{-- <h5>Product Brief Description</h5> --}}
-								
 					@foreach($details as $i)
 					<ul class="list-group">
-						
+	
 						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
 						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
 						<li class="list-group-item"><label for="list-group-item">Chuột: </label> {{$i->chuot}}</li>

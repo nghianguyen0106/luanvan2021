@@ -45,8 +45,9 @@ Product
 						</div>
 						<hr>
 						<div class="col my-3">
-							<label >LAPTOP<input type="radio" class="row-1 form-check-input" checked="" name="radio" value="0"></label>&nbsp;&nbsp;
-							<label>PC<input type="radio" class="row-1 form-check-input" checked="" name="radio" value="1"></label>
+							@foreach($cate as $i)
+							<label >{{$i->loaiTen}}<input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}"></label>&nbsp;&nbsp;
+							@endforeach
 						</div>
 					</div>
 				</div>
@@ -60,7 +61,7 @@ Product
 			<h5>Danh sách sản phẩm</h5>
 
 			{{-- QUICK SORT --}}
-			 <div class="sort-grid">
+		{{-- 	 <div class="sort-grid">
 				<div class="sorting">
 					<h6>Sort By</h6>
 					<select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
@@ -85,7 +86,7 @@ Product
 					<div class="clearfix"></div>
 				</div>
 				<div class="clearfix"></div>
-			</div> 
+			</div>  --}}
 
 
 			<div class="men-wear-top">

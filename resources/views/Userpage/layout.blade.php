@@ -40,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<ul>
 	
-			<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:info@example.com">nguyenchinghia199916@<gmail class="com"></gmail></a></li>
+			<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">nguyenchinghia199916@gmail.com</a></li>
 		</ul>
 	</div>
 </div>
@@ -52,14 +52,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h1><a href="{{URL::to('/')}}"><img style="height: 150px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
 		</div>
 		<div class="col-md-6 header-middle">
-			<form>
+			<form  class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
+				{{ csrf_field() }}
 				<div class="search">
-					<input type="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">
+					<input type="search" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="" name="proname" >
 				</div>
 				<div class="section_room">
-					<select id="country" onchange="change_country(this.value)" class="frm-field required">
-						<option value="null">LAPTOP</option>
-						<option value="null">PC</option>     
+					<select id="country" name="category" onchange="change_country(this.value)" class="frm-field required">
+						@foreach($cate as $i)
+						<option value="{{$i->loaiMa}}">{{$i->loaiTen}}</option>
+						@endforeach 
 					</select>
 				</div>
 				<div class="sear-sub">

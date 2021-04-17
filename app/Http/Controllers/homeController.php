@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
+use App\Models\thuonghieu;
+use App\Models\loai;
 class homeController extends Controller
 {
 
@@ -27,9 +29,11 @@ class homeController extends Controller
      public function product()
     {
         $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
-        $brand=DB::table('thuonghieu')->get();
-        return view('Userpage.product',compact('db','brand'));
+        $brand=thuonghieu::get();
+        $cate=loai::get();
+        return view('Userpage.product',compact('db','brand','cate'));
     }
+    //---Find product
     public function proinfo(Request $re)
     {
         $imgs=DB::table('hinh')->where('spMa',$re->id)->get();
@@ -48,38 +52,87 @@ class homeController extends Controller
     {
          $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
         $brand=DB::table('thuonghieu')->get();
-        // dd($re->priceFrom,$re->priceTo);
+        $cate=loai::get();
+
+        if($re->proname!=null&&$re->priceFrom!=null&&$re->priceTo&&$re->brand!=null&&$re->category!=null)
+        {
+            $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();   
+           return view('Userpage.product',compact('db','brand','cate'));
+        }
+
+        if($re->proname!=null)
+        {
+            $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+            if($re->priceFrom!=null && $re->priceTo!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                return view('Userpage.product',compact('db','brand','cate'));
+            }
+            elseif($re->priceFrom!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','>=',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                return view('Userpage.product',compact('db','brand','cate')); 
+            }
+            elseif($re->priceTo!=null)
+            {
+               $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->where('sanpham.spGia','<=',$re->priceTo)->get();
+                return view('Userpage.product',compact('db','brand','cate'));
+            }
+            elseif($re->brand!=null)
+            {
+                $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                    return view('Userpage.product',compact('db','brand','cate'));  
+            }
+            elseif($re->category!=null)
+            {
+                if(is_array($re->category))
+                {
+                     $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('loai.loaiMa',$re->category)->get();
+                }
+                else
+                {
+                    $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->where('loai.loaiMa',$re->category)->get();
+                }
+               
+              
+               return view('Userpage.product',compact('db','brand','cate'));
+            }
+             return view('Userpage.product',compact('db','brand','cate'));
+        }
+
         if($re->proname==null)
         {
             if($re->priceFrom!=null && $re->priceTo!=null)
             {
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->get();
-                return view('Userpage.product',compact('db','brand'));
+                return view('Userpage.product',compact('db','brand','cate'));
             }
             elseif($re->priceFrom!=null)
             {
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','>=',$re->priceFrom)->get();
-                 return view('Userpage.product',compact('db','brand'));
+                return view('Userpage.product',compact('db','brand','cate')); 
             }
             elseif($re->priceTo!=null)
             {
                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','<=',$re->priceTo)->get();
-                 return view('Userpage.product',compact('db','brand')); 
-            }elseif($re->brand!=null)
+                return view('Userpage.product',compact('db','brand','cate'));
+            }
+            elseif($re->brand!=null)
             {
                 $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->get();
-                 return view('Userpage.product',compact('db','brand')); 
+                    return view('Userpage.product',compact('db','brand','cate'));  
             }
-
-           return view('Userpage.product',compact('db','brand'));
+            elseif($re->category!=null)
+            {
+                $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('loai.loaiMa',$re->category)->get();
+              
+               return view('Userpage.product',compact('db','brand','cate'));
+            }
+           return Redirect::to('product');
         }
-        //
-   
-      
-
-        $brand=DB::table('thuonghieu')->get();
-         return $this->product()->with('brand',$brand)->with('db',$db);
+         return Redirect::to('product');
     }
+    //----------------
 
 // CART
     public function checkout()
