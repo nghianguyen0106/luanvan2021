@@ -78,8 +78,10 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
+            $joinBang = DB::table('sanpham')->join('loai', 'loai.loaiMa', '=', 'sanpham.loaiMa')->join('nhucau', 'nhucau.ncMa', '=', 'sanpham.ncMa')->join('thuonghieu', 'thuonghieu.thMa', '=', 'sanpham.thMa')->get();
             $data=DB::table('sanpham')->get();
-            return view('admin.sanpham')->with('data',$data);
+            //dd($joinBang);
+            return view('admin.sanpham',compact('data','joinBang'));
         }
         else 
         { return Redirect('/adLogin'); }

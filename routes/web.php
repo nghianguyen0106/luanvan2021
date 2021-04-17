@@ -21,6 +21,7 @@ Route::get('logout','homeController@logout');
 
 // -------Product -----------//
 Route::get('proinfo/{id}','homeController@proinfo');
+Route::post('findpro','homeController@findpro');
 //---------------------------------------------END USER--------------------------------------------//
 
 

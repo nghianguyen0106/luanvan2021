@@ -10,23 +10,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
-<link href="{{URL::asset('public/fe/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" type="text/css" href="{{URL::asset('public/fe/css/jquery-ui.css')}}">
-<link href="{{URL::asset('public/fe/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{URL::asset("public/fe/css/bootstrap.css")}}" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" href="{{URL::asset("public/fe/css/jquery-ui.css")}}">
+<link href="{{URL::asset("public/fe/css/style.css")}}" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
-<script type="text/javascript" src="{{URL::asset('public/fe/js/jquery-2.1.4.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset("public/fe/js/jquery-2.1.4.min.js")}}"></script>
 <!-- //js -->
 <!-- cart -->
-	<script src="{{URL::asset('public/fe/js/simpleCart.min.js')}}"></script>
+	<script src="{{URL::asset("public/fe/js/simpleCart.min.js")}}"></script>
 <!-- cart -->
 <!-- for bootstrap working -->
-	<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
+	<script type="text/javascript" src="{{URL::asset("public/fe/js/bootstrap-3.1.1.min.js")}}"></script>
 <!-- //for bootstrap working -->
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+<script src="{{URL::asset("public/fe/js/jquery.easing.min.js")}}"></script>
+{{-- ADD Bootstrap 5 --}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+{{-- FontAW --}}
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-<script src="{{URL::asset('public/fe/js/jquery.easing.min.js')}}"></script>
 </head>
 <body>
 <!-- header -->
@@ -65,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="col-md-3 header-right footer-bottom">
 			<ul style="font-size: 30px;">
 				@if(Session::has('khTen'))
-				<h5  >Wellcome {{Session::get('khTen')}} !!!</h5>
+				<h6  >Wellcome {{Session::get('khTen')}} !!!</h6>
  					<li><a href="{{URL::to('logout')}}"><i class="fas fa-sign-out-alt"></i></a></li>
 				@else
 					<li><a href="{{URL::to('login')}}"><i class="fas fa-sign-in-alt"></i></a></li>
@@ -88,29 +94,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="top_nav_left">
 			<nav class="navbar navbar-default">
 			  <div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-				  <ul class="nav navbar-nav menu__list">
-					<li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only">(current)</span></a></li>
-					<li class="dropdown menu__item menu__item--current">
-						<a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục sản phẩm<span class="caret"></span></a>
-							<ul class="dropdown-menu  columns-3">
-								<li>LAPTOP</li>
-								<li>PC</li>
-							</ul>
-					</li>
-					<li class=" menu__item "><a class="menu__link" href="contact.html">Liên hệ</a></li>
-				  </ul>
-				</div>
+				<nav class="navbar navbar-expand-lg navbar-default">
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				    <ul class="navbar-nav mr-auto">
+				     <li class="active menu__item "><a class="menu__link" href="index.html">Home <span class="sr-only"></span></a></li>
+				     
+				      </li>
+				    </ul>
+				    
+				  </div>
+				</nav>
 			  </div>
 			</nav>	
 		</div>
@@ -201,7 +194,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		<p class="copy-right">&copy 2016 Smart Shop. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 	</div>
 </div>
 <!-- //footer -->

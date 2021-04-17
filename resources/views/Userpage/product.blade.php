@@ -6,32 +6,57 @@ Product
 
 <!-- mens -->
 <div class="men-wear">
-	<div class="container-fluid">
-		<div class="col-md-2 products-left">
+	<div class="container">
+		<div class="col-md-3 products-left">
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
-			<form class="form" action=""  method="get" accept-charset="utf-8">
-				<div class="row">
-			
-					<div class="col-1">
+			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
+				{{ csrf_field() }}
+				<div class="col">
+					<div class="row-1">
 						<div class="input-group mb-1">
-							 <span class=" input-group-text">Giá từ</span>
-							  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+							 <span class=" input-group-text">Tên sản phẩm &nbsp;&nbsp;
+							  <input type="text" class="form-control" name="proname" ></span>
 						</div>
 					</div>
-					<div class="col-1">
+					<div class="row-1">
 						<div class="input-group mb-1">
-							  <span class="input-group-text">Giá đến</span>
-							  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+							 <span class=" input-group-text">Giá từ &nbsp;&nbsp;&nbsp;&nbsp;
+							  <input type="number" class="form-control" name="priceFrom" ></span>
+						</div>
+					</div>
+					<div class="row-1">
+						<div class="input-group mb-1">
+							  <span class="input-group-text">Giá đến &nbsp;
+							  <input type="number" class="form-control" name="priceTo" ></span>
+						</div>
+					</div>
+					<hr>
+					<div class="row-2">
+						<div class="col my-3">
+							<label>Thương hiệu: </label><br>
+							@foreach($brand as $i)
+								<div class="row-1 form-check-inline">
+								  <input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">&nbsp;
+								  <label class="form-check-label" for="flexCheckDefault">
+								    {{$i->thTen}}
+								  </label>
+								</div>
+							@endforeach
+						</div>
+						<hr>
+						<div class="col my-3">
+							<label >LAPTOP<input type="radio" class="row-1 form-check-input" checked="" name="radio" value="0"></label>&nbsp;&nbsp;
+							<label>PC<input type="radio" class="row-1 form-check-input" checked="" name="radio" value="1"></label>
 						</div>
 					</div>
 				</div>
 				
-
+				<button class="btn btn-outline-warning col-12" type="submit"><i class="fas fa-search"></i></button>
 			</form>
 	<hr>
 			<div class="clearfix"></div>
 		</div>
-		<div class="col-md-8 products-right">
+		<div class="col-md-9 products-right">
 			<h5>Danh sách sản phẩm</h5>
 
 			{{-- QUICK SORT --}}
@@ -90,7 +115,7 @@ Product
 						{{-- Item --}}
 						
 					@foreach($db as $i)	
-				<div class="col-md-3 product-men p-4" style="height: 400px">
+				<div class="col-md-4 product-men p-4" style="height: 400px">
 					<div class="men-pro-item simpleCart_shelfItem">
 						<div class="men-thumb-item">
 								
