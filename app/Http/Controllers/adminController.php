@@ -78,7 +78,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-            $data=DB::table('sanpham')->get();
+            $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+     
             return view('admin.sanpham')->with('data',$data);
         }
         else 
@@ -371,7 +372,7 @@ class adminController extends Controller
     {
          if($re->spTen ==null||$re->khoSoluong == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
         {
-			Session::forget('sp_err');
+            Session::forget('sp_err');
             $messages =[
                
                 'spTen.required'=>'Sản phẩm không được để trống',
