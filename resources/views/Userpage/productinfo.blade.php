@@ -46,7 +46,7 @@
 						@endif
 					</span></p>
 					<p> Số lượng: <span>
-						<select name="quanty"  class="form-select" aria-label="Default select example">
+						<select name="quanty" style="width: 60px;"  class="form-select" aria-label="Default select example">
 							@for($i=1;$i<11;$i++)
 							
 							<option value="{{$i}}">{{$i}}</option>}
@@ -56,7 +56,7 @@
 						</select>
 					</span></p>
 					<div class="occasion-cart">
-						<a href="{{URL::to('savecart/'.$v->spMa)}}" class="item_add hvr-outline-out button2">Thêm vào giỏ hàng</a>
+						<a href="{{URL::to('save-cart/'.$v->spMa)}}" class="item_add hvr-outline-out button2">Thêm vào giỏ hàng</a>
 					</div>
 			@endforeach
 

@@ -5,9 +5,11 @@ Product
 @section('content')
 
 <!-- mens -->
+
 <div class="men-wear">
 	<div class="container">
 		<div class="col-md-3 products-left">
+			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
 			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
 				{{ csrf_field() }}
@@ -30,6 +32,7 @@ Product
 							  <input type="number" class="form-control" name="priceTo" ></span>
 						</div>
 					</div>
+					
 					<hr>
 					<div class="row-2">
 						<div class="col my-3">
@@ -45,6 +48,12 @@ Product
 						</div>
 						<hr>
 						<div class="col my-3">
+							@foreach($needs as $i)
+							<label >{{$i->ncTen}}<input type="checkbox" name="needs[]" class="row-1 form-check-input ms-1" value="{{$i->ncMa}}"></label>&nbsp;&nbsp;
+							@endforeach
+						</div>
+						<hr>
+						<div class="col my-3">
 							@foreach($cate as $i)
 							<label >{{$i->loaiTen}}<input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}"></label>&nbsp;&nbsp;
 							@endforeach
@@ -54,6 +63,7 @@ Product
 				
 				<button class="btn btn-outline-warning col-12" type="submit"><i class="fas fa-search"></i></button>
 			</form>
+			{{--  --}}
 	<hr>
 			<div class="clearfix"></div>
 		</div>
@@ -140,7 +150,7 @@ Product
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
 									
 									</div>
-									<a href="#" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
+									<a href="{{URL::to('save-cart/'.$i->spMa)}}" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
 						</div>
 					</div>
 				</div>

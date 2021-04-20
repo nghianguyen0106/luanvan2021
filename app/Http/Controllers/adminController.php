@@ -78,10 +78,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-            $joinBang = DB::table('sanpham')->join('loai', 'loai.loaiMa', '=', 'sanpham.loaiMa')->join('nhucau', 'nhucau.ncMa', '=', 'sanpham.ncMa')->join('thuonghieu', 'thuonghieu.thMa', '=', 'sanpham.thMa')->get();
             $data=DB::table('sanpham')->get();
-            //dd($joinBang);
-            return view('admin.sanpham',compact('data','joinBang'));
+            return view('admin.sanpham')->with('data',$data);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -371,13 +369,13 @@ class adminController extends Controller
     }
     public function adCheckAddSanpham(Request $re)
     {
-         if($re->spTen ==null||$re->spTinhtrang == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
+         if($re->spTen ==null||$re->khoSoluong == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
         {
 			Session::forget('sp_err');
             $messages =[
                
                 'spTen.required'=>'Sản phẩm không được để trống',
-                'spTinhtrang.required'=>'Tình trạng không được để trống',
+                'khoSoluong.required'=>'Số lượng không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
                 'ram.required'=>'Ram không được để trống',
@@ -392,7 +390,7 @@ class adminController extends Controller
                
                 'spTen'=>'required',
                 'spHanbh'=>'required',
-                'spTinhtrang'=>'required',
+                'khoSoluong'=>'required',
                 'spGia'=>'required', 
                 'ram'=>'required',
                 'psu'=>'required',
@@ -410,7 +408,7 @@ class adminController extends Controller
                 $dataBefore = DB::table('sanpham')->where('spTen',$re->spTen)->first();
                 if( $dataBefore)
                 {
-                    Session::put('sp_err','Sản phẩm đã có trong dữ liệu trước đó!');
+                    Session::put('sp_err','Sản phẩm đã có sẵn trong dữ liệu!');
                      return redirect('/themsanpham');
                 }
                 else
@@ -419,7 +417,14 @@ class adminController extends Controller
                 $data['spMa']=''.strlen($re->spTen).substr($re->spGia,0,3).strlen($re->thMa).strlen($re->loaiMa).strlen($re->ncMa).strlen(rand(0,100000));
                 $data['spTen']=$re->spTen;
                 $data['spGia']=$re->spGia;
-                $data['spTinhtrang']=$re->spTinhtrang;
+                if($re->khoSoluong >= 0)
+                {
+                     $data['spTinhtrang']=1;
+                }
+                else
+                {
+                    $data['spTinhtrang']=0;
+                }
                 $data['spHanbh']=$re->spHanbh;
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
@@ -440,7 +445,7 @@ class adminController extends Controller
                 $data2['pin']=$re->pin;
                 $data2['tannhiet']=$re->tannhiet;
                 $data2['loa']=$re->loa;
-                //
+                //Anh 1
                 $data3 = array();
                 $data3['spMa']= $data['spMa'];
                 $data3['spHinh']=$re->file('img')->getClientOriginalName();
@@ -448,10 +453,53 @@ class adminController extends Controller
                         $file=$re->file('img');
                         $file->move('public/images/products',$data3['spHinh']);
                 //
+                $data4 = array();
+                $data4['spMa'] =$data['spMa'];
+                $data4['khoSoluong'] = $re->khoSoluong;
+                $data4['khoNgaynhap'] = now();
                 
                 DB::table('sanpham')->insert($data);
                 DB::table('mota')->insert($data2);
                 DB::table('hinh')->insert($data3);
+                DB::table('kho')->insert($data4);
+
+                //Anh 2
+                if($re->hasFile('img2')==true)
+                {
+                    $dataImg2 = array();
+                    $dataImg2['spMa']= $data['spMa'];
+                    $dataImg2['spHinh']=$re->file('img2')->getClientOriginalName();
+                            $imgextention=$re->file('img2')->extension();
+                            $file=$re->file('img2');
+                            $file->move('public/images/products',$dataImg2['spHinh']);
+
+                    DB::table('hinh')->insert($dataImg2);
+                }
+                 //Anh 3
+                if($re->hasFile('img3')==true)
+                {
+                    $dataImg3 = array();
+                    $dataImg3['spMa']= $data['spMa'];
+                    $dataImg3['spHinh']=$re->file('img3')->getClientOriginalName();
+                            $imgextention=$re->file('img3')->extension();
+                            $file=$re->file('img3');
+                            $file->move('public/images/products',$dataImg3['spHinh']);
+
+                    DB::table('hinh')->insert($dataImg3);
+                }
+                 //Anh 4
+                if($re->hasFile('img4')==true)
+                {
+                    $dataImg4 = array();
+                    $dataImg4['spMa']= $data['spMa'];
+                    $dataImg4['spHinh']=$re->file('img4')->getClientOriginalName();
+                            $imgextention=$re->file('img4')->extension();
+                            $file=$re->file('img4');
+                            $file->move('public/images/products',$dataImg4['spHinh']);
+                    DB::table('hinh')->insert($dataImg4);
+                }
+
+                //END
                 Session::forget('img_error');
                 Session::forget('sp_err');
                 return redirect('adSanpham');
@@ -459,11 +507,14 @@ class adminController extends Controller
               }
             else
             {
-                Session::put('img_error',"sản phẩm không được thiếu hình ảnh");
-                return redirect('/themsanpham');
+                return redirect('/loiThemHinhSP');
             }
         }
 
+    }
+    public function viewLoiThemHinhSP()
+    {
+        return view('admin.loiThemHinhSP');
     }
     public function adDeleteSanpham($id)
     {
@@ -484,18 +535,19 @@ class adminController extends Controller
         $ncMa=DB::table('nhucau')->get();
         $mota=DB::table('mota')->where('spMa',$id)->get();
         $hinh=DB::table('hinh')->where('spMa',$id)->get();
+        $kho=DB::table('kho')->where('spMa',$id)->get();
         $data = DB::table('sanpham')->where('spMa',$id)->get();
-        return view('admin.suasanpham')->with('spMaCu',$data)->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa)->with('mota',$mota)->with('hinh',$hinh)->with('ncOld',$ncOld)->with('kmOld',$kmOld)->with('loaiOld',$loaiOld)->with('thOld',$thOld);
+        return view('admin.suasanpham')->with('spMaCu',$data)->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa)->with('mota',$mota)->with('kho',$kho)->with('hinh',$hinh)->with('ncOld',$ncOld)->with('kmOld',$kmOld)->with('loaiOld',$loaiOld)->with('thOld',$thOld);
     }
    
     public function editSanpham(Request $re, $id)
     {
-        if($re->spTen ==null||$re->spTinhtrang == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
+        if($re->spTen ==null||$re->khoSoluong == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
         {
             $messages =[
                
                 'spTen.required'=>'Sản phẩm không được để trống',
-                'spTinhtrang.required'=>'Tình trạng không được để trống',
+                'khoSoluong.required'=>'Số lượng không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
                 'ram.required'=>'Ram không được để trống',
@@ -510,7 +562,7 @@ class adminController extends Controller
                
                 'spTen'=>'required',
                 'spHanbh'=>'required',
-                'spTinhtrang'=>'required',
+                'khoSoluong'=>'required',
                 'spGia'=>'required', 
                 'ram'=>'required',
                 'psu'=>'required',
@@ -527,7 +579,14 @@ class adminController extends Controller
                 $data['spMa']=$re->spMa;
                 $data['spTen']=$re->spTen;
                 $data['spGia']=$re->spGia;
-                $data['spTinhtrang']=$re->spTinhtrang;
+                 if($re->khoSoluong >0)
+                {
+                     $data['spTinhtrang']=1;
+                }
+                else
+                {
+                    $data['spTinhtrang']=0;
+                }
                 $data['spHanbh']=$re->spHanbh;
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
@@ -549,8 +608,13 @@ class adminController extends Controller
                 $data2['tannhiet']=$re->tannhiet;
                 $data2['loa']=$re->loa;
                 //
+                $data4 = array();
+                $data4['spMa'] =$data['spMa'];
+                $data4['khoSoluong'] = $re->khoSoluong;
+                $data4['khoNgaynhap'] = now();
                 DB::table('sanpham')->where('spMa',$id)->update($data);
                 DB::table('mota')->where('spMa',$id)->update($data2);
+                DB::table('kho')->where('spMa',$id)->update($data4);
                  return redirect('/updateSanpham/'.$re->spMa);
             }
 

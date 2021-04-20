@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{url('public/style_admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{url('public/style_admin/css/style.css')}}" rel="stylesheet">
  
 
     <!-- Custom styles for this page -->
@@ -63,17 +64,29 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Danh mục quản lý:</h6>
+                        <a class="collapse-item" href="{{URL::to('/adNhanvien')}}">Quản lý nhân viên</a>
+                        <a class="collapse-item"  href="{{URL::to('/adKhachhang')}}">Quản lý khách hàng</a>
+                    </div>
+                </div>
+            </li>
+             <li class="nav-item">
+               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quản lý</span>
+                    <span>Quản lý dữ liệu cửa hàng</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
-                        <a class="collapse-item" href="{{URL::to('/adNhanvien')}}">Quản lý nhân viên</a>
-                        <a class="collapse-item"  href="{{URL::to('/adKhachhang')}}">Quản lý khách hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
@@ -107,10 +120,10 @@
       
 
          <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-dark" style="color: white;font-weight: bold;">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Nhân and Nghĩa's Website 2021</span>
                     </div>
                 </div>
             </footer>

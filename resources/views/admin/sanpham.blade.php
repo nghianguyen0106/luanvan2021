@@ -57,23 +57,22 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach($joinBang as $value)
+                                        @foreach($data as $value)
                                         <tr>
-
                                            <th>{{$value->spMa}}</th>
                                             <th>{{$value->spTen}}</th>
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
                                             <th>{{$value->spTinhtrang==1?"Còn hàng":"Hết hàng"}}</th>
                                             <th>{{$value->spHanbh}}&nbsp;năm</th>
-                                          
-                                            <th>{{$value->kmMa}}%</th>
-                                            
-                                            <th>{{$value->thTen}}</th>
-                                            
-                                            <th>{{$value->loaiTen}}</th>
-                                           
-                                            <th>{{$value->ncTen}}</th>
-                                             
+                                            <?php $kmFind=DB::table('khuyenmai')->where('kmMa',$value->kmMa)->get(); ?>
+                                            <th>{{$kmFind[0]->kmTrigia}}%</th>
+                                            <?php $thFind=DB::table('thuonghieu')->where('thMa',$value->thMa)->get() ?>
+                                            <th>{{$thFind[0]->thTen}}</th>
+                                            <?php $loaiFind=DB::table('loai')->where('loaiMa',$value->loaiMa)->get() ?>
+                                            <th>{{$loaiFind[0]->loaiTen}}</th>
+                                            <?php $ncFind=DB::table('nhucau')->where('ncMa',$value->ncMa)->get() ?>
+                                            <th>{{$ncFind[0]->ncTen}}</th>
+                                              
                                             <td>
                                                 <a href="{{url('updateSanpham/'.$value->spMa)}}" class="active" ui-toggle-class="">
                                                     <i class="fa far fa-edit"></i>
@@ -83,7 +82,7 @@
                                                 </a></a>
                                             </td>
                                         </tr>
-                                         @endforeach
+                                        @endforeach
                                        
                                     </tbody>
                                 </table>

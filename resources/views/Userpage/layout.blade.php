@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header-bot">
 	<div class="container">
 		<div class="col-md-3 header-left">
-			<h1><a href="{{URL::to('/')}}"><img style="height: 150px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
+			<h1><a href="{{URL::to('/')}}"><img style="height: 100px;width: 100px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
 		</div>
 		<div class="col-md-6 header-middle">
 			<form  class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
@@ -83,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 				<li><i class="fab fa-facebook"></i></li>
-				<li><i class="fab fa-instagram"></i></li>
+				<li><i class="fab fa-google"></i></li>
 			</ul>
 		</div>
 		<div class="clearfix"></div>
@@ -99,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<nav class="navbar navbar-expand-lg navbar-default">
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto">
-				     <li class="active menu__item "><a class="menu__link" href="index.html">Home <span class="sr-only"></span></a></li>
+				     <li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only"></span></a></li>
 				     
 				      </li>
 				    </ul>
@@ -113,12 +113,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="cart box_1">
 						<a href="{{URL::to('/checkout')}}">
 							<h3> <div class="total">
-								<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
+								 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								{{number_format($total)}} VND | ({{Cart::count()}})Item</div>
 								
 							</h3>
 						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Rỗng</a></p>
+						<p><a href="{{URL::to('destroy-cart')}}" class="simpleCart_empty"><i class="fas fa-trash-alt"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></p>
 						
 			</div>	
 		</div>

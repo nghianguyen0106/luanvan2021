@@ -7,21 +7,26 @@ use Illuminate\Support\Facades\Route;
 //---------------------------------------------USER----------------------------------------------------//
 Route::get('/', 'homeController@welcome' );
 
-
-Route::get('/product','homeController@product' );
-Route::get('/checkout','homeController@checkout' );
 //--------User register------//
 Route::get('/register','registerController@index');
 Route::post('/getregister','registerController@getregister');
 
 //--------User Login------//
-Route::post('/checklogin','loginController@userlogin');
 Route::get('login','homeController@login' );
+Route::post('/checklogin','loginController@userlogin');
 Route::get('logout','homeController@logout');
 
 // -------Product -----------//
+Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
 Route::post('findpro','homeController@findpro');
+
+//--------User cart------//
+Route::get('/checkout','homeController@checkout' );
+Route::get('save-cart/{id}','cartController@savecart');
+Route::get('destroy-cart','cartController@destroy');
+Route::get('remove-item/{id}','cartController@removeitem');
+Route::get('gocheckout/{id}','cartController@gocheckout');
 //---------------------------------------------END USER--------------------------------------------//
 
 
@@ -72,6 +77,7 @@ Route::post('/editSanpham/{id}','adminController@editSanpham');
 Route::post('/themhinh','adminController@addHinhSanpham');
 Route::get('/xoahinh/{tenhinh}/{id}','adminController@deleteHinhSanpham');
 Route::post('/editMota/{id}','adminController@editMota');
+Route::get('/loiThemHinhSP','adminController@viewLoiThemHinhSP');
 
 //--Loai--//
 Route::get('/themloai','adminController@themLoai');

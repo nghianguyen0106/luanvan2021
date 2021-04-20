@@ -3,131 +3,32 @@
 <!-- check out -->
 <div class="checkout">
 	<div class="container">
-		<h3>My Shopping Bag</h3>
+		<h3>Giỏ hàng</h3>
 		<div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
 			<table class="timetable_sub">
 				<thead>
 					<tr>
-						<th>Remove</th>
-						<th>Product</th>
-						<th>Quantity</th>
-						<th>Product Name</th>
-						<th>Price</th>
+						<th style="width: 300px;">Tên sản phẩm</th>
+						<th style="width: 200px;"></th>
+						<th>Số lượng</th>
+						<th>Khuyến mãi</th>
+						<th>Giá</th>
+						<th>Xóa</th>
 					</tr>
 				</thead>
+					@foreach($cart as $k=> $i)
 					<tr class="rem1">
-						<td class="invert-closeb">
-							<div class="rem">
-								<div class="close1"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-						<td class="invert-image"><a href="single.html"><img src="images/w4.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Hand Bag</td>
-						<td class="invert">$45.99</td>
+						<td class="invert"><a href="{{URL::to('proinfo/'.$i->id)}}">{{$i->name}}</a></td>
+						<td class="invert-image"><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">{{$i->qty}}</td>
+						<td class="invert"></td>
+						<td class="invert">{{number_format($i->price)}} VND</td>
+						<td class="invert"><a class="btn btn-outline-danger" href="{{URL::to('remove-item/'.$k)}}">X</a></td>
 					</tr>
-					<tr class="rem2">
-						<td class="invert-closeb">
-							<div class="rem">
-								<div class="close2"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close2').on('click', function(c){
-									$('.rem2').fadeOut('slow', function(c){
-										$('.rem2').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-						<td class="invert-image"><a href="single.html"><img src="images/ep3.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Watches</td>
-						<td class="invert">$45.99</td>
-						
-					</tr>
-					<tr class="rem3">
-						<td class="invert-closeb">
-							<div class="rem">
-								<div class="close3"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close3').on('click', function(c){
-									$('.rem3').fadeOut('slow', function(c){
-										$('.rem3').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-						<td class="invert-image"><a href="single.html"><img src="images/w2.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Sandals</td>
-						<td class="invert">$45.99</td>
-						
-					</tr>
-					<tr class="rem4">
-						<td class="invert-closeb">
-							<div class="rem">
-								<div class="close4"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close4').on('click', function(c){
-									$('.rem4').fadeOut('slow', function(c){
-										$('.rem4').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-						<td class="invert-image"><a href="single.html"><img src="images/w1.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Wedges</td>
-						<td class="invert">$45.99</td>
-						
-					</tr>
+					@endforeach
+				
 					
-								<!--quantity-->
+								<!--qunatity-->
 									<script>
 									$('.value-plus').on('click', function(){
 										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
@@ -142,20 +43,21 @@
 								<!--quantity-->
 			</table>
 		</div>
-		<div class="checkout-left">	
+		<div  class="checkout-left">	
 				
 				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-					<a href="mens.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Shopping</a>
+					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Shopping</a>
 				</div>
-				<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-					<h4>Shopping basket</h4>
+				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+					<h4>Hóa đơn tạm tính</h4>
 					<ul>
-						<li>Hand Bag <i>-</i> <span>$45.99</span></li>
-						<li>Watches <i>-</i> <span>$45.99</span></li>
-						<li>Sandals <i>-</i> <span>$45.99</span></li>
-						<li>Wedges <i>-</i> <span>$45.99</span></li>
-						<li>Total <i>-</i> <span>$183.96</span></li>
+						@foreach($cart as $k=> $i)
+						<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price)}} VND</span></li>
+						@endforeach
+						<hr>
+						<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
 					</ul>
+				<a class="btn btn-success col-12" href="{{URL::to('gocheckout/'.$total)}}">Thanh toán</a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+
 use DB;
 use Session;
 session_start();
@@ -17,6 +18,8 @@ class loginController extends Controller
     	if($result)
     	{
     		session::put("khTen",$result->khTen);
+            session::put('khTaikhoan',$result->khTaikhoan);
+            session::put('khMa',$result->khMa);
     		return Redirect::to('product');
     	}
     	else
