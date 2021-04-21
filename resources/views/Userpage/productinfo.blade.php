@@ -104,6 +104,7 @@
 			    <div id="menu1" class="container tab-pane "><br>
 			   		
 			   		<div class="row">
+			   			@if(count($comment)>0)
 			   			@foreach($comment as $i)
 			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
 			   			<div class="list-group-item-primary mb-3 p-4">
@@ -119,6 +120,9 @@
 			   			</div>
 			   			@endif
 			   			@endforeach
+			   			@else
+			   			<div class="col-12"> <p class="bg-info">Chưa có đánh giá nào về sản phẩm này.</p></div>
+			   			@endif
 			   			
 			   		
 			   			@if(Session::has('khTaikhoan'))

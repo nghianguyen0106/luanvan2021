@@ -50,7 +50,7 @@ class homeController extends Controller
    
     public function proinfo(Request $re)
     {
-        $comment=DB::table('danhgia')->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->get();
+        $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->get();
    
          $cart=Cart::content();
         $total=0;
@@ -180,7 +180,7 @@ class homeController extends Controller
                 'content'=>'required'],[
                 'content.required'=>'Nội dung không được để trống']);
             $date=getdate();
-            $data['dgMa']=''.strlen($re->content).$date['yday'].rand(0,100).substr($re->id,0,3);
+            $data['dgMa']=''.strlen($re->content).$date['yday'].rand(0,100).substr($re->id,0,2);
             $data['spMa']=$re->id;
             $data['dgNoidung']=$re->content;
             $data['khMa']=Session::get('khMa');
