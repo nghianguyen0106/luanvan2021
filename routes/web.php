@@ -47,6 +47,7 @@ Route::get('admin','adminController@index');
 Route::get('/adLogin','adminController@adLoginView');
 Route::get('/checkLogin','adminController@checkLogin');
 Route::get('/adLogout','adminController@logout');
+Route::get('/loiXoa','adminController@viewLoiXoa');
 
 //--------Admin Manage View------//
 Route::get('/adNhanvien','adminController@viewNhanvien');

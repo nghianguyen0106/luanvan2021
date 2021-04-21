@@ -143,6 +143,14 @@ class adminController extends Controller
         { return Redirect('/adLogin'); }
        
     }
+      public function viewLoiThemHinhSP()
+    {
+        return view('admin.loiThemHinhSP');
+    }
+    public function viewLoiXoa()
+    {
+        return view("admin.loiXoa");
+    }
 
     //////////////////////////////Add Manage
     
@@ -513,10 +521,7 @@ class adminController extends Controller
         }
 
     }
-    public function viewLoiThemHinhSP()
-    {
-        return view('admin.loiThemHinhSP');
-    }
+  
     public function adDeleteSanpham($id)
     {
         DB::table('sanpham')->where('spMa',$id)->delete();
@@ -692,8 +697,17 @@ class adminController extends Controller
     }
     public function adDeleteLoai($id)
     {
+        $id_sp = DB::table('sanpham')->where('loaiMa',$id)->get();
+       if($id_sp)
+       {
+        Session::put('loai_del','loai k dc xoa');
+        return redirect('loiXoa');
+       }
+       else
+       {
         DB::table('loai')->where('loaiMa',$id)->delete();
-         return redirect('adLoai');
+        return redirect('adLoai');
+       }
     }
      public function adUpdateLoai($id)
     {
@@ -765,8 +779,18 @@ class adminController extends Controller
     }
     public function adDeleteNhucau($id)
     {
+       $id_sp = DB::table('sanpham')->where('ncMa',$id)->get();
+       if($id_sp)
+       {
+        Session::put('nc_del','nhu cau k dc xoa');
+         return redirect('loiXoa');
+       }
+       else
+       {
         DB::table('nhucau')->where('ncMa',$id)->delete();
         return redirect('adNhucau');
+       }
+       
     }
     public function adUpdateNhucau($id)
     {
@@ -837,8 +861,17 @@ class adminController extends Controller
     }
     public function adDeleteThuonghieu($id)
     {
+         $id_sp = DB::table('sanpham')->where('thMa',$id)->get();
+       if($id_sp)
+       {
+        Session::put('th_del','thuong hieu k dc xoa');
+          return redirect('loiXoa');
+       }
+       else
+       {
         DB::table('thuonghieu')->where('thMa',$id)->delete();
-         return redirect('adThuonghieu');
+        return redirect('adThuonghieu');
+       }
     }
      public function adUpdateThuonghieu($id)
     {

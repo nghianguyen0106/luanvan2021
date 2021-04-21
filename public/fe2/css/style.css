@@ -106,7 +106,7 @@ body{
     border: solid 2px rgba(255, 255, 255, 0);
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #ffffff;
+    color: blue;
 	border: solid 2px #ffffff;
     background: none;
     border-radius: 20px;

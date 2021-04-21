@@ -1,0 +1,20 @@
+#list__menu
+{
+	list-style-type: none;
+}
+.list__menu--item
+{
+	display: inline-block;
+	margin-left: 3rem;
+	padding-top: 1rem;
+}
+.list__menu--item a
+{
+	color: white;
+	text-decoration: none;
+	font-size: 22px;
+}
+.list__menu--item a:hover
+{
+	color:orange;
+}

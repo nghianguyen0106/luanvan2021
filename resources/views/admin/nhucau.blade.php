@@ -16,6 +16,9 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý nhu cầu sản phẩm</h6>
                         </div>
+                        @if(Session::has('nc_del')!=null)
+                            {{Session::get('nc_del')}}
+                        @endif
                          <a  href="{{url('/themnhucau')}}" class="btn btn-primary " style="width: 20%;">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"style="color:white;font-weight: bold"></i>

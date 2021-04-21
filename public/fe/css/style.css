@@ -20,6 +20,7 @@ body a {
 }
 a:hover{
  text-decoration:none;
+ 
 }
 input[type="button"],input[type="submit"]{
 	transition:0.5s all;

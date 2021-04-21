@@ -13,6 +13,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{{URL::asset("public/fe/css/bootstrap.css")}}" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" type="text/css" href="{{URL::asset("public/fe/css/jquery-ui.css")}}">
 <link href="{{URL::asset("public/fe/css/style.css")}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{URL::asset("public/fe/css/css.css")}}" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
 <script type="text/javascript" src="{{URL::asset("public/fe/js/jquery-2.1.4.min.js")}}"></script>
 <!-- //js -->
@@ -33,6 +34,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 {{-- FontAW --}}
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+<style>
+
+</style>
+
 </head>
 <body>
 <!-- header -->
@@ -40,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<ul>
 	
-			<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">nguyenchinghia199916@gmail.com</a></li>
+			<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">luanvan@gmail.com</a></li>
 		</ul>
 	</div>
 </div>
@@ -98,12 +103,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  <div class="container-fluid">
 				<nav class="navbar navbar-expand-lg navbar-default">
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				    <ul class="navbar-nav mr-auto">
+				   {{--  <ul class="navbar-nav mr-auto">
 				     <li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only"></span></a></li>
 				     <li class=" "><a class="menu__link" href="">Danh mục sản phẩm <span class="sr-only"></span></a></li>
 				     <li class=""><a class="menu__link" href="{{URL::to('product')}}">Liên hệ với chúng tôi <span class="sr-only"></span></a></li>
 				     
 				      </li>
+				    </ul> --}}
+				  <ul id="list__menu">
+				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Home</a></li>
+				    	<li class="list__menu--item"><a href="">Danh mục sản phẩm</a></li>
+				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Liên hệ với chúng tôi</a></li>
 				    </ul>
 				    
 				  </div>
@@ -111,6 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  </div>
 			</nav>	
 		</div>
+		  
 		<div class="top_nav_right">
 			<div class="cart box_1">
 						<a href="{{URL::to('/checkout')}}">
