@@ -31,6 +31,7 @@ class cartController extends Controller
     }
     public function gocheckout($money)
     {
+        // dd(Cart::content());
     	if(Cart::count()>0)
     	{
     		if(session::has('khTaikhoan'))
@@ -46,10 +47,18 @@ class cartController extends Controller
 	    	$data['hdMa']=''.substr($data['hdTongtien'],0,3).$date['yday'].$date['mon'].strlen($name);
 
 	    	DB::table('hoadon')->insert($data);
-	    	$this->destroy();
-
-	    	//create order details
 	    	
+            
+	    	//create order details
+	        foreach (Cart::content() as $k => $i) 
+            {
+                $dd['hdMa']=$data['hdMa'];
+                $dd['spMa']= $i->id;
+                $dd['cthdSoluong']=$i->qty;
+                $dd['cthdGia']=$i->price * $i->qty;
+                DB::table('chitiethoadon')->insert($dd);
+            }
+            $this->destroy();
 	    	}
 	    	else
 	  	  	{

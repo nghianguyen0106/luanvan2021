@@ -100,6 +100,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				    <ul class="navbar-nav mr-auto">
 				     <li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only"></span></a></li>
+				     <li class=" "><a class="menu__link" href="">Danh mục sản phẩm <span class="sr-only"></span></a></li>
+				     <li class=""><a class="menu__link" href="{{URL::to('product')}}">Liên hệ với chúng tôi <span class="sr-only"></span></a></li>
 				     
 				      </li>
 				    </ul>

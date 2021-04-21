@@ -67,22 +67,23 @@
 
 				<div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
 					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-						<ul id="myTab" class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Thông tin chi tiết sản phẩm</a></li>
-							<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Đánh giá</a></li>
-							{{-- <li role="presentation" class="dropdown">
-								<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-									<li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">cleanse</a></li>
-									<li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">fanny</a></li>
-								</ul>
-							</li> --}}
-						</ul>
-						<div id="myTabContent" class="tab-content">
-							<div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
-								{{-- <h5>Product Brief Description</h5> --}}
+
+
+		<ul class="nav nav-tabs">
+		    <li class="nav-item">
+		      <a class="nav-link active" data-toggle="tab" href="#home">Thông tin chi tiết</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#menu1">Đánh giá</a>
+		    </li>
+		  </ul>
+
+  				<!-- Tab panes -->
+			  <div class="tab-content">
+    			<div id="home" class="container tab-pane active"><br>
+					
+					<ul class=" list-group-item-light">
 					@foreach($details as $i)
-					<ul class="list-group">
 	
 						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
 						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
@@ -96,10 +97,53 @@
 						<li class="list-group-item"><label for="list-group-item">Pin: </label> {{$i->pin}}</li>
 						<li class="list-group-item"><label for="list-group-item">Tản nhiệt: </label> {{$i->tannhiet}}</li>		 
 						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
-					</ul>
 					@endforeach
+					</ul>    
+				</div>
+
+			    <div id="menu1" class="container tab-pane "><br>
+			   		
+			   		<div class="row">
+			   			@foreach($comment as $i)
+			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
+			   			<div class="list-group-item-primary mb-3 p-4">
+			   				<div class=" list-group-item username"><i class="far fa-user"></i>{{$i->khTen}} <span class="date">{{$i->dgNgay}}</span></div>
+			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
+			   				<hr>
+			   			</div>
+			   			@else
+			   			<div class="list-group-item mb-3">
+			   				<div class=" list-group-item username">{{$i->khTen}}  <span class="date">{{$i->dgNgay}}</span></div>
+			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
+			   				<hr>
+			   			</div>
+			   			@endif
+			   			@endforeach
+			   			
+			   		
+			   			@if(Session::has('khTaikhoan'))
+			   			<form action="{{URL::to('addcomment/'.$id)}}" method="post" accept-charset="utf-8">
+			   				{{ csrf_field() }}
+			   				<div class="form-floating mb-3">
+							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >
+							  <label for="comment">Đánh giá/Bình luận của bạn</label>
+							  @foreach($errors->all() as $i)
+			   			<p class="alert-danger">{{$i}}</p>
+			   			@endforeach
+							  <input type="submit" class="btn btn-outline-success my-1" name="btnSubmit" value="Gửi bình luận">
 							</div>
-							<div class=" row single-pro">
+			   			</form>
+			   			@endif
+			   			
+			   		</div>
+			    </div>
+			    
+			  </div>
+			</div>
+			</div>
+
+
+		<div class=" row single-pro">
 			<div class="css-treeview">
 				<h4>SẢN PHẨM ĐỀ XUẤT</h4>
 			
@@ -137,46 +181,13 @@
 						<div class="col-4"></div>
 			<div class="clearfix"></div>
 		</div>
-							<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
-								<div class="bootstrap-tab-text-grids">
-									<div class="bootstrap-tab-text-grid">
-										<div class="bootstrap-tab-text-grid-left">
-											<img src="images/men3.jpg" alt=" " class="img-responsive">
-										</div>
-										<div class="bootstrap-tab-text-grid-right">
-											<ul>
-												<li><a href="#">Admin</a></li>
-												<li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
-											</ul>
-											<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis 
-												suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem 
-												vel eum iure reprehenderit.</p>
-										</div>
-										<div class="clearfix"> </div>
-									</div>
-									
-									<div class="add-review">
-										<h4>add a review</h4>
-										<form>
-											<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-											<input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-											
-											<textarea type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
-											<input type="submit" value="SEND">
-										</form>
-									</div>
-								</div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown1" aria-labelledby="dropdown1-tab">
-								<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-							</div>
-							<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown2" aria-labelledby="dropdown2-tab">
-								<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-							</div>
+							
+							
 						</div>
 					</div>
 				</div>
 	</div>
 </div>
 <!-- //single -->
+
 @endsection

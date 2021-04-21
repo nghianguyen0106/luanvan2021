@@ -9,24 +9,34 @@
 				<thead>
 					<tr>
 						<th style="width: 300px;">Tên sản phẩm</th>
-						<th style="width: 200px;"></th>
+						<th style="width: 200px;">Hình</th>
+						<th>Đơn giá</th>
 						<th>Số lượng</th>
 						<th>Khuyến mãi</th>
-						<th>Giá</th>
+						<th>Thành tiền</th>
 						<th>Xóa</th>
 					</tr>
 				</thead>
+				@if(Cart::count() !=0)
+
 					@foreach($cart as $k=> $i)
 					<tr class="rem1">
 						<td class="invert"><a href="{{URL::to('proinfo/'.$i->id)}}">{{$i->name}}</a></td>
 						<td class="invert-image"><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
+						<td class="invert">{{number_format($i->price)}} VND</td>
 						<td class="invert">{{$i->qty}}</td>
 						<td class="invert"></td>
-						<td class="invert">{{number_format($i->price)}} VND</td>
+						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
+						
 						<td class="invert"><a class="btn btn-outline-danger" href="{{URL::to('remove-item/'.$k)}}">X</a></td>
 					</tr>
 					@endforeach
-				
+				@else
+				<tr>
+					<td colspan="6"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
+				</tr>
+					
+				@endif
 					
 								<!--qunatity-->
 									<script>
@@ -46,13 +56,15 @@
 		<div  class="checkout-left">	
 				
 				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Shopping</a>
+					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
 				</div>
 				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
 					<h4>Hóa đơn tạm tính</h4>
 					<ul>
 						@foreach($cart as $k=> $i)
-						<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price)}} VND</span></li>
+							
+						<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span></li>
+							
 						@endforeach
 						<hr>
 						<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>

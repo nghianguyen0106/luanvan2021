@@ -20,6 +20,7 @@ Route::get('logout','homeController@logout');
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
 Route::post('findpro','homeController@findpro');
+Route::post('addcomment/{id}','homeController@addcomment');
 
 //--------User cart------//
 Route::get('/checkout','homeController@checkout' );
@@ -27,6 +28,10 @@ Route::get('save-cart/{id}','cartController@savecart');
 Route::get('destroy-cart','cartController@destroy');
 Route::get('remove-item/{id}','cartController@removeitem');
 Route::get('gocheckout/{id}','cartController@gocheckout');
+//--------User Rate-----//
+
+
+
 //---------------------------------------------END USER--------------------------------------------//
 
 

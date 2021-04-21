@@ -50,6 +50,8 @@ class homeController extends Controller
    
     public function proinfo(Request $re)
     {
+        $comment=DB::table('danhgia')->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->get();
+   
          $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
@@ -64,10 +66,11 @@ class homeController extends Controller
         {
             $cateid=$v->loaiMa;
             $brandid=$v->thMa;
+            $id=$v->spMa;
         }
 
         $related_prod=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$cateid)->where('thuonghieu.thMa',$brandid)->get();
-        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','cate','total'));
+        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','cate','total','id','comment'));
     }
      //---Find product
     public function findpro(Request $re)
@@ -171,6 +174,20 @@ class homeController extends Controller
         }
          return Redirect::to('product');
     }
+    public function addcomment(Request $re)
+    {
+            $this->validate($re,[
+                'content'=>'required'],[
+                'content.required'=>'Nội dung không được để trống']);
+            $date=getdate();
+            $data['dgMa']=''.strlen($re->content).$date['yday'].rand(0,100).substr($re->id,0,3);
+            $data['spMa']=$re->id;
+            $data['dgNoidung']=$re->content;
+            $data['khMa']=Session::get('khMa');
+            $data['dgNgay']=date('Y/m/d');
+            DB::table('danhgia')->insert($data);
+            return redirect()->back();
+        }
     //----------------
 
 // CART
