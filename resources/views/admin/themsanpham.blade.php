@@ -99,7 +99,7 @@
 				  	</div>
 				    <div class="mb-3">
 				    <label for="exampleInputPassword1" class="form-label">RAM</label>
-				    <input name="ram" type="number" class="form-control" >
+				    <input name="ram" type="text" class="form-control" >
 				    <span style="color:red">{{$errors->first('ram')}}</span>
 			 		</div>
 				</div>

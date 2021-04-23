@@ -31,10 +31,10 @@
 			</div>
 		</div>
 		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-
-			<form action="" method="post" accept-charset="utf-8">
+@foreach($proinfo as $v)
+			<form action="{{URL::to('save-cart2/'.$v->spMa)}}" method="post" accept-charset="utf-8">
 				{{ csrf_field() }}
-			@foreach($proinfo as $v)
+			
 					<h3>{{$v->spTen}}</h3>
 					<p><span style="color: red;" class="item_price">{{number_format($v->spGia)}} VND</span> </p>
 					<p>Thương hiệu:<span> {{$v->thTen}}</span></p>
@@ -56,7 +56,7 @@
 						</select>
 					</span></p>
 					<div class="occasion-cart">
-						<a href="{{URL::to('save-cart/'.$v->spMa)}}" class="item_add hvr-outline-out button2">Thêm vào giỏ hàng</a>
+						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button>
 					</div>
 			@endforeach
 
@@ -107,9 +107,14 @@
 			   			@if(count($comment)>0)
 			   			@foreach($comment as $i)
 			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
-			   			<div class="list-group-item-primary mb-3 p-4">
+			   			<div class="list-group-item-primary mb-3 p-4 row">
+			   				<div class="col-11">
 			   				<div class=" list-group-item username"><i class="far fa-user"></i>{{$i->khTen}} <span class="date">{{$i->dgNgay}}</span></div>
 			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
+			   					
+			   				</div>
+			   				<div class="col-1"><a class="btn btn-outline-danger" href="{{URL::to('deletecomment/'.$i->dgMa)}}">X</a></div>
+
 			   				<hr>
 			   			</div>
 			   			@else

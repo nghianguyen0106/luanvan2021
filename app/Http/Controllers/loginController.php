@@ -20,11 +20,14 @@ class loginController extends Controller
     		session::put("khTen",$result->khTen);
             session::put('khTaikhoan',$result->khTaikhoan);
             session::put('khMa',$result->khMa);
+            session::put('khEmail',$result->khEmail);
+            Session::flash('loginmess','Đăng nhập thành công !');
+            Session::flash('name','Chào '.$result->khTen.' !!!');
     		return Redirect::to('product');
     	}
     	else
     	{
-	    	session::put("loginmessage","Wrong username or password!");
+	    	session::flash("loginmessage","Wrong username or password!");
     		return Redirect::to('login');
     	}
     }

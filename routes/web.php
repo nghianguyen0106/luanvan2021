@@ -19,17 +19,20 @@ Route::get('logout','homeController@logout');
 // -------Product -----------//
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
-Route::post('findpro','homeController@findpro');
+Route::get('findpro','homeController@findpro');
+	//--Rate
 Route::post('addcomment/{id}','homeController@addcomment');
+Route::get('deletecomment/{id}','homeController@deletecomment');
 
 //--------User cart------//
 Route::get('/checkout','homeController@checkout' );
 Route::get('save-cart/{id}','cartController@savecart');
+Route::post('save-cart2/{id}','cartController@savecart2');
 Route::get('destroy-cart','cartController@destroy');
 Route::get('remove-item/{id}','cartController@removeitem');
 Route::get('gocheckout/{id}','cartController@gocheckout');
-//--------User Rate-----//
-
+Route::get('order','homeController@order');
+Route::get('sendmail','cartController@sendmail');
 
 
 //---------------------------------------------END USER--------------------------------------------//

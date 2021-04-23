@@ -15,18 +15,18 @@ class CreateMotasTable extends Migration
     {
         Schema::create('mota', function (Blueprint $table) {
             $table->integer('spMa');
-            $table->string('manhinh',50)->nullable(true);
-            $table->string('chuot',50)->nullable(true);
-            $table->string('banphim',50)->nullable(true);
-            $table->string('ram',50);
-            $table->string('psu',50);
-            $table->string('mainboard',50);
-            $table->string('ocung',50);
-            $table->string('vga',50);
-            $table->string('vocase',50)->nullable(true);
-            $table->string('pin',50)->nullable(true);
-            $table->string('tannhiet',50);
-            $table->string('loa',50)->nullable(true);
+            $table->string('manhinh')->nullable(true);
+            $table->string('chuot')->nullable(true);
+            $table->string('banphim')->nullable(true);
+            $table->string('ram');
+            $table->string('psu');
+            $table->string('mainboard');
+            $table->string('ocung');
+            $table->string('vga');
+            $table->string('vocase')->nullable(true);
+            $table->string('pin')->nullable(true);
+            $table->string('tannhiet');
+            $table->string('loa')->nullable(true);
             $table->engine = "InnoDB";
             // foreign key
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');

@@ -15,7 +15,7 @@ class CreateChitiethoadonsTable extends Migration
     {
         Schema::create('chitiethoadon', function (Blueprint $table) {
             $table->integer('hdMa');
-            $table->integer('spMa',50);
+            $table->integer('spMa');
             $table->integer('cthdSoluong');
             $table->integer('cthdGia');
             $table->engine = "InnoDB";

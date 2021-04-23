@@ -53,7 +53,7 @@ class registerController extends Controller
 	    	}
 	    	$data['khMa']="".strlen($re->name).strlen($re->address).strlen($re->username).strlen($re->password);
 	    	DB::table('khachhang')->insert($data);
-	    	Session::put('registerSuccess','Register success, please login !');
+	    	Session::flash('registerSuccess',' Please login :D ');
 	    	return Redirect::to('login');
     }
 }

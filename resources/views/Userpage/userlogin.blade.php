@@ -16,7 +16,7 @@
     
     <!-- Style -->
     <link rel="stylesheet" href="{{{'public/fe/login/css/style.css'}}}">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Login</title>
   </head>
   <body>
@@ -32,22 +32,6 @@
             <div class="mb-4">
               <h3>Sign In</h3>
               <p style="color: red" class="mb-4">
-                <?php 
-                  $mes = Session::get('loginmessage'); 
-                  if(isset($mes))
-                  {
-                    echo $mes;
-                    Session::forget('loginmessage');
-                  }
-
-                  if(Session::has('registerSuccess'))
-                  {
-                    echo Session::get('registerSuccess');
-                    Session::forget('registerSuccess');
-                  }
-                ?> 
-
-                  
                 </p>
             </div>
             <form action="{{URL::to('/checklogin')}}" method="post">
@@ -92,5 +76,26 @@
     <script src="{{{'public/fe/login/js/popper.min.js'}}}"></script>
     <script src="{{{'public/fe/login/js/bootstrap.min.js'}}}"></script>
     <script src="{{{'public/fe/login/js/main.js'}}}"></script>
+
   </body>
 </html>
+  @if(Session::has('loginmessage'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: '{{Session::get('loginmessage')}}!',
+  footer: '<a href="{{URL::to('/register')}}">Register</a></span>'
+})
+</script> 
+@endif
+
+  @if(Session::has('registerSuccess'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Register success ',
+  text: '{{Session::get('registerSuccess')}}!',
+})
+</script> 
+@endif

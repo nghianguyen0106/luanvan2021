@@ -1,4 +1,7 @@
 @extends('userpage.layout')
+@section('title')
+Giỏ hàng
+@endsection
 @section('content')
 <!-- check out -->
 <div class="checkout">
@@ -69,7 +72,7 @@
 						<hr>
 						<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
 					</ul>
-				<a class="btn btn-success col-12" href="{{URL::to('gocheckout/'.$total)}}">Thanh toán</a>
+				<a class="btn btn-success col-12" href="{{URL::to('order')}}">Thanh toán</a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>

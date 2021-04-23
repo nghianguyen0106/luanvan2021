@@ -11,8 +11,8 @@ Product
 		<div class="col-md-3 products-left">
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
-			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
-				{{ csrf_field() }}
+			<form class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
+				{{-- {{ csrf_field() }} --}}
 				<div class="col">
 					<div class="row-1">
 						<div class="input-group mb-1">
@@ -125,14 +125,17 @@ Product
 			</div>
 						{{-- Item --}}
 						
-					@foreach($db as $i)	
+					<?php $check = array();?>
+					@foreach($db as $k => $i)	
+					@if (in_array($i->spMa, $check)==null) 
+					
+					<?php array_push($check, $i->spMa); ?>
 				<div class="col-md-4 product-men p-4" style="height: 400px">
 					<div class="men-pro-item simpleCart_shelfItem">
 						<div class="men-thumb-item">
-								
 								<img style="height: 200px" src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-front">
-								<img style="height: 200px"  src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-back">							
-							
+								<img style="height: 200px" src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-back">							
+								
 
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
@@ -154,7 +157,9 @@ Product
 						</div>
 					</div>
 				</div>
+				@endif
 				@endforeach
+
 						{{--  --}}
 				<div class="clearfix"></div>
 		</div>
@@ -271,4 +276,38 @@ Product
 <!-- //login --> --}}
 </body>
 </html>
+{{-- Notification --}}
+
+@if(Session::has('loginmess'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: '{{Session::get('name')}}',
+  text: '{{Session::get('loginmess')}}',
+ 
+})
+</script> 
+@endif
+
+@if(Session::has('addCart'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: '',
+  text: '{{Session::get('addCart')}}',
+ 
+})
+</script> 
+@endif
+@if(Session::has('errCart'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo: ',
+  text: '{{Session::get('errCart')}}',
+ 
+})
+</script> 
+@endif
+{{--  --}}
 @endsection

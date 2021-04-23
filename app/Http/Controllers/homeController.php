@@ -12,7 +12,6 @@ use App\Models\loai;
 use App\Models\nhucau;
 class homeController extends Controller
 {
-
     public function welcome()
     {
         $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(9)->get();
@@ -20,6 +19,7 @@ class homeController extends Controller
       
     	return view('welcome',compact('dblap','dbpc'));
     }
+    
    
     public function login()
     {
@@ -30,6 +30,7 @@ class homeController extends Controller
         Session::forget('khTen');
         Session::forget('khMa');
         Session::forget('khTaikhoan');
+        Session::forget('khEmail');
         return view('Userpage.userlogin');
     }
 // PRODUCT
@@ -41,7 +42,7 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
-        $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+        $db = DB::table('sanpham')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
         $brand=thuonghieu::get();
         $cate=loai::get();
         $needs=nhucau::get();
@@ -50,9 +51,9 @@ class homeController extends Controller
    
     public function proinfo(Request $re)
     {
-        $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->get();
+        $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
    
-         $cart=Cart::content();
+        $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
@@ -109,9 +110,14 @@ class homeController extends Controller
                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->where('sanpham.spGia','<=',$re->priceTo)->get();
                 return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
+            elseif($re->brand!=null && $re->category!=null)
+            {
+                $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                    return Redirect::to('product')->with('db',$db)->with('brand',$brand)->with('cate',$cate)->with('needs',$needs)->with('total',$total);  
+            }
             elseif($re->brand!=null)
             {
-                $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                 $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
                     return view('Userpage.product',compact('db','brand','cate','needs','total'));  
             }
             elseif($re->category!=null)
@@ -187,7 +193,12 @@ class homeController extends Controller
             $data['dgNgay']=date('Y/m/d');
             DB::table('danhgia')->insert($data);
             return redirect()->back();
-        }
+    }
+    public function deleteComment(Request $re)
+    {
+        DB::table('danhgia')->where('dgMa',$re->id)->delete();
+        return redirect()->back();
+    }
     //----------------
 
 // CART
@@ -203,6 +214,35 @@ class homeController extends Controller
         }
             
        return view('Userpage.checkout',compact('cate','cart','total'));
+    }
+    public function order()
+    {
+        if(Cart::count()>0)
+        {
+            if(session::has('khTaikhoan'))
+            {
+                $cart=Cart::content();
+                $cate=loai::get();
+                $total=0;
+                foreach ($cart as  $i) 
+                {
+                    $total+=$i->price*$i->qty;
+                }
+
+
+                return view('Userpage.confirmcheckout',compact('cate','cart','total'));
+            }
+            else
+            {
+                session::flash('loginmessage','Please login first !');
+                return Redirect::to('login');
+            }
+        }
+        else
+        {   
+             Session::flash('errCart','Giỏ hàng trống !');
+            return Redirect::to('product');
+        }
     }
 
 }
