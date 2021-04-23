@@ -70,6 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <li class="active"><a href="index.html">Home</a></li>
                                         <li><a href="#about" class="scroll">About</a></li>
                                         <li><a href="{{URL::to('/product')}}">Product</a></li>
+                                         <li><a href="#gallery">Gallery</a></li>
                                         <li><a href="#team" class="scroll">Team</a></li>
                                         <li><a href="#blog" class="scroll">Blog</a></li>
                                         <li><a href="#mail" class="scroll">Mail Us</a></li>
@@ -88,15 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="slider">
                                 <div class="callbacks_container">
                                     <ul class="rslides callbacks callbacks1" id="slider4">
-                                        <li>
-                                            <div class="banner_text">
-                                                <h3>Lorem ipsum</h3>
-                                                <p>In volutpat metus quis velit malesuada</p>
-                                                <div class="w3-button">
-                                                    <a href="#" data-toggle="modal" data-target="#myModal">Read More</a>
-                                                </div>
-                                            </div>
-                                        </li>
+                                       
                                         <li>
                                             <div class="banner_text">
                                                 <h3>Nam semper</h3>
@@ -115,10 +108,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 </div>
                                             </div>
                                         </li>
+
                                     </ul>
                                 </div>
                                 <div class="clearfix"> </div>
-                                <script src="{{{'public/fe2/js/responsiveslides.min.js'}}}"></script>
+                                <script src="{{URL::asset('public/fe2/js/responsiveslides.min.js')}}"></script>
                                 <script>
                                     // You can also use "$(window).load(function() {"
                                     $(function () {
@@ -307,7 +301,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div> 
                 <div class="modal-body">
                     <div class="agileits-w3layouts-info">
-                        <img src="{{{'public/fe2/images/1.jpg'}}}" alt="" />
+                        <img src="{{URL::asset('public/fe2/images/1.jpg')}}" alt="" />
                         <p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. Suspendisse ultrices hendrerit massa. Nam id metus id tellus ultrices ullamcorper.  Cras tempor massa luctus, varius lacus sit amet, blandit lorem. Duis auctor in tortor sed tristique. Proin sed finibus sem</p>
                     </div>
                 </div>
@@ -329,13 +323,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li>
                                     <div class="testimonial-img-grid">
                                         <div class="testimonial-img t-img1">
-                                            <img src="{{{'public/fe2/images/ts1.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts1.jpg')}}" alt="" />
                                         </div>
                                         <div class="testimonial-img">
-                                            <img src="{{{'public/fe2/images/ts2.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts2.jpg')}}" alt="" />
                                         </div>
                                         <div class="testimonial-img t-img2">
-                                            <img src="{{{'public/fe2/images/ts3.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts3.jpg')}}" alt="" />
                                         </div>
                                         <div class="clearfix"> </div>
                                     </div>
@@ -348,13 +342,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li>
                                     <div class="testimonial-img-grid">
                                         <div class="testimonial-img t-img1">
-                                            <img src="{{{'public/fe2/images/ts2.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts2.jpg')}}" alt="" />
                                         </div>
                                         <div class="testimonial-img">
-                                            <img src="{{{'public/fe2/images/ts3.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts3.jpg')}}" alt="" />
                                         </div>
                                         <div class="testimonial-img t-img2">
-                                            <img src="{{{'public/fe2/images/ts1.jpg'}}}" alt="" />
+                                            <img src="{{URL::asset('public/fe2/images/ts1.jpg')}}" alt="" />
                                         </div>
                                         <div class="clearfix"> </div>
                                     </div>
@@ -417,63 +411,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="team" id="team">
         <div class="container">
             <div class="agileits-title"> 
-                <h3>Amazing Team</h3> 
+                <h3>Thành viên</h3> 
             </div>
             <div class="agileits-team-grids">
                 <div class="col-md-3 agileits-team-grid">
                     <div class="team-info">
-                        <img src="{{{'public/fe2/images/t1.jpg'}}}" alt="">
+                        
+                   
+                    </div>
+                </div>
+                <div class="col-md-3 agileits-team-grid">
+                    <div class="team-info">
+                        <img src="{{{'public/tv_image/119924581_752408281992880_1050379176225078592_n.jpg'}}}" alt="">
                         <div class="team-caption"> 
-                            <h4>Peter Parker</h4>
-                            <p>Fusce laoreet</p>
+                            <h4><code>Nguyễn Chí Nghĩa</code></h4>
+                            <p>-----</>-----</p>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="https://www.facebook.com/profile.php?id=100016711454312"><i class="fa fa-facebook"></i></a></li>
+                                
+                                
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 agileits-team-grid">
                     <div class="team-info">
-                        <img src="{{{'public/fe2/images/t2.jpg'}}}" alt="">
+                        <img src="{{{'public/tv_image//83674270_1273734419482533_2342260852960264192_n.jpg'}}}" alt="">
                         <div class="team-caption"> 
-                            <h4>Johan Botha</h4>
-                            <p>Fusce laoreet</p>
+                            <h4><code>Lê Trung Nhân</code></h4>
+                            <p>-----</>-----</p>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                <li><a href="https://www.facebook.com/le.trungnhan.9"><i class="fa fa-facebook"></i></a></li>
+                             
+                                
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 agileits-team-grid">
                     <div class="team-info">
-                        <img src="{{{'public/fe2/images/t3.jpg'}}}" alt="">
-                        <div class="team-caption"> 
-                            <h4>Justo Congue</h4>
-                            <p>Fusce laoreet</p>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 agileits-team-grid">
-                    <div class="team-info">
-                        <img src="{{{'public/fe2/images/t4.jpg'}}}" alt="">
-                        <div class="team-caption"> 
-                            <h4>Steven Wilson</h4>
-                            <p>Fusce laoreet</p>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="clearfix"> </div>
@@ -481,66 +458,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
     <!-- //team -->
-    <!-- blog -->
-    <div id="blog" class="blog">
-        <div class="container"> 
-            <div class="agileits-title">
-                <h3>Our Blog</h3>
-            </div> 
-            <div class="wthree-blog-grids">
-                <div class="col-md-6 w3-agileits-blog-grid">
-                    <div class="col-sm-4 col-xs-3 blog-left">
-                        <h4>24/01</h4>
-                        <ul>
-                            <li>Posted : <a href="#">Admin</a></li>
-                            <li>Likes : 31<li>
-                            <li>Comments : (4)</li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-8 col-xs-9 blog-right">
-                        <a href="#" data-toggle="modal" data-target="#myModal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet luctus gravida.</a>
-                        <p>Sed ut feugiat felis. Morbi tempor ut nibh id consectetur. Morbi turpis arcu, interdum at feugiat non, iaculis id dui. Cras vestibulum dapibus volutpat. Fusce id molestie mauris, nec pulvinar nibh. </p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="col-md-6 w3-agileits-blog-grid">
-                    <div class="col-sm-4 col-xs-3 blog-left">
-                        <h4>09/12</h4>
-                        <ul>
-                            <li>Posted : <a href="#">Admin</a></li>
-                            <li>Likes : 80<li>
-                            <li>Comments : (8)</li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-8 col-xs-9 blog-right">
-                        <a href="#" data-toggle="modal" data-target="#myModal">Etiam ut nibh quis magna placerat euismod ac id eros. Cras eleifend nulla vel eros blandit.</a>
-                        <p>Duis sodales eleifend laoreet. Vestibulum luctus venenatis massa, in vulputate mi porta ac. Maecenas sollicitudin eros lectus, a rutrum nisi vulputate quis. Proin tempus, lectus vitae gravida</p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!-- //blog -->
+
     <!-- mail -->
     <div class="mail" id="mail">
         <div class="container">
             <div class="agileits-title">
-                <h3>Mail Us</h3>
+                <h3>Liên hệ với chúng tôi</h3>
             </div> 
             <div class="w3_mail_grids">
                 <form action="https://sendmail.w3layouts.com/submitForm" method="post">
                     <span class="input input--jiro">
                         <input class="input__field input__field--jiro" type="text" id="input-10" name="w3lName" placeholder="Your Name" required=""/>
                         <label class="input__label input__label--jiro" for="input-10">
-                            <span class="input__label-content input__label-content--jiro">Your Name</span>
+                            <span class="input__label-content input__label-content--jiro">Tên của bạn</span>
                         </label>
                     </span>
                     <span class="input input--jiro">
                         <input class="input__field input__field--jiro" type="email" id="input-11" name="w3lSender" placeholder="Your Email Address" required=""/>
                         <label class="input__label input__label--jiro" for="input-11">
-                            <span class="input__label-content input__label-content--jiro">Your Email</span>
+                            <span class="input__label-content input__label-content--jiro">Email</span>
                         </label>
                     </span>
                     <span class="input input--jiro">

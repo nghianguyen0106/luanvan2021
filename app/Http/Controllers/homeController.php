@@ -14,10 +14,9 @@ class homeController extends Controller
 {
     public function welcome()
     {
-        $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(9)->get();
-       $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',3)->limit(9)->get();
-      
-    	return view('welcome',compact('dblap','dbpc'));
+        $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',1)->limit(6)->get();
+       $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
+          	return view('welcome',compact('dblap','dbpc'));
     }
     
    
