@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 //---------------------------------------------USER----------------------------------------------------//
 Route::get('/', 'homeController@welcome' );
+Route::get('/infomation/{id}','homeController@viewInfomation');
+Route::post('edit_infomation/{id}','homeController@editInfomation');
 
 //--------User register------//
 Route::get('/register','registerController@index');
@@ -56,6 +58,7 @@ Route::get('/loiXoa','adminController@viewLoiXoa');
 Route::get('/adNhanvien','adminController@viewNhanvien');
 Route::get('/adKhachhang','adminController@viewKhachhang');
 Route::get('/adSanpham','adminController@viewSanpham');
+Route::get('/adKho','adminController@viewKho');
 Route::get('/motasanpham/{id}','adminController@viewMotaSanpham');
 Route::get('/adLoai','adminController@viewLoai');
 Route::get('/adThuonghieu','adminController@viewThuonghieu');
@@ -87,6 +90,9 @@ Route::post('/themhinh','adminController@addHinhSanpham');
 Route::get('/xoahinh/{tenhinh}/{id}','adminController@deleteHinhSanpham');
 Route::post('/editMota/{id}','adminController@editMota');
 Route::get('/loiThemHinhSP','adminController@viewLoiThemHinhSP');
+//--Kho--//
+Route::get('updateKho/{id}','adminController@updateKho');
+Route::post('editKho/{id}','adminController@editKho');
 
 //--Loai--//
 Route::get('/themloai','adminController@themLoai');

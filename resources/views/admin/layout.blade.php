@@ -87,12 +87,13 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
+                        <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
                         <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
-                         <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
+                        <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
                     </div>
                 </div>
             </li>

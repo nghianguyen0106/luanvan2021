@@ -249,4 +249,49 @@ class homeController extends Controller
         }
     }
 
+
+    //Infomation
+    public function viewInfomation($id)
+    {
+        $data = DB::table('khachhang')->where('khMa',$id)->get();
+        return view('Userpage.infomation')->with('data',$data);
+    }
+    public function editInfomation(Request $re, $id)
+    {
+        if($re->khTen ==null||$re->khTaikhoan == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null)
+        {
+            $messages =[
+                'khTen.required'=>'Tên khách hàng không được để trống',
+                'khTaikhoan.required'=>'Tài khoản khách hàng không được để trống', 
+                'khEmail.required'=>'Email khách hàng không được để trống',
+                'khDiachi.required'=>'Địa chỉ khách hàng không được để trống',
+                'khNgaysinh.required'=>'Ngày sinh hàng không được để trống',
+                'khGioitinh.required'=>'Giới tính khách hàng không được để trống',
+            ];
+            $this->validate($re,[
+                'khTen'=>'required',
+                'khTaikhoan'=>'required',
+                'khEmail'=>'required',
+                'khDiachi'=>'required', 
+                'khNgaysinh'=>'required', 
+                'khGioitinh'=>'required',
+            ],$messages);
+            $errors=$validate->errors();
+        }
+        else
+        {
+            $data = array();
+            $data['khMa']=$id;
+            $data['khTen']=$re->khTen;
+            $data['khEmail']=$re->khEmail;
+            $data['khNgaysinh']=$re->khNgaysinh;
+            $data['khDiachi']=$re->khDiachi;
+            $data['khGioitinh']=$re->khGioitinh;
+            $data['khTaikhoan']=$re->khTaikhoan;
+            DB::table('khachhang')->where('khMa',$id)->update($data);
+            return redirect('/infomation/'.$id);
+        }
+    }
+
 }
+

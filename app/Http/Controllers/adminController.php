@@ -87,6 +87,17 @@ class adminController extends Controller
         { return Redirect('/adLogin'); }
        
     }
+      public function viewKho()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+            $data=DB::table('kho')->get();
+            return view('admin.kho')->with('data',$data);
+        }
+        else 
+        { return Redirect('/adLogin'); }
+       
+    }
 
     public function viewLoai()
     {
@@ -229,14 +240,14 @@ class adminController extends Controller
                 'adMatkhau.required'=>'Mật khẩu nhân viên không được để trống',
                 'adEmail.required'=>'Email nhân viên không được để trống',
                 'adQuyen.required'=>'Quyền nhân viên không được để trống',
-                'adQuyen.max'=>'Quyền của nhân viên k được quá 1 ký tự',
+                
             ];
             $this->validate($re,[
                 'adTen'=>'required',
                 'adTaikhoan'=>'required',
                 'adMatkhau'=>'required',
                 'adEmail'=>'required',
-                'adQuyen'=>'required|max:1',
+               
             ],$messages);
 
             $errors=$validate->errors();
@@ -325,7 +336,7 @@ class adminController extends Controller
     }
     public function editkhachhang(Request $re, $id)
     {
-         if($re->khMa==null||$re->khTen ==null||$re->khTaikhoan == null||$re->khMatkhau == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null||$re->khQuyen==null)
+         if($re->khTen ==null||$re->khTaikhoan == null||$re->khMatkhau == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null||$re->khQuyen==null)
         {
             $messages =[
                 'khTen.required'=>'Tên khách hàng không được để trống',
@@ -352,7 +363,7 @@ class adminController extends Controller
         else
         {
             $data = array();
-            $data['khMa']=$re->khMa;
+            $data['khMa']=$id;
             $data['khTen']=$re->khTen;
             $data['khEmail']=$re->khEmail;
             $data['khMatkhau']=$re->khMatkhau;
@@ -658,7 +669,39 @@ class adminController extends Controller
 
     }
     //End sản phẩm
+    //Kho 
+    public function updateKho($id)
+    {
+          $hadData = DB::table('kho')->where('spMa',$id)->get();
+        return view('admin.suakho')->with('dataKho',$hadData);
+    }
+    public function editKho(Request $re,$id)
+    {
+           if($re->khoSoluong == null)
+        {
+            $messages =[
+                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống',
+            ];
+            $this->validate($re,[
+                'khoSoluong'=>'required',
+            ],$messages);
 
+            $errors=$validate->errors();
+        }
+        else
+        {
+                $data = array();
+                $data['spMa'] = $id;
+                $data['khoSoluong']=$re->khoSoluong;
+                $data['khoNgaynhap']=now();
+                DB::table('kho')->where('spMa',$id)->update($data);
+                return redirect('adKho');
+        }
+    }
+
+
+
+    //End kho
     //Loai
     public function themLoai()
     {

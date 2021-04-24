@@ -17,6 +17,7 @@ class loginController extends Controller
     	$result=DB::table('khachhang')->where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
     	if($result)
     	{
+            session::put("khMa",$result->khMa);
     		session::put("khTen",$result->khTen);
             session::put('khTaikhoan',$result->khTaikhoan);
             session::put('khMa',$result->khMa);

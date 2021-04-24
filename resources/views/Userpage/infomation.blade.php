@@ -52,73 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</ul>
 	</div>
 </div>
-<!-- //header -->
-<!-- header-bot -->
-<div class="header-bot">
-	<div class="container">
-		<div class="col-md-2 header-left">
-			<h1><a href="{{URL::to('/')}}"><img style="height: 100px;width: 100px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
-		</div>
-				<div class="col-md-4 footer-bottom">
-				@if(Session::has('khTen'))
-				<div>
-					<ul class="menu__account">
-						<li>
-							<a style="text-decoration: none;font-size: 24px;color:#0A0746">
-						<i class="far fa-user-circle"></i>&nbsp;{{Session::get('khTen')}}</a>
-						<ul class="menu__account--child">
-							<br/>
-							<li>
-								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{url("/infomation/".Session::get('khMa'))}}">
-			 						1. Thông tin cá nhân&nbsp;
-			 							<i class="far fa-eye"></i>
-			 					</a>
-							</li>
-							<li>
-								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('logout')}}">
-			 						2. Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
-			 					</a>
-							</li>
-							<br/>
-						</ul>
-						</li>
-					</ul>
-				</div>
-				@else
-				<div>
-					<ul class="menu__account">
-					<li>
-						<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('login')}}">
-							Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
-						</a>
-					</li>
-					</ul>
-				</div>
-				@endif
-		</div>
-		<div class="col-md-6 header-middle">
-			<form  class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
-				{{ csrf_field() }}
-				<div class="search">
-					<input type="search" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="" name="proname" >
-				</div>
-				<div class="section_room">
-					<select id="country" name="category" onchange="change_country(this.value)" class="frm-field required">
-						@foreach($cate as $i)
-						<option value="{{$i->loaiMa}}">{{$i->loaiTen}}</option>
-						@endforeach 
-					</select>
-				</div>
-				<div class="sear-sub">
-					<input type="submit" value=" ">
-				</div>
-				<div class="clearfix"></div>
-			</form>
-		</div>
 
-		<div class="clearfix"></div>
-	</div>
-</div>
 <!-- //header-bot -->
 <!-- banner -->
 <div class="ban-top">
@@ -128,51 +62,88 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  <div class="container-fluid">
 				<nav class="navbar navbar-expand-lg navbar-default">
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				   {{--  <ul class="navbar-nav mr-auto">
-				     <li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only"></span></a></li>
-				     <li class=" "><a class="menu__link" href="">Danh mục sản phẩm <span class="sr-only"></span></a></li>
-				     <li class=""><a class="menu__link" href="{{URL::to('product')}}">Liên hệ với chúng tôi <span class="sr-only"></span></a></li>
-				     
-				      </li>
-				    </ul> --}}
-				  <ul id="list__menu">
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Home</a></li>
-				    	<li class="list__menu--item"><a href="">Danh mục sản phẩm</a></li>
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Liên hệ với chúng tôi</a></li>
+				 	 <ul id="list__menu">
+				  		<li class="list__menu--item"><a href="#">Xem thông tin đơn hàng của bạn</a></li>
+				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Quay lại trang chủ</a></li>
 				    </ul>
-				    
+				    <br/>
 				  </div>
 				</nav>
 			  </div>
 			</nav>	
-		</div>
-		  
-		<div class="top_nav_right">
-			<div class="cart box_1">
-						<a href="{{URL::to('/checkout')}}">
-							<h3> <div class="total">
-								 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								{{number_format($total)}} VND | ({{Cart::count()}})Item</div>
-								
-							</h3>
-						</a>
-						<p><a href="{{URL::to('destroy-cart')}}" class="simpleCart_empty"><i class="fas fa-trash-alt"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></p>
-						
-			</div>	
-		</div>
+		</div> 
 		<div class="clearfix"></div>
 	</div>
 </div>
-<!-- //banner-top -->
-<!-- banner -->
-<div class="page-head" style="background-image: url('{{URL::asset('public/fe2/images/2.jpg')}}'); background-size: 15">
-	<div class="container">
-		<h3>PC</h3>
+<!---Content--->
+ <div class="container">
+	<div class="row">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<br/>
+			
+			@foreach($data as $v)
+				<form class="box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST">
+					  {{csrf_field()}}
+				<h3>Thông tin của bạn</h3>
+				<hr/>
+				<div class="flex__info">
+					<span class="info__item">Tên:</span>
+					<span  class="info__item">
+						<input class="ip" type="text" value="{{$v->khTen}}" name="khTen"/>
+					</span>
+					 <span style="color:red">{{$errors->first('khTen')}}</span>
+				</div>
+				<br/>
+				<div class="flex__info">
+					<span class="info__item">Tài khoản đăng nhập:</span>
+					<span  class="info__item">
+						<input class="ip" type="text" value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
+					</span>
+					<span style="color:red">{{$errors->first('khTaikhoan')}}</span>
+				</div>
+				<br/>
+				<div class="flex__info">
+					<span class="info__item">Email:</span>
+					<span>
+						<input class="ip" type="email" value="{{$v->khEmail}}" name="khEmail"/>
+					</span>
+					 <span style="color:red">{{$errors->first('khEmail')}}</span>
+				</div>
+				<br/>
+				<div class="flex__info">
+					<span class="info__item">Địa chỉ:</span>
+					<span  class="info__item" class="info__item">
+						<input class="ip" type="text" value="{{$v->khDiachi}}" name="khDiachi"/>
+					</span>
+					<span style="color:red">{{$errors->first('khDiachi')}}</span>
+				</div>
+				<br/>
+				<div class="flex__info">
+					<span class="info__item">Ngày sinh:</span>
+					<span  class="info__item" class="info__item">
+						<input class="ip" type="text" value= "{{$v->khNgaysinh}}" name="khNgaysinh"/>
+					</span>
+					<span style="color:red">{{$errors->first('khNgaysinh')}}</span>
+				</div>
+				<br/>
+				<div class="flex__info">
+					<span class="info__item">Giới tính:</span>
+					<span class="info__item">
+						<input value="0" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
+					 	<input value="1" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nữ
+					 </span>
+				 </div>
+				<br/>
+				<button class="btn_editInfo" type="submit">Cập nhật thông tin</button>
+				<br/>
+				<br/>
+				</form>
+			@endforeach
+		</div>
+		<div class="col-2"></div>
 	</div>
 </div>
-<!-- //banner -->
-
-@yield('content')
 
 <!-- footer -->
 <div class="footer">
@@ -237,3 +208,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <!-- //footer -->
+
+
+
+
+@section('content')
+	@foreach($data as $v)
+		{{$v->khTen}}
+	@endforeach

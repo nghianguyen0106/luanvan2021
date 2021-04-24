@@ -11,9 +11,6 @@
 			<form action="{{URL::to('/editKhachhang/'.$value->khMa)}}" method="GET">
 				 {{ csrf_field() }}
 				  <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Mã khách hàng</label>
-			    <input name="khMa" type="number" readonly value="{{$value->khMa}}" class="form-control" id="khMa">
-			    <span style="color:red">{{$errors->first('khTen')}}</span>
 			  </div>
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tên khách hàng</label>

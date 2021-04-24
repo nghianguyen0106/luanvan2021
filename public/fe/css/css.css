@@ -1,3 +1,41 @@
+/*menu account */
+.menu__account
+{
+	position: relative;
+	width: 100%;
+	height: auto;
+	display: inline;
+	list-style-type: none;
+	color: #181D5E;
+}
+.menu__account--child
+{
+	position: absolute;
+	height: 0;
+	opacity: 0%;
+
+	list-style-type: none;
+	background: white;
+	z-index: 100;
+	border: 3px solid orange;
+	border-radius: 10px 0 10px 0;
+}
+.menu__account--child li
+{
+	width: 14rem;
+	margin-left: -1.5rem;
+}
+
+.menu__account li:hover .menu__account--child
+{
+	display: block;
+	height: auto;
+	opacity: 100%;
+	transition: 1s;
+}
+
+
+/* */
 #list__menu
 {
 	list-style-type: none;
@@ -17,4 +55,59 @@
 .list__menu--item a:hover
 {
 	color:orange;
+}
+
+
+
+/* infomation */
+.box__info h3
+{
+	text-align: center;
+}
+.box__info .flex__info
+{
+	display: flex;
+	flex-direction: row;
+}
+.flex__info .info__item
+{
+	display: block;
+	width: 12rem;
+}
+.flex__info .ip
+{
+	border: 0;
+	border-bottom: 1px solid black;
+	width: 20rem;
+}
+.btn_editInfo
+{
+	position: relative;
+	margin-left: 40%;
+	border:0;
+	padding:10px 20px 10px 20px;
+	background-color: blue;
+	color:white;
+	font-size: 17px;
+}
+.btn_editInfo::before
+{
+	content: "Cập nhật thông tin";
+	position:absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	padding:10px 20px 10px 20px;
+	background-color:  green;
+
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+	transition: 0.5s;
+}
+.btn_editInfo:hover:before
+{
+	transform: scaleX(1);
+	transition: 0.4s;
 }
