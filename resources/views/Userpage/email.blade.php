@@ -3,7 +3,7 @@
 <head>
     <title>Hóa Đơn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link href="{{URL::asset("public/fe/css/bootstrap.css")}}" rel="stylesheet" type="text/css" media="all" />
+  
 </head>
 <body>
    
@@ -12,6 +12,8 @@
      <h3>Chào {{Session::get('khTen')}}</h3>
      <h4>Ngày đặt hàng: {{$details[0]->hdNgaytao}}</h4>
      <h4>Số lượng sản phẩm: {{$details[0]->hdSoluongsp}}</h4>
+     <h4>Địa chỉ giao hàng: {{$details[0]->hdDiachi}}</h4>
+     <h4>Số điện thoại người nhận: {{$details[0]->hdSdtnguoinhan}}</h4>
 	  <table border="1" class="table" style="text-align: center;">
   <thead>
     <tr>

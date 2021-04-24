@@ -78,7 +78,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-            $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            
      
             return view('admin.sanpham')->with('data',$data);
         }

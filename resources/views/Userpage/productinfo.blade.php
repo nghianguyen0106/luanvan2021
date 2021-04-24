@@ -39,15 +39,18 @@
 					<p><span style="color: red;" class="item_price">{{number_format($v->spGia)}} VND</span> </p>
 					<p>Thương hiệu:<span> {{$v->thTen}}</span></p>
 					<p>Tình trạng:<span> 
-						@if($v->spTinhtrang>0)
-							Còn hàng
+						<?php $x= 0;?>
+						@if($v->khoSoluong>0)
+							Còn hàng. &nbsp;<br>
+							Số lượng: {{$x=$v->khoSoluong}} sản phẩm.
+
 						@else
 							Hết hàng
 						@endif
 					</span></p>
 					<p> Số lượng: <span>
 						<select name="quanty" style="width: 60px;"  class="form-select" aria-label="Default select example">
-							@for($i=1;$i<11;$i++)
+							@for($i=1;$i<=$x;$i++)
 							
 							<option value="{{$i}}">{{$i}}</option>}
 							
@@ -109,7 +112,7 @@
 			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
 			   			<div class="list-group-item-primary mb-3 p-4 row">
 			   				<div class="col-11">
-			   				<div class=" list-group-item username"><i class="far fa-user"></i>{{$i->khTen}} <span class="date">{{$i->dgNgay}}</span></div>
+			   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong> <span class="date">{{$i->dgNgay}}</span></div>
 			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
 			   					
 			   				</div>
@@ -119,7 +122,7 @@
 			   			</div>
 			   			@else
 			   			<div class="list-group-item mb-3">
-			   				<div class=" list-group-item username">{{$i->khTen}}  <span class="date">{{$i->dgNgay}}</span></div>
+			   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong>  <span class="date">{{$i->dgNgay}}</span></div>
 			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
 			   				<hr>
 			   			</div>
@@ -180,7 +183,6 @@
 									<h4><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></h4>
 									<div class="info-product-price">
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
-									
 									</div>
 									<a href="#" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
 						</div>
@@ -199,4 +201,14 @@
 </div>
 <!-- //single -->
 
+@if(Session::has('comment'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Thông báo: ',
+  text: '{{Session::get('comment')}}',
+ 
+})
+</script> 
+@endif
 @endsection

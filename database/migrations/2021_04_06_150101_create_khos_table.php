@@ -18,6 +18,7 @@ class CreateKhosTable extends Migration
             $table->integer('khoSoluong');
             $table->date('khoNgaynhap');
             $table->engine = "InnoDB";
+            
             // foreign key
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
         });

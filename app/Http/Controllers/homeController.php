@@ -61,7 +61,11 @@ class homeController extends Controller
         $imgs=DB::table('hinh')->where('spMa',$re->id)->get();
         $cate=loai::get();
         $details=DB::table('mota')->where('spMa',$re->id)->get(); 
-        $proinfo=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->select('thuonghieu.thTen','thuonghieu.thMa','loai.loaiMa','sanpham.spTen','sanpham.spGia','sanpham.spTinhtrang','sanpham.spMa')->get();
+        $proinfo=DB::table('sanpham')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->get();
+       $cateid='';
+       $brandid='';
+       $id='';
+      //s dd($proinfo);
         foreach ($proinfo as  $v) 
         {
             $cateid=$v->loaiMa;
@@ -191,6 +195,7 @@ class homeController extends Controller
             $data['khMa']=Session::get('khMa');
             $data['dgNgay']=date('Y/m/d');
             DB::table('danhgia')->insert($data);
+            session::flash('comment','Đã đăng bình luận !');
             return redirect()->back();
     }
     public function deleteComment(Request $re)

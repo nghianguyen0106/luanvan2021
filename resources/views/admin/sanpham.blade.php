@@ -62,7 +62,7 @@
                                            <th>{{$value->spMa}}</th>
                                             <th>{{$value->spTen}}</th>
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
-                                            <th>{{$value->spTinhtrang==1?"Còn hàng":"Hết hàng"}}</th>
+                                            <th>{{$value->khoSoluong>0?"Còn hàng":"Hết hàng"}}</th>
                                             <th>{{$value->spHanbh}}&nbsp;năm</th>
                                            
                                             <th>{{$value->kmTrigia}}%</th>

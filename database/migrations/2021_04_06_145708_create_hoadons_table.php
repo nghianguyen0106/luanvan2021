@@ -20,6 +20,9 @@ class CreateHoadonsTable extends Migration
             $table->integer('hdSoluongsp');
             $table->integer('hdTongtien');
             $table->integer('hdTinhtrang');
+            $table->string('hdDiachi');
+            $table->char('hdSdtnguoinhan');
+            $table->string('hdGhichu')->nullable(true);
             $table->engine = "InnoDB";
             //foreign key
              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');

@@ -30,7 +30,7 @@ Route::get('save-cart/{id}','cartController@savecart');
 Route::post('save-cart2/{id}','cartController@savecart2');
 Route::get('destroy-cart','cartController@destroy');
 Route::get('remove-item/{id}','cartController@removeitem');
-Route::get('gocheckout/{id}','cartController@gocheckout');
+Route::post('gocheckout/{id}','cartController@gocheckout');
 Route::get('order','homeController@order');
 Route::get('sendmail','cartController@sendmail');
 

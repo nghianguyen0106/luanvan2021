@@ -17,8 +17,8 @@ class CreateSanphamsTable extends Migration
             $table->integer('spMa');
             $table->string('spTen')->unique();
             $table->integer('spGia');
-            $table->integer('spTinhtrang');
             $table->integer('spHanbh');
+ 
             $table->integer('kmMa')->nullable(true);
             $table->integer('thMa');
             $table->integer('loaiMa');

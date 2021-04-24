@@ -56,6 +56,7 @@ Giỏ hàng
 								<!--quantity-->
 			</table>
 		</div>
+		
 		<div  class="checkout-left">	
 				
 				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">

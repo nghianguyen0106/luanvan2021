@@ -14,12 +14,14 @@ class cartController extends Controller
 {
     public function savecart(Request $re)
     {
-    	$productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->get();
+    	$productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->join('kho','kho.spMa','sanpham.spMa')->get();
        // dd($productInfo);
         $count = array();
+    
     	foreach ($productInfo as $i) 
     	{
-            if($i->spTinhtrang <0 )
+
+            if($i->khoSoluong ==0 )
             {   
                 Session::flash('errCart','Sản phẩm tạm hết hàng!');
                 return Redirect::to('product');
@@ -53,7 +55,7 @@ class cartController extends Controller
     	return redirect()->back();
     }
 
-    public function gocheckout($money)
+    public function gocheckout(Request $re,$money)
     {
         // dd(Cart::content());
     	if(Cart::count()>0)
@@ -61,6 +63,7 @@ class cartController extends Controller
     		if(session::has('khTaikhoan'))
 	    	{
     	    		//create order
+                $customerInfo=DB::table('khachhang')->where('khMa',Session::get('khMa'))->first();
     	    	$data['khMa']=Session::get('khMa');
     	    	$data['hdSoluongsp']=Cart::count();
     	    	$data['hdTongtien']=$money;
@@ -69,6 +72,24 @@ class cartController extends Controller
     	    	$date=getdate();
     	    	$name=Session::get('khTaikhoan');
     	    	$data['hdMa']=''.rand(0,10).substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'].strlen($name).rand(0,10);
+                if($re->address !=null)
+                {
+                    $data['hdDiachi']=$re->address;
+                }
+                else
+                {
+                    $data['hdDiachi']=$customerInfo->khDiachi;
+                }
+                $data['hdGhichu']=$re->note;
+                if($re->sdt>10000000000||$re->sdt<100000000)
+                {
+                    session::flash('errsdt','Số điện thoại không hợp lệ !');
+                    return redirect()->back();
+                }
+                else
+                {
+                    $data['hdSdtnguoinhan']=$re->sdt;
+                }
 
     	    	DB::table('hoadon')->insert($data);
     	    	
@@ -76,6 +97,12 @@ class cartController extends Controller
     	    	//create order details
     	        foreach (Cart::content() as $k => $i) 
                 {
+
+                    $productQuanty=DB::table('kho')->where('spMa',$i->id)->first();
+                                     
+
+                    $update['khoSoluong']=$productQuanty->khoSoluong-$i->qty;
+                    DB::table('kho')->where('spMa',$i->id)->update($update);
                     $dd['hdMa']=$data['hdMa'];
                     $dd['spMa']= $i->id;
                     $dd['cthdSoluong']=$i->qty;
@@ -106,7 +133,6 @@ class cartController extends Controller
 
         Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
-        
     }
     
 }
