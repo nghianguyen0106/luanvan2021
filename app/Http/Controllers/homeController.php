@@ -253,8 +253,15 @@ class homeController extends Controller
     //Infomation
     public function viewInfomation($id)
     {
+         $cate=loai::get();
+          $cart=Cart::content();
+        $total=0;
+        foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+        }
         $data = DB::table('khachhang')->where('khMa',$id)->get();
-        return view('Userpage.infomation')->with('data',$data);
+        return view('Userpage.infomation')->with('data',$data)->with('cate',$cate)->with('total',$total);
     }
     public function editInfomation(Request $re, $id)
     {
