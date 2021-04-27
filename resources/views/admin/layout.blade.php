@@ -82,6 +82,11 @@
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Quản lý dữ liệu cửa hàng</span>
+                    @foreach($noteDanhgia as $dg)
+                        @if($dg->dgTrangthai ==1 )
+                        <span style="color:red;">Có thông báo mới!</span>
+                        @endif
+                    @endforeach
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
@@ -89,6 +94,14 @@
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                         <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
+                       @foreach($noteDanhgia as $dg)
+                        @if($dg->dgTrangthai ==1 )
+                            <a style="color:white;background-color: red;" class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;<i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
+                        @elseif($dg->dgTrangthai !=1)
+                            <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;<i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
+                        @endif
+                        @endforeach
+                          
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>

@@ -90,6 +90,16 @@
 	color:white;
 	font-size: 17px;
 }
+.btn_editPass
+{
+	position: relative;
+	
+	border:0;
+	padding:10px 20px 10px 20px;
+	background-color: #555570;
+	color:white;
+	font-size: 17px;
+}
 .btn_editInfo::before
 {
 	content: "Cập nhật thông tin";
@@ -106,8 +116,38 @@
 	transform-origin: 0 50%;
 	transition: 0.5s;
 }
-.btn_editInfo:hover:before
+.btn_editPass::before
+{
+	content: "Đổi mật khẩu";
+	position:absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	padding:10px 20px 10px 20px;
+	background-color: green;
+
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+	transition: 0.5s;
+}
+.btn_editInfo:hover:before, .btn_editPass:hover:before
 {
 	transform: scaleX(1);
 	transition: 0.4s;
+}
+
+.flex__btnPass
+{
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	width: 100%;
+}
+.flex__btnPass button
+{
+	border: 0;
+	outline: none;
+	background-color: white;
 }

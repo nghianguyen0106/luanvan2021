@@ -79,6 +79,10 @@ class homeController extends Controller
      //---Find product
     public function findpro(Request $re)
     {
+        //Xóa thông báo lỗi đổi mật khẩu khi chuyển trang
+        Session::forget("note__errC");
+       Session::forget("note__err");
+       //end
          $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
         $brand=DB::table('thuonghieu')->get();
         $cate=loai::get();
@@ -193,7 +197,8 @@ class homeController extends Controller
             $data['spMa']=$re->id;
             $data['dgNoidung']=$re->content;
             $data['khMa']=Session::get('khMa');
-            $data['dgNgay']=date('Y/m/d');
+            $data['dgNgay']=now();
+            $data['dgTrangthai']=1;
             DB::table('danhgia')->insert($data);
             session::flash('comment','Đã đăng bình luận !');
             return redirect()->back();
@@ -208,7 +213,10 @@ class homeController extends Controller
 // CART
     public function checkout()
     {   
-       
+        //Xóa thông báo lỗi đổi mật khẩu khi chuyển trang
+        Session::forget("note__errC");
+       Session::forget("note__err");
+       //end
         $cate=loai::get();
         $cart=Cart::content();
         $total=0;
@@ -221,6 +229,10 @@ class homeController extends Controller
     }
     public function order()
     {
+        //Xóa thông báo lỗi đổi mật khẩu khi chuyển trang
+        Session::forget("note__errC");
+       Session::forget("note__err");
+       //end
         if(Cart::count()>0)
         {
             if(session::has('khTaikhoan'))
@@ -253,6 +265,8 @@ class homeController extends Controller
     //Infomation
     public function viewInfomation($id)
     {
+        Session::forget("note__errC");
+         Session::forget("note__err");
          $cate=loai::get();
           $cart=Cart::content();
         $total=0;
@@ -265,6 +279,7 @@ class homeController extends Controller
     }
     public function editInfomation(Request $re, $id)
     {
+
         if($re->khTen ==null||$re->khTaikhoan == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null)
         {
             $messages =[
@@ -297,6 +312,66 @@ class homeController extends Controller
             $data['khTaikhoan']=$re->khTaikhoan;
             DB::table('khachhang')->where('khMa',$id)->update($data);
             return redirect('/infomation/'.$id);
+        }
+    }
+    public function updatePass($id)
+    {
+         $cate=loai::get();
+          $cart=Cart::content();
+        $total=0;
+        foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+        }
+        $data = DB::table('khachhang')->where('khMa',$id)->get();
+        return view('Userpage.updatePass')->with('data',$data)->with('cate',$cate)->with('total',$total);
+    }
+    public function editPass(Request $re ,$id)
+    {
+        $matkhaucu = md5($re->khPassCu);
+            $khPass = DB::table('khachhang')->where("khMa",$id)->where('khMatkhau',$matkhaucu)->first();
+           if(!$khPass)
+           {
+            Session::put("note__errC","Mật khẩu không đúng");
+            Session::forget("note__err");
+            return redirect('/updatePass/'.$id);
+           }
+           else
+           {
+        if($re->khPassCu ==null||$re->khRePassMoi == null||$re->khPassMoi==null)
+        {
+            Session::forget("note__errC");
+            $messages =[
+                'khPassCu.required'=>'Mật khẩu hiện tại không được để trống',
+                'khRePassMoi.required'=>'Mật khậu nhập lại không được để trống', 
+                'khPassMoi.required'=>'Mật khẩu mới không được để trống',   
+            ];
+            $this->validate($re,[
+                'khPassCu'=>'required',
+                'khRePassMoi'=>'required',
+                'khPassMoi'=>'required',
+                
+            ],$messages);
+            $errors=$validate->errors();
+        }
+        else
+        {
+               if($re->khRePassMoi != $re->khPassMoi)
+               {
+                Session::put("note__err","Mật khẩu nhập lại phải giống với mật khậu mới");
+               Session::forget("note__errC");
+                return redirect('/updatePass/'.$id);
+               }
+               else
+               {
+                Session::forget("note__errC");
+                 Session::forget("note__err");
+                   $data = array();
+                   $data['khMatkhau'] = md5($re->khPassMoi);
+                   DB::table('khachhang')->where('khMa',$id)->update($data);
+                   return redirect('/infomation/'.$id);
+                }
+           }
         }
     }
 

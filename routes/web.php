@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'homeController@welcome' );
 Route::get('/infomation/{id}','homeController@viewInfomation');
 Route::post('edit_infomation/{id}','homeController@editInfomation');
+Route::get('updatePass/{id}','homeController@updatePass');
+Route::get('editPass/{id}','homeController@editPass');
 
 //--------User register------//
 Route::get('/register','registerController@index');
@@ -65,6 +67,7 @@ Route::get('/adThuonghieu','adminController@viewThuonghieu');
 Route::get('/adNhucau','adminController@viewNhucau');
 Route::get('/adKhuyenmai','adminController@viewKhuyenmai');
 Route::get('/adBanner','adminController@viewBanner');
+Route::get('/adBinhluan','adminController@viewBinhluan');
 
 //--------Admin Add Manage View------//
 //--Nhân viên--//
@@ -118,3 +121,6 @@ Route::post('/checkAddBanner','adminController@adCheckAddBanner');
 Route::get('/deleteBanner/{id}','adminController@adDeleteBanner');
 Route::get('/updateBanner/{id}','adminController@adUpdateBanner');
 Route::post('/editBanner/{id}','adminController@editBanner');
+////--Bình luận--//
+Route::get('viewBLSP/{id}','adminController@viewBLSP');
+Route::get('chitietBLSP/{id}','adminController@chitietBLSP');

@@ -63,10 +63,16 @@
 					 </span>
 				 </div>
 				<br/>
+				 <a class="btn_editPass" href="{{url('updatePass/'.$v->khMa)}}">Đổi mật khẩu</a>
+				&emsp;
 				<button class="btn_editInfo" type="submit">Cập nhật thông tin</button>
+				
+				
 				<br/>
 				<br/>
 				</form>
+				
+				<br/>
 			@endforeach
 		</div>
 		<div class="col-2"></div>
