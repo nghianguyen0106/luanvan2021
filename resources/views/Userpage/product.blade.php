@@ -39,8 +39,8 @@ Product
 							<label>Thương hiệu: </label><br>
 							@foreach($brand as $i)
 								<div class="row-1 form-check-inline">
-								  <input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">&nbsp;
-								  <label class="form-check-label" for="flexCheckDefault">
+								  <label class="form-check-label"><input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">&nbsp;
+								  
 								    {{$i->thTen}}
 								  </label>
 								</div>

@@ -57,4 +57,14 @@ Swal.fire({
 })
 </script> 
 @endif
+@if(Session::has('errorder'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo: ',
+  text: '{{Session::get('errorder')}}',
+ 
+})
+</script> 
+@endif
 @endsection

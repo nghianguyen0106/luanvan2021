@@ -70,13 +70,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<br/>
 							<li>
 								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{url("/infomation/".Session::get('khMa'))}}">
-			 						1. Thông tin cá nhân&nbsp;
+			 						Thông tin cá nhân&nbsp;
 			 							<i class="far fa-eye"></i>
 			 					</a>
 							</li>
 							<li>
 								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('logout')}}">
-			 						2. Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
+			 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
 			 					</a>
 							</li>
 							<br/>
@@ -92,13 +92,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
 						</a>
 					</li>
+					<li>
+						Hoặc
+						<a href="#" style="font-size: 30px; color: red"><i class="fab fa-google-plus" ></i></a>
+						<a href="#" style="font-size: 30px; color: blue"><i class="fab fa-facebook"></i></a>
+					</li>
 					</ul>
 				</div>
 				@endif
 		</div>
 		<div class="col-md-6 header-middle">
-			<form  class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
-				{{ csrf_field() }}
+			<form  class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
+				
 				<div class="search">
 					<input type="search" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="" name="proname" >
 				</div>
@@ -137,9 +142,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    </ul> --}}
 				  <ul id="list__menu">
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Home</a></li>
-				    	<li class="list__menu--item"><a href="">Danh mục sản phẩm</a></li>
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Liên hệ với chúng tôi</a></li>
+				    		@if(Session::has('khTen'))
 				    		  		<li class="list__menu--item"><a href="#">Danh sách hóa đơn</a></li>
+				    		  		@endif
 				    </ul>
 				    
 				  </div>

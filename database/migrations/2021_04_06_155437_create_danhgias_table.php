@@ -19,6 +19,7 @@ class CreateDanhgiasTable extends Migration
             $table->string('dgNoidung');
             $table->integer('spMa');
             $table->date('dgNgay');
+            $table->integer('dgTrangthai');
             $table->engine = "InnoDB";
             //foreign key
             

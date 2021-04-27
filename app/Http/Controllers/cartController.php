@@ -128,11 +128,15 @@ class cartController extends Controller
 
     public function sendmail($hdMa)
     {
-       
-        $details=DB::table('hoadon')->join('chitiethoadon','hoadon.hdMa','chitiethoadon.hdMa')->join('sanpham','sanpham.spMa','chitiethoadon.spMa')->where('hoadon.hdMa',$hdMa)->get();
+
+          $details=DB::table('hoadon')->join('chitiethoadon','hoadon.hdMa','chitiethoadon.hdMa')->join('sanpham','sanpham.spMa','chitiethoadon.spMa')->where('hoadon.hdMa',$hdMa)->get();
 
         Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
+
+            // Session::flash('errorder','Lỗi kết nối mạng !');
+            // return redirect()->back();
+
     }
     
 }

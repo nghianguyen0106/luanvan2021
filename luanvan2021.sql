@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 23, 2021 at 05:47 AM
+-- Generation Time: Apr 27, 2021 at 03:28 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.9
 
@@ -39,7 +39,15 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `admin_adten_unique` (`adTen`),
   UNIQUE KEY `admin_adtaikhoan_unique` (`adTaikhoan`),
   UNIQUE KEY `admin_ademail_unique` (`adEmail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adEmail`, `adQuyen`) VALUES
+(1, 'a', 'a', 'a', 'a', 0),
+(2, 'Nghĩa', 'nghia1', '1', 'a@a.com', 1);
 
 -- --------------------------------------------------------
 
@@ -94,15 +102,10 @@ CREATE TABLE IF NOT EXISTS `chitiethoadon` (
 --
 
 INSERT INTO `chitiethoadon` (`hdMa`, `spMa`, `cthdSoluong`, `cthdGia`) VALUES
-(82112461, 96091115, 8, 48720000),
-(82112461, 301481115, 1, 14890000),
-(82112461, 114431115, 4, 177560000),
-(95112460, 97051115, 1, 7050000),
-(95112460, 114431115, 1, 44390000),
-(51112466, 114431115, 1, 44390000),
-(51112466, 189361115, 1, 93690000),
-(71112468, 97051115, 2, 14100000),
-(71112468, 189361115, 1, 93690000);
+(7113456, 97051115, 1, 7050000),
+(7113453, 553641115, 2, 72910000),
+(3113457, 553641115, 1, 36455000),
+(99115451, 189361115, 1, 93690000);
 
 -- --------------------------------------------------------
 
@@ -117,10 +120,19 @@ CREATE TABLE IF NOT EXISTS `danhgia` (
   `dgNoidung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `spMa` int NOT NULL,
   `dgNgay` date NOT NULL,
+  `dgTrangthai` int NOT NULL,
   PRIMARY KEY (`dgMa`),
   KEY `danhgia_spma_foreign` (`spMa`),
   KEY `danhgia_khma_foreign` (`khMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `danhgia`
+--
+
+INSERT INTO `danhgia` (`dgMa`, `khMa`, `dgNoidung`, `spMa`, `dgNgay`, `dgTrangthai`) VALUES
+(71134297, 11651, 'hihihih', 97051115, '2021-04-24', 0),
+(211138397, 11651, 'bao nhiêu 1 chục ?', 97051115, '2021-04-24', 0);
 
 -- --------------------------------------------------------
 
@@ -144,8 +156,6 @@ INSERT INTO `hinh` (`spMa`, `spHinh`) VALUES
 (411841115, 'aspire7_a715-75g-41g_black-06_1b4ba29f13ad4c9a99385d46ada20656.jpg'),
 (411841115, 'r4st_e4cdcf53ef724ad093cc2d439bdd5994.jpg'),
 (524191115, '78tn_a29a4ed5ae4142e6ad3c3cd2fb28a8d2.jpg'),
-(301481115, 'fq2046tu_31d94pa1_940092870501473fb53f3a3abcf69b8f.jpg'),
-(301481115, 'fq2046tu__31d94pa_2_1efc500fcd5e4e7794c787eb0de9a435.jpg'),
 (381731115, 'eg0070tu_3_72f8767bf0534f319ac97ef28f3186ac.jpg'),
 (401041115, 'lenovo_ideapad_slim_3_14iil05_81wd00vjvn_10494c734622428ab75aab9369954cd0.jpg'),
 (97051115, 'prime_def2f501a2cb4421ace4e19697ef24c7.jpg'),
@@ -177,6 +187,9 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
   `hdSoluongsp` int NOT NULL,
   `hdTongtien` int NOT NULL,
   `hdTinhtrang` int NOT NULL,
+  `hdDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hdSdtnguoinhan` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hdGhichu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`hdMa`),
   KEY `hoadon_khma_foreign` (`khMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -185,11 +198,11 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
 -- Dumping data for table `hoadon`
 --
 
-INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`) VALUES
-(51112466, 15761, '2021-04-23', 2, 138080000, 0),
-(71112468, 15761, '2021-04-23', 3, 107790000, 0),
-(82112461, 8761, '2021-04-23', 13, 241170000, 0),
-(95112460, 15761, '2021-04-23', 2, 51440000, 0);
+INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`) VALUES
+(3113457, 11651, '2021-04-24', 1, 36455000, 0, '180 cao lo p4 q8', '01623546872', NULL),
+(7113453, 11651, '2021-04-24', 2, 72910000, 0, 'asdada', '01692522094', NULL),
+(7113456, 11651, '2021-04-24', 1, 7050000, 0, 'asdada', '444444444', NULL),
+(99115451, 11651, '2021-04-26', 1, 93690000, 0, 'asdada', '0392522094', NULL);
 
 -- --------------------------------------------------------
 
@@ -209,6 +222,7 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
   `khGioitinh` int NOT NULL,
   `khTaikhoan` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khToken` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `khSdt` char(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`khMa`),
   UNIQUE KEY `khachhang_khemail_unique` (`khEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -217,11 +231,11 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
 -- Dumping data for table `khachhang`
 --
 
-INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khQuyen`, `khGioitinh`, `khTaikhoan`, `khToken`) VALUES
-(4131, 'Tèo', 'a@a.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1', 0, 0, 'teo', NULL),
-(8761, 'NghiaSTU', 'dh51700660@student.stu.edu.vn', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1sdssad', 0, 0, 'nghiat', NULL),
-(11651, 'nghianguyen', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', 'asdada', 0, 0, 'nghia', NULL),
-(15761, 'Huỳnh Lan Anh', 'Huynhlananh29032001@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '2001-03-29', '1sdasds', 0, 0, 'lananh', NULL);
+INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khQuyen`, `khGioitinh`, `khTaikhoan`, `khToken`, `khSdt`) VALUES
+(4131, 'Tèo', 'a@a.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1', 0, 0, 'teo', NULL, NULL),
+(8761, 'NghiaSTU', 'dh51700660@student.stu.edu.vn', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1sdssad', 0, 0, 'nghiat', NULL, NULL),
+(11651, 'nghianguyen', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', 'asdada', 0, 0, 'nghia', NULL, NULL),
+(15761, 'Huỳnh Lan Anh', 'Huynhlananh29032001@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '2001-03-29', '1sdasds', 0, 0, 'lananh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -245,15 +259,15 @@ INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
 (411841115, 100, '2021-04-22'),
 (381731115, 50, '2021-04-22'),
 (401041115, 50, '2021-04-22'),
-(97051115, 20, '2021-04-22'),
+(97051115, 19, '2021-04-22'),
 (96091115, 15, '2021-04-22'),
 (185341115, 16, '2021-04-22'),
-(189361115, 10, '2021-04-22'),
+(189361115, 9, '2021-04-22'),
 (114431115, 12, '2021-04-22'),
 (382841115, 100, '2021-04-22'),
 (416691115, 30, '2021-04-22'),
 (701191115, 15, '2021-04-22'),
-(553641115, 5, '2021-04-22');
+(553641115, 0, '2021-04-22');
 
 -- --------------------------------------------------------
 
@@ -405,7 +419,6 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
   `spMa` int NOT NULL,
   `spTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `spGia` int NOT NULL,
-  `spTinhtrang` int NOT NULL,
   `spHanbh` int NOT NULL,
   `kmMa` int DEFAULT NULL,
   `thMa` int NOT NULL,
@@ -423,21 +436,20 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spTinhtrang`, `spHanbh`, `kmMa`, `thMa`, `loaiMa`, `ncMa`) VALUES
-(96091115, 'GVN Usopp', 6090000, 1, 12, NULL, 7, 2, 1),
-(97051115, 'GVN Prime', 7050000, 1, 24, NULL, 7, 2, 1),
-(114431115, 'GVN Garen S', 44390000, 1, 12, NULL, 7, 2, 2),
-(185341115, 'GVN G-Creator C701', 53490000, 1, 24, NULL, 7, 2, 3),
-(189361115, 'GVN G-Creator C703', 93690000, 1, 36, NULL, 7, 2, 4),
-(301481115, 'Laptop HP 15s fq2046TU 31D94PA', 14890000, 1, 12, NULL, 3, 1, 1),
-(381731115, 'Laptop HP Pavilion 15 eg0070TU 2L9H3PA', 17390000, 1, 12, NULL, 3, 1, 1),
-(382841115, 'Laptop Gaming MSI GF65 Thin 10UE 241VN', 28490000, 1, 24, NULL, 4, 1, 2),
-(401041115, 'LENOVO IDEAPAD SLIM 3 14IIL05 81WD00VJVN', 10490000, 1, 12, NULL, 5, 1, 1),
-(411841115, 'Laptop gaming Acer Aspire 7 A715 42G R4ST', 18490000, 1, 12, NULL, 1, 1, 2),
-(416691115, 'Laptop Gaming MSI GS66 Stealth 10UG 073VN', 66990000, 1, 24, NULL, 4, 1, 2),
-(524191115, 'Laptop gaming Acer Predator Helios 300 PH315 53 78TN', 41990000, 1, 12, NULL, 1, 1, 2),
-(553641115, 'PC Phong Vũ PUBG 1 (i5-8400/16GB/128GB SSD/GTX 1070Ti)', 36455000, 1, 24, NULL, 2, 2, 2),
-(701191115, 'PC Acer Aspire M230 UX.VQVSI.145 (i5-8400/4GB/1TB HDD/UHD 630/Endless)', 11990000, 1, 12, NULL, 1, 2, 1);
+INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spHanbh`, `kmMa`, `thMa`, `loaiMa`, `ncMa`) VALUES
+(96091115, 'GVN Usopp', 6090000, 12, NULL, 7, 2, 1),
+(97051115, 'GVN Prime', 7050000, 24, NULL, 7, 2, 1),
+(114431115, 'GVN Garen S', 44390000, 12, NULL, 7, 2, 2),
+(185341115, 'GVN G-Creator C701', 53490000, 24, NULL, 7, 2, 3),
+(189361115, 'GVN G-Creator C703', 93690000, 36, NULL, 7, 2, 4),
+(381731115, 'Laptop HP Pavilion 15 eg0070TU 2L9H3PA', 17390000, 12, NULL, 3, 1, 1),
+(382841115, 'Laptop Gaming MSI GF65 Thin 10UE 241VN', 28490000, 24, NULL, 4, 1, 2),
+(401041115, 'LENOVO IDEAPAD SLIM 3 14IIL05 81WD00VJVN', 10490000, 12, NULL, 5, 1, 1),
+(411841115, 'Laptop gaming Acer Aspire 7 A715 42G R4ST', 18490000, 12, NULL, 1, 1, 2),
+(416691115, 'Laptop Gaming MSI GS66 Stealth 10UG 073VN', 66990000, 24, NULL, 4, 1, 2),
+(524191115, 'Laptop gaming Acer Predator Helios 300 PH315 53 78TN', 41990000, 12, NULL, 1, 1, 2),
+(553641115, 'PC Phong Vũ PUBG 1 (i5-8400/16GB/128GB SSD/GTX 1070Ti)', 36455000, 24, NULL, 2, 2, 2),
+(701191115, 'PC Acer Aspire M230 UX.VQVSI.145 (i5-8400/4GB/1TB HDD/UHD 630/Endless)', 11990000, 12, NULL, 1, 2, 1);
 
 -- --------------------------------------------------------
 

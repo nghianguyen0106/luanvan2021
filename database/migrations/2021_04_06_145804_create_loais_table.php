@@ -15,7 +15,7 @@ class CreateLoaisTable extends Migration
     {
         Schema::create('loai', function (Blueprint $table) {
             $table->integer('loaiMa')->autoIncrement();
-            $table->string('loaiTen',30)->unique();
+            $table->string('loaiTen',50)->unique();
             $table->engine = "InnoDB";
         });
     }
