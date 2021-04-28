@@ -12,7 +12,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-            $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
             return view('admin.index')->with('noteDanhgia',$noteDanhgia);
         }
         else 
@@ -34,7 +35,8 @@ class adminController extends Controller
             {
                 Session::put('adTaikhoan',$adTaikhoan);
                 Session::forget('error_login');
-                $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+                $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
                 return view('admin.index')->with('noteDanhgia',$noteDanhgia);
             }
             else
@@ -58,7 +60,8 @@ class adminController extends Controller
 
         if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
             $data = DB::table('admin')->get();
             return view('admin.nhanvien')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -70,7 +73,8 @@ class adminController extends Controller
     {
           if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
              $data = DB::table('khachhang')->get();
         return view('admin.khachhang')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -82,7 +86,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
             $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
             
      
@@ -96,7 +101,9 @@ class adminController extends Controller
      {
         if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+            Session::forget('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
              // $data = DB::table("sanpham")->leftjoin('danhgia','danhgia.spMa',"=","sanpham.spMa")->orderBy('dgTrangthai','desc')->get();
              $data = DB::table("danhgia")->leftjoin('sanpham','sanpham.spMa',"=","danhgia.spMa")->orderBy('dgTrangthai','desc')->get();
             return view('admin.binhluan')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
@@ -108,7 +115,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
             $data=DB::table('kho')->get();
             return view('admin.kho')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -121,7 +129,8 @@ class adminController extends Controller
     {
          if(Session::has('adTaikhoan'))
         {
-            $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
               $data = DB::table('loai')->get();
              return view('admin.loai')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -134,7 +143,8 @@ class adminController extends Controller
     {
          if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
               $data = DB::table('thuonghieu')->get();
         return view('admin.thuonghieu')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -146,7 +156,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-            $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
              $data=DB::table('nhucau')->get();
         return view('admin.nhucau')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -169,7 +180,8 @@ class adminController extends Controller
     {
          if(Session::has('adTaikhoan'))
         {
-            $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
             $data = DB::table('banner')->get();
             return view('admin.banner')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -1024,14 +1036,16 @@ class adminController extends Controller
   //Bình luận đánh giá
   public function viewBLSP($id)
   {
-     $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+     $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
     $dg = DB::table('danhgia')->leftjoin('khachhang','khachhang.khMa','=','danhgia.khMa')->where('spMa',$id)->orderBy('dgTrangthai','desc')->get();
-    
-    return view('admin.binhluansanpham')->with('dg',$dg)->with('noteDanhgia',$noteDanhgia);
+    return view('admin.binhluansanpham')->with('dg',$dg);
   }
   public function chitietBLSP($id)
   {
-     $noteDanhgia = DB::table("danhgia")->distinct()->where('dgTrangthai',1)->get('dgTrangthai');
+     Session::forget('dgTrangthai');
+     $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
      $dg = DB::table('danhgia')->where('dgMa',$id)->join('khachhang','khachhang.khMa','=','danhgia.khMa')->get();
      $data = array();
      $data['dgTrangthai']=0;
