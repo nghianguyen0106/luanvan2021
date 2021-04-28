@@ -9,7 +9,7 @@
 			<br/>
 @foreach($data as $v)
 <form id="box__editPass" class="box__info"  action="{{url('editPass/'.$v->khMa)}}" method="GET">
-					<legend>Đổi mật khẩu</legend>
+					<legend style="color:orange">Đổi mật khẩu</legend>
 					<div class="flex__info">
 						<span class="info__item">Mật khẩu cũ:</span>
 						<span  class="info__item" class="info__item">

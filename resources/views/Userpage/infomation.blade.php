@@ -13,7 +13,7 @@
 			@foreach($data as $v)
 				<form class="box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST">
 					  {{csrf_field()}}
-				<h3>Thông tin của bạn</h3>
+				<h3 style="color:orange;">Thông tin của bạn</h3>
 				<hr/>
 				<div class="flex__info">
 					<span class="info__item">Tên:</span>
