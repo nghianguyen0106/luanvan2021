@@ -1,6 +1,6 @@
 @extends('Userpage.layout')
 @section('title')
-
+Thông tin sản phẩm
 @endsection
 @section('content')
 <div class="single">

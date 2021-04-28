@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{url('public/fe/login/css/bootstrap.min.css')}}">
     <!-- Style -->
     <link rel="stylesheet" href="{{url('public/fe/login/css/style.css')}}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Register</title>
   </head>
   <body>
@@ -74,10 +75,18 @@
               </div>
 
 
-              <input type="submit" value="Log In" class="btn btn-block btn-primary">
+              <input type="submit" value="Register" class="btn btn-block btn-primary">
             
             </form>
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+              <div class="row" style="color: white; ">
+                   <a href="{{URL::to('/google')}}" style="text-decoration: none;" class="btn btn-outline-danger btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Register with <strong>Google</strong>
+                                        </a>
+                                        <a href="{{URL::to('/facebook')}}" style="text-decoration: none; "  class="btn btn-outline-primary btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Register with <strong>Facebook</strong>
+                                        </a>
+              </div>
                   <span class="d-block text-center my-4 text-muted"><a href="{{URL::to('/')}}">Back to Home page</a>&nbsp;/&nbsp;<a href="{{URL::to('login')}}">Have An Account <strong>Login</strong>?</a></span>
           </div>
         </div>

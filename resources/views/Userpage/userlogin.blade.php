@@ -17,6 +17,8 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{{'public/fe/login/css/style.css'}}}">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+{{-- FontAW --}}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Login</title>
   </head>
   <body>
@@ -59,7 +61,16 @@
 
 
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
-                  <span class="d-block text-center my-4 text-muted"><a href="{{URL::to('/')}}">Back to Home page</a>&nbsp;/&nbsp;<a href="{{URL::to('/register')}}">Register</a></span>
+              <div class="row" style="color: white; ">
+                   <a href="{{URL::to('/google')}}" style="text-decoration: none;" class="btn btn-outline-danger btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with <strong>Google</strong>
+                                        </a>
+                                        <a href="{{URL::to('/facebook')}}" style="text-decoration: none; "  class="btn btn-outline-primary btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with <strong>Facebook</strong>
+                                        </a>
+              </div>
+                
+                  <span class="d-block text-center my-4 text-muted"><a  style="text-decoration: none;" href="{{URL::to('/')}}">Back to Home page</a>&nbsp;/&nbsp;<a style="text-decoration: none;"  href="{{URL::to('/register')}}">Register</a></span>
 
             </form>
           </div>

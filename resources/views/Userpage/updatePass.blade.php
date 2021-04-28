@@ -13,7 +13,7 @@
 					<div class="flex__info">
 						<span class="info__item">Mật khẩu cũ:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khPassCu" placeholder="Điền vào đây" />
+							<input class="ip" type="text"  name="khPassCu" placeholder="*********" />
 						</span><br/>
 						<span style="color:red">{{$errors->first('khPassCu')}}</span>
 						@if(Session::has('note__errC')!=null)
@@ -25,14 +25,14 @@
 					<div class="flex__info">
 						<span class="info__item">Mật khẩu mới:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khPassMoi" placeholder="Điền vào đây" />
+							<input class="ip" type="text"  name="khPassMoi" placeholder="*********" />
 						</span><br/>
 						<span style="color:red">{{$errors->first('khPassMoi')}}</span>
 					</div>
 					<div class="flex__info">
 						<span class="info__item">Nhập lại mật khẩu mới:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khRePassMoi" placeholder="Điền vào đây" />
+							<input class="ip" type="text"  name="khRePassMoi" placeholder="*********" />
 						</span><br/>
 						<span style="color:red">{{$errors->first('khRePassMoi')}}</span>
 						@if(Session::has('note__err')!=null)
