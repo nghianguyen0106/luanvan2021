@@ -1107,8 +1107,8 @@ class adminController extends Controller
     $check_exist = DB::table('baocao')->select('bcNgaylap')->where('bcNgaylap',$re->bcNgay)->first();
     if($check_exist)
     {
-        Session::flash('bc_err','Báo cáo doanh thu của ngày '. $data["bcNgaylap"].' đã có');
-        return redirect('don-hang');
+        DB::table('baocao')->where('bcNgaylap',$re->bcNgay)->update($data);
+        return redirect('bao-cao-ngay');
     }
     else
     {

@@ -200,16 +200,7 @@
     <!-- Page level custom scripts -->
     <script src="{{url('public/style_admin/js/demo/datatables-demo.js')}}"></script>
 <!--Alert -->
-     @if(Session::has('bc_err'))
- <script type="text/javascript" >
-Swal.fire({
-  icon: 'error',
-  title: 'Thông báo tồn tại dữ liệu',
-  text: '{{Session::get('bc_err')}}!',
-  footer: '<a href="{{URL::to('bao-cao-ngay')}}">Register</a></span>'
-})
-</script> 
-@endif
+  
 
 
 </body>
