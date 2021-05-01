@@ -10,6 +10,8 @@ use Cart;
 use App\Models\thuonghieu;
 use App\Models\loai;
 use App\Models\nhucau;
+
+use Illuminate\Support\Facades\Mail;
 class homeController extends Controller
 {
     public function welcome()
@@ -51,7 +53,8 @@ class homeController extends Controller
     public function proinfo(Request $re)
     {
         $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
-   
+        $checkordered=DB::table('khachhang')->join('hoadon','hoadon.khMa','khachhang.khMa')->join('chitiethoadon','chitiethoadon.hdMa','hoadon.hdMa')->where('chitiethoadon.spMa',$re->id)->where('hoadon.khMa',Session::get('khMa'))->select('spMa')->first();
+
         $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
@@ -62,10 +65,10 @@ class homeController extends Controller
         $cate=loai::get();
         $details=DB::table('mota')->where('spMa',$re->id)->get(); 
         $proinfo=DB::table('sanpham')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->get();
+        
        $cateid='';
        $brandid='';
        $id='';
-      //s dd($proinfo);
         foreach ($proinfo as  $v) 
         {
             $cateid=$v->loaiMa;
@@ -74,7 +77,7 @@ class homeController extends Controller
         }
 
         $related_prod=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$cateid)->where('thuonghieu.thMa',$brandid)->get();
-        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','cate','total','id','comment'));
+        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','cate','total','id','comment','checkordered'));
     }
      //---Find product
     public function findpro(Request $re)
@@ -93,100 +96,245 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
-        if($re->proname!=null&&$re->priceFrom!=null&&$re->priceTo&&$re->brand!=null&&$re->category!=null&&$re->needs!=null)
-        {
-            $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();   
-          return view('Userpage.product',compact('db','brand','cate','needs','total'));
-        }
 
-        if($re->proname!=null)
+        if($re->priceFrom > $re->priceTo)
         {
-            $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
-            if($re->priceFrom!=null && $re->priceTo!=null)
-            {
-                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+            if($re->proname !=null && $re->brand!=null && $re->category !=null && $re->needs!=null)
+            {   
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
                 return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-            elseif($re->priceFrom!=null)
+            elseif($re->proname !=null && $re->brand!=null && $re->category !=null)
             {
-                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','>=',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
-                return view('Userpage.product',compact('db','brand','cate','needs','total')); 
-            }
-            elseif($re->priceTo!=null)
-            {
-               $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->where('sanpham.spGia','<=',$re->priceTo)->get();
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
                 return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-            elseif($re->brand!=null && $re->category!=null)
+            elseif($re->proname !=null && $re->brand!=null && $re->needs!=null)
             {
-                $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
-                    return Redirect::to('product')->with('db',$db)->with('brand',$brand)->with('cate',$cate)->with('needs',$needs)->with('total',$total);  
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-            elseif($re->brand!=null)
+            elseif($re->proname !=null && $re->category !=null && $re->needs!=null)
             {
-                 $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
-                    return view('Userpage.product',compact('db','brand','cate','needs','total'));  
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-            elseif($re->category!=null)
+            elseif( $re->category !=null && $re->needs!=null)
             {
-                if(is_array($re->category))
-                {
-                     $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('loai.loaiMa',$re->category)->get();
-                }
-                else
-                {
-                    $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spTen','like','%'.$re->proname.'%')->where('loai.loaiMa',$re->category)->get();
-                }
-               
-
-               return view('Userpage.product',compact('db','brand','cate','needs','total'));
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-             elseif($re->needs!=null)
-                {
-                    $db=DB::table('nhucau')->join('sanpham','sanpham.ncMa','nhucau.ncMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('sanpham.ncMa',$re->needs)->get();
-           
-                   return view('Userpage.product',compact('db','brand','cate','needs','total'));
-                }
-             return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            elseif( $re->brand!=null &&  $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null&& $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->needs !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            else
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            return Redirect::to('product');
         }
-        if($re->proname==null)
+        elseif ($re->priceFrom<$re->priceTo) 
         {
-            if($re->priceFrom!=null && $re->priceTo!=null)
+            if($re->proname !=null && $re->brand!=null && $re->category !=null && $re->needs!=null)
+            {   
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null && $re->category !=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->category !=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->category !=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null &&  $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null&& $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->needs !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            else
             {
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->get();
+                //dd($db);
                 return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
-            elseif($re->priceFrom!=null)
-            {
-                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','>=',$re->priceFrom)->get();
-                return view('Userpage.product',compact('db','brand','cate','needs','total')); 
-            }
-            elseif($re->priceTo!=null)
-            {
-               $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spGia','<=',$re->priceTo)->get();
-                return view('Userpage.product',compact('db','brand','cate','needs','total'));
-            }
-            elseif($re->brand!=null)
-            {
-                $db=DB::table('thuonghieu')->join('sanpham', 'thuonghieu.thMa', '=', 'sanpham.thMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('thuonghieu.thMa',$re->brand)->get();
-                    return view('Userpage.product',compact('db','brand','cate','needs','total'));  
-            }
-            elseif($re->category!=null)
-            {
-                $db=DB::table('loai')->join('sanpham','sanpham.loaiMa','loai.loaiMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('loai.loaiMa',$re->category)->get();
-              
-               return view('Userpage.product',compact('db','brand','cate','needs','total'));
-            }
-            elseif($re->needs!=null)
-            {
-                $db=DB::table('nhucau')->join('sanpham','sanpham.ncMa','nhucau.ncMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->whereIn('sanpham.ncMa',$re->needs)->get();
-       
-               return view('Userpage.product',compact('db','brand','cate','needs','total'));
-            }
-           return Redirect::to('product');
+            return Redirect::to('product');
         }
-         return Redirect::to('product');
+        else
+        {
+            if($re->proname !=null && $re->brand!=null && $re->category !=null && $re->needs!=null)
+            {   
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null && $re->category !=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->category !=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->category !=null && $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.loaiMa',$re->category)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null &&  $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.ncMa',$re->needs)->get();                
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.thMa',$re->brand)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null&& $re->needs!=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null && $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif($re->proname !=null)
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->brand!=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.thMa',$re->brand)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->category !=null )
+            {
+                $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.loaiMa',$re->category)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            elseif( $re->needs !=null )
+            {
+               $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->whereIn('sanpham.ncMa',$re->needs)->get();
+                return view('Userpage.product',compact('db','brand','cate','needs','total'));
+            }
+            return Redirect::to('product');
+        }
+        return Redirect::to('product');
     }
+    // --------------
+    
+    // Commment
     public function addcomment(Request $re)
     {
             $this->validate($re,[
@@ -203,12 +351,14 @@ class homeController extends Controller
             session::flash('comment','Đã đăng bình luận !');
             return redirect()->back();
     }
+
     public function deleteComment(Request $re)
     {
         DB::table('danhgia')->where('dgMa',$re->id)->delete();
         return redirect()->back();
     }
-    //----------------
+    // ----------
+//----------------
 
 // CART
     public function checkout()
@@ -275,6 +425,7 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
         }
         $data = DB::table('khachhang')->where('khMa',$id)->get();
+       // dd($data);
         return view('Userpage.infomation')->with('data',$data)->with('cate',$cate)->with('total',$total);
     }
     public function editInfomation(Request $re, $id)
@@ -374,6 +525,53 @@ class homeController extends Controller
            }
         }
     }
+    // Verify Email
+    public function verifyemail($id)
+    {
+         $cate=loai::get();
+          $cart=Cart::content();
+        $total=0;
+        $userEmail=DB::table('khachhang')->where('khMa',$id)->select('khEmail')->first();
+        foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+        }
+        return view('Userpage.verify',compact('userEmail','cate','cart','total'));
+    }
+    public function sendcode()
+    {
 
+        $date=getdate();
+          $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
+          //dd($details);
+          DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khToken'=>$details]);
+        Mail::to(Session::get('khEmail'))->send(new \App\Mail\verifyemail($details));
+        return redirect()->back();
+    }
+
+    public function verifycode(Request $re)
+    {
+        $result=DB::table('khachhang')->where('khMa',Session::get('khMa'))->where('khToken',$re->code)->first();
+        if($result)
+        {
+            DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khToken'=>1]);
+            Session::flash('verifySuccess','Email đã được xác thực !');
+            return redirect()->back();
+        }
+        else
+        {
+            Session::flash('verifyFail','Mã xác thực sai !');
+            return redirect()->back();
+        }
+    }
+
+    public function changeEmail($id)
+    {
+        DB::table("khachhang")->where('khMa',$id)->update(['khToken'=>null]);
+        return redirect()->back();
+    }
+
+    // ---------
+    // -------------
 }
 

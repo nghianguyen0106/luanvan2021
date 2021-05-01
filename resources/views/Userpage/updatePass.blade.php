@@ -15,7 +15,7 @@
 						<span  class="info__item" class="info__item">
 							<input class="ip" type="text"  name="khPassCu" placeholder="*********" />
 						</span><br/>
-						<span style="color:red">{{$errors->first('khPassCu')}}</span>
+						<span style="color:red">{{$errors->first('khPassCu')}}</span><span>Mật khẩu mặc định sau khi tạo tài khoản là "123"</span>
 						@if(Session::has('note__errC')!=null)
 						{
 							<span style="color:red">{{Session::get("note__errC")}}</span>

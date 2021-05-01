@@ -6,24 +6,31 @@ use Illuminate\Support\Facades\Route;
 
 //---------------------------------------------USER----------------------------------------------------//
 Route::get('/', 'homeController@welcome' );
+
+// user ìno
 Route::get('/infomation/{id}','homeController@viewInfomation');
 Route::post('edit_infomation/{id}','homeController@editInfomation');
 Route::get('updatePass/{id}','homeController@updatePass');
 Route::get('editPass/{id}','homeController@editPass');
-
+Route::get('changeEmail/{id}','homeController@changeEmail');
 //--------User register------//
 Route::get('/register','registerController@index');
 Route::post('/getregister','registerController@getregister');
-
+Route::post('/registerForApi','registerController@registerForApi');
 //--------User Login------//
 Route::get('login','homeController@login' );
 Route::post('/checklogin','loginController@userlogin');
 Route::get('logout','homeController@logout');
 
+// Login gg & facebook api
+Route::get('google','loginController@loginGoogle');
+Route::get('googleredirect','loginController@googleredirect');
+Route::get('facebook','loginController@loginFacebook');
+Route::get('facebookredirect','loginController@facebookredirect');
 // -------Product -----------//
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
-Route::get('findpro','homeController@findpro');
+Route::post('findpro','homeController@findpro');
 	//--Rate
 Route::post('addcomment/{id}','homeController@addcomment');
 Route::get('deletecomment/{id}','homeController@deletecomment');
@@ -38,6 +45,10 @@ Route::post('gocheckout/{id}','cartController@gocheckout');
 Route::get('order','homeController@order');
 Route::get('sendmail','cartController@sendmail');
 
+// verify-email
+Route::get('verify-email/{id}','homeController@verifyemail');
+Route::get('sendcode','homeController@sendcode');
+Route::post('verifycode','homeController@verifycode');
 
 //---------------------------------------------END USER--------------------------------------------//
 

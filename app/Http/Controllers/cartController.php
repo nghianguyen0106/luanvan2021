@@ -60,6 +60,16 @@ class cartController extends Controller
         // dd(Cart::content());
     	if(Cart::count()>0)
     	{
+            foreach (Cart::content() as $v) 
+            {
+                $checkQty=DB::table('kho')->where('spMa',$v->id)->first();
+                if($v->qty>$checkQty->khoSoluong)
+                {
+                    session::flash('errCheckout','Số lượng của sản phẩm '.$v->name.' vượt quá số lượng trong kho hàng vui lòng điều chỉnh lại !');
+                    return Redirect::to('checkout');
+                }
+          
+            }            
     		if(session::has('khTaikhoan'))
 	    	{
     	    		//create order
@@ -109,7 +119,7 @@ class cartController extends Controller
                     $dd['cthdGia']=$i->price * $i->qty;
                     DB::table('chitiethoadon')->insert($dd);
                 }
-                Cart::destroy();
+                $this->destroy();
 
                 $this->sendmail($data['hdMa']);
                  return Redirect::to('product');
@@ -134,8 +144,7 @@ class cartController extends Controller
         Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
 
-            // Session::flash('errorder','Lỗi kết nối mạng !');
-            // return redirect()->back();
+             
 
     }
     

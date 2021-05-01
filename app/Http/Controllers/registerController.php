@@ -19,12 +19,11 @@ class registerController extends Controller
 	    	$result=DB::table('khachhang')->where('khEmail',$re->email)->first();
 	    	if($result)
 	    	{
-	    		Session::put('error','Email is used for another account  !');
+	    		Session::flash('error','Email is used for another account  !');
 	    		return Redirect::to('register');
 	    	}
 	    	else
 	    	{
-	    		
 	    		$data['khEmail']=$re->email;
 	    	}
 	    	if($re->password==$re->repassword)
@@ -33,7 +32,7 @@ class registerController extends Controller
 	    	}
 	    	else
 	    	{
-	    		Session::put('error',' Password and Repassword does not match !');
+	    		Session::flash('error',' Password and Repassword does not match !');
 	    		return Redirect::to('register');
 	    	}
 	    	$data['khNgaysinh']=$re->date;
@@ -44,7 +43,7 @@ class registerController extends Controller
 	    
 	    	if($result2)
 	    	{
-			 	Session::put('error','Username already exists !');
+			 	Session::flash('error','Username already exists !');
 	    		return Redirect()->back();
 	    	}
 	    	else
@@ -54,6 +53,7 @@ class registerController extends Controller
 	    	$data['khMa']="".strlen($re->name).strlen($re->address).strlen($re->username).strlen($re->password);
 	    	DB::table('khachhang')->insert($data);
 	    	Session::flash('registerSuccess',' Please login :D ');
-	    	return Redirect::to('login');
+	    	return Redirect::to('login');	
     }
+
 }

@@ -34,7 +34,17 @@
 				<div class="flex__info">
 					<span class="info__item">Email:</span>
 					<span>
+						@if($v->khToken!=1)
 						<input class="ip" type="email" value="{{$v->khEmail}}" name="khEmail"/>
+						@else
+						<p class="ip">{{$v->khEmail}} <i style="color: green" class="far fa-check-square"></i></p>
+						@endif
+						@if($v->khToken!=null)
+						<a  class="btn btn-secondary" href="{{URL::to('changeEmail/'.$v->khMa)}}">Thay đổi Email</a>
+						@endif
+						@if($v->khToken!=1)
+						<span style="color: red;">Email chưa được xác thực!  </span><a href="{{URL::to('verify-email/'.$v->khMa)}}" class="btn btn-warning">Xác thực Email</a>
+						@endif
 					</span>
 					 <span style="color:red">{{$errors->first('khEmail')}}</span>
 				</div>

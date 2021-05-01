@@ -1,6 +1,6 @@
 @extends('Userpage.layout')
 @section('title')
-Product
+Danh sách sản phẩm
 @endsection
 @section('content')
 
@@ -11,8 +11,8 @@ Product
 		<div class="col-md-3 products-left">
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
-			<form class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
-				{{-- {{ csrf_field() }} --}}
+			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
+				{{ csrf_field() }}
 				<div class="col">
 					<div class="row-1">
 						<div class="input-group mb-1">
@@ -23,13 +23,15 @@ Product
 					<div class="row-1">
 						<div class="input-group mb-1">
 							 <span class=" input-group-text">Giá từ &nbsp;&nbsp;&nbsp;&nbsp;
-							  <input type="number" class="form-control" name="priceFrom" ></span>
+							  <input   type="range" class="form-range" id="priceFrom" value="0" min=0 max=100000000 name="priceFrom" ><span id="pf"></span>&nbsp;</span>
+							  
 						</div>
 					</div>
 					<div class="row-1">
 						<div class="input-group mb-1">
 							  <span class="input-group-text">Giá đến &nbsp;
-							  <input type="number" class="form-control" name="priceTo" ></span>
+							  <input type="range" class="form-range" id="priceTo" value="100000000" min=0 max=100000000 name="priceTo" ><span id="pt"></span>&nbsp;</span>
+							  
 						</div>
 					</div>
 					
@@ -126,6 +128,7 @@ Product
 						{{-- Item --}}
 						
 					<?php $check = array();?>
+	
 					@foreach($db as $k => $i)	
 					@if (in_array($i->spMa, $check)==null) 
 					
@@ -159,6 +162,7 @@ Product
 				</div>
 				@endif
 				@endforeach
+
 
 						{{--  --}}
 				<div class="clearfix"></div>
@@ -309,5 +313,20 @@ Swal.fire({
 })
 </script> 
 @endif
+ <script>
+ 	var inpf = document.getElementById('priceFrom');
+ 	var outpf =document.getElementById('pf');
+ 	outpf.innerHTML= Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(inpf.value);
+ 	inpf.oninput=function(){
+ 		outpf.innerHTML=   Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(this.value);
+ 	}
+
+ 	var inpt = document.getElementById('priceTo');
+ 	var outpt =document.getElementById('pt');
+ 	outpt.innerHTML= Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(inpt.value);
+ 	inpt.oninput=function(){
+ 		outpt.innerHTML =  Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(this.value);
+ 	}
+ </script>
 {{--  --}}
 @endsection
