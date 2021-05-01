@@ -27,8 +27,12 @@ Giỏ hàng
 						<td class="invert"><a href="{{URL::to('proinfo/'.$i->id)}}">{{$i->name}}</a></td>
 						<td class="invert-image"><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">{{number_format($i->price)}} VND</td>
-						<td class="invert">{{$i->qty}}</td>
-						<td class="invert"></td>
+						<td class="invert"><div class="counter">
+						  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
+						  <input style="width:50px " class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="1">
+						  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
+						</div></td>
+						<td class="invert">0%</td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
 						<td class="invert"><a class="btn btn-outline-danger" href="{{URL::to('remove-item/'.$k)}}">X</a></td>
@@ -55,6 +59,9 @@ Giỏ hàng
 									</script>
 								<!--quantity-->
 			</table>
+			<div class="row">
+				<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}">Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+			</div>
 		</div>
 		
 		<div  class="checkout-left">	
@@ -109,4 +116,36 @@ Giỏ hàng
 		</div>
 	</div>
 </div>
+
+
+@if(Session::has('errCheckout'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo: ',
+  text: '{{Session::get('errCheckout')}}',
+ 
+})
+</script> 
+@endif
+
+<script>
+  function increaseCount(a, b) {
+  var input = document.getElementById('qty');
+  var value = parseInt(input.value, 10);
+  value = isNaN(value) ? 0 : value;
+  value++;
+  input.value = value;
+}
+
+function decreaseCount(a, b) {
+  var input = document.getElementById('qty');
+  var value = parseInt(input.value, 10);
+  if (value > 1) {
+    value = isNaN(value) ? 0 : value;
+    value--;
+    input.value = value;
+  }
+}
+</script>
 @endsection

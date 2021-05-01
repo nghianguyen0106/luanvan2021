@@ -28,7 +28,6 @@ class mail extends Mailable
      */
     public function build()
     {
-
         return $this->Subject('Đặt hàng thành công !')->view('userpage.email');
     }
 }

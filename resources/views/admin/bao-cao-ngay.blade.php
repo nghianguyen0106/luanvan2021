@@ -24,29 +24,44 @@
                                         <tr>
                                             <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>
-                                            <th>Tổng tiền trong ngày</th>
+                                            <th>Tổng sản phẩm nhập</th>
+                                            <th>Tổng thu trong ngày</th>
+                                            <th>Tổng chi trong ngày</th>
                                             <th>Tồn kho</th>
+                                            <th>Ghi chú</th>
                                             <th>Ngày lập</th>
-                                            
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                           <th>Mã báo cáo</th>
+                                            <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>
-                                            <th>Tổng tiền trong ngày</th>
+                                            <th>Tổng sản phẩm nhập</th>
+                                            <th>Tổng thu trong ngày</th>
+                                            <th>Tổng chi trong ngày</th>
                                             <th>Tồn kho</th>
+                                            <th>Ghi chú</th>
                                             <th>Ngày lập</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->bcMa}}</td>
-                                            <td>{{$value->bcTongxuat}}</td>
+                                            <td>{{$value->bcTonghangxuat}}</td>
+                                            <td>{{$value->bcTonghangnhap}}</td>
                                             <td>{{$value->bcThu}}</td>
+                                            <td>{{$value->bcChi}}</td>
                                             <td>{{$value->bcTonkho}}</td>
+                                            <td>{{$value->bcGhichu}}</td>
                                             <td>{{$value->bcNgaylap}}</td>
+                                            <td>
+                                             <a href="{{url('/deleteBaocao/'.$value->bcMa)}}" >
+                                                    <i class="fa fas fa-trash" style="color: red;"></i>
+                                            </a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                        

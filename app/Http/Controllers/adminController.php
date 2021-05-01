@@ -204,8 +204,10 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
      Session::put('dgTrangthai',$noteDanhgia);
-             $data=DB::table('hoadon')->get();
-        return view('admin.hoa-don')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
+      $bcNgay = DB::table('hoadon')->distinct()->get('hdNgaytao');
+             $data1=DB::table('hoadon')->where('hdTinhtrang',0)->get();
+        $data2=DB::table('hoadon')->where('hdTinhtrang',1)->get();
+        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('bcNgay',$bcNgay)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -216,8 +218,9 @@ class adminController extends Controller
         {
         $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
         Session::put('dgTrangthai',$noteDanhgia);
+       
         $data=DB::table('baocao')->get();
-        return view('admin.doanh-thu-ngay')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
+        return view('admin.bao-cao-ngay')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -1078,21 +1081,46 @@ class adminController extends Controller
     return view('admin.chitietbinhluan')->with('dg',$dg)->with('noteDanhgia',$noteDanhgia);
   }
   //Hóa đơn
-  public function updateBaocao()
+  public function thanhtoan($id)
+  {
+    $data = array();
+    $data["hdTinhtrang"]=1;
+    DB::table('hoadon')->where('hdMa',$id)->update($data);
+    return redirect('don-hang');
+  }
+  public function updateBaocao(Request $re)
   {
     $data = array();
     //$data["bcMa"] =  rand(0,1000).strlen($data['bcNgaylap']).rand(0,1000);
-    $data["bcNgaylap"]=now();
-    $bcNgay=DB::table('hoadon')->select("hdSoluongsp")->where('hdMa',$data["bcNgaylap"])->count();
-    $data["bcTonghangxuat"]=$bcNgay;
-    dd($data["bcTonghangxuat"]);
+    $data["bcNgaylap"]=$re->bcNgay;
+    $bcSoluong=DB::table('hoadon')->where('hdNgaytao',$re->bcNgay)->where('hdTinhtrang',1)->sum("hdSoluongsp");
+    $data["bcTonghangxuat"] = $bcSoluong;
+    $bcTonghangnhap=DB::table('kho')->select('khoSoluong')->where('khoNgaynhap',$re->bcNgay)->sum('khoSoluong');
+    $data["bcTonghangnhap"] =$bcTonghangnhap;
+    $bcTongtien=DB::table('hoadon')->where('hdNgaytao',$re->bcNgay)->where('hdTinhtrang',1)->sum("hdTongtien");
+    $data['bcThu'] = $bcTongtien;
+    $data["bcChi"] =0;
+    $bcTonkho=DB::table('kho')->select('khoSoluong')->sum('khoSoluong');
+    $data["bcTonkho"] =$bcTonkho;
+    $data["bcGhichu"] ="";
+    $data["bcNgaylap"] =$re->bcNgay;
+    $check_exist = DB::table('baocao')->select('bcNgaylap')->where('bcNgaylap',$re->bcNgay)->first();
+    if($check_exist)
+    {
+        Session::flash('bc_err','Báo cáo doanh thu của ngày '. $data["bcNgaylap"].' đã có');
+        return redirect('don-hang');
+    }
+    else
+    {
+         DB::table('baocao')->insert($data);
+        return redirect('bao-cao-ngay');
+    }
   }
   //báo cáo
-  public function viewDoanhthu()
+  public function deleteBaocao($id)
   {
-     $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
-    Session::put('dgTrangthai',$noteDanhgia);
-    return view('admin.doanh-thu-ngay')->with('noteDanhgia',$noteDanhgia);
+    DB::table('baocao')->where('bcMa',$id)->delete();
+    return redirect('bao-cao-ngay');
   }
 }
 

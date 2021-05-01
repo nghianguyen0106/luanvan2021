@@ -48,15 +48,12 @@ Thông tin sản phẩm
 							Hết hàng
 						@endif
 					</span></p>
-					<p> Số lượng: <span>
-						<select name="quanty" style="width: 60px;"  class="form-select" aria-label="Default select example">
-							@for($i=1;$i<=$x;$i++)
-							
-							<option value="{{$i}}">{{$i}}</option>}
-							
-							@endfor
-
-						</select>
+					<p>Chọn số lượng: <span>
+						<div class="counter">
+						  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
+						  <input style="width:50px " class="form-control-success" min="1" max="{{$v->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
+						  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
+						</div>
 					</span></p>
 					<div class="occasion-cart">
 						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button>
@@ -132,8 +129,9 @@ Thông tin sản phẩm
 			   			<div class="col-12"> <p class="bg-info">Chưa có đánh giá nào về sản phẩm này.</p></div>
 			   			@endif
 			   			
-			   		
-			   			@if(Session::has('khTaikhoan'))
+			   		{{-- add comment --}}
+			   		{{-- @dd($checkordered) --}}
+			   			@if($checkordered!=null)
 			   			<form action="{{URL::to('addcomment/'.$id)}}" method="post" accept-charset="utf-8">
 			   				{{ csrf_field() }}
 			   				<div class="form-floating mb-3">
@@ -146,7 +144,7 @@ Thông tin sản phẩm
 							</div>
 			   			</form>
 			   			@endif
-			   			
+			   			{{--  --}}
 			   		</div>
 			    </div>
 			    
@@ -211,4 +209,23 @@ Swal.fire({
 })
 </script> 
 @endif
+<script>
+  function increaseCount(a, b) {
+  var input = document.getElementById('qty');
+  var value = parseInt(input.value, 10);
+  value = isNaN(value) ? 0 : value;
+  value++;
+  input.value = value;
+}
+
+function decreaseCount(a, b) {
+  var input = document.getElementById('qty');
+  var value = parseInt(input.value, 10);
+  if (value > 1) {
+    value = isNaN(value) ? 0 : value;
+    value--;
+    input.value = value;
+  }
+}
+</script>
 @endsection

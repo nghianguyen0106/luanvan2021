@@ -24,6 +24,8 @@
 
     <!-- Custom styles for this page -->
     <link href="{{url('public/style_admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 
 <body id="page-top">
@@ -92,8 +94,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
-                         <a class="collapse-item"  href="{{URL::to('doanh-thu-ngay')}}">Doanh thu trong ngày</a>
-                         <a class="collapse-item"  href="{{URL::to('hoa-don')}}">Hóa đơn</a>
+                         <a class="collapse-item"  href="{{URL::to('bao-cao-ngay')}}">Báo cáo ngày</a>
+                         <a class="collapse-item"  href="{{URL::to('don-hang')}}">Đơn hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
                       @if(Session::get('dgTrangthai')!=null)
@@ -197,6 +199,18 @@
 
     <!-- Page level custom scripts -->
     <script src="{{url('public/style_admin/js/demo/datatables-demo.js')}}"></script>
+<!--Alert -->
+     @if(Session::has('bc_err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo tồn tại dữ liệu',
+  text: '{{Session::get('bc_err')}}!',
+  footer: '<a href="{{URL::to('bao-cao-ngay')}}">Register</a></span>'
+})
+</script> 
+@endif
+
 
 </body>
 
