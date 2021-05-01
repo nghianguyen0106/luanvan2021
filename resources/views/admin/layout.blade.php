@@ -92,6 +92,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
+                         <a class="collapse-item"  href="{{URL::to('doanh-thu-ngay')}}">Doanh thu trong ngày</a>
+                         <a class="collapse-item"  href="{{URL::to('hoa-don')}}">Hóa đơn</a>
                         <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
                       @if(Session::get('dgTrangthai')!=null)

@@ -81,7 +81,7 @@ class cartController extends Controller
                     $data['hdDiachi']=$customerInfo->khDiachi;
                 }
                 $data['hdGhichu']=$re->note;
-                if($re->sdt>10000000000||$re->sdt<100000000)
+                if($re->sdt>10||$re->sdt<10)
                 {
                     session::flash('errsdt','Số điện thoại không hợp lệ !');
                     return redirect()->back();

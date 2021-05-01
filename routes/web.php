@@ -124,3 +124,8 @@ Route::post('/editBanner/{id}','adminController@editBanner');
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');
+//--Hóa đơn--//
+Route::get('hoa-don','adminController@viewHoadon');
+Route::get('update-bao-cao-ngay','adminController@updateBaocao');
+//--Doanh thu ngày--//
+Route::get('doanh-thu-ngay','adminController@viewBaocao');

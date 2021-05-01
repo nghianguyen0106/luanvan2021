@@ -265,6 +265,7 @@ class homeController extends Controller
     //Infomation
     public function viewInfomation($id)
     {
+        
         Session::forget("note__errC");
          Session::forget("note__err");
          $cate=loai::get();
@@ -279,7 +280,6 @@ class homeController extends Controller
     }
     public function editInfomation(Request $re, $id)
     {
-
         if($re->khTen ==null||$re->khTaikhoan == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null)
         {
             $messages =[
@@ -302,16 +302,17 @@ class homeController extends Controller
         }
         else
         {
-            $data = array();
-            $data['khMa']=$id;
-            $data['khTen']=$re->khTen;
-            $data['khEmail']=$re->khEmail;
-            $data['khNgaysinh']=$re->khNgaysinh;
-            $data['khDiachi']=$re->khDiachi;
-            $data['khGioitinh']=$re->khGioitinh;
-            $data['khTaikhoan']=$re->khTaikhoan;
-            DB::table('khachhang')->where('khMa',$id)->update($data);
-            return redirect('/infomation/'.$id);
+                $data = array();
+                $data['khMa']=$id;
+                $data['khTen']=$re->khTen;
+                $data['khEmail']=$re->khEmail;
+                $data['khNgaysinh']=$re->khNgaysinh;
+                $data['khDiachi']=$re->khDiachi;
+                $data['khGioitinh']=$re->khGioitinh;
+                $data['khTaikhoan']=$re->khTaikhoan;
+                DB::table('khachhang')->where('khMa',$id)->update($data);
+                return redirect('/infomation/'.$id);
+            
         }
     }
     public function updatePass($id)

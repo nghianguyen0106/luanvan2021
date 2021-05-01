@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use DB;
 use Session;
 session_start();
@@ -86,8 +87,8 @@ class adminController extends Controller
     {
         if(Session::has('adTaikhoan'))
         {
-             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
-     Session::put('dgTrangthai',$noteDanhgia);
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
             $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
             
      
@@ -196,6 +197,30 @@ class adminController extends Controller
     public function viewLoiXoa()
     {
         return view("admin.loiXoa");
+    }
+    public function viewHoadon()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+     Session::put('dgTrangthai',$noteDanhgia);
+             $data=DB::table('hoadon')->get();
+        return view('admin.hoa-don')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
+        }
+        else 
+        { return Redirect('/adLogin'); }
+    }
+    public function viewBaocao()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+        $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+        Session::put('dgTrangthai',$noteDanhgia);
+        $data=DB::table('baocao')->get();
+        return view('admin.doanh-thu-ngay')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
+        }
+        else 
+        { return Redirect('/adLogin'); }
     }
 
     //////////////////////////////Add Manage
@@ -1052,7 +1077,25 @@ class adminController extends Controller
      DB::table('danhgia')->where('dgMa',$id)->update($data);
     return view('admin.chitietbinhluan')->with('dg',$dg)->with('noteDanhgia',$noteDanhgia);
   }
+  //Hóa đơn
+  public function updateBaocao()
+  {
+    $data = array();
+    //$data["bcMa"] =  rand(0,1000).strlen($data['bcNgaylap']).rand(0,1000);
+    $data["bcNgaylap"]=now();
+    $bcNgay=DB::table('hoadon')->select("hdSoluongsp")->where('hdMa',$data["bcNgaylap"])->count();
+    $data["bcTonghangxuat"]=$bcNgay;
+    dd($data["bcTonghangxuat"]);
+  }
+  //báo cáo
+  public function viewDoanhthu()
+  {
+     $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+    Session::put('dgTrangthai',$noteDanhgia);
+    return view('admin.doanh-thu-ngay')->with('noteDanhgia',$noteDanhgia);
+  }
 }
+
 
 
     
