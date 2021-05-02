@@ -47,6 +47,10 @@
 						@endif
 					</span>
 					 <span style="color:red">{{$errors->first('khEmail')}}</span>
+					 <br/>
+					 @if(Session::has('Cemail_err'))
+					  <span style="color:red">{{Session::get('Cemail_err')}}</span>
+					 @endif
 				</div>
 				<br/>
 				<div class="flex__info">

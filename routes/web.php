@@ -135,3 +135,10 @@ Route::post('/editBanner/{id}','adminController@editBanner');
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');
+//--Hóa đơn--//
+Route::get('don-hang','adminController@viewHoadon');
+Route::get('thanhtoan/{id}','adminController@thanhtoan');
+Route::get('update-bao-cao-ngay','adminController@updateBaocao');
+//--Báo cáo ngày--//
+Route::get('bao-cao-ngay','adminController@viewBaocao');
+Route::get('deleteBaocao/{id}','adminController@deleteBaocao');
