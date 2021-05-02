@@ -83,17 +83,17 @@ Route::get('/adBinhluan','adminController@viewBinhluan');
 //--------Admin Add Manage View------//
 //--Nhân viên--//
 Route::get('/themnhanvien','adminController@themAdmin');
-Route::get('/checkAddAdmin','adminController@adCheckAddAdmin');
+Route::post('/checkAddAdmin','adminController@adCheckAddAdmin');
 Route::get('/deleteAdmin/{id}','adminController@adDeleteAdmin');
 Route::get('/updateAdmin/{id}','adminController@adUpdateAdmin');
-Route::get('/editAdmin/{id}','adminController@editAdmin');
+Route::post('/editAdmin/{id}','adminController@editAdmin');
 
 //--Khách hàng--//
 Route::get('/themkhachhang','adminController@themKhachhang');
-Route::get('/checkAddKhachhang','adminController@adCheckAddKhachhang');
+Route::post('/checkAddKhachhang','adminController@adCheckAddKhachhang');
 Route::get('/deleteKhachhang/{id}','adminController@adDeleteKhachhang');
 Route::get('/updateKhachhang/{id}','adminController@adUpdateKhachhang');
-Route::get('/editKhachhang/{id}','adminController@editKhachhang');
+Route::post('/editKhachhang/{id}','adminController@editKhachhang');
 //--Sản phẩm--//
 Route::get('/themsanpham','adminController@themSanpham');
 Route::post('/checkAddSanpham','adminController@adCheckAddSanpham');

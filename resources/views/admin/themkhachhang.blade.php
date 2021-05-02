@@ -4,7 +4,7 @@
 
             <!-- Main Content -->
         <div id="content">
-			<form action="{{URL::to('/checkAddKhachhang')}}" method="GET">
+			<form action="{{URL::to('/checkAddKhachhang')}}" method="POST"  enctype="multipart/form-data">
 				 {{ csrf_field() }}
 				  <div class="mb-3">
 			   
@@ -13,6 +13,11 @@
 			    <label for="exampleInputPassword1" class="form-label">Tên khách hàng</label>
 			    <input name="khTen" type="text" class="form-control" id="khTen">
 			    <span style="color:red">{{$errors->first('khTen')}}</span>
+			  </div>
+			  <div class="mb-3">
+			    <label for="exampleInputPassword1" class="form-label">SDT</label>
+			    <input name="khSdt" type="number" class="form-control" id="adSdt">
+			     <span style="color:red">{{$errors->first('khSdt')}}</span>
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Email</label>
@@ -36,7 +41,7 @@
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
-			    <input name="khNgaysinh" type="date" class="form-control" id="khNgaysinh">
+			    <input name="khNgaysinh" type="date" class="dateInput" id="khNgaysinh">
 			     <span style="color:red">{{$errors->first('khNgaysinhn')}}</span>
 			  </div>
 			   <div class="mb-3">
@@ -51,9 +56,14 @@
 			    &emsp;<input name="khGioitinh"  value="0" type="radio"  id="khGioitinh">Nữ
 			    <span style="color:red">{{$errors->first('khGioitinh')}}</span>
 			  </div>
+			  <div class="mb-3">
+			    <label for="exampleInputPassword1" class="form-label">Ảnh</label>
+			    <input name="khHinh" type="file" class="form-control" id="khHinh">
+			  </div>
 			   <div class="mb-3">
+
 			    <label for="exampleInputPassword1" class="form-label">Quyền</label>
-			    <input name="khQuyen" type="number" class="form-control" id="khQuyen">
+			    <input name="khQuyen" type="number" value="0" class="form-control" id="khQuyen">
 			     <span style="color:red">{{$errors->first('khQuyen')}}</span>
 			  </div>
 

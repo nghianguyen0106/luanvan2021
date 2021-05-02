@@ -29,34 +29,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
 	<div class="container">
 		<ul>
-	
-			<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">luanvan@gmail.com</a></li>
-		</ul>
-	</div>
-</div>
-<!-- //header -->
-<!-- header-bot -->
-<div class="header-bot">
-	<div class="container">
-		<div class="col-md-2 header-left">
+			<li>
 			<h1><a href="{{URL::to('/')}}"><img style="height: 100px;width: 100px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
-		</div>
-				<div class="col-md-4 footer-bottom">
+		</li>
+		<li>
 				@if(Session::has('khTen'))
-				<div>
+				
 					<ul class="menu__account">
-						<li>
+						<li class="li">
 							<a style="text-decoration: none;font-size: 24px;color:#0A0746">
-						<i class="far fa-user-circle"></i>&nbsp;{{Session::get('khTen')}}</a>
+						<img style="width: 50px;height: 50px;border-radius: 360px" src="{{{'./public/images/khachhang/'.Session::get('khHinh')}}}" />&nbsp;{{Session::get('khTen')}}</a>
 						<ul class="menu__account--child">
-							<br/>
-							<li>
+							<li class="li2">
 								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{url("/infomation/".Session::get('khMa'))}}">
 			 						Thông tin cá nhân&nbsp;
 			 							<i class="far fa-eye"></i>
 			 					</a>
 							</li>
-							<li>
+							<li class="li2">
 								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('logout')}}">
 			 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
 			 					</a>
@@ -65,24 +55,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 						</li>
 					</ul>
-				</div>
+				
 				@else
 				<div>
-					<ul class="menu__account">
-					<li>
+					
+					
 						<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('login')}}">
 							Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
 						</a>
-					</li>
-					<li>
+						<br/>
+					
 						Hoặc
 						<a href="{{URL::to('google')}}" style="font-size: 30px; color: red"><i class="fab fa-google-plus" ></i></a>
 						<a href="{{URL::to('facebook')}}" style="font-size: 30px; color: blue"><i class="fab fa-facebook"></i></a>
-					</li>
-					</ul>
+					
+					
 				</div>
 				@endif
-		</div>
+		
+		</li>
+		<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">luanvan@gmail.com</a></li>
+		</ul>
+	</div>
+</div>
+<!-- //header -->
+<!-- header-bot -->
+<div class="header-bot">
+	<div class="container">
+		
 		<div class="col-md-6 header-middle">
 			<form  class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
 				
@@ -154,11 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!-- //banner-top -->
 <!-- banner -->
-<div class="page-head" style="background-image: url('{{URL::asset('public/fe2/images/2.jpg')}}'); background-size: 15">
-	<div class="container">
-		<h3>PC</h3>
-	</div>
-</div>
+
 <!-- //banner -->
 
 @yield('content')

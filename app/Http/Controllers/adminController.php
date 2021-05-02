@@ -35,6 +35,8 @@ class adminController extends Controller
             if($result)
             {
                 Session::put('adTaikhoan',$adTaikhoan);
+                Session::put('adTen',$result->adTen);
+                Session::put('adHinh',$result->adHinh);
                 Session::forget('error_login');
                 $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
      Session::put('dgTrangthai',$noteDanhgia);
@@ -51,6 +53,8 @@ class adminController extends Controller
     {
         session::forget('adTaikhoan');
         Session::forget('error_login');
+        Session::forget('adTen');
+        Session::forget('adHinh');
         return view('admin.login');
     }
 
@@ -204,10 +208,9 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
      Session::put('dgTrangthai',$noteDanhgia);
-      $bcNgay = DB::table('hoadon')->distinct()->get('hdNgaytao');
              $data1=DB::table('hoadon')->where('hdTinhtrang',0)->get();
         $data2=DB::table('hoadon')->where('hdTinhtrang',1)->get();
-        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('bcNgay',$bcNgay)->with('noteDanhgia',$noteDanhgia);
+        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -218,9 +221,9 @@ class adminController extends Controller
         {
         $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
         Session::put('dgTrangthai',$noteDanhgia);
-       
+        $bcNgay = DB::table('hoadon')->distinct()->get('hdNgaytao');
         $data=DB::table('baocao')->get();
-        return view('admin.bao-cao-ngay')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
+        return view('admin.bao-cao-ngay')->with('data',$data)->with('bcNgay',$bcNgay)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -236,22 +239,24 @@ class adminController extends Controller
     }
     public function adCheckAddAdmin(Request $re)
     {
-        if($re->adTen ==null||$re->adTaikhoan == null||$re->adMatkhau == null||$re->adEmail==null||$re->adQuyen==null)
+        if($re->adTen ==null||$re->adTaikhoan == null||$re->adMatkhau == null||$re->adSdt == null||$re->adEmail==null||$re->adQuyen==null)
         {
-            Session::forget('ad_err');
             $messages =[
                 'adTen.required'=>'Tên nhân viên không được để trống',
                 'adTaikhoan.required'=>'Tài khoản nhân viên không được để trống',
                 'adMatkhau.required'=>'Mật khẩu nhân viên không được để trống',
+                'adSdt.required'=>'Số điện thoại nhân viên không được để trống',
                 'adEmail.required'=>'Email nhân viên không được để trống',
                 'adQuyen.required'=>'Quyền nhân viên không được để trống',
+                
             ];
             $this->validate($re,[
                 'adTen'=>'required',
                 'adTaikhoan'=>'required',
                 'adMatkhau'=>'required',
+                'adSdt'=>'required',
                 'adEmail'=>'required',
-                'adQuyen'=>'required',
+               
             ],$messages);
 
             $errors=$validate->errors();
@@ -266,15 +271,28 @@ class adminController extends Controller
             }
            else
            {
-                $data = array();
-                $data['adTen']=$re->adTen;
-                $data['adTaikhoan']=$re->adTaikhoan;
-                $data['adMatkhau']=$re->adMatkhau;
-                $data['adEmail']=$re->adEmail;
-                $data['adQuyen']=$re->adQuyen;
-                DB::table('admin')->insert($data);
-                Session::forget('ad_err');
-                return redirect('adNhanvien');
+                if($re->hasFile('adHinh')==true)
+                {
+                    $data = array();
+                    $data['adTen']=$re->adTen;
+                    $data['adTaikhoan']=$re->adTaikhoan;
+                    $data['adMatkhau']=$re->adMatkhau;
+                    $data['adSdt']=$re->adSdt;
+                    $data['adEmail']=$re->adEmail;
+                    $data['adHinh'] = $re->file('adHinh')->getClientOriginalName();;
+                    $imgextention=$re->file('adHinh')->extension();
+                                $file=$re->file('adHinh');
+                                $file->move('public/images/nhanvien',$data['adHinh']);
+                    $data['adQuyen']=$re->adQuyen;
+                    DB::table('admin')->insert($data);
+                    Session::forget('ad_err');
+                    return redirect('adNhanvien');
+                    }
+                    else
+                    {
+                    Session::flash("adHinh_err","Hình của nhân viên không được trống!");
+                    return Redirect('themnhanvien');  
+                    }
             }
         }
     }
@@ -294,12 +312,13 @@ class adminController extends Controller
     }
     public function editAdmin(Request $re, $id)
     {
-       if($re->adTen ==null||$re->adTaikhoan == null||$re->adMatkhau == null||$re->adEmail==null||$re->adQuyen==null)
+       if($re->adTen ==null||$re->adTaikhoan == null||$re->adMatkhau == null||$re->adSdt == null||$re->adEmail==null||$re->adQuyen==null)
         {
             $messages =[
                 'adTen.required'=>'Tên nhân viên không được để trống',
                 'adTaikhoan.required'=>'Tài khoản nhân viên không được để trống',
                 'adMatkhau.required'=>'Mật khẩu nhân viên không được để trống',
+                'adSdt.required'=>'Số điện thoại nhân viên không được để trống',
                 'adEmail.required'=>'Email nhân viên không được để trống',
                 'adQuyen.required'=>'Quyền nhân viên không được để trống',
                 
@@ -308,6 +327,7 @@ class adminController extends Controller
                 'adTen'=>'required',
                 'adTaikhoan'=>'required',
                 'adMatkhau'=>'required',
+                'adSdt'=>'required',
                 'adEmail'=>'required',
                
             ],$messages);
@@ -316,14 +336,37 @@ class adminController extends Controller
         }
         else
         {
-            $data = array();
-            $data['adTen']=$re->adTen;
-            $data['adTaikhoan']=$re->adTaikhoan;
-            $data['adMatkhau']=$re->adMatkhau;
-            $data['adEmail']=$re->adEmail;
-            $data['adQuyen']=$re->adQuyen;
-            DB::table('admin')->where('adMa',$id)->update($data);
-            return redirect('adNhanvien');
+            if($re->hasFile('adHinh')==true)
+            {
+                $data = array();
+                $data['adMa']=$id;
+                $data['adTen']=$re->adTen;
+                $data['adTaikhoan']=$re->adTaikhoan;
+                $data['adMatkhau']=$re->adMatkhau;
+                $data['adSdt']=$re->adSdt;
+                $data['adEmail']=$re->adEmail;
+                $data['adHinh'] = $re->file('adHinh')->getClientOriginalName();;
+                $imgextention=$re->file('adHinh')->extension();
+                            $file=$re->file('adHinh');
+                            $file->move('public/images/nhanvien',$data['adHinh']);
+                $data['adQuyen']=$re->adQuyen;
+                DB::table('admin')->where('adMa',$id)->update($data);
+                return redirect('adNhanvien');
+            }
+            else
+            {
+                $data = array();
+                $data['adMa']=$id;
+                $data['adTen']=$re->adTen;
+                $data['adTaikhoan']=$re->adTaikhoan;
+                $data['adMatkhau']=$re->adMatkhau;
+                $data['adSdt']=$re->adSdt;
+                $data['adEmail']=$re->adEmail;
+                $data['adQuyen']=$re->adQuyen;
+                DB::table('admin')->where('adMa',$id)->update($data);
+                return redirect('adNhanvien');
+            }
+            
         }
     }
 
@@ -369,19 +412,47 @@ class adminController extends Controller
             }
             else
             {
-                $data = array();
-                $data['khMa']=rand(0,100).strlen($re->khTen).strlen($re->khEmail);
-                $data['khTen']=$re->khTen;
-                $data['khEmail']=$re->khEmail;
-                $data['khMatkhau']=$re->khMatkhau;
-                $data['khNgaysinh']=$re->khNgaysinh;
-                $data['khDiachi']=$re->khDiachi;
-                $data['khGioitinh']=$re->khGioitinh;
-                $data['khQuyen']=$re->khQuyen;
-                $data['khTaikhoan']=$re->khTaikhoan;
-                DB::table('khachhang')->insert($data);
-                Session::forget('kh_err');
-                return redirect('adKhachhang');
+                if($re->hasFile('khHinh'))
+                {
+                    $data = array();
+                    $data['khMa']=rand(0,100).strlen($re->khTen).strlen($re->khEmail);
+                    $data['khTen']=$re->khTen;
+                    $data['khEmail']=$re->khEmail;
+                    $data['khMatkhau']=$re->khMatkhau;
+                    $data['khNgaysinh']=$re->khNgaysinh;
+                    $data['khDiachi']=$re->khDiachi;
+                    $data['khGioitinh']=$re->khGioitinh;
+                    $data['khQuyen']=$re->khQuyen;
+                    $data['khTaikhoan']=$re->khTaikhoan;
+                    $data['khToken']="";
+                    $data['khSdt']=$re->khSdt;
+                    $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
+                        $imgextention=$re->file('khHinh')->extension();
+                                    $file=$re->file('khHinh');
+                                    $file->move('public/images/khachhang',$data['khHinh']);
+                    DB::table('khachhang')->insert($data);
+                    Session::forget('kh_err');
+                    return redirect('adKhachhang');
+                }
+                else
+                {
+                    $data = array();
+                    $data['khMa']=rand(0,100).strlen($re->khTen).strlen($re->khEmail);
+                    $data['khTen']=$re->khTen;
+                    $data['khEmail']=$re->khEmail;
+                    $data['khMatkhau']=$re->khMatkhau;
+                    $data['khNgaysinh']=$re->khNgaysinh;
+                    $data['khDiachi']=$re->khDiachi;
+                    $data['khGioitinh']=$re->khGioitinh;
+                    $data['khQuyen']=$re->khQuyen;
+                    $data['khTaikhoan']=$re->khTaikhoan;
+                    $data['khToken']="";
+                    $data['khSdt']=$re->khSdt;
+                    $data['khHinh'] = "";
+                    DB::table('khachhang')->insert($data);
+                    Session::forget('kh_err');
+                    return redirect('adKhachhang');
+                }
             }
         }
         
@@ -398,12 +469,13 @@ class adminController extends Controller
     }
     public function editkhachhang(Request $re, $id)
     {
-         if($re->khTen ==null||$re->khTaikhoan == null||$re->khMatkhau == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null||$re->khQuyen==null)
+         if($re->khTen ==null||$re->khTaikhoan == null||$re->khMatkhau == null||$re->khSdt == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null||$re->khQuyen==null)
         {
             $messages =[
                 'khTen.required'=>'Tên khách hàng không được để trống',
                 'khTaikhoan.required'=>'Tài khoản khách hàng không được để trống',
                 'khMatkhau.required'=>'Mật khẩu khách hàng không được để trống',
+                'khSdt.required'=>'Sdt khách hàng không được để trống',
                 'khEmail.required'=>'Email khách hàng không được để trống',
                 'khQuyen.required'=>'Quyền khách hàng không được để trống',
                 'khDiachi.required'=>'Địa chỉ khách hàng không được để trống',
@@ -414,6 +486,7 @@ class adminController extends Controller
                 'khTen'=>'required',
                 'khTaikhoan'=>'required',
                 'khMatkhau'=>'required',
+                'khSdt'=>'required',
                 'khEmail'=>'required',
                 'khDiachi'=>'required', 
                 'khQuyen'=>'required',
@@ -424,18 +497,43 @@ class adminController extends Controller
         }
         else
         {
-            $data = array();
-            $data['khMa']=$id;
-            $data['khTen']=$re->khTen;
-            $data['khEmail']=$re->khEmail;
-            $data['khMatkhau']=$re->khMatkhau;
-            $data['khNgaysinh']=$re->khNgaysinh;
-            $data['khDiachi']=$re->khDiachi;
-            $data['khGioitinh']=$re->khGioitinh;
-            $data['khQuyen']=$re->khQuyen;
-            $data['khTaikhoan']=$re->khTaikhoan;
-            DB::table('khachhang')->where('khMa',$id)->update($data);
-            return redirect('adKhachhang');
+            if($re->hasFile('khHinh')==true)
+            {
+                $data = array();
+                $data['khMa']=$id;
+                $data['khTen']=$re->khTen;
+                $data['khEmail']=$re->khEmail;
+                $data['khMatkhau']=$re->khMatkhau;
+                $data['khNgaysinh']=$re->khNgaysinh;
+                $data['khDiachi']=$re->khDiachi;
+                $data['khGioitinh']=$re->khGioitinh;
+                $data['khQuyen']=$re->khQuyen;
+                $data['khTaikhoan']=$re->khTaikhoan;
+                $data['khSdt']=$re->khSdt;
+                $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
+                    $imgextention=$re->file('khHinh')->extension();
+                                $file=$re->file('khHinh');
+                                $file->move('public/images/khachhang',$data['khHinh']);
+                DB::table('khachhang')->where('khMa',$id)->update($data);
+                return redirect('adKhachhang');
+            }
+            else
+            {
+                $data = array();
+                $data['khMa']=$id;
+                $data['khTen']=$re->khTen;
+                $data['khEmail']=$re->khEmail;
+                $data['khMatkhau']=$re->khMatkhau;
+                $data['khNgaysinh']=$re->khNgaysinh;
+                $data['khDiachi']=$re->khDiachi;
+                $data['khGioitinh']=$re->khGioitinh;
+                $data['khQuyen']=$re->khQuyen;
+                $data['khTaikhoan']=$re->khTaikhoan;
+                $data['khSdt']=$re->khSdt;
+                DB::table('khachhang')->where('khMa',$id)->update($data);
+                return redirect('adKhachhang');
+            }
+           
         }
     }
 
@@ -1090,30 +1188,51 @@ class adminController extends Controller
   }
   public function updateBaocao(Request $re)
   {
-    $data = array();
-    //$data["bcMa"] =  rand(0,1000).strlen($data['bcNgaylap']).rand(0,1000);
-    $data["bcNgaylap"]=$re->bcNgay;
-    $bcSoluong=DB::table('hoadon')->where('hdNgaytao',$re->bcNgay)->where('hdTinhtrang',1)->sum("hdSoluongsp");
-    $data["bcTonghangxuat"] = $bcSoluong;
-    $bcTonghangnhap=DB::table('kho')->select('khoSoluong')->where('khoNgaynhap',$re->bcNgay)->sum('khoSoluong');
-    $data["bcTonghangnhap"] =$bcTonghangnhap;
-    $bcTongtien=DB::table('hoadon')->where('hdNgaytao',$re->bcNgay)->where('hdTinhtrang',1)->sum("hdTongtien");
-    $data['bcThu'] = $bcTongtien;
-    $data["bcChi"] =0;
-    $bcTonkho=DB::table('kho')->select('khoSoluong')->sum('khoSoluong');
-    $data["bcTonkho"] =$bcTonkho;
-    $data["bcGhichu"] ="";
-    $data["bcNgaylap"] =$re->bcNgay;
-    $check_exist = DB::table('baocao')->select('bcNgaylap')->where('bcNgaylap',$re->bcNgay)->first();
-    if($check_exist)
+    if($re->dateStart > $re->dateEnd)
     {
-        DB::table('baocao')->where('bcNgaylap',$re->bcNgay)->update($data);
-        return redirect('bao-cao-ngay');
+        Session::flash("date_err","Ngày bắt đầu không được lớn hơn ngày kết thúc");
+         return Redirect('bao-cao-ngay');  
+    }
+    else if($re->dateStart==null || $re->dateEnd==null)
+    {
+        Session::flash("date_err","Ngày bắt đầu và ngày kết thúc không được trống");
+         return Redirect('bao-cao-ngay');  
     }
     else
     {
-         DB::table('baocao')->insert($data);
-        return redirect('bao-cao-ngay');
+        $data = array();
+        $bcSoluong=DB::table('hoadon')
+                ->where('hdNgaytao',">=",$re->dateStart)
+                ->where('hdNgaytao',"<=",$re->dateEnd)
+                ->where('hdTinhtrang',1)
+                ->sum("hdSoluongsp");
+        
+        $data["bcTonghangxuat"] = $bcSoluong;
+        $bcTonghangnhap=DB::table('kho')->select('khoSoluong')->where('khoNgaynhap',$re->bcNgay)->sum('khoSoluong');
+        $data["bcTonghangnhap"] =$bcTonghangnhap;
+        $bcTongtien=DB::table('hoadon')
+                ->where('hdNgaytao',">=",$re->dateStart)
+                ->where('hdNgaytao',"<=",$re->dateEnd)
+                ->where('hdTinhtrang',1)
+                ->sum("hdTongtien");
+        $data['bcThu'] = $bcTongtien;
+        $data["bcChi"] =0;
+        $bcTonkho=DB::table('kho')->select('khoSoluong')->sum('khoSoluong');
+        $data["bcTonkho"] =$bcTonkho;
+        $data["bcNgayBD"]=$re->dateStart;
+        $data["bcNgayKT"]=$re->dateEnd;
+        $data["bcNgaylap"]=date(now());
+        $check_exist = DB::table('baocao')->select('bcNgaylap')->where('bcNgaylap',$re->bcNgay)->first();
+        if($check_exist)
+        {
+            DB::table('baocao')->where('bcNgaylap',$re->bcNgay)->update($data);
+            return redirect('bao-cao-ngay');
+        }
+        else
+        {
+             DB::table('baocao')->insert($data);
+            return redirect('bao-cao-ngay');
+        }
     }
   }
   //báo cáo

@@ -27,45 +27,38 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã khách hàng</th>
+                                            <th>Hình</th>
                                             <th>Tên khách hàng</th>
                                             <th>Email</th>
                                             <th>Tài khoản</th>
-                                            <th>Mật khẩu</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Địa chỉ</th>   
+                                            <th>Ngày sinh</th>  
                                             <th>Giới tính</th>
-                                             <th>Quyền</th>
+                                             <th>Số điện thoại</th>
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Mã khách hàng</th>
+                                             <th>Hình</th>
                                             <th>Tên khách hàng</th>
                                             <th>Email</th>
                                             <th>Tài khoản</th>
-                                            <th>Mật khẩu</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Địa chỉ</th>   
+                                            <th>Ngày sinh</th> 
                                             <th>Giới tính</th>
-                                             <th>Quyền</th>
-                                            <th></th>
+                                            <th>Số điện thoại</th>
+                                            <th>Cập nhật</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
-                                            <th>{{$value->khMa}}</th>
-                                             <th>{{$value->khTen}}</th>
+                                            <th><img width="100" height="100" src="{{{'public/images/khachhang/'.$value->khHinh}}}" alt="Not image"/></th>
+                                            <th>{{$value->khTen}}</th>
                                             <th>{{$value->khEmail}}</th>
                                             <th>{{$value->khTaikhoan}}</th>
-                                            <th>{{$value->khMatkhau}}</th>
                                             <th>{{$value->khNgaysinh}}</th>
-                                            <th>{{$value->khDiachi}}</th>
-                                            <th>{{$value->khGioitinh}}</th>
-                                            <th>{{$value->khQuyen}}</th>   
-                                           
+                                            <th>{{$value->khGioitinh==1?"Nam":"Nữ"}}</th>
+                                            <th>{{$value->khSdt}}</th>
                                             <td>
                                                 <a> <a href="{{url('updateKhachhang/'.$value->khMa)}}" class="active" ui-toggle-class="">
                                                     <i class="fa far fa-edit"></i>

@@ -4,7 +4,7 @@
 
             <!-- Main Content -->
         <div id="content">
-			<form action="{{URL::to('checkAddAdmin')}}" method="GET">
+			<form action="{{URL::to('checkAddAdmin')}}" method="POST"  enctype="multipart/form-data">
 				 {{ csrf_field() }}
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tên nhân viên</label>
@@ -27,9 +27,18 @@
 			     <span style="color:red">{{$errors->first('adMatkhau')}}</span>
 			  </div>
 			   <div class="mb-3">
+			    <label for="exampleInputPassword1" class="form-label">Số điện thoại</label>
+			    <input name="adSdt" type="number" class="form-control" id="adSdt">
+			     <span style="color:red">{{$errors->first('adSdt')}}</span>
+			  </div>
+			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Email</label>
 			    <input name="adEmail" type="email" class="form-control" id="adEmail">
 			     <span style="color:red">{{$errors->first('adEmail')}}</span>
+			  </div>
+			   <div class="mb-3">
+			    <label for="exampleInputPassword1" class="form-label">Ảnh</label>
+			    <input name="adHinh" type="file" class="form-control" id="adHinh">
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Quyền</label>

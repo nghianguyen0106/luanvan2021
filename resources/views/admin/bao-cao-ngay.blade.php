@@ -15,7 +15,25 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Doanh thu</h6>
+                             <form action="{{url('update-bao-cao-ngay')}}" method="GET">
+                            {{csrf_field()}}
+                             <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Ngày bắt đầu</label>
+                                <input name="dateStart" type="date" class="dateInput"  id="dateStart">
+                                <br/>
+                                 <label for="exampleInputPassword1" class="form-label">Ngày kết thúc</label>
+                                <input name="dateEnd" type="date" class="dateInput" id="dateEnd">
+                                 
+                              </div>
+                            <button type="submit" class="btn btn-primary" style="width: 25%;">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
+                                            </span>
+                                            <span class="text"><b>Cập nhật báo cáo </b></span>
+                            </button>
+                           
 
+                        </form>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -28,7 +46,8 @@
                                             <th>Tổng thu trong ngày</th>
                                             <th>Tổng chi trong ngày</th>
                                             <th>Tồn kho</th>
-                                            <th>Ghi chú</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
                                             <th>Ngày lập</th>
                                             <th></th>
                                         </tr>
@@ -41,7 +60,8 @@
                                             <th>Tổng thu trong ngày</th>
                                             <th>Tổng chi trong ngày</th>
                                             <th>Tồn kho</th>
-                                            <th>Ghi chú</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
                                             <th>Ngày lập</th>
                                             <th></th>
                                         </tr>
@@ -55,7 +75,8 @@
                                             <td>{{$value->bcThu}}</td>
                                             <td>{{$value->bcChi}}</td>
                                             <td>{{$value->bcTonkho}}</td>
-                                            <td>{{$value->bcGhichu}}</td>
+                                            <td>{{$value->bcNgayBD}}</td>
+                                            <td>{{$value->bcNgayKT}}</td>
                                             <td>{{$value->bcNgaylap}}</td>
                                             <td>
                                              <a href="{{url('/deleteBaocao/'.$value->bcMa)}}" >
@@ -75,3 +96,5 @@
                 <!-- /.container-fluid -->
 
   @endsection
+
+

@@ -8,22 +8,27 @@
 	list-style-type: none;
 	color: #181D5E;
 }
+.menu__account .li
+{
+	width: 300px;
+}
 .menu__account--child
 {
 	position: absolute;
 	height: 0;
 	opacity: 0%;
-
 	list-style-type: none;
 	background: white;
 	z-index: 100;
 	border: 3px solid orange;
 	border-radius: 10px 0 10px 0;
 }
-.menu__account--child li
+.menu__account--child .li2
 {
-	width: 14rem;
-	margin-left: -1.5rem;
+	border: 0;
+	width: 200px;
+	display: block;
+	margin-left: 1.5rem;
 }
 
 .menu__account li:hover .menu__account--child
@@ -60,7 +65,7 @@
 
 
 /* infomation */
-.box__info h3
+h2
 {
 	text-align: center;
 }
@@ -150,4 +155,22 @@
 	border: 0;
 	outline: none;
 	background-color: white;
+}
+#khHinh
+{
+	display: none;
+}
+.lb__khHinh
+{
+	position: relative;
+	left: 15%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	color: white;
+	height: 40px;
+	width: 200px;
+	border-radius: 30px;
+	background-color: #859BEC;
+	font-family: "Montserrat",san-serif;
 }

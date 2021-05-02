@@ -431,12 +431,13 @@ class homeController extends Controller
     }
     public function editInfomation(Request $re, $id)
     {
-        if($re->khTen ==null||$re->khTaikhoan == null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null)
+        if($re->khTen ==null||$re->khTaikhoan == null||$re->khSdt==null||$re->khEmail==null||$re->khDiachi==null||$re->khNgaysinh==null||$re->khGioitinh==null)
         {
             $messages =[
                 'khTen.required'=>'Tên khách hàng không được để trống',
                 'khTaikhoan.required'=>'Tài khoản khách hàng không được để trống', 
                 'khEmail.required'=>'Email khách hàng không được để trống',
+                'khSdt.required'=>'Số điện thoại khách hàng không được để trống',
                 'khDiachi.required'=>'Địa chỉ khách hàng không được để trống',
                 'khNgaysinh.required'=>'Ngày sinh hàng không được để trống',
                 'khGioitinh.required'=>'Giới tính khách hàng không được để trống',
@@ -445,6 +446,7 @@ class homeController extends Controller
                 'khTen'=>'required',
                 'khTaikhoan'=>'required',
                 'khEmail'=>'required',
+                 'khSdt'=>'required',
                 'khDiachi'=>'required', 
                 'khNgaysinh'=>'required', 
                 'khGioitinh'=>'required',
@@ -453,6 +455,8 @@ class homeController extends Controller
         }
         else
         {
+            if($re->hasFile('khHinh')==true)
+            {
                 $data = array();
                 $data['khMa']=$id;
                 $data['khTen']=$re->khTen;
@@ -461,9 +465,30 @@ class homeController extends Controller
                 $data['khDiachi']=$re->khDiachi;
                 $data['khGioitinh']=$re->khGioitinh;
                 $data['khTaikhoan']=$re->khTaikhoan;
+                $data['khSdt']=$re->khSdt;
+                $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();
+                $imgextention=$re->file('khHinh')->extension();
+                                $file=$re->file('khHinh');
+                                $file->move('public/images/khachhang',$data['khHinh']);
+                DB::table('khachhang')->where('khMa',$id)->update($data);
+                Session::forget('khHinh');
+                Session::put('khHinh', $data['khHinh']);
+                return redirect('/infomation/'.$id);
+            }
+            else
+            {
+                $data = array();
+                $data['khMa']=$id;
+                $data['khTen']=$re->khTen;
+                $data['khEmail']=$re->khEmail;
+                $data['khNgaysinh']=$re->khNgaysinh;
+                $data['khDiachi']=$re->khDiachi;
+                $data['khGioitinh']=$re->khGioitinh;
+                $data['khTaikhoan']=$re->khTaikhoan;
+                 $data['khSdt']=$re->khSdt;
                 DB::table('khachhang')->where('khMa',$id)->update($data);
                 return redirect('/infomation/'.$id);
-            
+            }
         }
     }
     public function updatePass($id)
