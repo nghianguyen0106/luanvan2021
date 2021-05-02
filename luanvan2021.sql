@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 27, 2021 at 03:28 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.9
+-- Máy chủ: 127.0.0.1:3308
+-- Thời gian đã tạo: Th5 02, 2021 lúc 09:28 PM
+-- Phiên bản máy phục vụ: 5.7.28
+-- Phiên bản PHP: 7.4.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,46 +18,48 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `luanvan2021`
+-- Cơ sở dữ liệu: `db_luanvan`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Cấu trúc bảng cho bảng `admin`
 --
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
-  `adMa` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `adMa` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `adTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adTaikhoan` char(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adMatkhau` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adSdt` int(11) NOT NULL,
   `adEmail` char(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adQuyen` int NOT NULL,
+  `adHinh` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adQuyen` int(11) NOT NULL,
   PRIMARY KEY (`adMa`),
   UNIQUE KEY `admin_adten_unique` (`adTen`),
   UNIQUE KEY `admin_adtaikhoan_unique` (`adTaikhoan`),
   UNIQUE KEY `admin_ademail_unique` (`adEmail`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `admin`
+-- Đang đổ dữ liệu cho bảng `admin`
 --
 
-INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adEmail`, `adQuyen`) VALUES
-(1, 'a', 'a', 'a', 'a', 0),
-(2, 'Nghĩa', 'nghia1', '1', 'a@a.com', 1);
+INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adSdt`, `adEmail`, `adHinh`, `adQuyen`) VALUES
+(2, 'nhan', 'nhan', '1', 909090, 'nhan@gmail.com', 'ok.jpg', 1),
+(4, 'nghia', 'nghia', '1', 12323131, 'nghia@gmail.com', '119924581_752408281992880_1050379176225078592_n.jpg', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banner`
+-- Cấu trúc bảng cho bảng `banner`
 --
 
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE IF NOT EXISTS `banner` (
-  `bnMa` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bnMa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `bnHinh` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`bnMa`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -65,69 +67,81 @@ CREATE TABLE IF NOT EXISTS `banner` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `baocao`
+-- Cấu trúc bảng cho bảng `baocao`
 --
 
 DROP TABLE IF EXISTS `baocao`;
 CREATE TABLE IF NOT EXISTS `baocao` (
-  `bcMa` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `bcTonghangxuat` int NOT NULL,
-  `bcTonghangnhap` int NOT NULL,
-  `bcThu` int NOT NULL,
-  `bcChi` int NOT NULL,
-  `bcTonkho` int NOT NULL,
-  `bcGhichu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bcMa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bcTonghangxuat` int(11) NOT NULL,
+  `bcTonghangnhap` int(11) DEFAULT NULL,
+  `bcThu` int(11) NOT NULL,
+  `bcChi` int(11) DEFAULT NULL,
+  `bcTonkho` int(11) DEFAULT NULL,
+  `bcNgayBD` date NOT NULL,
+  `bcNgayKT` date NOT NULL,
   `bcNgaylap` date NOT NULL,
   PRIMARY KEY (`bcMa`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `baocao`
+--
+
+INSERT INTO `baocao` (`bcMa`, `bcTonghangxuat`, `bcTonghangnhap`, `bcThu`, `bcChi`, `bcTonkho`, `bcNgayBD`, `bcNgayKT`, `bcNgaylap`) VALUES
+(18, 9, 0, 134290000, 0, 1545, '2021-05-02', '2021-05-05', '2021-05-03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitiethoadon`
+-- Cấu trúc bảng cho bảng `chitiethoadon`
 --
 
 DROP TABLE IF EXISTS `chitiethoadon`;
 CREATE TABLE IF NOT EXISTS `chitiethoadon` (
-  `hdMa` int NOT NULL,
-  `spMa` int NOT NULL,
-  `cthdSoluong` int NOT NULL,
-  `cthdGia` int NOT NULL,
+  `hdMa` int(11) NOT NULL,
+  `spMa` int(11) NOT NULL,
+  `cthdSoluong` int(11) NOT NULL,
+  `cthdGia` int(11) NOT NULL,
   KEY `chitiethoadon_hdma_foreign` (`hdMa`),
   KEY `chitiethoadon_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `chitiethoadon`
+-- Đang đổ dữ liệu cho bảng `chitiethoadon`
 --
 
 INSERT INTO `chitiethoadon` (`hdMa`, `spMa`, `cthdSoluong`, `cthdGia`) VALUES
 (7113456, 97051115, 1, 7050000),
 (7113453, 553641115, 2, 72910000),
 (3113457, 553641115, 1, 36455000),
-(99115451, 189361115, 1, 93690000);
+(99115451, 189361115, 1, 93690000),
+(91121548, 96091115, 3, 18270000),
+(91121548, 97051115, 3, 21150000),
+(91121548, 114431115, 2, 88780000),
+(86121559, 96091115, 1, 6090000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `danhgia`
+-- Cấu trúc bảng cho bảng `danhgia`
 --
 
 DROP TABLE IF EXISTS `danhgia`;
 CREATE TABLE IF NOT EXISTS `danhgia` (
-  `dgMa` int NOT NULL,
-  `khMa` int NOT NULL,
+  `dgMa` int(11) NOT NULL,
+  `khMa` int(11) NOT NULL,
   `dgNoidung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `spMa` int NOT NULL,
+  `spMa` int(11) NOT NULL,
   `dgNgay` date NOT NULL,
-  `dgTrangthai` int NOT NULL,
+  `dgTrangthai` int(11) NOT NULL,
   PRIMARY KEY (`dgMa`),
   KEY `danhgia_spma_foreign` (`spMa`),
   KEY `danhgia_khma_foreign` (`khMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `danhgia`
+-- Đang đổ dữ liệu cho bảng `danhgia`
 --
 
 INSERT INTO `danhgia` (`dgMa`, `khMa`, `dgNoidung`, `spMa`, `dgNgay`, `dgTrangthai`) VALUES
@@ -137,18 +151,18 @@ INSERT INTO `danhgia` (`dgMa`, `khMa`, `dgNoidung`, `spMa`, `dgNgay`, `dgTrangth
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hinh`
+-- Cấu trúc bảng cho bảng `hinh`
 --
 
 DROP TABLE IF EXISTS `hinh`;
 CREATE TABLE IF NOT EXISTS `hinh` (
-  `spMa` int NOT NULL,
+  `spMa` int(11) NOT NULL,
   `spHinh` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `hinh_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `hinh`
+-- Đang đổ dữ liệu cho bảng `hinh`
 --
 
 INSERT INTO `hinh` (`spMa`, `spHinh`) VALUES
@@ -176,17 +190,17 @@ INSERT INTO `hinh` (`spMa`, `spHinh`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hoadon`
+-- Cấu trúc bảng cho bảng `hoadon`
 --
 
 DROP TABLE IF EXISTS `hoadon`;
 CREATE TABLE IF NOT EXISTS `hoadon` (
-  `hdMa` int NOT NULL,
-  `khMa` int NOT NULL,
+  `hdMa` int(11) NOT NULL,
+  `khMa` int(11) NOT NULL,
   `hdNgaytao` date NOT NULL,
-  `hdSoluongsp` int NOT NULL,
-  `hdTongtien` int NOT NULL,
-  `hdTinhtrang` int NOT NULL,
+  `hdSoluongsp` int(11) NOT NULL,
+  `hdTongtien` int(11) NOT NULL,
+  `hdTinhtrang` int(11) NOT NULL,
   `hdDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hdSdtnguoinhan` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hdGhichu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -195,75 +209,80 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `hoadon`
+-- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
 INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`) VALUES
-(3113457, 11651, '2021-04-24', 1, 36455000, 0, '180 cao lo p4 q8', '01623546872', NULL),
-(7113453, 11651, '2021-04-24', 2, 72910000, 0, 'asdada', '01692522094', NULL),
-(7113456, 11651, '2021-04-24', 1, 7050000, 0, 'asdada', '444444444', NULL),
-(99115451, 11651, '2021-04-26', 1, 93690000, 0, 'asdada', '0392522094', NULL);
+(3113457, 11651, '2021-04-24', 1, 36455000, 1, '180 cao lo p4 q8', '01623546872', NULL),
+(7113453, 11651, '2021-04-24', 2, 72910000, 1, 'asdada', '01692522094', NULL),
+(7113456, 11651, '2021-04-24', 1, 7050000, 1, 'asdada', '444444444', NULL),
+(86121559, 11651, '2021-05-02', 1, 6090000, 1, 'asdada', '1111111111', NULL),
+(91121548, 101041, '2021-05-02', 8, 128200000, 1, 'e2qwe', '1221222121', 'aqweqwe'),
+(99115451, 11651, '2021-04-26', 1, 93690000, 1, 'asdada', '0392522094', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khachhang`
+-- Cấu trúc bảng cho bảng `khachhang`
 --
 
 DROP TABLE IF EXISTS `khachhang`;
 CREATE TABLE IF NOT EXISTS `khachhang` (
-  `khMa` int NOT NULL,
+  `khMa` int(11) NOT NULL,
   `khTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khEmail` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khMatkhau` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khNgaysinh` date NOT NULL,
   `khDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `khQuyen` int NOT NULL,
-  `khGioitinh` int NOT NULL,
+  `khQuyen` int(11) NOT NULL,
+  `khGioitinh` int(11) NOT NULL,
   `khTaikhoan` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `khToken` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `khToken` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `khSdt` char(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `khHinh` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`khMa`),
   UNIQUE KEY `khachhang_khemail_unique` (`khEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `khachhang`
+-- Đang đổ dữ liệu cho bảng `khachhang`
 --
 
-INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khQuyen`, `khGioitinh`, `khTaikhoan`, `khToken`, `khSdt`) VALUES
-(4131, 'Tèo', 'a@a.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1', 0, 0, 'teo', NULL, NULL),
-(8761, 'NghiaSTU', 'dh51700660@student.stu.edu.vn', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1sdssad', 0, 0, 'nghiat', NULL, NULL),
-(11651, 'nghianguyen', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', 'asdada', 0, 0, 'nghia', NULL, NULL),
-(15761, 'Huỳnh Lan Anh', 'Huynhlananh29032001@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '2001-03-29', '1sdasds', 0, 0, 'lananh', NULL, NULL);
+INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khQuyen`, `khGioitinh`, `khTaikhoan`, `khToken`, `khSdt`, `khHinh`) VALUES
+(4131, 'Tèo', 'a@a.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1', 0, 0, 'teo', NULL, NULL, ''),
+(5119, 'a', 'a@abc.com', 'a', '2021-05-12', '1232', 0, 1, 'a', '', '12321312', '119924581_752408281992880_1050379176225078592_n.jpg'),
+(8761, 'NghiaSTU', 'dh51700660@student.stu.edu.vn', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1sdssad', 0, 0, 'nghiat', NULL, NULL, ''),
+(11651, 'nghianguyen', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', 'asdada', 0, 0, 'nghia', NULL, NULL, ''),
+(15761, 'Huỳnh Lan Anh', 'Huynhlananh29032001@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '2001-03-29', '1sdasds', 0, 0, 'lananh', NULL, NULL, ''),
+(101041, 'trung nhan', 'letrungnhan99@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-08-22', 'quoc lo 50', 0, 1, 'nhan', '041001212021', '5433445533', 'ok.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kho`
+-- Cấu trúc bảng cho bảng `kho`
 --
 
 DROP TABLE IF EXISTS `kho`;
 CREATE TABLE IF NOT EXISTS `kho` (
-  `spMa` int NOT NULL,
-  `khoSoluong` int NOT NULL,
+  `spMa` int(11) NOT NULL,
+  `khoSoluong` int(11) NOT NULL,
   `khoNgaynhap` date NOT NULL,
   KEY `kho_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `kho`
+-- Đang đổ dữ liệu cho bảng `kho`
 --
 
 INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
 (411841115, 100, '2021-04-22'),
 (381731115, 50, '2021-04-22'),
 (401041115, 50, '2021-04-22'),
-(97051115, 19, '2021-04-22'),
-(96091115, 15, '2021-04-22'),
+(97051115, 165, '2021-05-02'),
+(96091115, 1000, '2021-05-02'),
 (185341115, 16, '2021-04-22'),
 (189361115, 9, '2021-04-22'),
-(114431115, 12, '2021-04-22'),
+(114431115, 10, '2021-04-22'),
 (382841115, 100, '2021-04-22'),
 (416691115, 30, '2021-04-22'),
 (701191115, 15, '2021-04-22'),
@@ -272,13 +291,13 @@ INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `khuyenmai`
+-- Cấu trúc bảng cho bảng `khuyenmai`
 --
 
 DROP TABLE IF EXISTS `khuyenmai`;
 CREATE TABLE IF NOT EXISTS `khuyenmai` (
-  `kmMa` int NOT NULL AUTO_INCREMENT,
-  `kmTrigia` int NOT NULL,
+  `kmMa` int(11) NOT NULL AUTO_INCREMENT,
+  `kmTrigia` int(11) NOT NULL,
   `khMota` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khNgaybd` date NOT NULL,
   `kmNgaykt` date NOT NULL,
@@ -288,19 +307,19 @@ CREATE TABLE IF NOT EXISTS `khuyenmai` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `loai`
+-- Cấu trúc bảng cho bảng `loai`
 --
 
 DROP TABLE IF EXISTS `loai`;
 CREATE TABLE IF NOT EXISTS `loai` (
-  `loaiMa` int NOT NULL AUTO_INCREMENT,
+  `loaiMa` int(11) NOT NULL AUTO_INCREMENT,
   `loaiTen` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`loaiMa`),
   UNIQUE KEY `loai_loaiten_unique` (`loaiTen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `loai`
+-- Đang đổ dữ liệu cho bảng `loai`
 --
 
 INSERT INTO `loai` (`loaiMa`, `loaiTen`) VALUES
@@ -310,19 +329,19 @@ INSERT INTO `loai` (`loaiMa`, `loaiTen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Cấu trúc bảng cho bảng `migrations`
 --
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL,
+  `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Đang đổ dữ liệu cho bảng `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -345,29 +364,29 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mota`
+-- Cấu trúc bảng cho bảng `mota`
 --
 
 DROP TABLE IF EXISTS `mota`;
 CREATE TABLE IF NOT EXISTS `mota` (
-  `spMa` int NOT NULL,
-  `manhinh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `chuot` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banphim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `psu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mainboard` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ocung` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vga` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vocase` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tannhiet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `loa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `spMa` int(11) NOT NULL,
+  `manhinh` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `chuot` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banphim` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ram` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `psu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mainboard` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ocung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vga` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vocase` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tannhiet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `loa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   KEY `mota_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `mota`
+-- Đang đổ dữ liệu cho bảng `mota`
 --
 
 INSERT INTO `mota` (`spMa`, `manhinh`, `chuot`, `banphim`, `ram`, `psu`, `mainboard`, `ocung`, `vga`, `vocase`, `pin`, `tannhiet`, `loa`) VALUES
@@ -387,19 +406,19 @@ INSERT INTO `mota` (`spMa`, `manhinh`, `chuot`, `banphim`, `ram`, `psu`, `mainbo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nhucau`
+-- Cấu trúc bảng cho bảng `nhucau`
 --
 
 DROP TABLE IF EXISTS `nhucau`;
 CREATE TABLE IF NOT EXISTS `nhucau` (
-  `ncMa` int NOT NULL AUTO_INCREMENT,
+  `ncMa` int(11) NOT NULL AUTO_INCREMENT,
   `ncTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ncMa`),
   UNIQUE KEY `nhucau_ncten_unique` (`ncTen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `nhucau`
+-- Đang đổ dữ liệu cho bảng `nhucau`
 --
 
 INSERT INTO `nhucau` (`ncMa`, `ncTen`) VALUES
@@ -411,19 +430,19 @@ INSERT INTO `nhucau` (`ncMa`, `ncTen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanpham`
+-- Cấu trúc bảng cho bảng `sanpham`
 --
 
 DROP TABLE IF EXISTS `sanpham`;
 CREATE TABLE IF NOT EXISTS `sanpham` (
-  `spMa` int NOT NULL,
+  `spMa` int(11) NOT NULL,
   `spTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `spGia` int NOT NULL,
-  `spHanbh` int NOT NULL,
-  `kmMa` int DEFAULT NULL,
-  `thMa` int NOT NULL,
-  `loaiMa` int NOT NULL,
-  `ncMa` int NOT NULL,
+  `spGia` int(11) NOT NULL,
+  `spHanbh` int(11) NOT NULL,
+  `kmMa` int(11) DEFAULT NULL,
+  `thMa` int(11) NOT NULL,
+  `loaiMa` int(11) NOT NULL,
+  `ncMa` int(11) NOT NULL,
   PRIMARY KEY (`spMa`),
   UNIQUE KEY `sanpham_spten_unique` (`spTen`),
   KEY `sanpham_ncma_foreign` (`ncMa`),
@@ -433,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `sanpham`
+-- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
 INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spHanbh`, `kmMa`, `thMa`, `loaiMa`, `ncMa`) VALUES
@@ -454,19 +473,19 @@ INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spHanbh`, `kmMa`, `thMa`, `loa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `thuonghieu`
+-- Cấu trúc bảng cho bảng `thuonghieu`
 --
 
 DROP TABLE IF EXISTS `thuonghieu`;
 CREATE TABLE IF NOT EXISTS `thuonghieu` (
-  `thMa` int NOT NULL AUTO_INCREMENT,
+  `thMa` int(11) NOT NULL AUTO_INCREMENT,
   `thTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`thMa`),
   UNIQUE KEY `thuonghieu_thten_unique` (`thTen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `thuonghieu`
+-- Đang đổ dữ liệu cho bảng `thuonghieu`
 --
 
 INSERT INTO `thuonghieu` (`thMa`, `thTen`) VALUES
@@ -479,49 +498,49 @@ INSERT INTO `thuonghieu` (`thMa`, `thTen`) VALUES
 (4, 'MSI');
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `chitiethoadon`
+-- Các ràng buộc cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
   ADD CONSTRAINT `chitiethoadon_hdma_foreign` FOREIGN KEY (`hdMa`) REFERENCES `hoadon` (`hdMa`) ON DELETE CASCADE,
   ADD CONSTRAINT `chitiethoadon_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE;
 
 --
--- Constraints for table `danhgia`
+-- Các ràng buộc cho bảng `danhgia`
 --
 ALTER TABLE `danhgia`
   ADD CONSTRAINT `danhgia_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE,
   ADD CONSTRAINT `danhgia_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE;
 
 --
--- Constraints for table `hinh`
+-- Các ràng buộc cho bảng `hinh`
 --
 ALTER TABLE `hinh`
   ADD CONSTRAINT `hinh_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `hoadon`
+-- Các ràng buộc cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE;
 
 --
--- Constraints for table `kho`
+-- Các ràng buộc cho bảng `kho`
 --
 ALTER TABLE `kho`
   ADD CONSTRAINT `kho_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE;
 
 --
--- Constraints for table `mota`
+-- Các ràng buộc cho bảng `mota`
 --
 ALTER TABLE `mota`
   ADD CONSTRAINT `mota_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE;
 
 --
--- Constraints for table `sanpham`
+-- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_kmma_foreign` FOREIGN KEY (`kmMa`) REFERENCES `khuyenmai` (`kmMa`) ON UPDATE CASCADE,
