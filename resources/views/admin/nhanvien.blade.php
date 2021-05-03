@@ -4,13 +4,8 @@
 
             <!-- Main Content -->
             <div id="content">
-
-          
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -27,35 +22,38 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã nhân viên</th>
+                                            <th></th>
                                             <th>Tên nhân viên</th>
                                             <th>Tài khoản</th>
                                             <th>Mật khẩu</th>
+                                            <th>SDT</th>
                                             <th>Email</th>
-                                            <th>Quyền</th>   
+                                            <th>Chức vụ</th>   
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                             <th>Mã nhân viên</th>
+                                            <th></th>
                                             <th>Tên nhân viên</th>
                                             <th>Tài khoản</th>
                                             <th>Mật khẩu</th>
+                                            <th>SDT</th>
                                             <th>Email</th>
-                                            <th>Quyền</th>   
-                                            <th></th>
+                                            <th>Chức vụ</th>   
+                                            <th>Cập nhật</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
-                                            <th>{{$value->adMa}}</th>
-                                             <th>{{$value->adTen}}</th>
-                                            <th>{{$value->adTaikhoan}}</th>
-                                            <th>{{$value->adMatkhau}}</th>
-                                            <th>{{$value->adEmail}}</th>
-                                            <th>{{$value->adQuyen}}</th>   
+                                            <td><img width="100" height="100" src="{{{'public/images/nhanvien/'.$value->adHinh}}}" alt="Not image"/></td>
+                                             <td>{{$value->adTen}}</td>
+                                            <td>{{$value->adTaikhoan}}</td>
+                                            <td>{{$value->adMatkhau}}</td>
+                                            <td>{{$value->adSdt}}</td>
+                                            <td>{{$value->adEmail}}</td>
+                                            <td>{{$value->adQuyen==1?"Quản lý":"Vận chuyển"}}</td>   
                                            
                                             <td>
                                                 <a> <a href="{{url('updateAdmin/'.$value->adMa)}}" class="active" ui-toggle-class="">

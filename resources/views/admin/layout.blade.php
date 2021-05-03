@@ -16,16 +16,15 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="{{url('public/style_admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{url('public/style_admin/css/style.css')}}" rel="stylesheet">
- 
-
     <!-- Custom styles for this page -->
     <link href="{{url('public/style_admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+   
+
 </head>
 
 <body id="page-top">
@@ -39,9 +38,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <img style="border-radius: 360px" src="{{{'./public/images/nhanvien/'.Session::get('adHinh')}}}" width="50" height="50" />
                 </div>
-                <div class="sidebar-brand-text mx-3">Hi {{Session::get('adTaikhoan')}}</div>
+                <div class="sidebar-brand-text mx-3">Hi {{Session::get('adTen')}}</div>
             </a>
 
             <!-- Divider -->
@@ -199,9 +198,42 @@
 
     <!-- Page level custom scripts -->
     <script src="{{url('public/style_admin/js/demo/datatables-demo.js')}}"></script>
-<!--Alert -->
-  
+ <!--jquery datepicker-->
+   
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/dot-luv/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+      $(function() {
+        $(".dateInput").datepicker(
+            {
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true,
+            });
+      });
+  </script>
+  <!--Alert date-->
+   @if(Session::has('adHinh_err'))
+     <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Nhân viên phải có ảnh',
+      text: '{{Session::get('adHinh_err')}}!',
+    });
 
+    </script> 
+   @endif
+
+   @if(Session::has('date_err'))
+     <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi ngày',
+      text: '{{Session::get('date_err')}}!',
+     
+    });
+    </script> 
+   @endif
 
 </body>
 

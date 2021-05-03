@@ -8,23 +8,10 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý loại</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Báo cáo</h6>
                         </div>
                        
-                        <form action="{{url('update-bao-cao-ngay')}}" method="GET">
-                            {{csrf_field()}}
-                            <button type="submit" class="btn btn-primary" style="width: 25%;">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
-                                            </span>
-                                            <span class="text"><b>Cập nhật báo cáo ngày</b></span>
-                            </button>
-                            <select name="bcNgay" class="btn btn-primary">
-                                 @foreach($bcNgay as $value)
-                                            <option value="{{$value->hdNgaytao}}">{{$value->hdNgaytao}}</option>
-                                 @endforeach
-                            </select>
-                        </form>
+                    
                        
                         <div class="card-body">
                             <div class="table-responsive">

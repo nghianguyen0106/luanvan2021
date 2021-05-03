@@ -1,4 +1,4 @@
-@extends('userpage.layout')
+@extends('Userpage.layout')
 @section('content')
 
 <!-- banner -->
@@ -6,15 +6,16 @@
 <!---Content--->
  <div class="container">
 	<div class="row">
-		<div class="col-2"></div>
-		<div class="col-8">
-			<br/>
-			
-			@foreach($data as $v)
-				<form class="box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST">
-					  {{csrf_field()}}
-				<h3 style="color:orange;">Thông tin của bạn</h3>
+		<br/>
+			<h2 style="color:orange;">Thông tin của bạn</h2>
 				<hr/>
+		<div class="col-lg-12">
+			<br/>
+			@foreach($data as $v)
+				<form class="col-lg-12 box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST" enctype="multipart/form-data">
+					  {{csrf_field()}}
+					  <div class="row">
+				<div class="col-lg-7">
 				<div class="flex__info">
 					<span class="info__item">Tên:</span>
 					<span  class="info__item">
@@ -33,7 +34,8 @@
 				<br/>
 				<div class="flex__info">
 					<span class="info__item">Email:</span>
-					<span>
+					
+					<span class="info__item">
 						@if($v->khToken!=1)
 						<input class="ip" type="email" value="{{$v->khEmail}}" name="khEmail"/>
 						@else
@@ -43,16 +45,28 @@
 						<a  class="btn btn-secondary" href="{{URL::to('changeEmail/'.$v->khMa)}}">Thay đổi Email</a>
 						@endif
 						@if($v->khToken!=1)
-						<span style="color: red;"><i style="color: red;" class="fas fa-times"></i> Email chưa được xác thực!  </span><a href="{{URL::to('verify-email/'.$v->khMa)}}" class="btn btn-warning">Xác thực Email</a>
+
+						<span class="info__item" style="color: red;">Email chưa được xác thực!</span>
+						<br/>
+						<a href="{{URL::to('verify-email/'.$v->khMa)}}" class="btn btn-warning">Xác thực Email</a>
+
 						@endif
 					</span>
+
 					 <span style="color:red">{{$errors->first('khEmail')}}</span>
-					 <br/>
+					
 					 @if(Session::has('Cemail_err'))
 					  <span style="color:red">{{Session::get('Cemail_err')}}</span>
 					 @endif
 				</div>
 				<br/>
+				<div class="flex__info">
+					<span class="info__item">Số điện thoại:</span>
+					<span  class="info__item" class="info__item">
+						<input class="ip" type="text" value="{{$v->khSdt}}" name="khSdt"/>
+					</span>
+					<span style="color:red">{{$errors->first('khSdt')}}</span>
+				</div>
 				<div class="flex__info">
 					<span class="info__item">Địa chỉ:</span>
 					<span  class="info__item" class="info__item">
@@ -72,24 +86,36 @@
 				<div class="flex__info">
 					<span class="info__item">Giới tính:</span>
 					<span class="info__item">
-						<input value="0" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
-					 	<input value="1" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nữ
+						<input value="0" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
+					 	<input value="1" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nữ
 					 </span>
 				 </div>
+				 <br/>
 				<br/>
-				 <a class="btn_editPass" href="{{url('updatePass/'.$v->khMa)}}">Đổi mật khẩu</a>
-				&emsp;
-				<button class="btn_editInfo" type="submit">Cập nhật thông tin</button>
+				</div>
+				<div class="col-lg-5">
 				
+					@if($v->khHinh!=null)
+					
+					 <img style="width: 300px;height: 300px;border-radius: 360px" src="{{{'../public/images/khachhang/'.$v->khHinh}}}" />
+					 @endif
+					 <br/><br/>
+					 <input id="khHinh" name="khHinh" type="file" />
+					 <label for="khHinh" class="lb__khHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn ảnh khác</i></label>
+					 <br/>
+					 <br/>
+					
+				</div>
+			</div>
+			 <a class="btn_editPass" href="{{url('updatePass/'.$v->khMa)}}">Đổi mật khẩu</a>
 				
-				<br/>
-				<br/>
+					<button class="btn_editInfo" type="submit">Cập nhật thông tin</button>
+				 <br/>
 				</form>
-				
-				<br/>
-			@endforeach
+				 <br/>
 		</div>
-		<div class="col-2"></div>
+	
+		@endforeach
 	</div>
 </div>
 

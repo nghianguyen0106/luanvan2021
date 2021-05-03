@@ -13,7 +13,7 @@
                                 <div class="agileinfo-grap">
                                     <div class="agileits-box">
                                         <header class="agileits-box-header clearfix">
-                                            <h3>Welcome {{ Session::get('adTaikhoan')}}  !!!</h3>
+                                            <h3>Welcome {{ Session::get('adTen')}}  !!!</h3>
                                             
                                         </header>
                                         
