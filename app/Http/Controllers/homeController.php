@@ -599,5 +599,23 @@ class homeController extends Controller
 
     // ---------
     // -------------
+    // list of order
+
+    public function listorder()
+    {
+          $cate=loai::get();
+          $cart=Cart::content();
+        $total=0;
+       foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+        }
+        $list=DB::table('hoadon')->where('khMa',Session::get('khMa'))->get();
+        //dd($list);
+          return view('Userpage.order',compact('list','cate','cart','total'));
+
+    }   
+
+    // ----------
 }
 

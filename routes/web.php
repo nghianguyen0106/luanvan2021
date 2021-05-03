@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Route;
 //---------------------------------------------USER----------------------------------------------------//
 Route::get('/', 'homeController@welcome' );
 
-// user ìno
+// user info
 Route::get('/infomation/{id}','homeController@viewInfomation');
 Route::post('edit_infomation/{id}','homeController@editInfomation');
 Route::get('updatePass/{id}','homeController@updatePass');
 Route::get('editPass/{id}','homeController@editPass');
 Route::get('changeEmail/{id}','homeController@changeEmail');
+Route::get('listorder','homeController@listorder');
 //--------User register------//
 Route::get('/register','registerController@index');
 Route::post('/getregister','registerController@getregister');
