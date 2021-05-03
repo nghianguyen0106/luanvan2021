@@ -12,6 +12,8 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{url('public/fe/login/css/style.css')}}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>Register</title>
   </head>
   <body>
@@ -27,15 +29,6 @@
             <div class="mb-4">
               <h3>Register</h3>
               <p style="color: red" class="mb-4">
-                <?php 
-                  $mes = Session::get('error'); 
-                  if(isset($mes))
-                  {
-                    echo $mes;
-                    Session::forget('error');
-                  }
-                ?> 
-                  
                 </p>
             </div>
             <form action="{{URL::to('getregister')}}" method="post">
@@ -104,3 +97,13 @@
     <script src="{{url('public/fe/login/js/main.js')}}"></script>
   </body>
 </html>
+
+  @if(Session::has('error'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Opss... ',
+  text: '{{Session::get('error')}}!',
+})
+</script> 
+@endif

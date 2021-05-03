@@ -1,4 +1,7 @@
 @extends('Userpage.layout')
+@section('title')
+Thông tin cá nhân
+@endsection
 @section('content')
 
 <!-- banner -->

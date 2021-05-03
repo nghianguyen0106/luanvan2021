@@ -43,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<ul class="menu__account">
 						<li class="li">
 							<a style="text-decoration: none;font-size: 24px;color:#0A0746">
-						<img style="width: 50px;height: 50px;border-radius: 360px" src="{{{'./public/images/khachhang/'.Session::get('khHinh')}}}" />&nbsp;{{Session::get('khTen')}}</a>
+						<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />&nbsp;{{Session::get('khTen')}}</a>
 						<ul class="menu__account--child">
 							<li class="li2">
 								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{url("/infomation/".Session::get('khMa'))}}">

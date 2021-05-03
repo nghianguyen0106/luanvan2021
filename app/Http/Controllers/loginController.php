@@ -22,7 +22,7 @@ class loginController extends Controller
             session::put('khTaikhoan',$result->khTaikhoan);
             session::put('khMa',$result->khMa);
             session::put('khEmail',$result->khEmail);
-             session::put('khHinh',$result->khHinh);
+            session::put('khHinh',$result->khHinh);
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
     		return Redirect::to('product');
@@ -56,6 +56,7 @@ class loginController extends Controller
                 session::put('khTaikhoan',$checkEmail->khTaikhoan);
                 session::put('khMa',$checkEmail->khMa);
                 session::put('khEmail',$checkEmail->khEmail);
+                session::put('khHinh',$checkEmail->khHinh);
                 Session::flash('loginmess','Đăng nhập thành công !');
                 Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
                 return Redirect::to('product');
