@@ -172,7 +172,8 @@
                              <form action="{{url('/themhinh')}}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <input hidden name="spMa" value="{{$value->spMa}}" />
-                                <input type="file" name="img"  />
+                                <input id="upSpHinh" type="file" name="img"  />
+                                 <label for="upSpHinh" class="lb__upSpHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn hình mới</i></label>
                                 @if(Session::has('img_err'))
                                 {{Session::get('img_err')}}
                                 @endif

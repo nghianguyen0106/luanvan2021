@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3308
--- Thời gian đã tạo: Th5 02, 2021 lúc 09:28 PM
+-- Thời gian đã tạo: Th5 04, 2021 lúc 09:33 AM
 -- Phiên bản máy phục vụ: 5.7.28
 -- Phiên bản PHP: 7.4.0
 
@@ -83,13 +83,6 @@ CREATE TABLE IF NOT EXISTS `baocao` (
   `bcNgaylap` date NOT NULL,
   PRIMARY KEY (`bcMa`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `baocao`
---
-
-INSERT INTO `baocao` (`bcMa`, `bcTonghangxuat`, `bcTonghangnhap`, `bcThu`, `bcChi`, `bcTonkho`, `bcNgayBD`, `bcNgayKT`, `bcNgaylap`) VALUES
-(18, 9, 0, 134290000, 0, 1545, '2021-05-02', '2021-05-05', '2021-05-03');
 
 -- --------------------------------------------------------
 
@@ -204,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
   `hdDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hdSdtnguoinhan` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hdGhichu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hdNhanvien` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`hdMa`),
   KEY `hoadon_khma_foreign` (`khMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -212,13 +206,13 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
 -- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
-INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`) VALUES
-(3113457, 11651, '2021-04-24', 1, 36455000, 1, '180 cao lo p4 q8', '01623546872', NULL),
-(7113453, 11651, '2021-04-24', 2, 72910000, 1, 'asdada', '01692522094', NULL),
-(7113456, 11651, '2021-04-24', 1, 7050000, 1, 'asdada', '444444444', NULL),
-(86121559, 11651, '2021-05-02', 1, 6090000, 1, 'asdada', '1111111111', NULL),
-(91121548, 101041, '2021-05-02', 8, 128200000, 1, 'e2qwe', '1221222121', 'aqweqwe'),
-(99115451, 11651, '2021-04-26', 1, 93690000, 1, 'asdada', '0392522094', NULL);
+INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`, `hdNhanvien`) VALUES
+(3113457, 11651, '2021-04-24', 1, 36455000, 2, '180 cao lo p4 q8', '01623546872', NULL, 'nghia'),
+(7113453, 11651, '2021-04-24', 2, 72910000, 1, 'asdada', '01692522094', NULL, 'nghia'),
+(7113456, 11651, '2021-04-24', 1, 7050000, 0, 'asdada', '444444444', NULL, '4'),
+(86121559, 11651, '2021-05-02', 1, 6090000, 0, 'asdada', '1111111111', NULL, NULL),
+(91121548, 101041, '2021-05-02', 8, 128200000, 0, 'e2qwe', '1221222121', 'aqweqwe', NULL),
+(99115451, 11651, '2021-04-26', 1, 93690000, 0, 'asdada', '0392522094', NULL, NULL);
 
 -- --------------------------------------------------------
 

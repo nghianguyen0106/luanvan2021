@@ -138,6 +138,8 @@ Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');
 //--Hóa đơn--//
 Route::get('don-hang','adminController@viewHoadon');
+Route::get('them-nv-giao-hang/{id}','adminController@themNVgiao');
+Route::get('giaohang/{id}','adminController@giaohang');
 Route::get('thanhtoan/{id}','adminController@thanhtoan');
 Route::get('update-bao-cao-ngay','adminController@updateBaocao');
 //--Báo cáo ngày--//

@@ -15,11 +15,12 @@
                        
                         <div class="card-body">
                             <div class="table-responsive">
+                                 <h3>Đơn hàng chưa thanh toán</h3>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Mã hóa đơn</th>
-                                            <th>Mã khách hàng</th>
+                                            <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Tổng tiền</th>
@@ -30,7 +31,7 @@
                                     <tfoot>
                                         <tr>
                                            <th>Mã hóa đơn</th>
-                                            <th>Mã khách hàng</th>
+                                            <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Tổng tiền</th>
@@ -43,27 +44,35 @@
                                     @foreach($data1 as $value)
                                         <tr>
                                             <td>{{$value->hdMa}}</td>
-                                            <td>{{$value->khMa}}</td>
+                                            <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>
                                             <td>{{$value->hdTongtien}}</td>
-                                            <td>{{$value->hdTinhtrang==0?"Chưa thanh toán":"Thanh toán"}}</td>
+                                            <td style="color:red">{{$value->hdTinhtrang==0?"Đơn hàng mới":""}}</td>
                                             <td>
-                                                <a href="{{url('thanhtoan/'.$value->hdMa)}}">Xác nhận thanh toán</a>
+                                                <a href="{{url('them-nv-giao-hang/'.$value->hdMa)}}">
+                                                Bắt đầu giao hàng
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
                                        
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
                                 <br/>
                                 <hr/>
                                 <br/>
+                                 <div class="card-body">
+                            <div class="table-responsive">
+                                <h3>Đơn hàng đang giao</h3>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Mã hóa đơn</th>
-                                            <th>Mã khách hàng</th>
+                                            <th>Nhân viên giao</th>
+                                            <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Tổng tiền</th>
@@ -73,7 +82,8 @@
                                     <tfoot>
                                         <tr>
                                            <th>Mã hóa đơn</th>
-                                            <th>Mã khách hàng</th>
+                                           <th>Nhân viên giao</th>
+                                            <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Tổng tiền</th>
@@ -85,11 +95,59 @@
                                     @foreach($data2 as $value)
                                         <tr>
                                             <td>{{$value->hdMa}}</td>
-                                            <td>{{$value->khMa}}</td>
+                                            <td>{{$value->hdNhanvien}}</td>
+                                            <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>
                                             <td>{{$value->hdTongtien}}</td>
-                                            <td>{{$value->hdTinhtrang==1?"Thanh toán":"Chưa"}}</td>
+                                            <td><a href="{{url('thanhtoan/'.$value->hdMa)}}">{{$value->hdTinhtrang==1?"Xác nhận đã giao":""}}</a></td>
+
+                                        </tr>
+                                    @endforeach
+                                       
+                                    </tbody>
+                                </table>
+                            </div></div>
+                                 <br/>
+                                <hr/>
+                                <br/>
+                                 <div class="card-body">
+                            <div class="table-responsive">
+                                <h3>Đơn hàng đã hoàn thành</h3>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã hóa đơn</th>
+                                              <th>Nhân viên giao</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Số lượng sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Tình trạng</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                           <th>Mã hóa đơn</th>
+                                           <th>Nhân viên giao</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Số lượng sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Tình trạng</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                    @foreach($data3 as $value)
+                                        <tr>
+                                            <td>{{$value->hdMa}}</td>
+                                            <td>{{$value->hdNhanvien}}</td>
+                                            <td>{{$value->khTen}}</td>
+                                            <td>{{$value->hdNgaytao}}</td>
+                                            <td>{{$value->hdSoluongsp}}</td>
+                                            <td>{{$value->hdTongtien}}</td>
+                                            <td style="color:green">{{$value->hdTinhtrang==2?"Đã thanh toán":""}}</td>
 
                                         </tr>
                                     @endforeach

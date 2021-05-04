@@ -208,9 +208,16 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
      Session::put('dgTrangthai',$noteDanhgia);
-             $data1=DB::table('hoadon')->where('hdTinhtrang',0)->get();
-        $data2=DB::table('hoadon')->where('hdTinhtrang',1)->get();
-        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia);
+            $data1=DB::table('hoadon')
+                            ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
+                            ->where('hdTinhtrang',0)->get();
+            $data2=DB::table('hoadon')
+                            ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
+                            ->where('hdTinhtrang',1)->get();
+            $data3=DB::table('hoadon')
+                            ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
+                            ->where('hdTinhtrang',2)->get();
+        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('data3',$data3)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -1179,10 +1186,24 @@ class adminController extends Controller
     return view('admin.chitietbinhluan')->with('dg',$dg)->with('noteDanhgia',$noteDanhgia);
   }
   //Hóa đơn
-  public function thanhtoan($id)
+  public function themNVgiao($id)
+  {
+    $dataNV = DB::table('admin')->where('adQuyen',2)->get();
+    $data = DB::table('hoadon')->where('hdMa',$id)->get();
+    return view('admin.them-nv-giao-hang')->with('dataNV',$dataNV)->with('data',$data);
+  }
+  public function giaohang(Request $re,$id)
   {
     $data = array();
     $data["hdTinhtrang"]=1;
+    $data["hdNhanvien"]=$re->hdNhanvien;
+    DB::table('hoadon')->where('hdMa',$id)->update($data);
+    return redirect('don-hang');
+  }
+  public function thanhtoan($id)
+  {
+    $data = array();
+    $data["hdTinhtrang"]=2;
     DB::table('hoadon')->where('hdMa',$id)->update($data);
     return redirect('don-hang');
   }
@@ -1213,7 +1234,7 @@ class adminController extends Controller
         $bcTongtien=DB::table('hoadon')
                 ->where('hdNgaytao',">=",$re->dateStart)
                 ->where('hdNgaytao',"<=",$re->dateEnd)
-                ->where('hdTinhtrang',1)
+                ->where('hdTinhtrang',2)
                 ->sum("hdTongtien");
         $data['bcThu'] = $bcTongtien;
         $data["bcChi"] =0;
@@ -1222,17 +1243,10 @@ class adminController extends Controller
         $data["bcNgayBD"]=$re->dateStart;
         $data["bcNgayKT"]=$re->dateEnd;
         $data["bcNgaylap"]=date(now());
-        $check_exist = DB::table('baocao')->select('bcNgaylap')->where('bcNgaylap',$re->bcNgay)->first();
-        if($check_exist)
-        {
-            DB::table('baocao')->where('bcNgaylap',$re->bcNgay)->update($data);
-            return redirect('bao-cao-ngay');
-        }
-        else
-        {
-             DB::table('baocao')->insert($data);
-            return redirect('bao-cao-ngay');
-        }
+        
+        DB::table('baocao')->insert($data);
+        return redirect('bao-cao-ngay');
+        
     }
   }
   //báo cáo
