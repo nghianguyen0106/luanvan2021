@@ -43,8 +43,7 @@ Thông tin cá nhân
 						<input class="ip" type="email" value="{{$v->khEmail}}" name="khEmail"/>
 						@else
 						<p class="ip">{{$v->khEmail}} <i style="color: green" class="far fa-check-square"></i></p>
-						@endif
-						@if($v->khToken!=null)
+				
 						<a  class="btn btn-secondary" href="{{URL::to('changeEmail/'.$v->khMa)}}">Thay đổi Email</a>
 						@endif
 						@if($v->khToken!=1)

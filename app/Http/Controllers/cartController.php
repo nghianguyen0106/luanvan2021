@@ -69,6 +69,7 @@ class cartController extends Controller
                 $data['hdTongtien']=$money;
                 $data['hdNgaytao']=date("Y/m/d");
                 $data['hdTinhtrang']=0;
+                $data['adMa']=0;
                 $date=getdate();
                 $name=Session::get('khTaikhoan');
                 $data['hdMa']=''.rand(0,10).substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'].strlen($name).rand(0,10);

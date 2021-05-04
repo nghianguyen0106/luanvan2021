@@ -24,7 +24,7 @@ class CreateKhachhangsTable extends Migration
             $table->integer('khQuyen');
             $table->integer('khGioitinh');
             $table->char('khTaikhoan');
-            $table->char('khToken')->->nullable(true);
+            $table->char('khToken')->nullable(true);
             $table->engine = "InnoDB";
         });
 

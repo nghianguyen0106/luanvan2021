@@ -13,7 +13,7 @@ class CreateHoadonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hoadon', function (Blueprint $table) {
+        Schema::create('donhang', function (Blueprint $table) {
             $table->integer('hdMa')->primary();
             $table->integer('khMa');
             $table->date('hdNgaytao');
@@ -23,9 +23,12 @@ class CreateHoadonsTable extends Migration
             $table->string('hdDiachi');
             $table->char('hdSdtnguoinhan');
             $table->string('hdGhichu')->nullable(true);
+            $table->unsignedInteger('adMa');
+            $table->integer('adMa');
             $table->engine = "InnoDB";
             //foreign key
              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');
+             
             
         });
     }
@@ -37,6 +40,6 @@ class CreateHoadonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hoadon');
+       Schema::dropIfExists('hoadon');
     }
 }

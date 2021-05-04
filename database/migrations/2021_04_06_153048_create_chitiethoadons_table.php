@@ -13,7 +13,7 @@ class CreateChitiethoadonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('chitiethoadon', function (Blueprint $table) {
+        Schema::create('chitietdonhang', function (Blueprint $table) {
             $table->integer('hdMa');
             $table->integer('spMa');
             $table->integer('cthdSoluong');

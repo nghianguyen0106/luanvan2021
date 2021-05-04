@@ -34,7 +34,7 @@ Xác nhận hóa đơn
 			
 				</div>
 				<div class="clearfix"> </div>
-				<button type="submit" class="btn btn-success col-12" class="btn btn-primary">Xác nhận hóa đơn thanh toán</button>
+				<button type="submit" class="btn btn-success col-12" class="btn btn-primary">Xác nhận đơn hàng</button>
 	</div>
   
 </form>
