@@ -19,7 +19,8 @@
                             {{csrf_field()}}
                              <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Ngày bắt đầu</label>
-                                <input name="dateStart" type="date" class="dateInput"  id="dateStart">
+                                <input name="dateStart" hi type="date" class="dateInput"  id="dateStart">
+                                
                                 <br/>
                                  <label for="exampleInputPassword1" class="form-label">Ngày kết thúc</label>
                                 <input name="dateEnd" type="date" class="dateInput" id="dateEnd">

@@ -38,7 +38,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img style="border-radius: 360px" src="{{{'./public/images/nhanvien/'.Session::get('adHinh')}}}" width="50" height="50" />
+                    <img style="border-radius: 360px" src="{{{'public/images/nhanvien/'.Session::get('adHinh')}}}" width="50" height="50" />
                 </div>
                 <div class="sidebar-brand-text mx-3">Hi {{Session::get('adTen')}}</div>
             </a>

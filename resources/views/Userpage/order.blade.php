@@ -25,11 +25,11 @@ Danh sách đơn hàng
 							<td>{{$i->hdSoluongsp}}</td>
 							<td>
 								@if($i->hdTinhtrang==0)
-									Đang chờ xác nhận
+									<span style="color:red;">Đang chờ xác nhận</span>
 								@elseif($i->hdTinhtrang==1)
-									Đang giao hàng
+									<span style="color:blue;">Đang giao hàng</span>
 								@else
-									Đã giao
+									<span style="color:green;">Đã thanh toán</span>
 								@endif
 							</td>
 							<td>{{$i->hdDiachi}}</td>

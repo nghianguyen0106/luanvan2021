@@ -10,8 +10,9 @@
          <div id="content">
 			<form action="{{URL::to('/editKhachhang/'.$value->khMa)}}" method="POST" enctype="multipart/form-data">
 				 {{ csrf_field() }}
-				  <div class="mb-3">
-			  </div>
+				 <legend>Cập nhật thông tin khách hàng</legend>
+				 <hr/>
+			<div class="flex__form">
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tên khách hàng</label>
 			    <input name="khTen" type="text" value="{{$value->khTen}}" class="form-control" id="khTen">
@@ -27,6 +28,9 @@
 			    <input name="khEmail" type="email" value="{{$value->khEmail}}" class="form-control" id="khEmail">
 			     <span style="color:red">{{$errors->first('khEmail')}}</span>
 			  </div>
+			</div>
+
+			<div class="flex__form">
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tài khoản cho khách hàng</label>
 			    <input name="khTaikhoan" type="text" value="{{$value->khTaikhoan}}" class="form-control" id="khTaikhoan">
@@ -42,6 +46,9 @@
 			    <input name="khNgaysinh" type="date" value="{{$value->khNgaysinh}}" class="dateInput" id="khNgaysinh">
 			     <span style="color:red">{{$errors->first('khNgaysinhn')}}</span>
 			  </div>
+			</div>
+
+			<div class="flex__form">
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Địa chỉ</label>
 			    <input name="khDiachi" type="text" value="{{$value->khDiachi}}" class="form-control" id="khDiachi">
@@ -54,17 +61,18 @@
 			    &emsp;<input name="khGioitinh"  {{$value->khGioitinh==0?"checked":"unchecked"}} value="0" type="radio"  id="khGioitinh">Nữ
 			    <span style="color:red">{{$errors->first('khGioitinh')}}</span>
 			  </div>
-			  <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Ảnh</label>
-			    <input name="khHinh" type="file" class="form-control" id="khHinh">
-			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Quyền</label>
 			    <input name="khQuyen" value="{{$value->khQuyen}}" type="number" class="form-control" id="khQuyen">
 			     <span style="color:red">{{$errors->first('khQuyen')}}</span>
 			  </div>
-
-			 	
+			</div>
+			<br/>
+			 	<div class="mb-3">
+			    <input name="khHinh" type="file" class="form-control" id="upKhHinh">
+			     <label for="upKhHinh" class="lb__upKhHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh khách hàng</i></label>
+			  </div>
+			  <br/>
 			  <button type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
 			</form>
 		</div>
