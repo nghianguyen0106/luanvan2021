@@ -28,9 +28,11 @@ Giỏ hàng
 						<td class="invert-image"><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
 						<td class="invert">{{number_format($i->price)}} VND</td>
 						<td class="invert"><div class="counter">
-						  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
-						  <input style="width:50px " class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="1">
-						  <button class="btn btn-outline-success "  type="button"  onClick='increaseCount(event, this)'>+</button>
+						  {{-- <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button> --}}
+						  <a class="btn btn-outline-danger" href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a>
+						  <input style="width:50px;border: 0;text-align: center;" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
+						  {{-- <button class="btn btn-outline-success "  type="button"  onClick='increaseCount(event, this)'>+</button> --}}
+						   <a class="btn btn-outline-success" href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a>
 						</div></td>
 						<td class="invert">0%</td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>

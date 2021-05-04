@@ -12,8 +12,8 @@ Xác nhận hóa đơn
     <input type="text" class="form-control" id="address" name="address">
   </div>
     <div class="mb-3">
-    <label for="sdt" class="form-label">Số điện thoại người nhận</label>
-    <input type="number" required="" class="form-control" id="sdt" name="sdt">
+    <label for="sdt" class="form-label">Số điện thoại người nhận( nếu để trống sẽ chọn số điện thoại trong thông tin đăng ký)</label>
+    <input type="number" class="form-control" id="sdt" name="sdt">
   </div>
   <div class="mb-3">
     <label for="note" class="form-label">Ghi chú</label>

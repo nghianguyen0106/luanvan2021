@@ -12,7 +12,7 @@ Danh sách sản phẩm
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
 			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
-				{{ csrf_field() }}
+			{{csrf_field()}}
 				<div class="col">
 					<div class="row-1">
 						<div class="input-group mb-1">
@@ -42,7 +42,6 @@ Danh sách sản phẩm
 							@foreach($brand as $i)
 								<div class="row-1 form-check-inline">
 								  <label class="form-check-label"><input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">&nbsp;
-								  
 								    {{$i->thTen}}
 								  </label>
 								</div>
@@ -51,13 +50,13 @@ Danh sách sản phẩm
 						<hr>
 						<div class="col my-3">
 							@foreach($needs as $i)
-							<label >{{$i->ncTen}}<input type="checkbox" name="needs[]" class="row-1 form-check-input ms-1" value="{{$i->ncMa}}"></label>&nbsp;&nbsp;
+							<label ><input type="checkbox" name="needs[]" class="row-1 form-check-input ms-1" value="{{$i->ncMa}}">&nbsp;{{$i->ncTen}}</label>&nbsp;&nbsp;
 							@endforeach
 						</div>
 						<hr>
 						<div class="col my-3">
 							@foreach($cate as $i)
-							<label >{{$i->loaiTen}}<input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}"></label>&nbsp;&nbsp;
+							<label ><input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}">&nbsp;{{$i->loaiTen}}</label>&nbsp;&nbsp;
 							@endforeach
 						</div>
 					</div>

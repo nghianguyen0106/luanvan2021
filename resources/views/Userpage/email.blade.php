@@ -32,7 +32,7 @@
       <td style="margin-left: 15px;">{{$v->spTen}}</td>
       <td style="margin-left: 15px;">{{$v->cthdSoluong}}</td>
       <td style="margin-left: 15px;">{{number_format($v->spGia)}} VND</td>
-      <td style="margin-left: 15px;">{{$v->kmMa}} %</td>
+      <td style="margin-left: 15px;">0%</td>
       <td style="margin-left: 15px;">{{number_format($v->cthdGia)}} VND</td>
     </tr>
     @endforeach

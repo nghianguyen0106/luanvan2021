@@ -46,6 +46,8 @@ Route::post('gocheckout/{id}','cartController@gocheckout');
 Route::get('order','homeController@order');
 Route::get('sendmail','cartController@sendmail');
 
+Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
+Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
 // verify-email
 Route::get('verify-email/{id}','homeController@verifyemail');
 Route::get('sendcode','homeController@sendcode');

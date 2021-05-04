@@ -88,14 +88,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header-bot">
 	<div class="container">
 		
-		<div class="col-md-6 header-middle">
+{{-- 		<div class="col-md-6 header-middle">
 			<form  class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
 				
 				<div class="search">
 					<input type="search" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="" name="proname" >
 				</div>
 				<div class="section_room">
-					<select id="country" name="category" onchange="change_country(this.value)" class="frm-field required">
+					<select id="country" name="category[]" onchange="change_country(this.value)" class="frm-field required">
 						@foreach($cate as $i)
 						<option value="{{$i->loaiMa}}">{{$i->loaiTen}}</option>
 						@endforeach 
@@ -108,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</form>
 		</div>
 
-		<div class="clearfix"></div>
+		<div class="clearfix"></div> --}}
 	</div>
 </div>
 <!-- //header-bot -->

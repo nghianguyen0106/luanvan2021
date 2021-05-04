@@ -55,65 +55,113 @@ class cartController extends Controller
         return redirect()->back();
     }
 
+    public function changeQuantyIncrease(Request $re)
+    {
+        $check=Cart::get($re->id);
+        $d=$check->qty;
+        $d++;
+        Cart::update($re->id,$d);
+        //dd(Cart::get($re->id));
+        return Redirect::to('checkout');
+    }
+    public function changeQuantyDecrease(Request $re)
+    {
+         
+        $check=Cart::get($re->id);
+        if($check->qty==1)
+        {
+            Cart::remove($re->id);
+            return Redirect::to('checkout');
+        }
+        $d=$check->qty;
+        $d--;
+        Cart::update($re->id,$d);
+        //dd(Cart::get($re->id));
+        return Redirect::to('checkout');
+    }
+
     public function gocheckout(Request $re,$money)
     {
-        // dd(Cart::content());
+     
         if(Cart::count()>0)
         {
+             foreach (Cart::content() as $v) 
+            {
+                $checkQty=DB::table('kho')->where('spMa',$v->id)->first();
+                if($v->qty>$checkQty->khoSoluong)
+                {
+                    session::flash('errCheckout','Số lượng của sản phẩm '.$v->name.' vượt quá số lượng trong kho hàng vui lòng điều chỉnh lại !');
+                    return Redirect::to('checkout');
+                }
+
+            }
             if(session::has('khTaikhoan'))
             {
-                    //create order
                 $customerInfo=DB::table('khachhang')->where('khMa',Session::get('khMa'))->first();
-                $data['khMa']=Session::get('khMa');
-                $data['hdSoluongsp']=Cart::count();
-                $data['hdTongtien']=$money;
-                $data['hdNgaytao']=date("Y/m/d");
-                $data['hdTinhtrang']=0;
-                $data['adMa']=0;
-                $date=getdate();
-                $name=Session::get('khTaikhoan');
-                $data['hdMa']=''.rand(0,10).substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'].strlen($name).rand(0,10);
-                if($re->address !=null)
+                //dd($customerInfo);
+                if($customerInfo->khToken==1)
                 {
-                    $data['hdDiachi']=$re->address;
+                    //create order
+                    $data['khMa']=Session::get('khMa');
+                    $data['hdSoluongsp']=Cart::count();
+                    $data['hdTongtien']=$money;
+                    $data['hdNgaytao']=date("Y/m/d");
+                    $data['hdTinhtrang']=0;
+                    $data['adMa']=0;
+                    $date=getdate();
+                    $name=Session::get('khTaikhoan');
+                    $data['hdMa']=''.rand(0,10).substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'].strlen($name).rand(0,10);
+                    if($re->address !=null)
+                    {
+                        $data['hdDiachi']=$re->address;
+                    }
+                    else
+                    {
+                        $data['hdDiachi']=$customerInfo->khDiachi;
+                    }
+                    $data['hdGhichu']=$re->note;
+                    if($re->sdt==null)
+                    {
+                        $data['hdSdtnguoinhan']=$customerInfo->khSdt;
+                    }
+                    elseif($re->sdt>10000000000||$re->sdt<100000000)
+                    {
+                        session::flash('errsdt','Số điện thoại không hợp lệ !');
+                        return redirect()->back();
+                    }
+                    else
+                    {
+                        $data['hdSdtnguoinhan']=$re->sdt;
+                    }
+
+                    DB::table('hoadon')->insert($data);
+                    
+                    
+                    //create order details
+                    foreach (Cart::content() as $k => $i) 
+                    {
+
+                        $productQuanty=DB::table('kho')->where('spMa',$i->id)->first();
+                                         
+
+                        $update['khoSoluong']=$productQuanty->khoSoluong-$i->qty;
+                        DB::table('kho')->where('spMa',$i->id)->update($update);
+                        $dd['hdMa']=$data['hdMa'];
+                        $dd['spMa']= $i->id;
+                        $dd['cthdSoluong']=$i->qty;
+                        $dd['cthdGia']=$i->price * $i->qty;
+                        DB::table('chitiethoadon')->insert($dd);
+                    }
+                    Cart::destroy();
+
+                    $this->sendmail($data['hdMa']);
+                     return Redirect::to('product');
                 }
                 else
                 {
-                    $data['hdDiachi']=$customerInfo->khDiachi;
+                    session::flash('err','Vui lòng xác thực email trước khi thực hiện thanh toán!');
+                    return Redirect::to('infomation/'.$customerInfo->khMa);
                 }
-                $data['hdGhichu']=$re->note;
-                if($re->sdt>10000000000||$re->sdt<100000000)
-                {
-                    session::flash('errsdt','Số điện thoại không hợp lệ !');
-                    return redirect()->back();
-                }
-                else
-                {
-                    $data['hdSdtnguoinhan']=$re->sdt;
-                }
-
-                DB::table('hoadon')->insert($data);
-                
-                
-                //create order details
-                foreach (Cart::content() as $k => $i) 
-                {
-
-                    $productQuanty=DB::table('kho')->where('spMa',$i->id)->first();
-                                     
-
-                    $update['khoSoluong']=$productQuanty->khoSoluong-$i->qty;
-                    DB::table('kho')->where('spMa',$i->id)->update($update);
-                    $dd['hdMa']=$data['hdMa'];
-                    $dd['spMa']= $i->id;
-                    $dd['cthdSoluong']=$i->qty;
-                    $dd['cthdGia']=$i->price * $i->qty;
-                    DB::table('chitiethoadon')->insert($dd);
-                }
-                Cart::destroy();
-
-                $this->sendmail($data['hdMa']);
-                 return Redirect::to('product');
             }
             else
             {

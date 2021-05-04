@@ -68,6 +68,16 @@ class registerController extends Controller
 	    	}
 	    	$data['khQuyen']=0;
 	    	$data['khGioitinh']=$re->sex;
+	    	if($re->sdt>10000000000||$re->sdt<100000000)
+                    {
+                        session::flash('error','Số điện thoại không hợp lệ !');
+                        return redirect()->back();
+                    }
+                    else
+                    {
+                        $data['khSdt']=$re->sdt;
+                    }
+	    	
 	    	$result2=DB::table('khachhang')->where('khTaikhoan',$re->username)->first();
 	    
 	    	if($result2)

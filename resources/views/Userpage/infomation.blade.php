@@ -121,6 +121,16 @@ Thông tin cá nhân
 	</div>
 </div>
 
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo: ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
 @endsection
 
 

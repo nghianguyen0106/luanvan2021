@@ -62,6 +62,10 @@
                 <label for="address">Address</label>
                 <input type="text" name="address" required class="form-control" id="password">
               </div>
+              <div class="form-group  ">
+                <label for="sdt">Phone number</label>
+                <input type="number" name="sdt" required class="form-control" id="password">
+              </div>
               <div class="form-group last  mb-3">
                 <input type="radio" name="sex" checked value="0" >&nbsp;Nam &nbsp;&nbsp;
                 <input type="radio" name="sex" value="1" >&nbsp;Nữ

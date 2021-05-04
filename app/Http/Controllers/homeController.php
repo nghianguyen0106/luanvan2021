@@ -301,6 +301,7 @@ class homeController extends Controller
             elseif($re->proname !=null && $re->category !=null )
             {
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->where('sanpham.spGia',$re->priceFrom)->where('sanpham.spTen','like','%'.$re->proname.'%')->whereIn('sanpham.loaiMa',$re->category)->get();
+                
                 return view('Userpage.product',compact('db','brand','cate','needs','total'));
             }
             elseif($re->proname !=null && $re->brand!=null )
@@ -368,13 +369,13 @@ class homeController extends Controller
        Session::forget("note__err");
        //end
         $cate=loai::get();
-        $cart=Cart::content();
+        $cart=cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
         }
-            
+        
        return view('Userpage.checkout',compact('cate','cart','total'));
     }
     public function order()
@@ -418,6 +419,7 @@ class homeController extends Controller
         
         Session::forget("note__errC");
          Session::forget("note__err");
+ 
          $cate=loai::get();
           $cart=Cart::content();
         $total=0;
