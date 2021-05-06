@@ -13,7 +13,7 @@
 			    <input name="ncTen" type="text" value="{{$value->ncTen}}" class="form-control" id="ncTen">
 			  </div>
 			 	<span style="color:red">{{$errors->first('ncTen')}}</span>
-			  <button type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 			</form>
 		
 		</div>

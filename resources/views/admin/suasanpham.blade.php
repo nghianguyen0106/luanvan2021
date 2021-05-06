@@ -47,16 +47,16 @@
                     </div>
                     <br/>
                       <div class="flex__form">
-                        <div class="mb-3">
-                           <label for="exampleInputPassword1" class="form-label">Khuyến mãi </label>
-         			         @foreach($kmOld as $kmOld)
-                            <select class="form-control" style="width: 205px" name="kmMa">
-                               <option value="{{$kmOld->kmMa}}">{{$kmOld->kmTrigia}}</option>
-                             @endforeach
-                               @foreach($kmMa as $km)
-                                  <option  value="{{$km->kmMa}}">{{$km->kmTrigia}}</option>
-                               @endforeach
-                            </select>
+                       <div class="mb-3">
+                           <label for="exampleInputPassword1" class="form-label">khuyến mãi</label>
+                             <select class="form-control" style="width: 205px" name="thMa">
+                                @foreach($kmOld as $kmOld)
+                                        <option value="{{$kmOld->kmMa}}">{{$kmOld->kmTrigia}}</option>
+                                   @endforeach
+                                        @foreach($kmMa as $km)
+                                            <option  value="{{$km->kmMa}}">{{$km->kmTrigia}}</option>
+                                        @endforeach
+                                    </select>
                         </div>
                          <div class="mb-3">
                            <label for="exampleInputPassword1" class="form-label">Thương hiệu</label>
@@ -165,7 +165,7 @@
                     @endforeach
                     <br/>			
          			<!---end foreach mo ta--->  
-		            <div class="flex__form"><button type="submit" class="btn-primary" >Cập nhật</button></div>	
+		            <div class="flex__form"><button class="btn_ok" type="submit" class="btn-primary" >Cập nhật</button></div>	
     		 </form>
              
                             <h4>Hình ảnh sản phẩm</h4>
@@ -177,7 +177,7 @@
                                 @if(Session::has('img_err'))
                                 {{Session::get('img_err')}}
                                 @endif
-                                <button type="submit" class="btn-link" name="btnTH">Thêm hình</button>
+                                <button class="btn_ok" type="submit" class="btn-link" name="btnTH">Thêm hình</button>
                             </form>
                             <div style="display: flex;flex-direction: row; flex-wrap: wrap;padding: 10px 10px; height: 350px;overflow-y: scroll;">
                              @foreach($hinh as $hinh)

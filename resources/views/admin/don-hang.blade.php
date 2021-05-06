@@ -95,7 +95,7 @@
                                     @foreach($data2 as $value)
                                         <tr>
                                             <td>{{$value->hdMa}}</td>
-                                            <td>{{$value->hdNhanvien}}</td>
+                                            <td>{{$value->adTen}}</td>
                                             <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>
@@ -142,7 +142,7 @@
                                     @foreach($data3 as $value)
                                         <tr>
                                             <td>{{$value->hdMa}}</td>
-                                            <td>{{$value->hdNhanvien}}</td>
+                                            <td>{{$value->adTen}}</td>
                                             <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>

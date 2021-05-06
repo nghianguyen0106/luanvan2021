@@ -174,3 +174,12 @@ h2
 	background-color: #859BEC;
 	font-family: "Montserrat",san-serif;
 }
+
+#click__pass, #click__pass2, #click__pass3
+{
+	position: relative;
+	top:-1.5rem;
+	left:150%;
+	z-index: 100;
+	cursor: pointer;
+}

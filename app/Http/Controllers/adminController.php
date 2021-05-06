@@ -162,7 +162,7 @@ class adminController extends Controller
         if(Session::has('adTaikhoan'))
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
-     Session::put('dgTrangthai',$noteDanhgia);
+            Session::put('dgTrangthai',$noteDanhgia);
              $data=DB::table('nhucau')->get();
         return view('admin.nhucau')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
@@ -174,7 +174,10 @@ class adminController extends Controller
     {
          if(Session::has('adTaikhoan'))
         {
-            return view('admin.khuyenmai');
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+             $data=DB::table('khuyenmai')->get();
+            return view('admin.khuyenmai')->with('data',$data)->with('noteDanhgia',$noteDanhgia);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -213,9 +216,11 @@ class adminController extends Controller
                             ->where('hdTinhtrang',0)->get();
             $data2=DB::table('hoadon')
                             ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
+                            ->leftjoin('admin','admin.adMa','=','hoadon.adMa')
                             ->where('hdTinhtrang',1)->get();
             $data3=DB::table('hoadon')
                             ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
+                            ->leftjoin('admin','admin.adMa','=','hoadon.adMa')
                             ->where('hdTinhtrang',2)->get();
         return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('data3',$data3)->with('noteDanhgia',$noteDanhgia);
         }
@@ -1165,6 +1170,42 @@ class adminController extends Controller
         return redirect('adBanner');
     }
   }
+   //endbanner
+
+  //Khuyến mãi
+  public function adCheckAddKhuyenmai(Request $re)
+  {
+      if($re->kmTrigia == null)
+        {
+            Session::forget('th_err');
+            $messages =[
+                'kmTrigia.required'=>'giá trị khuyến mãi không được để trống',
+            ];
+            $this->validate($re,[
+                'kmTrigia'=>'required',
+            ],$messages);
+
+            $errors=$validate->errors();
+
+        }
+        else
+        {
+                $data = array();
+                $data['kmTrigia']=$re->kmTrigia;
+                $data['kmMota']=null;
+                $data['kmNgaybd']=null;
+                $data['kmNgaykt']=null;
+                DB::table('khuyenmai')->insert($data);
+                return redirect('adKhuyenmai');
+        }
+    }
+      public function adDeleteKhuyenmai($id)
+      {
+        DB::table('khuyenmai')->where('kmMa',$id)->delete();
+       
+        return redirect('adKhuyenmai');
+      }
+//end khuyến mãi  
 
   //Bình luận đánh giá
   public function viewBLSP($id)
@@ -1196,7 +1237,7 @@ class adminController extends Controller
   {
     $data = array();
     $data["hdTinhtrang"]=1;
-    $data["hdNhanvien"]=$re->hdNhanvien;
+    $data["adMa"]=$re->hdNhanvien;
     DB::table('hoadon')->where('hdMa',$id)->update($data);
     return redirect('don-hang');
   }

@@ -49,7 +49,7 @@
 			     <label for="upAdHinh" class="lb__upAdHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh nhân viên</i></label>
 			  </div>
 			 	<br/>
-			  <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
 			</form>
 		</div>
 			@endforeach

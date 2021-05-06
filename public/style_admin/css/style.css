@@ -17,16 +17,43 @@ table
 }
 .lb__adHinh, .lb__upAdHinh, .lb__khHinh ,.lb__upKhHinh, .lb__upSpHinh
 {
+	font-size: 12px;
 	position: relative;
-	left: 15%;
+	left: 7%;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	color: white;
-	height: 50px;
-	width: 300px;
+	height: 45px;
+	width: 240px;
 	border-radius: 30px;
-	padding: 10px 20px 10px 20px;
+	cursor: pointer;
 	background-color: #859BEC;
+	font-family: "Montserrat",san-serif;
+}
+
+
+#click__pass
+{
+	color:white;
+	cursor: pointer;
+	
+}
+#click__pass:hover
+{
+	color:#6294EF;
+	border-bottom:1px solid #6294EF;
+}
+
+.btn_ok
+{
+	position: relative;
+	left: 40%;
+	font-size: 24px;
+	background: green;
+	border:0;
+	outline: none;
+	color: white;
+	padding: 5px 20px 5px 20px;
 	font-family: "Montserrat",san-serif;
 }

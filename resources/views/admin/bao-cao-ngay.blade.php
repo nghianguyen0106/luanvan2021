@@ -43,9 +43,9 @@
                                         <tr>
                                             <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>
-                                            <th>Tổng sản phẩm nhập</th>
+                                            
                                             <th>Tổng thu trong ngày</th>
-                                            <th>Tổng chi trong ngày</th>
+                                            
                                             <th>Tồn kho</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
@@ -57,9 +57,9 @@
                                         <tr>
                                             <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>
-                                            <th>Tổng sản phẩm nhập</th>
+                                            
                                             <th>Tổng thu trong ngày</th>
-                                            <th>Tổng chi trong ngày</th>
+                                          
                                             <th>Tồn kho</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
@@ -72,9 +72,9 @@
                                         <tr>
                                             <td>{{$value->bcMa}}</td>
                                             <td>{{$value->bcTonghangxuat}}</td>
-                                            <td>{{$value->bcTonghangnhap}}</td>
+                                            
                                             <td>{{$value->bcThu}}</td>
-                                            <td>{{$value->bcChi}}</td>
+                                            
                                             <td>{{$value->bcTonkho}}</td>
                                             <td>{{$value->bcNgayBD}}</td>
                                             <td>{{$value->bcNgayKT}}</td>

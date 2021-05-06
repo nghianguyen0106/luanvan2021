@@ -59,7 +59,7 @@
 			  
 
 			 	
-			  <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
 			</form>
 		</div>
 	</div>

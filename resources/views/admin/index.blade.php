@@ -6,15 +6,15 @@
 
             <!-- Main Content -->
            <section id="main-content">
-                <div class="row">
-                    <div class="panel-body">
-                        <div class="col-md-12 w3ls-graph">
+                <div class="row justify-content-around" >
+                    <div class="panel-body" >
+                        <div class="col-md-12 w3ls-graph ">
                             <!--agileinfo-grap-->
-                                <div class="agileinfo-grap">
+                                <div class="agileinfo-grap ">
                                     <div class="agileits-box">
                                         <header class="agileits-box-header clearfix">
-                                            <h3>Welcome {{ Session::get('adTen')}}  !!!</h3>
-                                            
+                                            <br/>
+                                            <h2>Welcome {{ Session::get('adTen')}}!!!</h2>
                                         </header>
                                         
                                         </div>

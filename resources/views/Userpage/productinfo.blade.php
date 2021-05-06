@@ -74,7 +74,7 @@ Thông tin sản phẩm
 		      <a class="nav-link active" data-toggle="tab" href="#home">Thông tin chi tiết</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" data-toggle="tab" href="#menu1">Đánh giá</a>
+		      <a class="nav-link" data-toggle="tab" href="#menu1">Bình luận</a>
 		    </li>
 		  </ul>
 
@@ -126,7 +126,7 @@ Thông tin sản phẩm
 			   			@endif
 			   			@endforeach
 			   			@else
-			   			<div class="col-12"> <p class="bg-info">Chưa có đánh giá nào về sản phẩm này.</p></div>
+			   			<div class="col-12"> <p class="bg-info">Chưa có bình nào về sản phẩm này.</p></div>
 			   			@endif
 			   			
 			   		{{-- add comment --}}
@@ -136,7 +136,7 @@ Thông tin sản phẩm
 			   				{{ csrf_field() }}
 			   				<div class="form-floating mb-3">
 							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >
-							  <label for="comment">Đánh giá/Bình luận của bạn</label>
+							  <label for="comment">Bình luận của bạn</label>
 							  @foreach($errors->all() as $i)
 			   			<p class="alert-danger">{{$i}}</p>
 			   			@endforeach

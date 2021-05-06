@@ -14,58 +14,51 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý khuyến mãi</h6>
+                            <hr/>
+
                         </div>
+                        <form action="{{URL::to('/checkAddKhuyenmai')}}" method="POST">
+                             {{ csrf_field() }}
+                          <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Giá trị khuyến mãi</label>
+                            <input name="kmTrigia" type="number" class="form-control" id="kmTrigia">
+                              
+                          </div>
+                            <span style="color:red">{{$errors->first('kmTrigia')}}</span>
+                          <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+                        </form>
+                        <br/>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã sản phẩm</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Giá</th>
-                                            <th>Hạn bảo hành</th>
-                                            <th>Khuyến mãi</th>
-                                            <th>Thương hiệu</th>
-                                            <th>Nhu cầu</th>
-                                            <th>Loại</th>
-                                            <th>Cập nhật</th>
+                                            <th>Mã khuyến mãi</th>
+                                            <th>Trị giá</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Mã sản phẩm</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Giá</th>
-                                            <th>Hạn bảo hành</th>
-                                            <th>Khuyến mãi</th>
-                                            <th>Thương hiệu</th>
-                                            <th>Nhu cầu</th>
-                                            <th>Loại</th>
+                                            <th>Mã khuyến mãi</th>
+                                            <th>Trị giá</th>
                                              <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        @foreach($data as $value)
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                             <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td>{{$value->kmMa}}</td>
+                                            <td>{{$value->kmTrigia}}%</td>
                                             <td>
-                                                <a> <a href="#" class="active" ui-toggle-class="">
-                                                    <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a href="#" >
+                                                <a  href="{{url('deleteKhuyenmai/'.$value->kmMa)}}">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
                                                 </a></a>
                                             </td>
                                         </tr>
 
-                                       
+                                      @endforeach 
                                     </tbody>
                                 </table>
                             </div>

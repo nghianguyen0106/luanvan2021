@@ -73,7 +73,7 @@
 			     <label for="upKhHinh" class="lb__upKhHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh khách hàng</i></label>
 			  </div>
 			  <br/>
-			  <button type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
 			</form>
 		</div>
 			@endforeach

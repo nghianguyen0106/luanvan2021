@@ -13,7 +13,7 @@
 			    <input name="loaiTen" type="text" value="{{$value->loaiTen}}" class="form-control" id="loaiTen">
 			  </div>
 			 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
-			  <button type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 			</form>
 		
 		</div>

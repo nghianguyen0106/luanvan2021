@@ -13,7 +13,7 @@
 			    <label for="exampleInputPassword1" class="form-label">Chọn nhân viên nhận đơn hàng</label>
 				<select style="width: 205px" class="form-control m-bot15" name="hdNhanvien">
 		                            @foreach($dataNV as $v)
-		                                <option value="{{$v->adTen}}" >{{$v->adTen}}</option>
+		                                <option value="{{$v->adMa}}" >{{$v->adTen}}</option>
 		                            @endforeach
 		         </select>
 			 	<br/>

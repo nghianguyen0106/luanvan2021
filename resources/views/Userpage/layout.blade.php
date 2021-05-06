@@ -234,6 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="{{URL::asset("public/fe/js/simpleCart.min.js")}}"></script>
 		<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
 <!-- cart -->
+<script src="{{URL::asset("public/fe/js/js.js")}}"></script>
 
 </body>
 </html>

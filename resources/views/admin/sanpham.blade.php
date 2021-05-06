@@ -65,7 +65,14 @@
                                             <th>{{$value->khoSoluong>0?"Còn hàng":"Hết hàng"}}</th>
                                             <th>{{$value->spHanbh}}&nbsp;năm</th>
                                            
-                                            <th>{{$value->kmTrigia}}%</th>
+                                            <th>
+                                                @if($value->kmTrigia!=null)
+                                                    $value->kmTrigia
+                                                @else
+                                                    0
+                                                @endif
+                                                %
+                                            </th>
                                            
                                             <th>{{$value->thTen}}</th>
                                             

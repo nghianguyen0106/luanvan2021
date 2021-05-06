@@ -13,9 +13,10 @@
 					<div class="flex__info">
 						<span class="info__item">Mật khẩu cũ:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khPassCu" placeholder="*********" />
+							<input id="cont__pass" class="ip" type="password"  name="khPassCu" placeholder="Nhập vào đây" />
+							<i id="click__pass" class="far fa-eye" style="font-size: 23px;"></i>
 						</span><br/>
-						<span style="color:red">{{$errors->first('khPassCu')}}</span><span>Mật khẩu mặc định sau khi tạo tài khoản là "123"</span>
+						
 						@if(Session::has('note__errC')!=null)
 						{
 							<span style="color:red">{{Session::get("note__errC")}}</span>
@@ -25,14 +26,16 @@
 					<div class="flex__info">
 						<span class="info__item">Mật khẩu mới:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khPassMoi" placeholder="*********" />
+							<input id="cont__pass2" class="ip" type="password"  name="khPassMoi" placeholder="Nhập vào đây" />
+							<i id="click__pass2" class="far fa-eye" style="font-size: 23px;"></i>
 						</span><br/>
 						<span style="color:red">{{$errors->first('khPassMoi')}}</span>
 					</div>
 					<div class="flex__info">
 						<span class="info__item">Nhập lại mật khẩu mới:</span>
 						<span  class="info__item" class="info__item">
-							<input class="ip" type="text"  name="khRePassMoi" placeholder="*********" />
+							<input id="cont__pass3" class="ip" type="password"  name="khRePassMoi" placeholder="Nhập vào đây" />
+							<i id="click__pass3" class="far fa-eye" style="font-size: 23px;"></i>
 						</span><br/>
 						<span style="color:red">{{$errors->first('khRePassMoi')}}</span>
 						@if(Session::has('note__err')!=null)

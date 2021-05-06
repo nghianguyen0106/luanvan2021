@@ -47,7 +47,9 @@
 		                                <option value="{{$kmMa[$key]->kmMa}}" >{{$kmMa[$key]->kmTrigia}}</option>
 		                            @endforeach
 		               </select>
+		              
 		           </div>
+
 		              <div class="mb-3">
 					 <label for="exampleInputPassword1" class="form-label">Thương hiệu</label>
 					  <select style="width: 205px" class="form-control m-bot15" name="thMa">
