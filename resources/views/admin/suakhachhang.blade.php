@@ -75,6 +75,8 @@
 			  <br/>
 			  <button class="btn_ok" type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
 			</form>
+			<br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
 		</div>
 			@endforeach
 	</div>

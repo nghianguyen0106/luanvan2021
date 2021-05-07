@@ -180,6 +180,8 @@
 			  <div class="flex__form"><button type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button></div>
 			</form>
 			<br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
+			<br/>
 		</div>
 	</div>
 @endsection

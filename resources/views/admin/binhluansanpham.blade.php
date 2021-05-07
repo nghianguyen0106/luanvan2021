@@ -68,6 +68,8 @@
                                        
                                     </tbody>
                                 </table>
+                                <br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
                             </div>
                         </div>
                     </div>

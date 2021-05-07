@@ -1,3 +1,10 @@
+//BACK//
+function back()
+    {
+        window.history.back();
+    }
+//END BACK//
+//LOGIN ADMIN//
 var pass = document.getElementById("cont__pass");
 function showPass()
 {
@@ -24,3 +31,18 @@ function showHide(){
         hidePass();
     }
 }
+//DATE PICKER
+ $(function() {
+        $(".dateInput").datepicker(
+            {
+                dateFormat:"yy-mm-dd",
+                changeMonth:true,
+                changeYear:true,
+            });
+});
+//END DATE PICKER
+//END LOGIN ADMIN
+
+//ALERT ERROR
+
+//END ALERT ERROR
