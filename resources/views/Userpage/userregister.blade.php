@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <title>Register</title>
+    <title>Đăng ký tài khoản</title>
   </head>
   <body>
   
@@ -27,14 +27,14 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
             <div class="mb-4">
-              <h3>Register</h3>
+              <h3>Đăng ký tài khoản</h3>
               <p style="color: red" class="mb-4">
                 </p>
             </div>
             <form action="{{URL::to('getregister')}}" method="post">
             {{csrf_field()}}
                <div class="form-group first">
-                <label for="name">Name</label>
+                <label for="name">Tên của bạn</label>
                 <input type="text" name="name" required class="form-control" id="password">
               </div>
 
@@ -46,24 +46,24 @@
                 <input type="date" name="date" required class="form-control" id="password">
               </div>
                <div class="form-group">
-                <label for="username">User name</label>
+                <label for="username">Tên đăng nhập</label>
                 <input type="text" name="username" required class="form-control" id="username">
               </div>
                <div class="form-group ">
-                <label for="password">Password</label>
+                <label for="password">Mật khẩu</label>
                 <input type="password" name="password" required class="form-control" id="password">
               </div>
               <div class="form-group  ">
-                <label for="repassword">Re Password</label>
+                <label for="repassword">Nhập lại mật khẩu</label>
                 <input type="password" name="repassword" required class="form-control" id="password">
               </div>
               
               <div class="form-group  ">
-                <label for="address">Address</label>
+                <label for="address">Địa chỉ</label>
                 <input type="text" name="address" required class="form-control" id="password">
               </div>
               <div class="form-group  ">
-                <label for="sdt">Phone number</label>
+                <label for="sdt">Số điện thoại</label>
                 <input type="number" name="sdt" required class="form-control" id="password">
               </div>
               <div class="form-group last  mb-3">
@@ -75,16 +75,16 @@
               <input type="submit" value="Register" class="btn btn-block btn-primary">
             
             </form>
-              <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+              <span class="d-block text-center my-4 text-muted">&mdash; Hoặc &mdash;</span>
               <div class="row" style="color: white; ">
                    <a href="{{URL::to('/google')}}" style="text-decoration: none;" class="btn btn-outline-danger btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Register with <strong>Google</strong>
+                                            <i class="fab fa-google fa-fw"></i> Đăng ký bằng <strong>Google</strong>
                                         </a>
                                         <a href="{{URL::to('/facebook')}}" style="text-decoration: none; "  class="btn btn-outline-primary btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Register with <strong>Facebook</strong>
+                                            <i class="fab fa-facebook-f fa-fw"></i> Đăng ký bằng <strong>Facebook</strong>
                                         </a>
               </div>
-                  <span class="d-block text-center my-4 text-muted"><a href="{{URL::to('/')}}">Back to Home page</a>&nbsp;/&nbsp;<a href="{{URL::to('login')}}">Have An Account <strong>Login</strong>?</a></span>
+                  <span class="d-block text-center my-4 text-muted"><a href="{{URL::to('/')}}">Trở về trang chính</a>&nbsp;/&nbsp;<a href="{{URL::to('login')}}">Đã có tài khoản <strong>Đăng nhập ngay </strong>?</a></span>
           </div>
         </div>
       </div>

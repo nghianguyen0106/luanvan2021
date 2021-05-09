@@ -61,7 +61,7 @@ class registerController extends Controller
 
 	    	$data['khNgaysinh']=$re->date;
 	    	$data['khDiachi']=$re->address;
-	    	if(strlen($re->address)<20)
+	    	if(strlen($re->address)<15)
 	    	{
 	    		Session::flash('error',' Địa chỉ không hợp lệ!');
 	    		return Redirect::to('register');

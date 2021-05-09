@@ -22,6 +22,16 @@ Route::post('/registerForApi','registerController@registerForApi');
 Route::get('login','homeController@login' );
 Route::post('/checklogin','loginController@userlogin');
 Route::get('logout','homeController@logout');
+// User forgot password
+// 
+Route::get('forgotPassword','homeController@forgotPassword');
+Route::get('sendCodeGetAcc','loginController@sendCodeGetAcc');
+Route::get('changepassword/{id?}','loginController@changepassword');
+Route::post('newpass/{id}','loginController@newpass');
+// verify-email
+Route::get('verify-email/{id}','homeController@verifyemail');
+Route::get('sendcode','homeController@sendcode');
+Route::post('verifycode','homeController@verifycode');
 
 // Login gg & facebook api
 Route::get('google','loginController@loginGoogle');
@@ -32,7 +42,7 @@ Route::get('facebookredirect','loginController@facebookredirect');
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
 Route::post('findpro','homeController@findpro');
-	//--Rate
+	//--comment
 Route::post('addcomment/{id}','homeController@addcomment');
 Route::get('deletecomment/{id}','homeController@deletecomment');
 
@@ -48,10 +58,6 @@ Route::get('sendmail','cartController@sendmail');
 
 Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
 Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
-// verify-email
-Route::get('verify-email/{id}','homeController@verifyemail');
-Route::get('sendcode','homeController@sendcode');
-Route::post('verifycode','homeController@verifycode');
 
 //---------------------------------------------END USER--------------------------------------------//
 

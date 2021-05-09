@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Socialite;
 use DB;
 use Session;
+use Mail;
 session_start();
 class loginController extends Controller
 {
@@ -135,8 +136,82 @@ class loginController extends Controller
                     return Redirect::to('product');
           
                }
-           
         }
+    public function sendCodeGetAcc(Request $re)
+    {
+        $checkAccount=DB::table('khachhang')->where('khEmail',$re->email)->first();
+          $date=getdate();
+        if($checkAccount)
+        {
+            $details=strlen($checkAccount->khMa).$checkAccount->khMa.$date['seconds'].$date['minutes'].$date['hours'].$date['hours'].$date['yday'];
+            
+            DB::table('khachhang')->where('khEmail',$re->email)->update(['khResetpassword'=> $details]);
+           Mail::to($re->email)->send(new \App\Mail\mailToGetAcc($details));
+           session::flash('mail','Một email đã được gửi vui lòng kiểm trang hòm thư của bạn !!');
+           return redirect()->back();
+        }
+        elseif($re->email==null)
+        {
+             session::flash('err','Vui lòng nhập email của tài khoản cần khôi phục !');
+            return Redirect::to('forgotPassword');
+        }
+        else
+        {
+           session::flash('err','Email Chưa được đăng ký !');
+            return Redirect::to('forgotPassword');
+        }
+    }
+    public function changepassword(Request $re)
+    {
+        if($re->id == null)
+        {
+            session::flash('loginmessage','Đường link không hợp lệ!!');
+            return Redirect::to('login');
+        }
+        else
+        {
+            $checkExistAcc=DB::table('khachhang')->where('khResetpassword',$re->id)->first();
+            if(!$checkExistAcc)
+            {
+                session::flash('loginmessage','Đường link không hợp lệ!!');
+                return Redirect::to('login');
+            }
+            else
+            {
+                return view('Userpage.changePassword')->with('id',$checkExistAcc->khMa)->with('name',$checkExistAcc->khTen);
+            }
+        }
+    }
 
-   
+    public function newpass(Request $re)
+    {
+        if($re->password ==null|| $re->repassword ==null)
+        {
+            session::flash('err','Vui lòng nhập đầy đủ mật khẩu và xác nhận mật khẩu!');
+                return Redirect()->back();
+        }
+        elseif($re->password != $re->repassword)
+        {
+            session::flash('err','Mật khẩu xác nhận không trung khớp ! ');
+            return Redirect()->back();
+        }
+        else
+        {   
+            $checkOldPass=DB::table('khachhang')->where('khMa',$re->id)->where('khMatkhau',md5($re->password))->select('khTen')->first();
+            //dd($checkOldPass);
+            if($checkOldPass!=null)
+            {
+                Session::flash('err',' Mật khẩu đã được dùng vui lòng chọn mật khẩu an toàn hơn!');
+                return Redirect()->back();
+            }
+            if(strlen($re->password)<=8)
+            {
+                Session::flash('err',' Mật khẩu quá ngắn vui lòng chọn mật khẩu an toàn hơn!');
+                return Redirect()->back();
+            }
+            DB::table('khachhang')->where('khMa',$re->id)->update(['khMatkhau'=>md5($re->password)]);
+            session::flash('changepassword',' Vui lòng đăng nhập lại ! ');
+            return Redirect::to('login');
+        }
+    }
 }

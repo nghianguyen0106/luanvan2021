@@ -21,7 +21,17 @@ class homeController extends Controller
           	return view('welcome',compact('dblap','dbpc'));
     }
     
-   
+     // forgot password
+    public function forgotPassword()
+    {
+        $cart=Cart::content();
+        $total=0;
+        foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+        }
+        return view('Userpage.forgotPassword',compact('total'));
+    }
     public function login()
     {
     	return view('Userpage.userlogin');
@@ -601,6 +611,7 @@ class homeController extends Controller
 
     // ---------
     // -------------
+    // 
     // list of order
 
     public function listorder()
