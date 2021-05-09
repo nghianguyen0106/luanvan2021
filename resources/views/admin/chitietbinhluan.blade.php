@@ -18,7 +18,8 @@
                 		{{$value->dgNoidung}}
                 	</div>
                 	@endforeach
-                	<button onclick="back()">Trở về</button>
+                    <br/>
+                	<button class="btn btn-info" type="button" onclick="back()">Trở về</button>
                 </div>
             </div>
 
@@ -27,9 +28,4 @@
      
 
 @endsection
-<script>
-	function back()
-	{
-		window.history.back();
-	}
-</script>
+

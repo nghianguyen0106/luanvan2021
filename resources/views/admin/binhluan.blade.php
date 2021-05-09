@@ -60,7 +60,7 @@
                                             </td>
                                             <td>
                                                 <a> <a href="{{url('/viewBLSP/'.$value->spMa)}}" class="active" ui-toggle-class="">
-                                                    Xem chi tiết  
+                                                    Xem   
                                                 </a>
                                             </td>
                                         </tr>

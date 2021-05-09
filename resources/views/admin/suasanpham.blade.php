@@ -165,7 +165,7 @@
                     @endforeach
                     <br/>			
          			<!---end foreach mo ta--->  
-		            <div class="flex__form"><button class="btn_ok" type="submit" class="btn-primary" >Cập nhật</button></div>	
+                       <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
     		 </form>
              
                             <h4>Hình ảnh sản phẩm</h4>
@@ -188,7 +188,8 @@
                              @endforeach
 
                             </div>
-    		             
+    		        <br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>     
 		</div> 
 @endforeach
 	</div>

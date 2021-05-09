@@ -6,6 +6,7 @@
         <div id="content">
 			<form action="{{URL::to('checkAddLoai')}}" method="GET">
 				 {{ csrf_field() }}
+				 <div class="flex__form">
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tên loại</label>
 			    <input name="loaiTen" type="text" class="form-control" id="loaiTen">
@@ -15,9 +16,12 @@
 			     	@endif
 			     </span>
 			  </div>
+			</div>
 			 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
-			  <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+			  <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 			</form>
+			<br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
 		</div>
 	</div>
 @endsection

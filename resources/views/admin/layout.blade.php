@@ -48,9 +48,28 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{URL::to('admin')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                <a class="nav-link">
+                    <label>Thông báo</label>
+                    @if(Session::get('dgTrangthai')!=null)
+                    <a class="collapse-item announce_note"  href="{{URL::to('/adBinhluan')}}">
+                     &emsp;<i class="fas fa-comment-alt" style="font-size: 25px;color:red">!</i>
+                     </a>
+                    @else
+                     <a class="collapse-item announce_note"  href="{{URL::to('/adBinhluan')}}">
+                     &emsp;<i class="fas fa-comment-alt" style="font-size: 25px;color:white"></i>
+                 </a>
+                     @endif
+                   
+                    &emsp;
+                    @if(Session::get('hdTinhtrang')!=null)
+                    <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
+                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:red;">!</i>
+                    </a>
+                    @else
+                     <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
+                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:white;"></i>
+                    @endif
+                </a>
             </li>
 
             <!-- Divider -->
@@ -64,6 +83,7 @@
           
 
             <!-- Nav Item - Utilities Collapse Menu -->
+            @if(Session::get('adQuyen')==1)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -78,16 +98,12 @@
                     </div>
                 </div>
             </li>
+            @endif
              <li class="nav-item">
                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Quản lý dữ liệu cửa hàng</span>
-                     @if(Session::get('dgTrangthai')!=null)
-                       
-                        <span style="color:#D43232;font-weight: bold;display: block;text-align: center;">Có thông báo mới!</span>
-                        
-                    @endif
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
@@ -97,14 +113,8 @@
                          <a class="collapse-item"  href="{{URL::to('don-hang')}}">Đơn hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
-                      @if(Session::get('dgTrangthai')!=null)
-                            <a style="color:white;background-color: red;" class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;<i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
-                        @else
-                            <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;<i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
-                       
-                        @endif
-                        
-                          
+                        <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
+                        <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
@@ -202,39 +212,74 @@
    
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/dot-luv/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-      $(function() {
-        $(".dateInput").datepicker(
-            {
-                dateFormat:"yy-mm-dd",
-                changeMonth:true,
-                changeYear:true,
-            });
-      });
-  </script>
-  <!--Alert date-->
-   @if(Session::has('adHinh_err'))
+
+   <script src="{{URL::asset("public/style_admin/js/js.js")}}"></script>
+  <!--Alert Date-->
+   @if(Session::has('date_err'))
+     <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi thời gian',
+      text: '{{Session::get('date_err')}}!',
+     
+    });
+    </script> 
+   @endif
+<!--End Alert Date-->
+<!----ERROR NHANVIEN/ ADMIN---->
+ @if(Session::has('adHinh_err'))
      <script type="text/javascript">
     Swal.fire({
       icon: 'error',
       title: 'Nhân viên phải có ảnh',
       text: '{{Session::get('adHinh_err')}}!',
     });
+    </script>
+    @endif
+    
 
-    </script> 
-   @endif
-
-   @if(Session::has('date_err'))
-     <script type="text/javascript">
+   @if(Session::has('taikhoan_err'))
+    <script type="text/javascript">
     Swal.fire({
       icon: 'error',
-      title: 'Lỗi ngày',
-      text: '{{Session::get('date_err')}}!',
-     
+      title: 'Tài khoản đã tồn tại',
+      text: '{{Session::get('taikhoan_err')}}!',
     });
     </script> 
-   @endif
+    @endif
 
+    @if(Session::has('email_err'))
+    <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Email đã tồn tại',
+      text: '{{Session::get('email_err')}}!',
+    });
+    </script>
+    @endif
+
+    @if(Session::has('sdt_err'))
+    <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Số điện thoại đã tồn tại',
+      text: '{{Session::get('sdt_err')}}!',
+    });
+    </script> 
+ @endif
+ <!----END ERROR NHANVIEN/ ADMIN---->
+ <!--kho-->
+ 
+  @if(Session::has('khoSL_err'))
+    <script type="text/javascript">
+    Swal.fire({
+      icon: 'error',
+      title: 'Số lượng kho',
+      text: '{{Session::get('khoSL_err')}}!',
+    });
+    </script> 
+ @endif
+ <!--end KHO-->
 </body>
 
 </html>

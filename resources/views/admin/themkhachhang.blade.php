@@ -31,11 +31,7 @@
 			    <label for="exampleInputPassword1" class="form-label">Tài khoản cho khách hàng</label>
 			    <input name="khTaikhoan" type="text" class="form-control" id="khTaikhoan">
 			     <span style="color:red">{{$errors->first('khTaikhoan')}}</span>
-			     <span style="color:red">
-			     	@if(Session::has('kh_err')!=null)
-			     		{{Session::get('kh_err')}}
-			     	@endif
-			     </span>
+			    
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
@@ -78,6 +74,8 @@
 			  <br/>
 			  <button class="btn_ok" type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
 			</form>
+			<br/>
+                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
 		</div>
 	</div>
 	</div>

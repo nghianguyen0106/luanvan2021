@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3308
--- Thời gian đã tạo: Th5 04, 2021 lúc 09:33 AM
+-- Thời gian đã tạo: Th5 07, 2021 lúc 07:22 PM
 -- Phiên bản máy phục vụ: 5.7.28
 -- Phiên bản PHP: 7.4.0
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `admin_adten_unique` (`adTen`),
   UNIQUE KEY `admin_adtaikhoan_unique` (`adTaikhoan`),
   UNIQUE KEY `admin_ademail_unique` (`adEmail`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=121213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `admin`
@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adSdt`, `adEmail`, `adHinh`, `adQuyen`) VALUES
 (2, 'nhan', 'nhan', '1', 909090, 'nhan@gmail.com', 'ok.jpg', 1),
-(4, 'nghia', 'nghia', '1', 12323131, 'nghia@gmail.com', '119924581_752408281992880_1050379176225078592_n.jpg', 2);
+(4, 'nghia', 'nghia', '1', 12323131, 'nghia@gmail.com', '119924581_752408281992880_1050379176225078592_n.jpg', 2),
+(121212, 'MASTER', 'master', 'master123', 123456789, 'nguyenchinghia199916@gmail.com', 'tony-liu-7.jpg', 100);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `baocao` (
   `bcNgayKT` date NOT NULL,
   `bcNgaylap` date NOT NULL,
   PRIMARY KEY (`bcMa`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -105,14 +106,14 @@ CREATE TABLE IF NOT EXISTS `chitiethoadon` (
 --
 
 INSERT INTO `chitiethoadon` (`hdMa`, `spMa`, `cthdSoluong`, `cthdGia`) VALUES
-(7113456, 97051115, 1, 7050000),
-(7113453, 553641115, 2, 72910000),
-(3113457, 553641115, 1, 36455000),
-(99115451, 189361115, 1, 93690000),
-(91121548, 96091115, 3, 18270000),
-(91121548, 97051115, 3, 21150000),
-(91121548, 114431115, 2, 88780000),
-(86121559, 96091115, 1, 6090000);
+(61225210, 96091115, 1, 6090000),
+(71235215, 97051115, 1, 7050000),
+(341235210, 114431115, 1, 44390000),
+(981235210, 114431115, 2, 88780000),
+(431235217, 553641115, 1, 36455000),
+(381245219, 96091115, 1, 6090000),
+(381245219, 97051115, 1, 7050000),
+(381245219, 416691115, 1, 66990000);
 
 -- --------------------------------------------------------
 
@@ -138,8 +139,8 @@ CREATE TABLE IF NOT EXISTS `danhgia` (
 --
 
 INSERT INTO `danhgia` (`dgMa`, `khMa`, `dgNoidung`, `spMa`, `dgNgay`, `dgTrangthai`) VALUES
-(71134297, 11651, 'hihihih', 97051115, '2021-04-24', 0),
-(211138397, 11651, 'bao nhiêu 1 chục ?', 97051115, '2021-04-24', 0);
+(31279496, 6262132, 'ád', 96091115, '2021-05-08', 0),
+(51279696, 6262132, 'ádad', 96091115, '2021-05-08', 1);
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
   `hdDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hdSdtnguoinhan` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hdGhichu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hdNhanvien` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `adMa` int(11) NOT NULL,
   PRIMARY KEY (`hdMa`),
   KEY `hoadon_khma_foreign` (`khMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,13 +207,13 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
 -- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
-INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`, `hdNhanvien`) VALUES
-(3113457, 11651, '2021-04-24', 1, 36455000, 2, '180 cao lo p4 q8', '01623546872', NULL, 'nghia'),
-(7113453, 11651, '2021-04-24', 2, 72910000, 1, 'asdada', '01692522094', NULL, 'nghia'),
-(7113456, 11651, '2021-04-24', 1, 7050000, 0, 'asdada', '444444444', NULL, '4'),
-(86121559, 11651, '2021-05-02', 1, 6090000, 0, 'asdada', '1111111111', NULL, NULL),
-(91121548, 101041, '2021-05-02', 8, 128200000, 0, 'e2qwe', '1221222121', 'aqweqwe', NULL),
-(99115451, 11651, '2021-04-26', 1, 93690000, 0, 'asdada', '0392522094', NULL, NULL);
+INSERT INTO `hoadon` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdDiachi`, `hdSdtnguoinhan`, `hdGhichu`, `adMa`) VALUES
+(61225210, 6262132, '2021-05-03', 1, 6090000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4),
+(71235215, 5262132, '2021-05-04', 1, 7050000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4),
+(341235210, 6262132, '2021-05-04', 1, 44390000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4),
+(381245219, 6262132, '2021-05-05', 3, 80130000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4),
+(431235217, 5262132, '2021-05-04', 1, 36455000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4),
+(981235210, 6262132, '2021-05-04', 2, 88780000, 0, '180 cao lo phuong 4 quan 8', '0392522094', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -243,12 +244,10 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
 --
 
 INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khQuyen`, `khGioitinh`, `khTaikhoan`, `khToken`, `khSdt`, `khHinh`) VALUES
-(4131, 'Tèo', 'a@a.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1', 0, 0, 'teo', NULL, NULL, ''),
-(5119, 'a', 'a@abc.com', 'a', '2021-05-12', '1232', 0, 1, 'a', '', '12321312', '119924581_752408281992880_1050379176225078592_n.jpg'),
-(8761, 'NghiaSTU', 'dh51700660@student.stu.edu.vn', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '1sdssad', 0, 0, 'nghiat', NULL, NULL, ''),
-(11651, 'nghianguyen', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', 'asdada', 0, 0, 'nghia', NULL, NULL, ''),
-(15761, 'Huỳnh Lan Anh', 'Huynhlananh29032001@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '2001-03-29', '1sdasds', 0, 0, 'lananh', NULL, NULL, ''),
-(101041, 'trung nhan', 'letrungnhan99@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-08-22', 'quoc lo 50', 0, 1, 'nhan', '041001212021', '5433445533', 'ok.jpg');
+(13119, 't', 't@t.com', '25f9e794323b453885f5181f1b624d0b', '1999-09-01', 'tasdasdasdasdasdassdasasdasdass', 0, 0, 't', NULL, '0392522094', NULL),
+(32239, 'meo', 'meo@gmail.com', '25f9e794323b453885f5181f1b624d0b', '2001-06-01', '1111111111111111111111', 0, 0, 'meo', NULL, NULL, NULL),
+(5262132, 'Nghia', 'dh51700660@student.stu.edu.vn', '202cb962ac59075b964b07152d234b70', '1999-06-01', '180 cao lo phuong 4 quan 8', 0, 1, 'nghia1', '1', '0392522094', '1619385.jpg'),
+(6262132, 'Nghĩa', 'nguyenchinghia199916@gmail.com', 'c4ca4238a0b923820dcc509a6f75849b', '1999-06-01', '180 cao lo phuong 4 quan 8', 0, 1, 'nghia', '1', '0392522094', 'bmw_s1000rr_bmw_bike_130736_3840x2400.jpg');
 
 -- --------------------------------------------------------
 
@@ -272,15 +271,15 @@ INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
 (411841115, 100, '2021-04-22'),
 (381731115, 50, '2021-04-22'),
 (401041115, 50, '2021-04-22'),
-(97051115, 165, '2021-05-02'),
-(96091115, 1000, '2021-05-02'),
+(97051115, 161, '2021-05-02'),
+(96091115, 0, '2021-05-08'),
 (185341115, 16, '2021-04-22'),
 (189361115, 9, '2021-04-22'),
-(114431115, 10, '2021-04-22'),
+(114431115, -1, '2021-05-04'),
 (382841115, 100, '2021-04-22'),
-(416691115, 30, '2021-04-22'),
+(416691115, 29, '2021-04-22'),
 (701191115, 15, '2021-04-22'),
-(553641115, 0, '2021-04-22');
+(553641115, 0, '2021-05-04');
 
 -- --------------------------------------------------------
 
