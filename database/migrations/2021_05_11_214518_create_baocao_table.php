@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBaocaosTable extends Migration
+class CreateBaocaoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,9 +20,12 @@ class CreateBaocaosTable extends Migration
             $table->integer('bcThu');
             $table->integer('bcChi');
             $table->integer('bcTonkho');
+            $table->timestamp('bcNgaylap');
             $table->string('bcGhichu');
-            $table->date('bcNgaylap');
+            $table->integer('adMa');
+            $table->engine = "InnoDB";
             
+            $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

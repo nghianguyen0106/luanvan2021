@@ -541,6 +541,8 @@ class ComposerStaticInit9eb52166cf50f3ae5af27c780c593536
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\mail' => __DIR__ . '/../..' . '/app/Mail/mail.php',
+        'App\\Mail\\mailToGetAcc' => __DIR__ . '/../..' . '/app/Mail/mailToGetAcc.php',
+        'App\\Mail\\verifyEmail' => __DIR__ . '/../..' . '/app/Mail/verifyEmail.php',
         'App\\Models\\admin' => __DIR__ . '/../..' . '/app/Models/admin.php',
         'App\\Models\\banner' => __DIR__ . '/../..' . '/app/Models/banner.php',
         'App\\Models\\baocao' => __DIR__ . '/../..' . '/app/Models/baocao.php',

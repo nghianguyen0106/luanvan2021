@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKhuyenmaisTable extends Migration
+class CreateAdminLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateKhuyenmaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('khuyenmai', function (Blueprint $table) {
-            $table->integer('kmMa')->autoIncrement();
-            $table->integer('kmTrigia');
-            $table->string('khMota');
-            $table->date('khNgaybd');
-            $table->date('kmNgaykt');
+        Schema::create('admin_log', function (Blueprint $table) {
+            $table->integer('adMa');
+            $table->string('alChitiet');
+            $table->timestamp('alNgaygio');
             $table->engine = "InnoDB";
+            
+            $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateKhuyenmaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('khuyenmai');
+        Schema::dropIfExists('admin_log');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChitiethoadonsTable extends Migration
+class CreateDanhgiaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateChitiethoadonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('chitiethoadon', function (Blueprint $table) {
-            $table->integer('hdMa');
-            $table->char('spMa',50);
-            $table->integer('cthdSoluong');
-            $table->integer('cthdGia');
+        Schema::create('danhgia', function (Blueprint $table) {
+            $table->integer('dgMa')->primary();
+            $table->integer('khMa');
+            $table->string('dgNoidung');
+            $table->integer('spMa');
+            $table->timestamp('dgNgay');
+            $table->integer('dgTrangthai');
             $table->engine = "InnoDB";
             //foreign key
-            $table->foreign('hdMa')->references('hdMa')->on('hoadon')->onDelete('cascade');
+            
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
+              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');
         });
     }
 
@@ -32,6 +35,6 @@ class CreateChitiethoadonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chitiethoadon');
+        Schema::dropIfExists('danhgia');
     }
 }

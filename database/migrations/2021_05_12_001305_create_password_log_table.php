@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHinhsTable extends Migration
+class CreatePasswordLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateHinhsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hinh', function (Blueprint $table) {
-            $table->integer('spMa',50);
-            $table->char('spHinh');
+        Schema::create('password_log', function (Blueprint $table) {
+            $table->integer('khMa');
+            $table->char('plOld',50);
             $table->engine = "InnoDB";
-            //foreign key
             
-            $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
-
-            
+             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateHinhsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hinh');
+        Schema::dropIfExists('password_log');
     }
 }

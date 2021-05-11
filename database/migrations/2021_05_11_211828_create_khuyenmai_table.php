@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoaisTable extends Migration
+class CreateKhuyenmaiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateLoaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('loai', function (Blueprint $table) {
-            $table->id('loaiMa');
-            $table->string('loaiTen',30)->unique();
+        Schema::create('khuyenmai', function (Blueprint $table) {
+            $table->integer('kmMa')->autoIncrement();
+            $table->string('khMota');
+            $table->integer('kmTrigia');
+            $table->timestamp('khNgaybd');
+            $table->timestamp('kmNgaykt');
             $table->engine = "InnoDB";
         });
     }
@@ -27,6 +30,6 @@ class CreateLoaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loai');
+        Schema::dropIfExists('khuyenmai');
     }
 }

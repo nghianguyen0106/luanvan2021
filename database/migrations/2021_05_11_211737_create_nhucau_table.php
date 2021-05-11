@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNhucausTable extends Migration
+class CreateNhucauTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,8 @@ class CreateNhucausTable extends Migration
     {
         Schema::create('nhucau', function (Blueprint $table) {
             $table->integer('ncMa')->autoIncrement();
-            $table->string('ncTen',50)->unique();
+            $table->string('ncTen',30)->unique();
             $table->engine = "InnoDB";
-            
         });
     }
 

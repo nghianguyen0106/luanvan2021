@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKhachhangsTable extends Migration
+class CreateKhachhangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,20 @@ class CreateKhachhangsTable extends Migration
     public function up()
     {
         Schema::create('khachhang', function (Blueprint $table) {
-            $table->integer('khMa',50);
+            $table->integer('khMa')->primary();
+            
             $table->string('khTen',50);
-            $table->char('khEmail',50)->unique();
+            $table->char('khEmail',100)->unique();
+            $table->char('khTaikhoan')->unique();
             $table->char('khMatkhau',50);
             $table->date('khNgaysinh');
             $table->string('khDiachi');
-            $table->integer('khQuyen');
+            $table->char('khSdt',11);
             $table->integer('khGioitinh');
-            $table->char('khTaikhoan');
+            $table->char('khHinh')->nullable(true);
+            $table->char('khXtemail')->nullable(true);
+            $table->char('khResetpassword')->nullable(true);
+            $table->integer('khQuyen');
             $table->engine = "InnoDB";
         });
     }

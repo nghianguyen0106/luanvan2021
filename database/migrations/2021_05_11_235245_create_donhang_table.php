@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHoadonsTable extends Migration
+class CreateDonhangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,20 +16,20 @@ class CreateHoadonsTable extends Migration
         Schema::create('donhang', function (Blueprint $table) {
             $table->integer('hdMa')->primary();
             $table->integer('khMa');
-            $table->date('hdNgaytao');
+            $table->timestamp('hdNgaytao');
             $table->integer('hdSoluongsp');
-            $table->integer('hdTongtien');
+            $table->float('hdTongtien',20);
             $table->integer('hdTinhtrang');
             $table->string('hdDiachi');
-            $table->char('hdSdtnguoinhan');
+            $table->char('hdSdtnguoinhan',11);
             $table->string('hdGhichu')->nullable(true);
-            $table->unsignedInteger('adMa');
+            $table->integer('kmMa');
             $table->integer('adMa');
             $table->engine = "InnoDB";
-            //foreign key
-             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');
-             
             
+            //foreign key
+             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
+             $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onUpdate('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateHoadonsTable extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('hoadon');
+        Schema::dropIfExists('donhang');
     }
 }

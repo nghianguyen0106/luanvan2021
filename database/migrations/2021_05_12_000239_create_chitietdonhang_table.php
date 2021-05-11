@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDanhgiasTable extends Migration
+class CreateChitietdonhangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateDanhgiasTable extends Migration
      */
     public function up()
     {
-        Schema::create('danhgia', function (Blueprint $table) {
-            $table->id('dgMa');
-            $table->integer('khMa');
-            $table->string('dgNoidung');
+        Schema::create('chitietdonhang', function (Blueprint $table) {
+            $table->integer('hdMa');
             $table->integer('spMa');
-            $table->date('dgNgay');
+            $table->integer('cthdSoluong');
+            $table->integer('cthdGia');
             $table->engine = "InnoDB";
+            
             //foreign key
-            $table->foreign('khMa')->references('khMa')->on('khachang')->onDelete('cascade');
+            $table->foreign('hdMa')->references('hdMa')->on('donhang')->onDelete('cascade');
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
         });
     }
@@ -33,6 +33,6 @@ class CreateDanhgiasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('danhgia');
+        Schema::dropIfExists('chitietdonhang');
     }
 }

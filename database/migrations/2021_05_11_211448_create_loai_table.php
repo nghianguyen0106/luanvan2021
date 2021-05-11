@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKhosTable extends Migration
+class CreateLoaiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateKhosTable extends Migration
      */
     public function up()
     {
-        Schema::create('kho', function (Blueprint $table) {
-            $table->integer('spMa');
-            $table->integer('khoSoluong');
-            $table->date('khoNgaynhap');
+       Schema::create('loai', function (Blueprint $table) {
+            $table->integer('loaiMa')->autoIncrement();
+            $table->string('loaiTen',30)->unique();
             $table->engine = "InnoDB";
-            
-            // foreign key
-            $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
         });
     }
 
@@ -31,6 +27,6 @@ class CreateKhosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kho');
+        Schema::dropIfExists('loai');
     }
 }

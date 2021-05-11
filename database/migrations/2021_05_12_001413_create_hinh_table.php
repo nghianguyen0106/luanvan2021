@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateThuonghieusTable extends Migration
+class CreateHinhTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateThuonghieusTable extends Migration
      */
     public function up()
     {
-        Schema::create('thuonghieu', function (Blueprint $table) {
-            $table->integer('thMa')->autoIncrement();
-            $table->string('thTen',50)->unique();
+        Schema::create('hinh', function (Blueprint $table) {
+            $table->integer('spMa');
+            $table->char('spHinh');
             $table->engine = "InnoDB";
+            //foreign key
+            
+            $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -27,6 +30,6 @@ class CreateThuonghieusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('thuonghieu');
+        Schema::dropIfExists('hinh');
     }
 }
