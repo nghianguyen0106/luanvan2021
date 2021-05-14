@@ -824,7 +824,7 @@ class adminController extends Controller
    
     public function editSanpham(Request $re, $id)
     {
-        if($re->spTen ==null||$re->spGia==null||$re->ram==null||$re->ocung==null)
+        if($re->spTen ==null||$re->spGia==null||$re->ram==null||$re->ocung==null||$re->cpu==null)
         {
             $messages =[
                
@@ -833,6 +833,7 @@ class adminController extends Controller
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
                 'ram.required'=>'Ram không được để trống',
                 'ocung.required'=>'Ổ cứng không được để trống',
+                'cpu.required'=>'CPU không được để trống',
                 
             ];
             $this->validate($re,[
@@ -842,6 +843,8 @@ class adminController extends Controller
                 'spGia'=>'required', 
                 'ram'=>'required',
                 'ocung'=>'required',
+                'cpu'=>'required',
+            
  
             ],$messages);
             $errors=$validate->errors();
@@ -857,16 +860,68 @@ class adminController extends Controller
                 $data['thMa']=$re->thMa;
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
+
+                 DB::table('sanpham')->where('spMa',$id)->update($data);
                 //
-             
+                  if($re->loaiMa==1)
+                {
+
+                    $data2 = array();
+                    $data2['ram'] = $re->ram;
+                    $data2['cpu'] = $re->cpu;
+                    $data2['psu'] = "";
+                    $data2['ocung'] = $re->ocung;
+                    $data2['vga'] = "";
+                    $data2['mainboard'] = "";
+                    $data2['manhinh'] = $re->manhinh;
+                    $data2['pin'] = $re->pin;
+                    $data2['vocase'] = "";
+                    $data2['tannhiet'] = $re->tannhiet;
+                    $data2['loa'] =$re->loa;
+                    $data2['mau']=$re->mau;
+                    $data2['trongluong'] = $re->trongluong;
+                    $data2['conggiaotiep'] = $re->conggiaotiep;
+                    $data2['webcam'] = $re->webcam;
+                    $data2['chuanlan'] = $re->chuanlan;
+                    $data2['chuanwifi'] = $re->chuanwifi;
+                    $data2['hedieuhanh'] = $re->hedieuhanh;
+                    DB::table('mota')->where('spMa',$id)->update($data2);
+            }
+               else
+               {
+                    $data2 = array();
+                    $data2['ram'] = $re->ram;
+                    $data2['cpu'] = $re->cpu;
+                    $data2['psu'] = $re->psu;
+                    $data2['ocung'] = $re->ocung;
+                    $data2['vga'] = $re->vga;
+                    $data2['mainboard'] = $re->mainboard;
+                    $data2['manhinh'] = "";
+                    $data2['pin'] = "";
+                    $data2['vocase'] = $re->case;
+                    $data2['tannhiet'] = "";
+                    $data2['loa'] ="";
+                    $data2['mau']="";
+                    $data2['trongluong'] = "";
+                    $data2['conggiaotiep'] = "";
+                    $data2['webcam'] = "";
+                    $data2['chuanlan'] = "";
+                    $data2['chuanwifi'] = "";
+                    $data2['hedieuhanh'] = "";
+                    DB::table('mota')->where('spMa',$id)->update($data2);
+                }
+                
+                
+                 DB::table('mota')->where('spMa',$id)->update($data2);
                 //
                 $data4 = array();
                 $data4['spMa'] =$data['spMa'];
                 $data4['khoSoluong'] = $re->khoSoluong;
                 $data4['khoNgaynhap'] = now();
-                DB::table('sanpham')->where('spMa',$id)->update($data);
-                DB::table('mota')->where('spMa',$id)->update($data2);
+
                 DB::table('kho')->where('spMa',$id)->update($data4);
+               
+                
                  return redirect('/updateSanpham/'.$re->spMa);
             }
 
@@ -904,30 +959,18 @@ class adminController extends Controller
     }
     //End sản phẩm
     //Kho 
-    public function updateKho($id)
-    {
-          $hadData = DB::table('kho')->where('spMa',$id)->get();
-        return view('admin.suakho')->with('dataKho',$hadData);
-    }
     public function editKho(Request $re,$id)
     {
-           if($re->khoSoluong == null)
-        {
-            $messages =[
-                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống',
-            ];
-            $this->validate($re,[
-                'khoSoluong'=>'required',
-            ],$messages);
-
-            $errors=$validate->errors();
-        }
-        else
-        {
+       
             if($re->khoSoluong<0)
             {
                Session::flash("khoSL_err","Số lượng sản phẩm trong kho không được ít hơn 0");
                 return redirect('updateKho/'.$id);  
+            }
+            else if($re->khoSoluong==null)
+            {
+               Session::flash("khoSL_err","Số lượng sản phẩm trong kho không được rỗng");
+                return redirect('adKho');  
             }
             else
             {
@@ -938,7 +981,7 @@ class adminController extends Controller
                 DB::table('kho')->where('spMa',$id)->update($data);
                 return redirect('adKho');
             }
-        }
+        
     }
 
 
@@ -1138,7 +1181,7 @@ class adminController extends Controller
     public function adDeleteThuonghieu($id)
     {
          $id_sp = DB::table('sanpham')->where('thMa',$id)->get();
-       if($id_sp)
+       if(!$id_sp)
        {
         Session::put('th_del','thuong hieu k dc xoa');
           return redirect('loiXoa');

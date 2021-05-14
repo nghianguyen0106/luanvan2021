@@ -1,3 +1,4 @@
+
 //BACK//
 function back()
     {
@@ -46,7 +47,8 @@ function showHide(){
 //ALERT ERROR
 
 //END ALERT ERROR
-//Quản lý sản phẩm show hiện ẩn laptop pc
+
+    //Quản lý sản phẩm show hiện ẩn laptop pc
 ////Thêm
 var mota__lap = document.getElementById('mota__lap');
 var mota__pc = document.getElementById('mota__pc');
@@ -66,5 +68,9 @@ function change()
     mota__pc.style.display = 'block';
  }
 }
+
+
+
+
 
 

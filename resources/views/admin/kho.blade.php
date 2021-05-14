@@ -41,13 +41,16 @@
                                     @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->spMa}}</td>
-                                            <td>{{$value->khoSoluong}}</td>
-                                            <td>{{$value->khoNgaynhap}}</td>
-                                            <td style="text-align: center;">
-                                                <a href="{{url('/updateKho/'.$value->spMa)}}" class="active" ui-toggle-class="">
-                                                    <i style="font-size: 20px;" class="fa far fa-edit"></i>
-                                                </a>&nbsp;
+                                            <form action="{{URL::to('/editKho/'.$value->spMa)}}" method="POST">
+                                            {{ csrf_field() }}
+                                            <td>
+                                                <input value="{{$value->khoSoluong}}" name="khoSoluong"/>
                                             </td>
+                                            <td>{{$value->khoNgaynhap}}</td>
+                                            <td>
+                                             <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                            </td>
+                                            </form>
 
                                         </tr>
                                     @endforeach

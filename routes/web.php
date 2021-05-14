@@ -114,7 +114,6 @@ Route::get('/xoahinh/{tenhinh}/{id}','adminController@deleteHinhSanpham');
 Route::post('/editMota/{id}','adminController@editMota');
 Route::get('/loiThemHinhSP','adminController@viewLoiThemHinhSP');
 //--Kho--//
-Route::get('updateKho/{id}','adminController@updateKho');
 Route::post('editKho/{id}','adminController@editKho');
 
 //--Loai--//

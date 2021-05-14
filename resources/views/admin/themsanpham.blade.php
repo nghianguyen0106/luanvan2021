@@ -24,7 +24,7 @@
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Số lượng</label>
-			    <input name="khoSoluong" type="number" class="form-control" id="spGia">
+			    <input name="khoSoluong" type="number" class="form-control" id="soluong">
 			     <span style="color:red">{{$errors->first('khoSoluong')}}</span>
 			  </div>
 			   <div class="mb-3">

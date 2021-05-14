@@ -214,6 +214,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
    <script src="{{URL::asset("public/style_admin/js/js.js")}}"></script>
+   <script src="{{URL::asset("public/style_admin/js/js2.js")}}"></script>
+   
   <!--Alert Date-->
    @if(Session::has('date_err'))
      <script type="text/javascript">
@@ -271,7 +273,7 @@
  <!--kho-->
  
   @if(Session::has('khoSL_err'))
-    <script type="text/javascript">
+    <script>
     Swal.fire({
       icon: 'error',
       title: 'Số lượng kho',
