@@ -85,7 +85,7 @@ class cartController extends Controller
      
         if(Cart::count()>0)
         {
-             foreach (Cart::content() as $v) 
+            foreach (Cart::content() as $v) 
             {
                 $checkQty=DB::table('kho')->where('spMa',$v->id)->first();
                 if($v->qty>$checkQty->khoSoluong)
@@ -120,9 +120,19 @@ class cartController extends Controller
                         $data['hdDiachi']=$customerInfo->khDiachi;
                     }
                     $data['hdGhichu']=$re->note;
+
                     if($re->sdt==null)
                     {
+                        if($customerInfo->khSdt<100000000|| $customerInfo->khSdt>10000000000)
+                        {
+                            session::flash('errsdt','Số điện thoại trong thông tin cá nhân không hợp lệ !');
+                            return redirect()->back();
+                        }
+                        else
+                        {
+                            
                         $data['hdSdtnguoinhan']=$customerInfo->khSdt;
+                        }
                     }
                     elseif($re->sdt>10000000000||$re->sdt<100000000)
                     {

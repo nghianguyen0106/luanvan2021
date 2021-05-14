@@ -12,23 +12,23 @@ Author URL: http://w3layouts.com
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
-<link href="{{{'public/fe2/css/bootstrap.css'}}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{URL::asset('public/fe2/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!--// bootstrap-css -->
 <!-- css -->
-<link rel="stylesheet" href="{{{'public/fe2/css/style.css'}}}" type="text/css" media="all" />
+<link rel="stylesheet" href="{{URL::asset('public/fe2/css/style.css')}}" type="text/css" media="all" />
 <!--// css -->
 <!-- font-awesome icons -->
-<link href="{{{'public/fe2/css/font-awesome.css'}}}" rel="stylesheet"> 
+<link href="{{URL::asset('public/fe2/css/font-awesome.css')}}" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <!-- portfolio -->  
-<link rel="stylesheet" href="{{{'public/fe2/css/chocolat.css'}}}" type="text/css" media="all">
+<link rel="stylesheet" href="{{URL::asset('public/fe2/css/chocolat.css')}}" type="text/css" media="all">
 <!-- //portfolio -->    
 <!-- font -->
 <link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- //font -->
-<script src="{{{'public/fe2/js/jquery-1.11.1.min.js'}}}"></script>
-<script src="{{{'public/fe2/js/bootstrap.js'}}}"></script>
+<script src="{{URL::asset('public/fe2/js/jquery-1.11.1.min.js')}}"></script>
+<script src="{{URL::asset('public/fe2/js/bootstrap.js')}}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event){     
@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="banner">
         <div class="agileinfo-dot">
             <div class="agileits-logo">
-               <h1><a href="{{URL::to('/')}}"><img src="{{{'public/fe/images/logo3.png'}}}"></a></h1>
+               <h1><a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
             </div>
             <div class="header-top">
                 <div class="container">
@@ -71,9 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <li><a href="#about" class="scroll">About</a></li>
                                         <li><a href="{{URL::to('/product')}}">Product</a></li>
                                          <li><a href="#gallery">Gallery</a></li>
-                                        <li><a href="#team" class="scroll">Team</a></li>
-                                        <li><a href="#blog" class="scroll">Blog</a></li>
-                                        <li><a href="#mail" class="scroll">Mail Us</a></li>
+                                        <li><a href="#team" class="scroll">Team</a>
                                     </ul>
                                 </nav>
                             </div>
@@ -422,7 +420,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="col-md-3 agileits-team-grid">
                     <div class="team-info">
-                        <img src="{{{'public/tv_image/119924581_752408281992880_1050379176225078592_n.jpg'}}}" alt="">
+                        <img src="{{URL::asset('public/tv_image/119924581_752408281992880_1050379176225078592_n.jpg')}}" alt="">
                         <div class="team-caption"> 
                             <h4><code>Nguyễn Chí Nghĩa</code></h4>
                             <p>-----</>-----</p>
@@ -436,7 +434,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
                 <div class="col-md-3 agileits-team-grid">
                     <div class="team-info">
-                        <img src="{{{'public/tv_image//83674270_1273734419482533_2342260852960264192_n.jpg'}}}" alt="">
+                        <img src="{{URL::asset('public/tv_image//83674270_1273734419482533_2342260852960264192_n.jpg')}}" alt="">
                         <div class="team-caption"> 
                             <h4><code>Lê Trung Nhân</code></h4>
                             <p>-----</>-----</p>
@@ -460,37 +458,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //team -->
 
     <!-- mail -->
-    <div class="mail" id="mail">
-        <div class="container">
-            <div class="agileits-title">
-                <h3>Liên hệ với chúng tôi</h3>
-            </div> 
-            <div class="w3_mail_grids">
-                <form action="https://sendmail.w3layouts.com/submitForm" method="post">
-                    <span class="input input--jiro">
-                        <input class="input__field input__field--jiro" type="text" id="input-10" name="w3lName" placeholder="Your Name" required=""/>
-                        <label class="input__label input__label--jiro" for="input-10">
-                            <span class="input__label-content input__label-content--jiro">Tên của bạn</span>
-                        </label>
-                    </span>
-                    <span class="input input--jiro">
-                        <input class="input__field input__field--jiro" type="email" id="input-11" name="w3lSender" placeholder="Your Email Address" required=""/>
-                        <label class="input__label input__label--jiro" for="input-11">
-                            <span class="input__label-content input__label-content--jiro">Email</span>
-                        </label>
-                    </span>
-                    <span class="input input--jiro">
-                        <input class="input__field input__field--jiro" type="text" id="input-12" name="w3lSubject" placeholder="Subject" required=""/>
-                        <label class="input__label input__label--jiro" for="input-12">
-                            <span class="input__label-content input__label-content--jiro">Subject</span>
-                        </label>
-                    </span>
-                    <textarea name="w3lMessage" placeholder="Message..." required=""></textarea>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-    </div>
+
     <script src="js/classie.js"></script>
     <script>
             (function() {
@@ -643,9 +611,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             imgHeight: 768
         })
     </script>
-    <script src="{{{'public/fe2/js/responsiveslides.min.js'}}}"></script>
-    <script type="text/javascript" src="{{{'public/fe2/js/move-top.js'}}}"></script>
-    <script type="text/javascript" src="{{{'public/fe2/js/easing.js'}}}"></script>
+    <script src="{{URL::asset('public/fe2/js/responsiveslides.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('public/fe2/js/move-top.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('public/fe2/js/easing.js')}}"></script>
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -664,8 +632,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <!-- //here ends scrolling icon -->
     <!-- Tabs-JavaScript -->
-    <script src="{{{'public/fe2/js/jquery.filterizr.js'}}}"></script>
-        <script src="{{{'public/fe2/js/controls.js'}}}"></script>
+    <script src="{{URL::asset('public/fe2/js/jquery.filterizr.js')}}"></script>
+        <script src="{{URL::asset('public/fe2/js/controls.js')}}"></script>
         <script type="text/javascript">
             $(function() {
                 $('.filtr-container').filterizr();
@@ -673,7 +641,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </script>
     <!-- //Tabs-JavaScript -->
     <!-- PopUp-Box-JavaScript -->
-        <script src="{{{'public/fe2/js/jquery.chocolat.js'}}}"></script>
+        <script src="{{URL::asset('public/fe2/js/jquery.chocolat.js')}}"></script>
         <script type="text/javascript">
             $(function() {
                 $('.filtr-item a').Chocolat();

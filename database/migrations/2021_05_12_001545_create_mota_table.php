@@ -16,6 +16,7 @@ class CreateMotaTable extends Migration
         Schema::create('mota', function (Blueprint $table) {
             $table->integer('spMa');
             $table->string('ram');
+            $table->string('cpu');
             $table->string('psu');
             $table->string('ocung');
             $table->string('vga')->nullable(true);

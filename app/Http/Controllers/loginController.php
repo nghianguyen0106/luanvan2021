@@ -71,6 +71,7 @@ class loginController extends Controller
                 $data['khDiachi']='180 cao lo phuong 4 quan 8';
                 $data['khQuyen']=0;
                 $data['khGioitinh']=0;
+                $data['khSdt']=0;
                 $data['khTaikhoan']=$userInfo->id;
                 $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
                 DB::table('khachhang')->insert($data);

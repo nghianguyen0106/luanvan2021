@@ -39,14 +39,14 @@ Thông tin cá nhân
 					<span class="info__item">Email:</span>
 					
 					<span class="info__item">
-						@if($v->khToken!=1)
+						@if($v->khXtemail!=1)
 						<input readonly="" class="ip" type="email" value="{{$v->khEmail}}" name="khEmail"/>
 						@else
 						<input  class="ip" value="{{$v->khEmail}}" name="khEmail"><i style="color: green" class="far fa-check-square"></i>
 				
 						<a  class="btn btn-secondary" href="{{URL::to('changeEmail/'.$v->khMa)}}">Thay đổi Email</a>
 						@endif
-						@if($v->khToken!=1)
+						@if($v->khXtemail!=1)
 
 						<span class="info__item" style="color: red;">Email chưa được xác thực!</span>
 						<br/>

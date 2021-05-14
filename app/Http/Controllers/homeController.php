@@ -582,17 +582,17 @@ class homeController extends Controller
         $date=getdate();
           $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
           //dd($details);
-          DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khToken'=>$details]);
+          DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khXtemail'=>$details]);
         Mail::to(Session::get('khEmail'))->send(new \App\Mail\verifyemail($details));
         return redirect()->back();
     }
 
     public function verifycode(Request $re)
     {
-        $result=DB::table('khachhang')->where('khMa',Session::get('khMa'))->where('khToken',$re->code)->first();
+        $result=DB::table('khachhang')->where('khMa',Session::get('khMa'))->where('khXtemail',$re->code)->first();
         if($result)
         {
-            DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khToken'=>1]);
+            DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khXtemail'=>1]);
             Session::flash('verifySuccess','Email đã được xác thực !');
             return redirect()->back();
         }
@@ -605,7 +605,7 @@ class homeController extends Controller
 
     public function changeEmail($id)
     {
-        DB::table("khachhang")->where('khMa',$id)->update(['khToken'=>null]);
+        DB::table("khachhang")->where('khMa',$id)->update(['khXtemail'=>null]);
         return redirect()->back();
     }
 
@@ -623,7 +623,7 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
-        $list=DB::table('hoadon')->where('khMa',Session::get('khMa'))->get();
+        $list=DB::table('donhang')->where('khMa',Session::get('khMa'))->get();
         //dd($list);
           return view('Userpage.order',compact('list','cate','cart','total'));
 
