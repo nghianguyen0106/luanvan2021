@@ -627,13 +627,14 @@ class adminController extends Controller
     }
     public function adCheckAddSanpham(Request $re)
     {
-         if($re->spTen ==null||$re->spGia==null)
+         if($re->spTen ==null||$re->spGia==null||$re->khoSoluong==null)
         {
             Session::forget('sp_err');
             $messages =[
                 'spTen.required'=>'Sản phẩm không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
+                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống',
                 
                 
             ];
@@ -641,6 +642,7 @@ class adminController extends Controller
                 'spTen'=>'required',
                 'spHanbh'=>'required',
                 'spGia'=>'required',
+                'khoSoluong'=>'required',
                
                 
             ],$messages);
@@ -658,19 +660,33 @@ class adminController extends Controller
                 }
                 else
                 {
-                $spMa = rand(0,100).strlen($re->spGia).strlen($re->spTen);
+                $spMa = rand(0,100).strlen($re->spGia).strlen($re->spTen).rand(0,1000);
                 $data = array();
                 $data['spMa']=$spMa;
                 $data['spTen']=$re->spTen;
                 $data['spGia']=$re->spGia;
                 $data['spHanbh']=$re->spHanbh;
-                $data['spTinhtrang']=0;
+                if($re->khoSoluong>0)
+                {
+                    $data['spTinhtrang']=1;
+                }
+                else
+                {
+                     $data['spTinhtrang']=0;
+                } 
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
                 
                  DB::table('sanpham')->insert($data);
+
+                 $data4 = array();
+                 $data4['spMa']= $spMa;
+                 $data4['khoSoluong']=$re->khoSoluong;
+                 $data4['khoNgaynhap']=now();
+                  DB::table('kho')->insert($data4);
+
                 if($re->loaiMa==1)
                 {
 
