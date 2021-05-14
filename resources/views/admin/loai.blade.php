@@ -4,25 +4,30 @@
 
             <!-- Main Content -->
             <div id="content">
-
-          
-
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                
+                <div class="container-fluid"> 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý loại</h6>
+                            <hr/>
+                            	<form class="form-inline" action="{{URL::to('checkAddLoai')}}" method="GET">
 
+									 {{ csrf_field() }}
+								    <label for="exampleInputPassword1" class="form-label">Tên loại</label>
+								    &emsp;
+								    <input name="loaiTen" type="text" class="form-control" id="loaiTen">
+								      <span style="color:red">
+								     	@if(Session::has('loai_err')!=null)
+								     		{{Session::get('loai_err')}}
+								     	@endif
+								     </span>
+								 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
+								 	 &emsp;
+								  <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+								</form>
                         </div>
-                        <a  href="{{url('/themloai')}}" class="btn btn-primary" style="width: 20%;">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
-                                        </span>
-                                        <span class="text"><b>Thêm loại mới</b></span>
-                                    </a>
+                    	<br/>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -16,7 +16,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             return view('admin.index')->with('noteDonhang',$noteDonhang)->with('noteDonhang',$noteDonhang);
         }
@@ -44,7 +44,7 @@ class adminController extends Controller
                 Session::forget('error_login');
                 $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
                 return view('admin.index')->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
             }
@@ -74,7 +74,7 @@ class adminController extends Controller
         {
              $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $data = DB::table('admin')->get();
             return view('admin.nhanvien')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -89,7 +89,7 @@ class adminController extends Controller
         {
              $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
              $data = DB::table('khachhang')->get();
         return view('admin.khachhang')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -104,9 +104,9 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
-            $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','=','sanpham.kmMa')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            $data=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
             
      
             return view('admin.sanpham')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -122,7 +122,7 @@ class adminController extends Controller
             Session::forget('dgTrangthai');
              $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
              // $data = DB::table("sanpham")->leftjoin('danhgia','danhgia.spMa',"=","sanpham.spMa")->orderBy('dgTrangthai','desc')->get();
              $data = DB::table("danhgia")->leftjoin('sanpham','sanpham.spMa',"=","danhgia.spMa")->orderBy('dgTrangthai','desc')->get();
@@ -137,7 +137,7 @@ class adminController extends Controller
         {
              $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $data=DB::table('kho')->get();
             return view('admin.kho')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -153,7 +153,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
               $data = DB::table('loai')->get();
              return view('admin.loai')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -169,7 +169,7 @@ class adminController extends Controller
         {
              $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
               $data = DB::table('thuonghieu')->get();
         return view('admin.thuonghieu')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -184,7 +184,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
              $data=DB::table('nhucau')->get();
         return view('admin.nhucau')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -199,7 +199,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
              $data=DB::table('khuyenmai')->get();
             return view('admin.khuyenmai')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -215,7 +215,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $data = DB::table('banner')->get();
             return view('admin.banner')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang);
@@ -238,7 +238,7 @@ class adminController extends Controller
         {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $data1=DB::table('hoadon')
                             ->leftjoin('khachhang','khachhang.khMa','=','hoadon.khMa')
@@ -262,7 +262,7 @@ class adminController extends Controller
         {
         $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
         Session::put('dgTrangthai',$noteDanhgia);
-        $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+        $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
         Session::put('hdTinhtrang',$noteDonhang);
         $bcNgay = DB::table('hoadon')->distinct()->get('hdNgaytao');
         $data=DB::table('baocao')->get();
@@ -627,35 +627,22 @@ class adminController extends Controller
     }
     public function adCheckAddSanpham(Request $re)
     {
-         if($re->spTen ==null||$re->khoSoluong == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
+         if($re->spTen ==null||$re->spGia==null)
         {
             Session::forget('sp_err');
             $messages =[
-               
                 'spTen.required'=>'Sản phẩm không được để trống',
-                'khoSoluong.required'=>'Số lượng không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
-                'ram.required'=>'Ram không được để trống',
-                'psu.required'=>'PSU không được để trống',
-                'mainboard.required'=>'Mainboard không được để trống',
-                 'vga.required'=>'VGA không được để trống',
-                'ocung.required'=>'Ổ cứng không được để trống',
-                'tannhiet.required'=>'tannhiet không được để trống',
+                
                 
             ];
             $this->validate($re,[
-               
                 'spTen'=>'required',
                 'spHanbh'=>'required',
-                'khoSoluong'=>'required',
-                'spGia'=>'required', 
-                'ram'=>'required',
-                'psu'=>'required',
-                'mainboard'=>'required', 
-                'vga'=>'required',
-                'ocung'=>'required',
-                'tannhiet'=>'required',  
+                'spGia'=>'required',
+               
+                
             ],$messages);
             $errors=$validate->errors();
         }
@@ -671,53 +658,85 @@ class adminController extends Controller
                 }
                 else
                 {
+                $spMa = rand(0,100).strlen($re->spGia).strlen($re->spTen);
                 $data = array();
-                $data['spMa']=''.strlen($re->spTen).substr($re->spGia,0,3).strlen($re->thMa).strlen($re->loaiMa).strlen($re->ncMa).strlen(rand(0,100000));
+                $data['spMa']=$spMa;
                 $data['spTen']=$re->spTen;
                 $data['spGia']=$re->spGia;
                 $data['spHanbh']=$re->spHanbh;
+                $data['spTinhtrang']=0;
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
-                //
-                $data2 = array();
-                $data2['spMa']= $data['spMa'];
-                $data2['manhinh']=$re->manhinh;
-                $data2['chuot']=$re->chuot;
-                $data2['banphim']=$re->banphim;
-                $data2['ram']=$re->ram;
-                $data2['psu']=$re->psu;
-                $data2['mainboard']=$re->mainboard;
-                $data2['vga']=$re->vga;
-                $data2['ocung']=$re->ocung;
-                $data2['vocase']=$re->vocase;
-                $data2['pin']=$re->pin;
-                $data2['tannhiet']=$re->tannhiet;
-                $data2['loa']=$re->loa;
+                
+                 DB::table('sanpham')->insert($data);
+                if($re->loaiMa==1)
+                {
+
+                    $data2 = array();
+                    $data2['spMa']= $spMa;
+                    $data2['ram'] = $re->ram;
+                    $data2['cpu'] = $re->cpu;
+                    $data2['psu'] = "";
+                    $data2['ocung'] = $re->ocung;
+                    $data2['vga'] = "";
+                    $data2['mainboard'] = "";
+                    $data2['manhinh'] = $re->manhinh;
+                    $data2['pin'] = $re->pin;
+                    $data2['vocase'] = "";
+                    $data2['tannhiet'] = $re->tannhiet;
+                    $data2['loa'] =$re->loa;
+                    $data2['mau']=$re->mau;
+                    $data2['trongluong'] = $re->trongluong;
+                    $data2['conggiaotiep'] = $re->conggiaotiep;
+                    $data2['webcam'] = $re->webcam;
+                    $data2['chuanlan'] = $re->chuanlan;
+                    $data2['chuanwifi'] = $re->chuanwifi;
+                    $data2['hedieuhanh'] = $re->hedieuhanh;
+                    DB::table('mota')->insert($data2);
+            }
+               else
+               {
+                    $data2 = array();
+                    $data2['spMa']= $spMa;
+                    $data2['ram'] = $re->ram;
+                    $data2['cpu'] = $re->cpu;
+                    $data2['psu'] = $re->psu;
+                    $data2['ocung'] = $re->ocung;
+                    $data2['vga'] = $re->vga;
+                    $data2['mainboard'] = $re->mainboard;
+                    $data2['manhinh'] = "";
+                    $data2['pin'] = "";
+                    $data2['vocase'] = $re->case;
+                    $data2['tannhiet'] = "";
+                    $data2['loa'] ="";
+                    $data2['mau']="";
+                    $data2['trongluong'] = "";
+                    $data2['conggiaotiep'] = "";
+                    $data2['webcam'] = "";
+                    $data2['chuanlan'] = "";
+                    $data2['chuanwifi'] = "";
+                    $data2['hedieuhanh'] = "";
+                    DB::table('mota')->insert($data2);
+                }
+               
                 //Anh 1
                 $data3 = array();
-                $data3['spMa']= $data['spMa'];
+                $data3['spMa']= $spMa;
                 $data3['spHinh']=$re->file('img')->getClientOriginalName();
                         $imgextention=$re->file('img')->extension();
                         $file=$re->file('img');
                         $file->move('public/images/products',$data3['spHinh']);
-                //
-                $data4 = array();
-                $data4['spMa'] =$data['spMa'];
-                $data4['khoSoluong'] = $re->khoSoluong;
-                $data4['khoNgaynhap'] = now();
-                
-                DB::table('sanpham')->insert($data);
-                DB::table('mota')->insert($data2);
+
                 DB::table('hinh')->insert($data3);
-                DB::table('kho')->insert($data4);
+               
 
                 //Anh 2
                 if($re->hasFile('img2')==true)
                 {
                     $dataImg2 = array();
-                    $dataImg2['spMa']= $data['spMa'];
+                    $dataImg2['spMa']= $spMa;
                     $dataImg2['spHinh']=$re->file('img2')->getClientOriginalName();
                             $imgextention=$re->file('img2')->extension();
                             $file=$re->file('img2');
@@ -729,7 +748,7 @@ class adminController extends Controller
                 if($re->hasFile('img3')==true)
                 {
                     $dataImg3 = array();
-                    $dataImg3['spMa']= $data['spMa'];
+                    $dataImg3['spMa']= $spMa;
                     $dataImg3['spHinh']=$re->file('img3')->getClientOriginalName();
                             $imgextention=$re->file('img3')->extension();
                             $file=$re->file('img3');
@@ -741,7 +760,7 @@ class adminController extends Controller
                 if($re->hasFile('img4')==true)
                 {
                     $dataImg4 = array();
-                    $dataImg4['spMa']= $data['spMa'];
+                    $dataImg4['spMa']= $spMa;
                     $dataImg4['spHinh']=$re->file('img4')->getClientOriginalName();
                             $imgextention=$re->file('img4')->extension();
                             $file=$re->file('img4');
@@ -789,34 +808,25 @@ class adminController extends Controller
    
     public function editSanpham(Request $re, $id)
     {
-        if($re->spTen ==null||$re->khoSoluong == null||$re->spGia==null||$re->ram==null||$re->psu==null||$re->mainboard==null||$re->vga==null||$re->ocung==null||$re->tannhiet==null)
+        if($re->spTen ==null||$re->spGia==null||$re->ram==null||$re->ocung==null)
         {
             $messages =[
                
                 'spTen.required'=>'Sản phẩm không được để trống',
-                'khoSoluong.required'=>'Số lượng không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
                 'ram.required'=>'Ram không được để trống',
-                'psu.required'=>'PSU không được để trống',
-                'mainboard.required'=>'Mainboard không được để trống',
-                 'vga.required'=>'VGA không được để trống',
                 'ocung.required'=>'Ổ cứng không được để trống',
-                'tannhiet.required'=>'tannhiet không được để trống',
                 
             ];
             $this->validate($re,[
                
                 'spTen'=>'required',
                 'spHanbh'=>'required',
-                'khoSoluong'=>'required',
                 'spGia'=>'required', 
                 'ram'=>'required',
-                'psu'=>'required',
-                'mainboard'=>'required', 
-                'vga'=>'required',
                 'ocung'=>'required',
-                'tannhiet'=>'required',  
+ 
             ],$messages);
             $errors=$validate->errors();
             }
@@ -832,20 +842,7 @@ class adminController extends Controller
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
                 //
-                $data2 = array();
-                $data2['spMa']=$re->spMa;
-                $data2['manhinh']=$re->manhinh;
-                $data2['chuot']=$re->chuot;
-                $data2['banphim']=$re->banphim;
-                $data2['ram']=$re->ram;
-                $data2['psu']=$re->psu;
-                $data2['mainboard']=$re->mainboard;
-                $data2['vga']=$re->vga;
-                $data2['ocung']=$re->ocung;
-                $data2['vocase']=$re->vocase;
-                $data2['pin']=$re->pin;
-                $data2['tannhiet']=$re->tannhiet;
-                $data2['loa']=$re->loa;
+             
                 //
                 $data4 = array();
                 $data4['spMa'] =$data['spMa'];
@@ -932,10 +929,6 @@ class adminController extends Controller
 
     //End kho
     //Loai
-    public function themLoai()
-    {
-        return view('admin.themloai');
-    }
     public function adCheckAddLoai(Request $re)
     {
         if($re->loaiTen == null)
@@ -1015,10 +1008,7 @@ class adminController extends Controller
     //End Loai
     
     //Nhu cau
-    public function themNhucau()
-    {
-        return view('admin.themnhucau');
-    }
+  
     public function adCheckAddNhucau(Request $re)
     {
        if($re->ncTen == null)
@@ -1095,10 +1085,7 @@ class adminController extends Controller
     
 
     //Thương hiệu
-     public function themThuonghieu()
-    {
-        return view('admin.themthuonghieu');
-    }
+   
     public function adCheckAddThuonghieu(Request $re)
     {
         if($re->thTen == null)
@@ -1176,10 +1163,7 @@ class adminController extends Controller
   
 
   //Banner
-  public function thembanner()
-  {
-     return view('admin.thembanner');
-  }
+ 
   public function adCheckAddBanner(Request $re)
   {
     if($re->hasFile('bnHinh')==true)
@@ -1269,7 +1253,7 @@ class adminController extends Controller
   {
      $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
     $dg = DB::table('danhgia')->leftjoin('khachhang','khachhang.khMa','=','danhgia.khMa')->where('spMa',$id)->orderBy('dgTrangthai','desc')->get();
     return view('admin.binhluansanpham')->with('dg',$dg);
@@ -1279,7 +1263,7 @@ class adminController extends Controller
      Session::forget('dgTrangthai');
      $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("hoadon")->where('hdTinhtrang',0)->count();
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
      $dg = DB::table('danhgia')->where('dgMa',$id)->join('khachhang','khachhang.khMa','=','danhgia.khMa')->get();
      $data = array();

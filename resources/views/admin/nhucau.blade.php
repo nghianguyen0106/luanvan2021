@@ -15,16 +15,26 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý nhu cầu sản phẩm</h6>
+                            <hr/>
+                            <form class="form-inline" action="{{URL::to('/checkAddNhucau')}}" method="GET">
+                             {{ csrf_field() }}     
+                            <label for="exampleInputPassword1" class="form-label">Nhu cầu sử dụng</label>
+                            &emsp;
+                            <input name="ncTen" type="text" class="form-control" id="ncTen">
+                              <span style="color:red">
+                                @if(Session::has('nc_err')!=null)
+                                    {{Session::get('nc_err')}}
+                                @endif
+                             </span>
+                             &emsp;
+                            <span style="color:red">{{$errors->first('ncTen')}}</span>
+                          <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                        </form>
                         </div>
                         @if(Session::has('nc_del')!=null)
                             {{Session::get('nc_del')}}
                         @endif
-                         <a  href="{{url('/themnhucau')}}" class="btn btn-primary " style="width: 20%;">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
-                                        </span>
-                                        <span class="text"><b>Thêm nhu cầu mới</b></span>
-                                    </a>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -1,27 +1,32 @@
 @extends('admin.layout')
 @section('content')
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
-          
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý thương hiệu</h6>
+                            <hr/>
+                            <form class="form-inline" action="{{URL::to('checkAddThuonghieu')}}" method="GET">
+                                 {{ csrf_field() }}
+                                
+                                <label for="exampleInputPassword1" class="form-label">Tên thương hiệu</label>
+                                &emsp;
+                                <input name="thTen" type="text" class="form-control" id="thTen">
+                                 <span style="color:red">
+                                    @if(Session::has('th_err')!=null)
+                                        {{Session::get('th_err')}}
+                                    @endif
+                                 </span>
+                              &emsp;
+                                <span style="color:red">{{$errors->first('thTen')}}</span>
+                              <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                            </form>
                         </div>
-                         <a  href="{{url('/themthuonghieu')}}" class="btn btn-primary" style="width: 20%;">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
-                                        </span>
-                                        <span class="text"><b>Thêm thương hiệu mới</b></span>
-                                    </a>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
