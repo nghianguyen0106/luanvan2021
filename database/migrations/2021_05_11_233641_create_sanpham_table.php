@@ -16,7 +16,7 @@ class CreateSanphamTable extends Migration
         Schema::create('sanpham', function (Blueprint $table) {
             $table->integer('spMa')->primary();
             $table->string('spTen')->unique();
-            $table->float('spGia');
+            $table->integer('spGia');
             $table->integer('spHanbh');
             $table->integer('spTinhtrang');
             $table->integer('kmMa')->nullable(true);

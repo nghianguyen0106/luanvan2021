@@ -118,25 +118,25 @@ Route::get('updateKho/{id}','adminController@updateKho');
 Route::post('editKho/{id}','adminController@editKho');
 
 //--Loai--//
-Route::get('/themloai','adminController@themLoai');
+
 Route::get('/checkAddLoai','adminController@adCheckAddLoai');
 Route::get('/deleteLoai/{id}','adminController@adDeleteLoai');
 Route::get('/updateLoai/{id}','adminController@adUpdateLoai');
 Route::get('/editLoai/{id}','adminController@editLoai');
 //--Nhu cầu --//
-Route::get('/themnhucau','adminController@themNhucau');
+
 Route::get('/checkAddNhucau','adminController@adCheckAddNhucau');
 Route::get('/deleteNhucau/{id}','adminController@adDeleteNhucau');
 Route::get('/updateNhucau/{id}','adminController@adUpdateNhucau');
 Route::get('/editNhucau/{id}','adminController@editNhucau');
 //--Thương hiệu--//
-Route::get('/themthuonghieu','adminController@themThuonghieu');
+
 Route::get('/checkAddThuonghieu','adminController@adCheckAddThuonghieu');
 Route::get('/deleteThuonghieu/{id}','adminController@adDeleteThuonghieu');
 Route::get('/updateThuonghieu/{id}','adminController@adUpdateThuonghieu');
 Route::get('/editThuonghieu/{id}','adminController@editThuonghieu');
 //--Banner--//
-Route::get('/themBanner','adminController@themBanner');
+
 Route::post('/checkAddBanner','adminController@adCheckAddBanner');
 Route::get('/deleteBanner/{id}','adminController@adDeleteBanner');
 Route::get('/updateBanner/{id}','adminController@adUpdateBanner');

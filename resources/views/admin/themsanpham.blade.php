@@ -27,11 +27,7 @@
 			    <input name="spGia" type="number" class="form-control" id="spGia">
 			     <span style="color:red">{{$errors->first('spGia')}}</span>
 			  </div>
-			   <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Số lượng</label>
-				    <input name="khoSoluong" type="number" class="form-control" id="khoSoluong">
-				    <span style="color:red">{{$errors->first('khoSoluong')}}</span>
-				 </div>
+			  
 				 <div class="mb-3">
 				    <label for="exampleInputPassword1" class="form-label">Hạn bảo hành</label>
 				    <input name="spHanbh" type="number" class="form-control" id="spHanbh">
@@ -61,11 +57,12 @@
 		               
 		                <div class="mb-3">
 					 <label for="exampleInputPassword1" class="form-label">Loại</label>
-		                <select style="width: 205px" class="form-control m-bot15" name="loaiMa">
+		                <select onchange="change()" id="select__loai" style="width: 205px" class="form-control m-bot15" name="loaiMa">
 		                            @foreach($loaiMa as $key => $value)
 		                                <option value="{{$loaiMa[$key]->loaiMa}}" >{{$loaiMa[$key]->loaiTen}}</option>
 		                            @endforeach
 		               </select>
+
 		               </div>
 		                <div class="mb-3">
 					 <label for="exampleInputPassword1" class="form-label">Nhu cầu sử dụng</label>
@@ -78,83 +75,125 @@
            		</div>
            		<!--end field flex form-->
 				
-				<!--end field flex form-->
+				
 				<!--field flex form-->
 				<br/>
 				<h4>Mô tả chi tiết</h4>
 			    <div class="flex__form">
-
 				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Màn hình</label>
-				    <input name="manhinh" type="text" class="form-control">
+				    <label for="exampleInputPassword1" class="form-label">Ram</label>
+				    <input name="ram" type="text" class="form-control">
 				    <span style="color:red">{{$errors->first('')}}</span>
 				    </div>
 				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Chuột</label>
-				    <input name="chuot" type="text" class="form-control" >
+				    <label for="exampleInputPassword1" class="form-label">CPU</label>
+				    <input name="cpu" type="text" class="form-control" >
 				    <span style="color:red">{{$errors->first('')}}</span>
 				    </div>
 				     <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Bàn phím</label>
-				    <input name="banphim" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('')}}</span>
-				  	</div>
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">RAM</label>
-				    <input name="ram" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('ram')}}</span>
-			 		</div>
-				</div>
-				
-				<!--field flex form-->
-				<div class="flex__form">
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">PSU</label>
-				    <input name="psu" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('psu')}}</span>
-				    </div>
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Mainboard</label>
-				    <input name="mainboard" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('mainboard')}}</span>
-				    </div>
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">VGA</label>
-				    <input name="vga" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('vga')}}</span>
-				  	</div>
-				    <div class="mb-3">
 				    <label for="exampleInputPassword1" class="form-label">Ổ cứng</label>
 				    <input name="ocung" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('ocung')}}</span>
-				  	</div>
-			    </div>
-			   
-				<!--field flex form-->
-				<div class="flex__form">
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Vỏ case</label>
-				    <input name="vocase" type="text" class="form-control" >
 				    <span style="color:red">{{$errors->first('')}}</span>
-				  	</div>
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Pin</label>
-				    <input name="pin" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('')}}</span>
-				  	</div>
-				  	 <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Tản nhiệt</label>
-				    <input name="tannhiet" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('tannhiet')}}</span>
-				    </div>
-				    <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Loa</label>
-				    <input name="loa" type="text" class="form-control" >
-				    <span style="color:red">{{$errors->first('')}}</span>
-				    </div>
+				  	</div> 
 				</div>
 				
-				<!--end field flex form-->
+				<!--mota__lap-->
+				<div id="mota__lap">
+					<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Màn hình</label>
+					    <input name="manhinh" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Cổng giao tiếp</label>
+					    <input name="conggiaotiep" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					     <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Trọng lượng</label>
+					    <input name="trongluong" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					  	</div> 
+					</div>
+				<!---->
+					<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Màu</label>
+					    <input name="mau" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Loa</label>
+					    <input name="loa" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					     <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Webcam</label>
+					    <input name="webcam" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					  	</div> 
+					  	<div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Tản nhiệt</label>
+					    <input name="tannhiet" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					  	</div> 
+					</div>
+				
+				<!---->
+					<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">PIN</label>
+					    <input name="pin" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Chuẩn wifi</label>
+					    <input name="chuanwifi" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					  	 <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Chuẩn Lan</label>
+					    <input name="chuanlan" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					  	</div> 
+					  	<div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Hệ điều hành</label>
+					    <input name="hedieuhanh" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					  	</div> 
+					</div>
+				</div>
+			   
+				<!--end mota__lap-->
+				<!--mota__pc-->
+				<div id="mota__pc">
+					<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Mainboard</label>
+					    <input name="mainboard" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">VGA</label>
+					    <input name="vga" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">PSU</label>
+					    <input name="psu" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">CASE</label>
+					    <input name="case" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					
+				</div>
+				</div>
+				
+				<!--end mota__pc-->
 
 				<br/>
 				<label style="font-size: 24px" for="exampleInputPassword1" class="form-label">Hình ảnh sản phẩm</label>

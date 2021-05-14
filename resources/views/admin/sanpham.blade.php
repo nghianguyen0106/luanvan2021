@@ -33,7 +33,7 @@
                                             <th>Giá</th>
                                              <th>Tình trạng</th>
                                             <th>Hạn bảo hành</th>
-                                            <th>Khuyến mãi</th>
+                                           
                                             <th>Thương hiệu</th>
                                             <th>Loại</th>
                                             <th>Nhu cầu</th>
@@ -48,7 +48,7 @@
                                             <th>Giá</th>
                                             <th>Tình trạng</th>
                                             <th>Hạn bảo hành</th>
-                                            <th>Khuyến mãi</th>
+                                            
                                             <th>Thương hiệu</th>
                                             <th>Loại</th>
                                             <th>Nhu cầu</th>
@@ -57,22 +57,15 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach($data as $value)
+                                       
+                                         @foreach($data as $value)
                                         <tr>
                                            <th>{{$value->spMa}}</th>
                                             <th>{{$value->spTen}}</th>
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
-                                            <th>{{$value->khoSoluong>0?"Còn hàng":"Hết hàng"}}</th>
+                                            <th>{{$value->spTinhtrang==0?"Hết hàng":"Còn hàng"}}</th>
                                             <th>{{$value->spHanbh}}&nbsp;năm</th>
                                            
-                                            <th>
-                                                @if($value->kmTrigia!=null)
-                                                    $value->kmTrigia
-                                                @else
-                                                    0
-                                                @endif
-                                                %
-                                            </th>
                                            
                                             <th>{{$value->thTen}}</th>
                                             
@@ -90,13 +83,12 @@
                                             </td>
                                         </tr>
                                         @endforeach
-                                       
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
+ 
                 </div>
                 <!-- /.container-fluid -->
 
