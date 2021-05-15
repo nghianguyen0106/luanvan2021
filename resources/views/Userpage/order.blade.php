@@ -3,9 +3,10 @@
 Danh sách đơn hàng
 @endsection
 @section('content')
+<br><br><br>
 <div class="container">
 	<div class="row">
-		<table class="table">
+		<table style="text-align: center;" class="table-hover table table-inverse table-responsive">
 			<thead>
 				<tr>
 					<th>Mã đơn hàng</th>
@@ -15,10 +16,13 @@ Danh sách đơn hàng
 					<th>Địa chỉ giao hàng</th>
 					<th>Số điện thoại người nhận</th>
 					<th>Ghi chú</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 					@foreach($list as $i)
+
+
 						<tr>
 							<td>{{$i->hdMa}}</td>
 							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
@@ -35,40 +39,68 @@ Danh sách đơn hàng
 							<td>{{$i->hdDiachi}}</td>
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>{{$i->hdGhichu}}</td>
+							<td>
+								<a class="btn btn-outline-warning" id="myBtn" onclick="view()">Xem</a>
+									<!-- The Modal -->
+								<div id="myModal" class="modal">
+
+								  <!-- Modal content -->
+								  <div class="modal-content">
+								    <div class="close">Chi tiết đơn hàng</div>
+
+								    <table class="table-hover table table-inverse table-responsive">
+								    	<thead>
+								    		<tr>
+								    			<th>Tên sản phẩm</th>
+								    			<th></th>
+								    			<th>Số lượng</th>
+								    			<th>Đơn giá</th>
+
+								    		</tr>
+								    	</thead>
+								    	<tbody>
+								    		@foreach($details as $v)
+								    			@if($v->hdMa==$i->hdMa)
+										    		<tr>
+										    			<td>{{$v->spTen}}</td>
+										    			<td class="invert-image"><a href="{{URL::to('proinfo/'.$v->spMa)}}"><img style="width: 100px;height: 100px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt=" " class="img-responsive" /></a></td>
+										    			<td>{{$v->cthdSoluong}}</td>
+										    			<td>{{number_format($v->cthdGia)}} VND</td>
+										    		</tr>
+								    			@endif
+								    		@endforeach
+								    	</tbody>
+								    </table>
+								    
+								  </div>
+
+								</div>
+
+							</td>
 						</tr>
-
-
+							
 					@endforeach					
 			</tbody>
 		</table>
 	</div>
-	
 </div>
+
+<script>
+	function view()
+	{
+		// Get the modal
+
+		var modal = document.getElementById("myModal");
+		var span = document.getElementsByClassName("close")[0];
+		 modal.style.display = "block";
+		window.onclick = function(event) {
+		  if (event.target == modal) {
+		    modal.style.display = "none";
+		  }
+		}
+	}
+
+</script>
 @endsection
 
 
-<td>
-{{-- 						<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-Xem chi tiết
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng ...</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
-					</td>

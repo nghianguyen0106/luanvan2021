@@ -17,7 +17,7 @@ class homeController extends Controller
     public function welcome()
     {
         $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',1)->limit(6)->get();
-       $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
+        $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
           	return view('welcome',compact('dblap','dbpc'));
     }
     
@@ -38,6 +38,7 @@ class homeController extends Controller
     }
     public function logout()
     {
+        Cart::destroy();
         Session::forget('khTen');
         Session::forget('khMa');
         Session::forget('khTaikhoan');
@@ -63,7 +64,7 @@ class homeController extends Controller
     public function proinfo(Request $re)
     {
         $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
-        $checkordered=DB::table('khachhang')->join('hoadon','hoadon.khMa','khachhang.khMa')->join('chitiethoadon','chitiethoadon.hdMa','hoadon.hdMa')->where('chitiethoadon.spMa',$re->id)->where('hoadon.khMa',Session::get('khMa'))->select('spMa')->first();
+        $checkordered=DB::table('khachhang')->join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->select('spMa')->first();
 
         $cart=Cart::content();
         $total=0;
@@ -625,8 +626,19 @@ class homeController extends Controller
         }
         $list=DB::table('donhang')->where('khMa',Session::get('khMa'))->get();
         //dd($list);
-          return view('Userpage.order',compact('list','cate','cart','total'));
+        foreach ($list as  $v) 
+        {
+            $data=DB::table('chitietdonhang')->join('donhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$v->khMa)->get();
+            $details = array();
+            foreach ($data as $key => $value) 
+            {
+                array_push($details, $value);
+            }
+            
+        }
 
+        //dd($details);
+          return view('Userpage.order',compact('details','list','cate','cart','total'));
     }   
 
     // ----------
