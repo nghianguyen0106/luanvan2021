@@ -24,7 +24,7 @@
 								     </span>
 								 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
 								 	 &emsp;
-								  <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+								  <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 								</form>
                         </div>
                     	<br/>
@@ -35,14 +35,16 @@
                                         <tr>
                                             <th>Mã loại</th>
                                             <th>Tên loại</th>
-                                            <th>Cập nhật</th>
+                                            <th></th>
+                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                            <th>Mã loại</th>
                                             <th>Tên loại</th>
-                                            <th>Cập nhật</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -50,16 +52,19 @@
                                     @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->loaiMa}}</td>
-                                            <td>{{$value->loaiTen}}</td>
-                                           
+
+                                        <form action="{{URL::to('/editLoai/'.$value->loaiMa)}}" method="POST">
+                                             {{ csrf_field() }}
+                                            <td><input name="loaiTen" value="{{$value->loaiTen}}"/></td>
                                             <td>
-                                                <a href="{{url('/updateLoai/'.$value->loaiMa)}}" class="active" ui-toggle-class="">
-                                                    <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a href="{{URL::to('/deleteLoai/'.$value->loaiMa)}}" >
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a>
+                                                <button class="btn btn-primary" type="submit" class="active" ui-toggle-class="">
+                                                   Cập nhật
+                                                </button>
                                             </td>
+                                        </form>
+                                            <td> <a class="btn btn-danger" href="{{URL::to('/deleteLoai/'.$value->loaiMa)}}" >
+                                                   Xóa
+                                                </a></td>
 
                                         </tr>
                                     @endforeach

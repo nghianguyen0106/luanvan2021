@@ -28,7 +28,7 @@
                              </span>
                              &emsp;
                             <span style="color:red">{{$errors->first('ncTen')}}</span>
-                          <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                          <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
                         </form>
                         </div>
                         @if(Session::has('nc_del')!=null)
@@ -56,15 +56,17 @@
                                         @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->ncMa}}</td>
-                                            <td>{{$value->ncTen}}</td>
+
+                                    <form action="{{URL::to('/editNhucau/'.$value->ncMa)}}" method="GET">
+                                         {{ csrf_field() }}
+                                            <td><input name="ncTen" value="{{$value->ncTen}}"/></td>
                                             <td>
-                                                <a> <a href="{{url('/updateNhucau/'.$value->ncMa)}}" class="active" ui-toggle-class="">
-                                                    <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a href="{{url('/deleteNhucau/'.$value->ncMa)}}" >
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></a>
+                                               <button class="btn btn-primary" ui-toggle-class="">Cập nhật </button>
                                             </td>
+                                            <td> <a href="{{url('/deleteNhucau/'.$value->ncMa)}}" >
+                                                    <i class="fa fas fa-trash" style="color: red;"></i>
+                                                </a></td>
+                                        </form>
                                         </tr>
                                         @endforeach
                                        

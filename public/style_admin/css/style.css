@@ -1,3 +1,4 @@
+
 .flex__form
 {
 	padding-top: 1rem;
@@ -48,13 +49,15 @@ table
 
 .btn_ok
 {
+
 	position: relative;
 	
+	border:0;
 	font-size: 20px;
 	background: green;
-	border:0;
+	
 	border-radius: 10px;
-	outline: none;
+	
 	color: white;
 	padding: 5px 20px 5px 20px;
 	font-family: "Montserrat",san-serif;
@@ -81,4 +84,22 @@ table
 {
 	transform: scaleX(1);
 	transition: 0.4s;
+}
+
+.menu__donhang
+{
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	
+}
+.menu__donhang li
+{
+	display: inline-block;
+	cursor: pointer;
+}
+.menu__donhang li:hover
+{
+	border-bottom:1px solid blue; 
 }

@@ -63,7 +63,7 @@
                     &emsp;
                     @if(Session::get('hdTinhtrang')!=null)
                     <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
-                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:red;">!</i>
+                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:#B65A5A;">({{$noteDonhang}})</i>
                     </a>
                     @else
                      <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
@@ -215,73 +215,24 @@
 
    <script src="{{URL::asset("public/style_admin/js/js.js")}}"></script>
    <script src="{{URL::asset("public/style_admin/js/js2.js")}}"></script>
+   <script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
    
   <!--Alert Date-->
-   @if(Session::has('date_err'))
+   @if(Session::has('note_err'))
      <script type="text/javascript">
     Swal.fire({
       icon: 'error',
-      title: 'Lỗi thời gian',
-      text: '{{Session::get('date_err')}}!',
+      title: 'Thông báo lỗi',
+      text: '{{Session::get('note_err')}}!',
      
     });
     </script> 
    @endif
 <!--End Alert Date-->
 <!----ERROR NHANVIEN/ ADMIN---->
- @if(Session::has('adHinh_err'))
-     <script type="text/javascript">
-    Swal.fire({
-      icon: 'error',
-      title: 'Nhân viên phải có ảnh',
-      text: '{{Session::get('adHinh_err')}}!',
-    });
-    </script>
-    @endif
-    
 
-   @if(Session::has('taikhoan_err'))
-    <script type="text/javascript">
-    Swal.fire({
-      icon: 'error',
-      title: 'Tài khoản đã tồn tại',
-      text: '{{Session::get('taikhoan_err')}}!',
-    });
-    </script> 
-    @endif
-
-    @if(Session::has('email_err'))
-    <script type="text/javascript">
-    Swal.fire({
-      icon: 'error',
-      title: 'Email đã tồn tại',
-      text: '{{Session::get('email_err')}}!',
-    });
-    </script>
-    @endif
-
-    @if(Session::has('sdt_err'))
-    <script type="text/javascript">
-    Swal.fire({
-      icon: 'error',
-      title: 'Số điện thoại đã tồn tại',
-      text: '{{Session::get('sdt_err')}}!',
-    });
-    </script> 
- @endif
- <!----END ERROR NHANVIEN/ ADMIN---->
- <!--kho-->
- 
-  @if(Session::has('khoSL_err'))
-    <script>
-    Swal.fire({
-      icon: 'error',
-      title: 'Số lượng kho',
-      text: '{{Session::get('khoSL_err')}}!',
-    });
-    </script> 
- @endif
  <!--end KHO-->
+ 
 </body>
 
 </html>

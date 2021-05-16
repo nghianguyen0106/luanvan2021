@@ -59,6 +59,8 @@ Route::get('sendmail','cartController@sendmail');
 Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
 Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
 
+//--Đơn hàng--//
+Route::get('huy-don/{id}','homeController@huyDon');
 //---------------------------------------------END USER--------------------------------------------//
 
 
@@ -119,20 +121,18 @@ Route::post('editKho/{id}','adminController@editKho');
 //--Loai--//
 
 Route::get('/checkAddLoai','adminController@adCheckAddLoai');
+Route::post('editLoai/{id}','adminController@editLoai');
 Route::get('/deleteLoai/{id}','adminController@adDeleteLoai');
-Route::get('/updateLoai/{id}','adminController@adUpdateLoai');
-Route::get('/editLoai/{id}','adminController@editLoai');
+
 //--Nhu cầu --//
 
 Route::get('/checkAddNhucau','adminController@adCheckAddNhucau');
 Route::get('/deleteNhucau/{id}','adminController@adDeleteNhucau');
-Route::get('/updateNhucau/{id}','adminController@adUpdateNhucau');
 Route::get('/editNhucau/{id}','adminController@editNhucau');
 //--Thương hiệu--//
 
 Route::get('/checkAddThuonghieu','adminController@adCheckAddThuonghieu');
 Route::get('/deleteThuonghieu/{id}','adminController@adDeleteThuonghieu');
-Route::get('/updateThuonghieu/{id}','adminController@adUpdateThuonghieu');
 Route::get('/editThuonghieu/{id}','adminController@editThuonghieu');
 //--Banner--//
 
@@ -147,11 +147,12 @@ Route::get('/deleteKhuyenmai/{id}','adminController@adDeleteKhuyenmai');
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');
 //--Hóa đơn--//
-Route::get('don-hang','adminController@viewHoadon');
+Route::get('don-hang','adminController@viewDonhang');
 Route::get('them-nv-giao-hang/{id}','adminController@themNVgiao');
 Route::get('giaohang/{id}','adminController@giaohang');
 Route::get('thanhtoan/{id}','adminController@thanhtoan');
-Route::get('update-bao-cao-ngay','adminController@updateBaocao');
+Route::get('xoa-don/{id}','adminController@xoadon');
 //--Báo cáo ngày--//
+Route::get('update-bao-cao-ngay','adminController@updateBaocao');
 Route::get('bao-cao-ngay','adminController@viewBaocao');
 Route::get('deleteBaocao/{id}','adminController@deleteBaocao');

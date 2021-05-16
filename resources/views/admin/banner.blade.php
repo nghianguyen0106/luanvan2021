@@ -15,13 +15,26 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý banner </h6>
+                            <hr/>
+                                <form class="form-inline " action="{{URL::to('checkAddBanner')}}" method="POST" enctype="multipart/form-data">
+                                     {{ csrf_field() }}
+                                  <div class="mb-3">
+                                    <br/>
+                                     
+                                    <span>Thêm hình ảnh cho banner:</span>
+                                    <input name="bnHinh" type="file" class="form-control" id="bnHinh">
+                                  </div>
+                                    <span style="color:red">
+                                        @if(Session::has('bnError'))
+                                            {{Session::get('bnError')}}
+
+                                        @endif
+                                    </span>
+                                    &emsp;
+                                  <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+                                </form>
                         </div>
-                         <a  href="{{url('/themBanner')}}" class="btn btn-primary" style="width: 20%;">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
-                                        </span>
-                                        <span class="text"><b>Thêm banner mới</b></span>
-                                    </a>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,12 +58,9 @@
                                             <td>{{$value->bnMa}}</td>
                                             <td style="text-align: center"><img src="{{"public/images/banners/".$value->bnHinh}}" width="500" height="200" /></td>
                                             <td>
-                                                <a> <a href="{{url('/updateBanner/'.$value->bnMa)}}" class="active" ui-toggle-class="">
-                                                    <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a href="{{url('/deleteBanner/'.$value->bnMa)}}" >
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></a>
+                                                <a class="btn btn-danger" href="{{url('/deleteBanner/'.$value->bnMa)}}" >
+                                                  Xóa
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach

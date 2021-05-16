@@ -5,7 +5,7 @@
             <!-- Main Content -->
             <div id="content">
 
-          
+    
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -44,7 +44,7 @@
                                             <form action="{{URL::to('/editKho/'.$value->spMa)}}" method="POST">
                                             {{ csrf_field() }}
                                             <td>
-                                                <input value="{{$value->khoSoluong}}" name="khoSoluong"/>
+                                                <input type="number" value="{{$value->khoSoluong}}" name="khoSoluong"/>
                                             </td>
                                             <td>{{$value->khoNgaynhap}}</td>
                                             <td>
@@ -65,3 +65,4 @@
                 <!-- /.container-fluid -->
 
   @endsection
+ 

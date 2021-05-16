@@ -629,6 +629,14 @@ class homeController extends Controller
 
     }   
 
-    // ----------
+    // ----------//
+    public function huyDon($id)
+    {
+        $data= array();
+        $data['hdTinhtrang']=3;
+
+        DB::table('donhang')->where('hdMa',$id)->update($data);
+        return redirect()->back();
+    }
 }
 

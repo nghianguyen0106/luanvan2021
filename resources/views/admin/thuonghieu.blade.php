@@ -23,7 +23,7 @@
                                  </span>
                               &emsp;
                                 <span style="color:red">{{$errors->first('thTen')}}</span>
-                              <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                              <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary ">Thực hiện</button>
                             </form>
                         </div>
                         
@@ -42,23 +42,25 @@
                                         <tr>
                                             <th>Mã thương hiệu</th>
                                             <th>Tên thương hiệu</th>
-                                           
-                                            <th>Cập nhật</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
                                            <td>{{$value->thMa}}</td>
-                                            <td>{{$value->thTen}}</td>
+                                           <form action="{{URL::to('/editThuonghieu/'.$value->thMa)}}" method="GET">
+                                         {{ csrf_field() }}
+                                            <td><input name="thTen" value="{{$value->thTen}}" /></td>
                                             <td>
-                                                <a> <a href="{{url('updateThuonghieu/'.$value->thMa)}}" class="active" ui-toggle-class="">
-                                                    <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a href="{{url('deleteThuonghieu/'.$value->thMa)}}">
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></a>
+                                                <button type="submit" class="btn btn-primary " ui-toggle-class="">Cập nhật</button>
                                             </td>
+                                            <td>
+                                             <a class="btn btn-danger" href="{{url('deleteThuonghieu/'.$value->thMa)}}">
+                                                    Xóa
+                                                </a></td>
+                                        </form>
                                         </tr>
                                         @endforeach
                                        

@@ -11,10 +11,11 @@ Danh sách đơn hàng
 					<th>Mã đơn hàng</th>
 					<th>Ngày đặt</th>
 					<th>Số lượng sản phẩm</th>
-					<th>Tình trạng</th>
 					<th>Địa chỉ giao hàng</th>
 					<th>Số điện thoại người nhận</th>
 					<th>Ghi chú</th>
+					<th>Tình trạng</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,18 +24,22 @@ Danh sách đơn hàng
 							<td>{{$i->hdMa}}</td>
 							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
 							<td>{{$i->hdSoluongsp}}</td>
-							<td>
-								@if($i->hdTinhtrang==0)
-									<span style="color:red;">Đang chờ xác nhận</span>
-								@elseif($i->hdTinhtrang==1)
-									<span style="color:blue;">Đang giao hàng</span>
-								@else
-									<span style="color:green;">Đã thanh toán</span>
-								@endif
-							</td>
 							<td>{{$i->hdDiachi}}</td>
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>{{$i->hdGhichu}}</td>
+							
+								@if($i->hdTinhtrang==0)
+									<td><span style="color:red;">Đang chờ xác nhận</span></td>
+									<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
+								@elseif($i->hdTinhtrang==1)
+									<td><span style="color:blue;">Đang giao hàng</span></td>
+								@elseif($i->hdTinhtrang==2)
+									<td><span style="color:green;">Đã thanh toán</span></td>
+								@else
+									<td><span style="color:red;">Đang hủy</span></td>
+								@endif
+							
+							
 						</tr>
 
 
