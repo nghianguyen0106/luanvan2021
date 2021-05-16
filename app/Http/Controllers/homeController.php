@@ -64,8 +64,8 @@ class homeController extends Controller
     public function proinfo(Request $re)
     {
         $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
-        $checkordered=DB::table('khachhang')->join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->select('spMa')->first();
-
+        $checkordered=DB::table('khachhang')->join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',4)->select('spMa')->first();
+        //dd($checkordered);
         $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
@@ -617,28 +617,35 @@ class homeController extends Controller
 
     public function listorder()
     {
-          $cate=loai::get();
-          $cart=Cart::content();
+        $cate=loai::get();
+        $cart=Cart::content();
         $total=0;
        foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
         }
         $list=DB::table('donhang')->where('khMa',Session::get('khMa'))->get();
-        //dd($list);
-        foreach ($list as  $v) 
+
+        //dd(count($list));
+        if(count($list)==0)
         {
-            $data=DB::table('chitietdonhang')->join('donhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$v->khMa)->get();
+            return view('userpage.order',compact('list','cate','cart','total'));
+        }
+        else
+        {
+            foreach ($list as  $v) 
+        {
+            $data=DB::table('chitietdonhang')->join('donhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$v->khMa)->orderBy('donhang.hdNgaytao','asc')->get();
+    
             $details = array();
             foreach ($data as $key => $value) 
             {
                 array_push($details, $value);
             }
-            
         }
-
-        //dd($details);
-          return view('Userpage.order',compact('details','list','cate','cart','total'));
+        return view('Userpage.order',compact('details','list','cate','cart','total'));
+        }
+        
     }   
 
     // ----------

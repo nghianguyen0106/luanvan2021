@@ -127,9 +127,10 @@ Danh sách sản phẩm
 						{{-- Item --}}
 						
 					<?php $check = array();?>
-	
+			
 					@foreach($db as $k => $i)	
-					@if (in_array($i->spMa, $check)==null) 
+
+					@if (in_array($i->spMa, $check)==null && $i->spTinhtrang==0) 
 					
 					<?php array_push($check, $i->spMa); ?>
 				<div class="col-md-4 product-men p-4" style="height: 400px">

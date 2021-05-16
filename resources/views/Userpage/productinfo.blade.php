@@ -159,11 +159,13 @@ Thông tin sản phẩm
 							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >
 							  <label for="comment">Bình luận của bạn</label>
 							  @foreach($errors->all() as $i)
-			   			<p class="alert-danger">{{$i}}</p>
-			   			@endforeach
+			   				<p class="alert-danger">{{$i}}</p>
+			   				@endforeach
 							  <input type="submit" class="btn btn-outline-success my-1" name="btnSubmit" value="Gửi bình luận">
 							</div>
 			   			</form>
+			   			@else
+			   			<p class="alert-light">Bạn cần mua hàng để được bình luận sản phẩm này</p>
 			   			@endif
 			   			{{--  --}}
 			   		</div>

@@ -40,9 +40,9 @@ Danh sách đơn hàng
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>{{$i->hdGhichu}}</td>
 							<td>
-								<a class="btn btn-outline-warning" id="myBtn" onclick="view()">Xem</a>
+								<a class="btn btn-outline-warning" id="myBtn" onclick="view{{$i->hdMa}}()">Xem</a>
 									<!-- The Modal -->
-								<div id="myModal" class="modal">
+								<div id="myModal{{$i->hdMa}}" class="modal">
 
 								  <!-- Modal content -->
 								  <div class="modal-content">
@@ -71,9 +71,7 @@ Danh sách đơn hàng
 								    		@endforeach
 								    	</tbody>
 								    </table>
-								    
 								  </div>
-
 								</div>
 
 							</td>
@@ -85,12 +83,13 @@ Danh sách đơn hàng
 	</div>
 </div>
 
+@foreach($list as $i)
 <script>
-	function view()
+	function view{{$i->hdMa}}()
 	{
 		// Get the modal
 
-		var modal = document.getElementById("myModal");
+		var modal = document.getElementById("myModal{{$i->hdMa}}");
 		var span = document.getElementsByClassName("close")[0];
 		 modal.style.display = "block";
 		window.onclick = function(event) {
@@ -99,8 +98,8 @@ Danh sách đơn hàng
 		  }
 		}
 	}
-
 </script>
+@endforeach
 @endsection
 
 
