@@ -14,43 +14,70 @@ class cartController extends Controller
 {
     public function savecart(Request $re)
     {
-        $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->join('kho','kho.spMa','sanpham.spMa')->get();
+        $khMa=Session::get('khMa');
+        $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->join('kho','kho.spMa','sanpham.spMa')->first();
        // dd($productInfo);
         $count = array();
     
-        foreach ($productInfo as $i) 
-        {
-
-            if($i->khoSoluong ==0 )
+            if($productInfo->khoSoluong ==0 )
             {   
                 Session::flash('errCart','Sản phẩm tạm hết hàng!');
                 return Redirect::to('product');
             }
-            elseif(in_array($i->spMa,$count)==null)
+            elseif(in_array($productInfo->spMa,$count)==null)
             {
-                array_push($count,$i->spMa);
-                Cart::add( $i->spMa , $i->spTen , 1 ,$i->spGia ,0, [ 'spHinh' => $i->spHinh] );
+                array_push($count,$productInfo->spMa);
+                Cart::add( $productInfo->spMa , $productInfo->spTen , 1 ,$productInfo->spGia ,0, [ 'spHinh' => $productInfo->spHinh] );
+                $checkExistItem=DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->select('ghSoluong')->first();
+                if(Session::has('khMa'))
+                {
+                     if($checkExistItem==null)
+                    {
+                        $data['khMa']=$khMa;
+                        $data['spMa']=$productInfo->spMa;
+                        $data['ghSoluong']=1;
+                        DB::table('giohang')->insert($data);    
+                    }
+                    else
+                    {
+                        $quanty['ghSoluong']=$checkExistItem->ghSoluong+1;
+                        DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                    }
+                }
+               
+                
                  Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
             }
-        }
         return Redirect::to('product');
     }
 
     public function savecart2(Request $re)
     {
         $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->first();
-       //dd($productInfo,$re->quanty);
+       
         Cart::add($productInfo->spMa,$productInfo->spTen,$re->quanty,$productInfo->spGia,0,[ 'spHinh' => $productInfo->spHinh] );
+
         Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
          return Redirect::to('product');
     }
+
     public function destroy()
     {
         Cart::destroy();
         return redirect()->back();
     }
+
     public function removeitem(Request $re)
     {
+  
+        //dd(Cart::get($re->id)->id);
+        if(Session::has('khMa'))
+        {
+
+            $productInfo=DB::table('sanpham')->where('spMa',Cart::get($re->id)->id)->first();
+            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',Cart::get($re->id)->id)->delete();
+            
+        }
         Cart::remove($re->id);
         return redirect()->back();
     }
@@ -60,10 +87,16 @@ class cartController extends Controller
         $check=Cart::get($re->id);
         $d=$check->qty;
         $d++;
+
+        $productInfo=DB::table('giohang')->join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
+        
+        DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
+
+        //dd($productInfo);
         Cart::update($re->id,$d);
-        //dd(Cart::get($re->id));
         return Redirect::to('checkout');
     }
+
     public function changeQuantyDecrease(Request $re)
     {
          
@@ -71,10 +104,15 @@ class cartController extends Controller
         if($check->qty==1)
         {
             Cart::remove($re->id);
+            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->delete();
             return Redirect::to('checkout');
         }
         $d=$check->qty;
         $d--;
+
+        $productInfo=DB::table('giohang')->join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
+        DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
+
         Cart::update($re->id,$d);
         //dd(Cart::get($re->id));
         return Redirect::to('checkout');
@@ -98,19 +136,23 @@ class cartController extends Controller
             if(session::has('khTaikhoan'))
             {
                 $customerInfo=DB::table('khachhang')->where('khMa',Session::get('khMa'))->first();
-                //dd($customerInfo);
-                if($customerInfo->khToken==1)
+                //dd(date_create());
+                if($customerInfo->khXtemail==1)
                 {
+                    //dd(date_timestamp_get(localtime()));
                     //create order
                     $data['khMa']=Session::get('khMa');
                     $data['hdSoluongsp']=Cart::count();
                     $data['hdTongtien']=$money;
-                    $data['hdNgaytao']=date("Y/m/d");
+                    $data['hdNgaytao']=date_create();
                     $data['hdTinhtrang']=0;
                     $data['adMa']=0;
+                    $data['kmMa']=null;
                     $date=getdate();
+
                     $name=Session::get('khTaikhoan');
-                    $data['hdMa']=''.rand(0,10).substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'].strlen($name).rand(0,10);
+                    $data['hdMa']=''.$date['seconds'].$date['minutes'].substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'];
+                  
                     if($re->address !=null)
                     {
                         $data['hdDiachi']=$re->address;
@@ -163,7 +205,7 @@ class cartController extends Controller
                         DB::table('chitietdonhang')->insert($dd);
                     }
                     Cart::destroy();
-
+                    DB::table('giohang')->where('khMa',Session::get('khMa'))->delete();
                     $this->sendmail($data['hdMa']);
                      return Redirect::to('product');
                 }

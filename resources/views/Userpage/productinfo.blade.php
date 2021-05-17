@@ -31,7 +31,8 @@ Thông tin sản phẩm
 			</div>
 		</div>
 		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-@foreach($proinfo as $v)
+			
+			@foreach($proinfo as $v)
 			<form action="{{URL::to('save-cart2/'.$v->spMa)}}" method="post" accept-charset="utf-8">
 				{{ csrf_field() }}
 			
@@ -83,20 +84,40 @@ Thông tin sản phẩm
     			<div id="home" class="container tab-pane active"><br>
 					
 					<ul class=" list-group-item-light">
-					@foreach($details as $i)
+					@foreach($details as  $i)
 	
+						@if($i->manhinh!=null)
 						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
+						@endif
+						@if($i->ram!=null)
 						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
-						<li class="list-group-item"><label for="list-group-item">Chuột: </label> {{$i->chuot}}</li>
-						<li class="list-group-item"><label for="list-group-item">Màn hình: </label> {{$i->banphim}}</li>
+						@endif
+				
+					
+						@if($i->psu!=null)
 						<li class="list-group-item"><label for="list-group-item">PSU: </label> {{$i->psu}}</li>
+						@endif
+						@if($i->mainboard!=null)
 						<li class="list-group-item"><label for="list-group-item">Mainboard: </label> {{$i->mainboard}}</li>
+						@endif
+						@if($i->ocung!=null)
 						<li class="list-group-item"><label for="list-group-item">Ổ Cứng:</label> {{$i->ocung}}</li>
+						@endif
+						@if($i->vga!=null)
 						<li class="list-group-item"><label for="list-group-item">VGA: </label> {{$i->vga}}</li>
+						@endif
+						@if($i->vocase!=null)
 						<li class="list-group-item"><label for="list-group-item">Vỏ Case: </label> {{$i->vocase}}</li>
+						@endif
+						@if($i->pin!=null)
 						<li class="list-group-item"><label for="list-group-item">Pin: </label> {{$i->pin}}</li>
+						@endif
+						@if($i->tannhiet!=null)
 						<li class="list-group-item"><label for="list-group-item">Tản nhiệt: </label> {{$i->tannhiet}}</li>		 
+						@endif
+						@if($i->loa!=null)
 						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
+						@endif
 					@endforeach
 					</ul>    
 				</div>
@@ -138,11 +159,13 @@ Thông tin sản phẩm
 							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >
 							  <label for="comment">Bình luận của bạn</label>
 							  @foreach($errors->all() as $i)
-			   			<p class="alert-danger">{{$i}}</p>
-			   			@endforeach
+			   				<p class="alert-danger">{{$i}}</p>
+			   				@endforeach
 							  <input type="submit" class="btn btn-outline-success my-1" name="btnSubmit" value="Gửi bình luận">
 							</div>
 			   			</form>
+			   			@else
+			   			<p class="alert-light">Bạn cần mua hàng để được bình luận sản phẩm này</p>
 			   			@endif
 			   			{{--  --}}
 			   		</div>

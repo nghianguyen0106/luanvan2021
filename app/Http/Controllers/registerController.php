@@ -20,12 +20,12 @@ class registerController extends Controller
 	    	if(strlen($re->password)<=8)
 	    	{
 	    		Session::flash('error',' Mật khẩu quá ngắn vui lòng chọn mật khẩu an toàn hơn!');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 	    	if($result)
 	    	{
 	    		Session::flash('error','Email này đã dùng cho tài khoản khác!');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 	    	else
 	    	{
@@ -38,7 +38,7 @@ class registerController extends Controller
 	    	else
 	    	{
 	    		Session::flash('error',' Mật khẩu xác nhận chưa trùng khớp !');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 	    	$check18=date_create($re->date);
 	    	$check18=date_format($check18,'Y');
@@ -50,12 +50,12 @@ class registerController extends Controller
 	    	if($decrease <= 18)
 	    	{
 	    		Session::flash('error',' Tuổi chưa đủ 18 !');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 	    	if($decrease <=0)
 	    	{
 	    		Session::flash('error',' Ngày sinh không hợp lệ!');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 
 
@@ -64,7 +64,7 @@ class registerController extends Controller
 	    	if(strlen($re->address)<15)
 	    	{
 	    		Session::flash('error',' Địa chỉ không hợp lệ!');
-	    		return Redirect::to('register');
+	    		return Redirect()->back();
 	    	}
 	    	$data['khQuyen']=0;
 	    	$data['khGioitinh']=$re->sex;

@@ -8,11 +8,14 @@ use Socialite;
 use DB;
 use Session;
 use Mail;
+use Cart;
+
 session_start();
 class loginController extends Controller
 {
      public function userlogin(Request $re)
     {
+        Cart::destroy();
     	$username=$re->username;
     	$password=$re->password;
     	$result=DB::table('khachhang')->where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
@@ -26,6 +29,15 @@ class loginController extends Controller
             session::put('khHinh',$result->khHinh);
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
+
+            //load cart
+            $productInfo=DB::table('giohang')->leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$result->khMa)->get();
+            foreach ($productInfo as $k => $v) 
+            {
+                Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
+
+            }
+            //dd($productInfo,Cart::content());
     		return Redirect::to('product');
     	}
     	else
@@ -60,6 +72,14 @@ class loginController extends Controller
                 session::put('khHinh',$checkEmail->khHinh);
                 Session::flash('loginmess','Đăng nhập thành công !');
                 Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
+
+                //load cart
+                $productInfo=DB::table('giohang')->leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$checkEmail->khMa)->get();
+                foreach ($productInfo as $k => $v) 
+                {
+                    Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
+
+                }
                 return Redirect::to('product');
            }
            else
@@ -109,10 +129,19 @@ class loginController extends Controller
                     session::put("khMa",$checkEmail->khMa);
                     session::put("khTen",$checkEmail->khTen);
                     session::put('khTaikhoan',$checkEmail->khTaikhoan);
+                     session::put('khHinh',$checkEmail->khHinh);
                     session::put('khMa',$checkEmail->khMa);
                     session::put('khEmail',$checkEmail->khEmail);
                     Session::flash('loginmess','Đăng nhập thành công !');
                     Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
+
+                    //load cart
+                $productInfo=DB::table('giohang')->leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$checkEmail->khMa)->get();
+                foreach ($productInfo as $k => $v) 
+                {
+                    Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
+
+                }
                     return Redirect::to('product');
                }
                else
@@ -124,6 +153,7 @@ class loginController extends Controller
                     $data['khDiachi']='180 cao lo phuong 4 quan 8';
                     $data['khQuyen']=0;
                     $data['khGioitinh']=0;
+                    $data['khSdt']=0;
                     $data['khTaikhoan']=$userInfo->id;
                     $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
                     DB::table('khachhang')->insert($data);
@@ -138,6 +168,7 @@ class loginController extends Controller
           
                }
         }
+
     public function sendCodeGetAcc(Request $re)
     {
         $checkAccount=DB::table('khachhang')->where('khEmail',$re->email)->first();
@@ -162,6 +193,7 @@ class loginController extends Controller
             return Redirect::to('forgotPassword');
         }
     }
+    
     public function changepassword(Request $re)
     {
         if($re->id == null)

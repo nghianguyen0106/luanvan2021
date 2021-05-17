@@ -11,7 +11,7 @@
 <form id="box__editPass" class="box__info"  action="{{url('editPass/'.$v->khMa)}}" method="GET">
 					<legend style="color:orange">Đổi mật khẩu</legend>
 					<div class="flex__info">
-						<span class="info__item">Mật khẩu cũ:</span>
+						<span class="info__item">Mật khẩu cũ: (mặc định khi mới tạo tài khoản là :123)</span>
 						<span  class="info__item" class="info__item">
 							<input id="cont__pass" class="ip" type="password"  name="khPassCu" placeholder="Nhập vào đây" />
 							<i id="click__pass" class="far fa-eye" style="font-size: 23px;"></i>
