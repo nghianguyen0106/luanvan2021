@@ -17,7 +17,7 @@ class CreateChitietdonhangTable extends Migration
             $table->integer('hdMa');
             $table->integer('spMa');
             $table->integer('cthdSoluong');
-            $table->integer('cthdGia');
+            $table->float('cthdGia',20,4);
             $table->engine = "InnoDB";
             
             //foreign key

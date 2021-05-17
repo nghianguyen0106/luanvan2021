@@ -178,7 +178,7 @@ Thông tin sản phẩm
 
 		<div class=" row single-pro">
 			<div class="css-treeview">
-				<h4>SẢN PHẨM ĐỀ XUẤT</h4>
+				<h4>SẢN PHẨM TƯƠNG TỰ</h4>
 			
 			</div>
 				@foreach($related_prod as $i)

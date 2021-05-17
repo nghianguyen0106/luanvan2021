@@ -17,7 +17,7 @@ class CreateThuTable extends Migration
             $table->integer('adMa');
             $table->timestamp('alNgaygio');
             $table->integer('thuSoluong');
-            $table->float('thuTongtien');
+            $table->float('thuTongtien',20,4);
             $table->string('thuNoidung');
             $table->engine = "InnoDB";
             
