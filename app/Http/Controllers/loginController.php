@@ -14,7 +14,7 @@ class loginController extends Controller
      public function userlogin(Request $re)
     {
     	$username=$re->username;
-    	$password=md5($re->password);
+    	$password=$re->password;
     	$result=DB::table('khachhang')->where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
     	if($result)
     	{
