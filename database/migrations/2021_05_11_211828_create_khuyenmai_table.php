@@ -19,6 +19,7 @@ class CreateKhuyenmaiTable extends Migration
             $table->integer('kmTrigia');
             $table->timestamp('khNgaybd');
             $table->timestamp('kmNgaykt');
+            $table->integer('kmLoai');
             $table->engine = "InnoDB";
         });
     }

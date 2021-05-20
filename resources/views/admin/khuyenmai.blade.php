@@ -18,16 +18,12 @@
                             <hr/>
 
                         </div>
-                        <form action="{{URL::to('/checkAddKhuyenmai')}}" method="POST">
-                             {{ csrf_field() }}
-                          <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Giá trị khuyến mãi</label>
-                            <input name="kmTrigia" type="number" class="form-control" id="kmTrigia">
-                              
-                          </div>
-                            <span style="color:red">{{$errors->first('kmTrigia')}}</span>
-                          <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
-                        </form>
+                        <a  href="{{URL::to('addKhuyenmaiPage')}}" class="btn btn-primary " style="width: 20%;">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
+                                        </span>
+                                        <span class="text"><b>Thêm chương trình khuyến mãi</b></span>
+                                    </a>
                         <br/>
                         <div class="card-body">
                             <div class="table-responsive">

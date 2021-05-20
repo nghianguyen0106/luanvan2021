@@ -140,9 +140,15 @@ Route::post('/checkAddBanner','adminController@adCheckAddBanner');
 Route::get('/deleteBanner/{id}','adminController@adDeleteBanner');
 Route::get('/updateBanner/{id}','adminController@adUpdateBanner');
 Route::post('/editBanner/{id}','adminController@editBanner');
+
 //--Khuyến mãi--//
+
+Route::get('addKhuyenmaiPage','adminController@addKhuyenmaiPage');
 Route::post('/checkAddKhuyenmai','adminController@adCheckAddKhuyenmai');
 Route::get('/deleteKhuyenmai/{id}','adminController@adDeleteKhuyenmai');
+
+
+
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');

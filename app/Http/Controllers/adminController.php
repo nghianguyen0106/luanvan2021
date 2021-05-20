@@ -1287,6 +1287,13 @@ class adminController extends Controller
        
         return redirect('adKhuyenmai');
       }
+
+      public function addKhuyenmaiPage()
+      {
+        return view('admin.themkhuyenmai');
+      }
+
+
 //end khuyến mãi  
 
   //Bình luận đánh giá
