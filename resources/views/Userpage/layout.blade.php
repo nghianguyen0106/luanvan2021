@@ -195,5 +195,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- cart -->
 <script src="{{URL::asset("public/fe/js/js.js")}}"></script>
 
+
 </body>
 </html>

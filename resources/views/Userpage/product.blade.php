@@ -10,65 +10,93 @@ Danh sách sản phẩm
 <div class="container-fluid" >
 <div class="row">
 <div class="col-lg-8" style="margin:0;padding:0;">
-<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
+<div class="slider">
+	<div class="slides">
+	<input type="radio" name="radio-btn" id="radio1"/>
+	<input type="radio" name="radio-btn" id="radio2"/>
+	<input type="radio" name="radio-btn" id="radio3"/>
+	
   	@foreach($slide as $slide)
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" height="400" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block text-white">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+    <div class="slide">
+      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" style="width: 100%" alt="...">
+      
     </div>
     @endforeach
-
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <!---button navigation--->
+	  <div class="navigation-auto">
+	    	<div class="auto-btn1"></div>
+	    	<div class="auto-btn2"></div>
+	    	<div class="auto-btn3"></div>
+	 </div>
+	</div>
+	<div class="navigation-manual">
+    	<label for="radio1" class="manual-btn"></label>
+    	<label for="radio2" class="manual-btn" ></label>
+    	<label for="radio3" class="manual-btn"></label>
+    </div>
+     <!---end button navigation--->
 </div>
+  <script>
+	document.getElementsByClassName('slide')[0].setAttribute('class', 'slide first');
+	var counter = 1;
+	setInterval(function(){
+		document.getElementById("radio"+counter).checked = true;
+		
+		counter++;
+		if(counter > 3)
+		{
+			counter = 1;
+		}
+	}, 5000);
+</script>
+
 </div>
 <!--END COL 8-->
 <!--COL 4-->
-<div id="banners" class="col-lg-4">
 	
-	<div id="banners">
-	<div class=" banners__child">
-		<img src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
-	</div>
 
-	<div  class="banners__child">
-		<img src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+
+
+<div id="banners" class="col-lg-4">
+	<div>
+		@if($countBnCon>=1)
+		@for($i = 0;$i<2;$i++)
+			@php 
+	 			$bn1 = array($bnCon) 
+	 		@endphp
+			@foreach($bn1 as $key => $v)
+			<div class="banners__child">
+				<img src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+			</div>
+			@endforeach
+			@endfor
+		@else
+		<div class="banners__child"></div>
+		@endif
 	</div>
-	
-</div>
-	
 </div>
 <!--END COL 4-->
 </div>
 <!--BANNER ROW-->
 <div class="row">
-	<div class="col-lg-4 banners__child">
-			<img  style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
-	</div>
-	<div class="col-lg-4 banners__child">
-			<img style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
-	</div>
-	<div class="col-lg-4 banners__child">
-		<img style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
-	</div>
-
+	@if($countBnCon>=3)
+	 @for($i = 2; $i<$countBnCon;$i++)
+	 	@php 
+	 		$bn2 = array($bnCon) 
+	 	@endphp
+		@foreach($bn2 as $key => $v)
+		<div class="col-lg-4 banners__child">
+				<img  style="width:102%;height:200px" src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+		</div>
+		@endforeach
+	@endfor
+	@else
+	<div></div>
+	@endif	
 </div>
+
+
+
 <!--END-->
 </div>
 <hr/>

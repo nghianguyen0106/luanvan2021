@@ -55,11 +55,14 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
         }
         $slide = DB::table('banner')->where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
+        $bnCon = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
+        $countBnCon = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
+
         $db = DB::table('sanpham')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
         $brand=thuonghieu::get();
         $cate=loai::get();
         $needs=nhucau::get();
-        return view('Userpage.product',compact('db','brand','cate','needs','total','slide'));
+        return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countBnCon'));
     }
    
     public function proinfo(Request $re)
