@@ -475,7 +475,7 @@ class adminController extends Controller
             $messages =[
                 'khTen.required'=>'Tên khách hàng không được để trống',
                 'khTaikhoan.required'=>'Tài khoản khách hàng không được để trống',
-                'khMatkhau.required'=>'Mật khẩu khách hàng không được để trống',
+                'khMatkhau.required'=>'Mật khẩu khách hàng khôg được để trống',
                 'khEmail.required'=>'Email khách hàng không được để trống',
                 'khQuyen.required'=>'Quyền khách hàng không được để trống',
                 'khDiachi.required'=>'Địa chỉ khách hàng không được để trống',
