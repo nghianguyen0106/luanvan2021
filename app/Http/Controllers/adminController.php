@@ -1207,24 +1207,43 @@ class adminController extends Controller
  
   public function adCheckAddBanner(Request $re)
   {
-    if($re->hasFile('bnHinh')==true)
+    if($re->bnTieude==null||$re->bnVitri==null)
     {
-        $data = array();
-        $re->bnMa = rand(0,100).strlen($re->file('bnHinh')).strlen(rand(0,1000));
-        $data['bnMa']= $re->bnMa;
-        $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
-            $imgextention = $re->file('bnHinh')->extension();
-            $file = $re->file('bnHinh');
-            $file->move('public/images/banners',$data['bnHinh']);
+            $messages =[
+                'bnTieude.required'=>'Tiêu đề không được để trống',
+                 'bnVitri.required'=>'Vị trí banner không được để trống',
+            ];
+            $this->validate($re,[
+                'bnTieude'=>'required',
+                 'bnVitri'=>'required',
+            ],$messages);
 
-        DB::table('banner')->insert($data);
-        Session::forget('bnError');
-        return redirect('adBanner');
+            $errors=$validate->errors();
     }
     else
     {
-        Session::put('bnError',"Vui lòng thêm hình vào banner");
-        return redirect('themBanner');
+        if($re->hasFile('bnHinh')==true)
+        {
+            $data = array();
+            $re->bnMa = rand(0,100).strlen($re->file('bnHinh')).strlen(rand(0,1000));
+            $data['bnMa']= $re->bnMa;
+            $data['bnTieude']= $re->bnTieude;
+            $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
+                $imgextention = $re->file('bnHinh')->extension();
+                $file = $re->file('bnHinh');
+                $file->move('public/images/banners',$data['bnHinh']);
+            $data['kmMa']=null;
+            $data['bnVitri']= $re->bnVitri;
+            $data['bnNgay']= now();
+            DB::table('banner')->insert($data);
+            Session::forget('bnError');
+            return redirect('adBanner');
+        }
+        else
+        {
+            Session::put('bnError',"Vui lòng thêm hình vào banner");
+            return redirect('themBanner');
+        }
     }
   }
   public function adDeleteBanner($id)

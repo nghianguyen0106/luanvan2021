@@ -9,8 +9,10 @@ html, body{
 	font-size: 100%;
 	font-family: 'Lato', sans-serif;
 	background: #fff;
+ 
 }
 body a {
+
 	text-decoration:none;
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
@@ -47,7 +49,12 @@ label{
 /*-- header --*/
 .header {
     border-bottom: 1px solid #eee;
-
+    height: 80px;
+}
+.header .header__container
+{
+  background:linear-gradient(to right, #E9B160,#F37C24) ;
+ margin-top: -30px;
 }
 .header ul li {
     display: inline-block;
@@ -57,10 +64,7 @@ label{
 	font-size:16px;
     padding: 12px 0;
 }
-.header ul li:nth-child(2) {
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;	
-}
+
 .header ul li a {
 	color:#848484;
 	text-decoration:none;

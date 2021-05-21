@@ -4,6 +4,102 @@ Danh sách sản phẩm
 @endsection
 @section('content')
 
+
+
+<!--Slide-->
+<div class="container-fluid" >
+<div class="row">
+<div class="col-lg-8" style="margin:0;padding:0;">
+@if($countSlide > 0)
+<div class="slider">
+	<div class="slides">
+	<input type="radio" name="radio-btn" id="radio1"/>
+	<input type="radio" name="radio-btn" id="radio2"/>
+	<input type="radio" name="radio-btn" id="radio3"/>
+	
+  	@foreach($slide as $slide)
+    <div class="slide">
+      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" style="width: 100%" alt="...">
+      
+    </div>
+    @endforeach
+    <!---button navigation--->
+	  <div class="navigation-auto">
+	    	<div class="auto-btn1"></div>
+	    	<div class="auto-btn2"></div>
+	    	<div class="auto-btn3"></div>
+	 </div>
+	</div>
+	<div class="navigation-manual">
+    	<label for="radio1" class="manual-btn"></label>
+    	<label for="radio2" class="manual-btn" ></label>
+    	<label for="radio3" class="manual-btn"></label>
+    </div>
+     <!---end button navigation--->
+</div>
+
+  <script>
+	document.getElementsByClassName('slide')[0].setAttribute('class', 'slide first');
+	var counter = 1;
+	setInterval(function(){
+		document.getElementById("radio"+counter).checked = true;
+		
+		counter++;
+		if(counter > 3)
+		{
+			counter = 1;
+		}
+	}, 5000);
+	</script>
+	@endif
+</div>
+<!--END COL 8-->
+<!--COL 4-->
+	
+<div id="banners" class="col-lg-4">
+	<div>
+		@if($countBnCon1<2)
+		@for($i = 0;$i<$countBnCon1;$i++)
+			@php 
+	 			$bn1 = array($bnCon) 
+	 		@endphp
+			@foreach($bn1 as $key => $v)
+			<div class="banners__child">
+				<img src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+			</div>
+			@endforeach
+			@endfor
+		@else
+		<div class="banners__child"></div>
+		@endif
+	</div>
+</div>
+<!--END COL 4-->
+</div>
+<!--BANNER ROW-->
+<div class="row">
+	@if($countBnCon2>=3)
+	 @for($i = 2; $i<$countBnCon2;$i++)
+	 	@php 
+	 		$bn2 = array($bnCon) 
+	 	@endphp
+		@foreach($bn2 as $key => $v)
+		<div class="col-lg-4 banners__child">
+				<img  style="width:102%;height:200px" src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+		</div>
+		@endforeach
+	@endfor
+	@else
+	<div></div>
+	@endif	
+</div>
+
+
+
+<!--END-->
+</div>
+<hr/>
+<!--END SILDE-->
 <!-- mens -->
 
 <div class="men-wear">
@@ -214,70 +310,7 @@ Danh sách sản phẩm
 		</div>
 	</div>
 </div>
-{{-- 
-<!-- login -->
-			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-info">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-						</div>
-						<div class="modal-body modal-spa">
-							<div class="login-grids">
-								<div class="login">
-									<div class="login-bottom">
-										<h3>Sign up for free</h3>
-										<form>
-											<div class="sign-up">
-												<h4>Email :</h4>
-												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
-											</div>
-											<div class="sign-up">
-												<h4>Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												
-											</div>
-											<div class="sign-up">
-												<h4>Re-type Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												
-											</div>
-											<div class="sign-up">
-												<input type="submit" value="REGISTER NOW" >
-											</div>
-											
-										</form>
-									</div>
-									<div class="login-right">
-										<h3>Sign in with your account</h3>
-										<form>
-											<div class="sign-in">
-												<h4>Email :</h4>
-												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
-											</div>
-											<div class="sign-in">
-												<h4>Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												<a href="#">Forgot password?</a>
-											</div>
-											<div class="single-bottom">
-												<input type="checkbox"  id="brand" value="">
-												<label for="brand"><span></span>Remember Me.</label>
-											</div>
-											<div class="sign-in">
-												<input type="submit" value="SIGNIN" >
-											</div>
-										</form>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<p>By logging in you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-<!-- //login --> --}}
+
 </body>
 </html>
 {{-- Notification --}}

@@ -33,104 +33,63 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <!-- header -->
 <div class="header">
-	<div class="container">
+	<div class="container-fluid header__container" >
 		<ul>
-			<li>
-			<h1><a href="{{URL::to('/')}}"><img style="height: 100px;width: 100px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
-		</li>
 		<li>
-				@if(Session::has('khTen'))
-				
-					<ul class="menu__account">
-						<li class="li">
-							<a style="text-decoration: none;font-size: 24px;color:#0A0746">
-						<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />&nbsp;{{Session::get('khTen')}}</a>
-						<ul class="menu__account--child">
-							<li class="li2">
-								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{url("/infomation/".Session::get('khMa'))}}">
-			 						Thông tin cá nhân&nbsp;
-			 							<i class="far fa-eye"></i>
-			 					</a>
-							</li>
-							<li class="li2">
-								<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('logout')}}">
-			 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
-			 					</a>
-							</li>
-							<br/>
-						</ul>
-						</li>
-					</ul>
-				
-				@else
-				<div>
-					
-					
-						<a style="text-decoration: none;font-size: 20px;color:#0A0746" href="{{URL::to('login')}}">
-							Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
-						</a>
-						<br/>
-					
-						Hoặc
-						<a href="{{URL::to('google')}}" style="font-size: 30px; color: red"><i class="fab fa-google-plus" ></i></a>
-						<a href="{{URL::to('facebook')}}" style="font-size: 30px; color: blue"><i class="fab fa-facebook"></i></a>
-					
-					
-				</div>
-				@endif
-		
+			<h1><a href="{{URL::to('/')}}"><img style="height: 150px;width: 150px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
 		</li>
-		<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">luanvan@gmail.com</a></li>
-		</ul>
+	<li></li>
+		<li><span style="color:white;font-size: 18px" class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a style="font-size: 18px;color:white">luanvan@gmail.com</a></li>
+	</ul>
 	</div>
+
 </div>
+<br/><br/><br/>
 <!-- //header -->
 <!-- header-bot -->
-<div class="header-bot">
-	<div class="container">
-		
-{{-- 		<div class="col-md-6 header-middle">
-			<form  class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
-				
-				<div class="search">
-					<input type="search" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="" name="proname" >
-				</div>
-				<div class="section_room">
-					<select id="country" name="category[]" onchange="change_country(this.value)" class="frm-field required">
-						@foreach($cate as $i)
-						<option value="{{$i->loaiMa}}">{{$i->loaiTen}}</option>
-						@endforeach 
-					</select>
-				</div>
-				<div class="sear-sub">
-					<input type="submit" value=" ">
-				</div>
-				<div class="clearfix"></div>
-			</form>
-		</div>
 
-		<div class="clearfix"></div> --}}
-	</div>
-</div>
 <!-- //header-bot -->
 <!-- banner -->
 <div class="ban-top">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="top_nav_left">
 			<nav class="navbar navbar-default">
 			  <div class="container-fluid">
 				<nav class="navbar navbar-expand-lg navbar-default">
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				   {{--  <ul class="navbar-nav mr-auto">
-				     <li class="active menu__item "><a class="menu__link" href="{{URL::to('product')}}">Home <span class="sr-only"></span></a></li>
-				     <li class=" "><a class="menu__link" href="">Danh mục sản phẩm <span class="sr-only"></span></a></li>
-				     <li class=""><a class="menu__link" href="{{URL::to('product')}}">Liên hệ với chúng tôi <span class="sr-only"></span></a></li>
-				     
-				      </li>
-				    </ul> --}}
 				  <ul id="list__menu">
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Home</a></li>
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Liên hệ với chúng tôi</a></li>
+				    	<li class="list__menu--item">
+				    		<ul class="menu__account">
+				    		@if(Session::has('khTen'))
+				    		<li class="li">
+							<a style="text-decoration: none;font-size: 24px;color:white">
+								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />&nbsp;{{Session::get('khTen')}}</a>
+								<ul class="menu__account--child">
+									<li class="li2">
+										<a style="text-decoration: none;font-size: 20px;color:black" href="{{url("/infomation/".Session::get('khMa'))}}">
+					 						Thông tin cá nhân&nbsp;
+					 							<i class="far fa-eye"></i>
+					 					</a>
+									</li>
+									<li class="li2">
+										<a style="text-decoration: none;font-size: 20px;color:black" href="{{URL::to('logout')}}">
+					 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
+					 					</a>
+									</li>
+									<br/>
+								</ul>
+								</li>
+							</ul>
+							@else
+							<div>				
+									<a style="text-decoration: none;font-size: 20px;color:white" href="{{URL::to('login')}}">
+										Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
+									</a>
+							</div>
+							@endif
+						</li>
 				    		@if(Session::has('khTen'))
 				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng</a></li>
 				    		  		@endif
@@ -145,10 +104,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="top_nav_right">
 			<div class="cart box_1">
 						<a href="{{URL::to('/checkout')}}">
-							<h3> <div class="total">
+							<h3 style="font-size: 16px;"> <div class="total">
 								 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
 								{{number_format($total)}} VND <br><br> ({{Cart::count()}})Sản phẩm</div>
-								
 							</h3>
 						</a>
 					
@@ -236,6 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
 <!-- cart -->
 <script src="{{URL::asset("public/fe/js/js.js")}}"></script>
+
 
 </body>
 </html>

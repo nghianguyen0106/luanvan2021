@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="banner">
         <div class="agileinfo-dot">
             <div class="agileits-logo">
-               <h1><a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
+               <h1><a href="{{URL::to('/')}}"><img src="{{{'public/images/banners/logo/logo.png'}}}" width="250" height="130"></a></h1>
             </div>
             <div class="header-top">
                 <div class="container">
@@ -84,55 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="container">
                     <div class="w3layouts-banner-slider">
                         <div class="w3layouts-banner-top-slider">
-                            <div class="slider">
-                                <div class="callbacks_container">
-                                    <ul class="rslides callbacks callbacks1" id="slider4">
-                                       
-                                        <li>
-                                            <div class="banner_text">
-                                                <h3>Nam semper</h3>
-                                                <p>Nam imperdiet tellus nec enim tempus</p>
-                                                <div class="w3-button">
-                                                    <a href="#" data-toggle="modal" data-target="#myModal">Read More</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="banner_text">
-                                                <h3>Nghia</h3>
-                                                <p>Tech 1</p>
-                                                <div class="w3-button">
-                                                    <a href="#" data-toggle="modal" data-target="#myModal">Read More</a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
-                                <script src="{{URL::asset('public/fe2/js/responsiveslides.min.js')}}"></script>
-                                <script>
-                                    // You can also use "$(window).load(function() {"
-                                    $(function () {
-                                      // Slideshow 4
-                                      $("#slider4").responsiveSlides({
-                                        auto: true,
-                                        pager:true,
-                                        nav:true,
-                                        speed: 500,
-                                        namespace: "callbacks",
-                                        before: function () {
-                                          $('.events').append("<li>before event fired.</li>");
-                                        },
-                                        after: function () {
-                                          $('.events').append("<li>after event fired.</li>");
-                                        }
-                                      });
-                                
-                                    });
-                                 </script>
-                                <!--banner Slider starts Here-->
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -141,25 +93,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <!-- //banner -->
     <!-- about -->
-    <div class="about" id="about"> 
-        <div class="container"> 
-            <div class="welcome">
-                <div class="agileits-title"> 
-                    <h2>Welcome</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet</p>
-                </div>
-            </div>
-            <div class="about-w3lsrow"> 
-                <div class="col-md-7 col-sm-7 w3about-img"> 
-                    <div class="w3about-text"> 
-                        <h5 class="w3l-subtitle">- About Us</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet</p>
-                    </div>
-                </div> 
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
+  <div class="row">
+      <<div class="col-lg-12">
+          <div class="row">
+              <div class="col-lg-3">
+                  
+              </div>
+          </div>
+      </div>
+  </div>
     <!-- //about --> 
     <!-- markets -->
     <div class="markets" id="markets">
