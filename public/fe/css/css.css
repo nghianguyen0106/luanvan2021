@@ -183,3 +183,22 @@ h2
 	z-index: 100;
 	cursor: pointer;
 }
+
+/* BANNERS */
+#banners
+{
+	margin:0;
+	padding:0;
+
+}
+#banners .banners__child
+{
+	width: 99%;
+	height: 200px;
+
+}
+#banners .banners__child img
+{
+	width: 99%;
+	height: 200px;
+}

@@ -4,6 +4,75 @@ Danh sách sản phẩm
 @endsection
 @section('content')
 
+
+
+<!--Slide-->
+<div class="container-fluid" >
+<div class="row">
+<div class="col-lg-8" style="margin:0;padding:0;">
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+  	@foreach($slide as $slide)
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" height="400" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block text-white">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    @endforeach
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+<!--END COL 8-->
+<!--COL 4-->
+<div id="banners" class="col-lg-4">
+	
+	<div id="banners">
+	<div class=" banners__child">
+		<img src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+	</div>
+
+	<div  class="banners__child">
+		<img src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+	</div>
+	
+</div>
+	
+</div>
+<!--END COL 4-->
+</div>
+<!--BANNER ROW-->
+<div class="row">
+	<div class="col-lg-4 banners__child">
+			<img  style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+	</div>
+	<div class="col-lg-4 banners__child">
+			<img style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+	</div>
+	<div class="col-lg-4 banners__child">
+		<img style="width:102%;height:200px" src="{{{'public/images/banners/small_banners/solid1.png'}}}"/>
+	</div>
+
+</div>
+<!--END-->
+</div>
+<hr/>
+<!--END SILDE-->
 <!-- mens -->
 
 <div class="men-wear">
@@ -214,70 +283,7 @@ Danh sách sản phẩm
 		</div>
 	</div>
 </div>
-{{-- 
-<!-- login -->
-			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-info">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-						</div>
-						<div class="modal-body modal-spa">
-							<div class="login-grids">
-								<div class="login">
-									<div class="login-bottom">
-										<h3>Sign up for free</h3>
-										<form>
-											<div class="sign-up">
-												<h4>Email :</h4>
-												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
-											</div>
-											<div class="sign-up">
-												<h4>Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												
-											</div>
-											<div class="sign-up">
-												<h4>Re-type Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												
-											</div>
-											<div class="sign-up">
-												<input type="submit" value="REGISTER NOW" >
-											</div>
-											
-										</form>
-									</div>
-									<div class="login-right">
-										<h3>Sign in with your account</h3>
-										<form>
-											<div class="sign-in">
-												<h4>Email :</h4>
-												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
-											</div>
-											<div class="sign-in">
-												<h4>Password :</h4>
-												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
-												<a href="#">Forgot password?</a>
-											</div>
-											<div class="single-bottom">
-												<input type="checkbox"  id="brand" value="">
-												<label for="brand"><span></span>Remember Me.</label>
-											</div>
-											<div class="sign-in">
-												<input type="submit" value="SIGNIN" >
-											</div>
-										</form>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<p>By logging in you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-<!-- //login --> --}}
+
 </body>
 </html>
 {{-- Notification --}}
