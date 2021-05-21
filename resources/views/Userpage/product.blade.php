@@ -10,6 +10,7 @@ Danh sách sản phẩm
 <div class="container-fluid" >
 <div class="row">
 <div class="col-lg-8" style="margin:0;padding:0;">
+@if($countSlide > 0)
 <div class="slider">
 	<div class="slides">
 	<input type="radio" name="radio-btn" id="radio1"/>
@@ -36,6 +37,7 @@ Danh sách sản phẩm
     </div>
      <!---end button navigation--->
 </div>
+
   <script>
 	document.getElementsByClassName('slide')[0].setAttribute('class', 'slide first');
 	var counter = 1;
@@ -48,19 +50,16 @@ Danh sách sản phẩm
 			counter = 1;
 		}
 	}, 5000);
-</script>
-
+	</script>
+	@endif
 </div>
 <!--END COL 8-->
 <!--COL 4-->
 	
-
-
-
 <div id="banners" class="col-lg-4">
 	<div>
-		@if($countBnCon>=1)
-		@for($i = 0;$i<2;$i++)
+		@if($countBnCon1<2)
+		@for($i = 0;$i<$countBnCon1;$i++)
 			@php 
 	 			$bn1 = array($bnCon) 
 	 		@endphp
@@ -79,8 +78,8 @@ Danh sách sản phẩm
 </div>
 <!--BANNER ROW-->
 <div class="row">
-	@if($countBnCon>=3)
-	 @for($i = 2; $i<$countBnCon;$i++)
+	@if($countBnCon2>=3)
+	 @for($i = 2; $i<$countBnCon2;$i++)
 	 	@php 
 	 		$bn2 = array($bnCon) 
 	 	@endphp

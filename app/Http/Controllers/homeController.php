@@ -18,7 +18,7 @@ class homeController extends Controller
     {
         $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',1)->limit(6)->get();
         $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
-          	return view('welcome',compact('dblap','dbpc'));
+            return view('welcome',compact('dblap','dbpc'));
     }
     
      // forgot password
@@ -34,7 +34,7 @@ class homeController extends Controller
     }
     public function login()
     {
-    	return view('Userpage.userlogin');
+        return view('Userpage.userlogin');
     }
     public function logout()
     {
@@ -55,14 +55,16 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
         }
         $slide = DB::table('banner')->where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
+        $countSlide =DB::table('banner')->where('bnVitri',0)->orderBy('bnNgay','desc')->count();
         $bnCon = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
-        $countBnCon = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
+        $countBnCon1 = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
+        $countBnCon2 = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
 
         $db = DB::table('sanpham')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
         $brand=thuonghieu::get();
         $cate=loai::get();
         $needs=nhucau::get();
-        return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countBnCon'));
+        return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2'));
     }
    
     public function proinfo(Request $re)
