@@ -63,25 +63,4 @@
                 <!-- /.container-fluid -->
 
 
-@if(Session::has('err'))
- <script type="text/javascript" >
-Swal.fire({
-  icon: 'error',
-  title: 'Thông báo: ',
-  text: '{{Session::get('err')}}',
- 
-})
-</script> 
-@endif
-
-@if(Session::has('success'))
- <script type="text/javascript" >
-Swal.fire({
-  icon: 'success',
-  title: 'Thông báo: ',
-  text: '{{Session::get('success')}}',
- 
-})
-</script> 
-@endif
   @endsection

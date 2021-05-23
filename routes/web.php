@@ -170,3 +170,7 @@ Route::post('checkAddNcc','adminController@checkAddNcc');
 Route::get('deleteNhacungcap/{id}','adminController@deleteNhacungcap');
 Route::get('suaNhacungcappage/{id}','adminController@suaNhacungcappage');
 Route::post('checkSuaNhacungcap/{id}','adminController@suaNhacungcap');
+
+//--Lịch sử hoạt động --//
+Route::get('lich-su-hoat-dong','adminController@viewLShoatdong');
+Route::get('tim-kiem-lshd','adminController@timLSHD');

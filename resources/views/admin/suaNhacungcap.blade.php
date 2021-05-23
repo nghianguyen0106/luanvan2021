@@ -32,7 +32,7 @@
                                
 		</div>
 	</div>
-<script type="text/javascript" charset="utf-8">
+{{-- <script type="text/javascript" charset="utf-8">
 	function chonsanpham()
 	{
 		var x=document.getElementById('type');
@@ -56,19 +56,10 @@
 
 
 
-</script>
+</script> --}}
 
 
-@if(Session::has('err'))
- <script type="text/javascript" >
-Swal.fire({
-  icon: 'error',
-  title: 'Opss... ',
-  text: '{{Session::get('err')}}',
- 
-})
-</script> 
-@endif
+
 
 
 
