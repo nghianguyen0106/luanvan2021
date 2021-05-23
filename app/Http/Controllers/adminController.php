@@ -115,9 +115,9 @@ class adminController extends Controller
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data=DB::table('sanpham')->join('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            $data=DB::table('sanpham')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->leftjoin('loai','loai.loaiMa','=','sanpham.loaiMa')->leftjoin('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->leftjoin('nhacungcap','nhacungcap.nccMa','=','sanpham.nccMa')->get();
             //dd($data);
             
      
@@ -396,6 +396,13 @@ class adminController extends Controller
                                 $file->move('public/images/nhanvien',$data['adHinh']);
                     $data['adQuyen']=$re->adQuyen;
                     DB::table('admin')->insert($data);
+
+                    $data1 = array();
+                    $data1['adMa'] = Session::get('adMa');
+                    $data1['alChitiet'] = "Thêm nhân mới: ".$re->adTen;
+                    $data1['alNgaygio']= now();
+                    DB::table('admin_log')->insert($data1);
+
                     Session::forget('ad_err');
                     return redirect('adNhanvien');
                     }
@@ -410,7 +417,14 @@ class adminController extends Controller
  
     public function adDeleteAdmin($id)
     {
-      
+      $db = DB::table('admin')->where('adMa',$id)->get();
+                $a = array($db);
+                $adTen = str_replace('"','',json_encode($a[0][0]->adTen));
+          $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Xóa nhân viên:".$adTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
         DB::table('admin')->where('adMa',$id)->delete();
          return redirect('adNhanvien');
         
@@ -450,6 +464,15 @@ class adminController extends Controller
 
             if($re->hasFile('adHinh')==true)
             {
+                $db = DB::table('admin')->where('adMa',$id)->get();
+                $a = array($db);
+                $adTen = str_replace('"','',json_encode($a[0][0]->adTen));
+                $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Cập nhật nhân viên:".$adTen."->".$re->adTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+
                 $data = array();
                 $data['adMa']=$id;
                 $data['adTen']=$re->adTen;
@@ -467,6 +490,15 @@ class adminController extends Controller
             }
             else
             {
+                $db = DB::table('admin')->where('adMa',$id)->get();
+                $a = array($db);
+                $adTen = str_replace('"','',json_encode($a[0][0]->adTen));
+                $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Cập nhật nhân viên:".$adTen."->".$re->adTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+
                 $data = array();
                 $data['adMa']=$id;
                 $data['adTen']=$re->adTen;
@@ -738,13 +770,19 @@ class adminController extends Controller
                 $data['nccMa']=$re->nccMa;
                 $data['kmMa']=$re->kmMa;
                 
-                 DB::table('sanpham')->insert($data);
+                DB::table('sanpham')->insert($data);
+
+                $dataLog = array();
+                $dataLog['adMa'] = Session::get('adMa');
+                $dataLog['alChitiet'] = "Thêm sản phẩm mới:".$re->spTen;
+                $dataLog['alNgaygio']= now();
+                DB::table('admin_log')->insert($dataLog);
 
                  $data4 = array();
                  $data4['spMa']= $spMa;
                  $data4['khoSoluong']=$re->khoSoluong;
                  $data4['khoNgaynhap']=now();
-                  DB::table('kho')->insert($data4);
+                DB::table('kho')->insert($data4);
 
                 if($re->loaiMa==1)
                 {
@@ -859,6 +897,14 @@ class adminController extends Controller
   
     public function adDeleteSanpham($id)
     {
+        $db = DB::table('sanpham')->where('spMa',$id)->get();
+                $a = array($db);
+                $spTen = str_replace('"','',json_encode($a[0][0]->spTen));
+          $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Xóa sản phẩm: ".$spTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
         DB::table('sanpham')->where('spMa',$id)->delete();
          return redirect('adSanpham');
     }
@@ -910,6 +956,13 @@ class adminController extends Controller
             }
             else
             {
+                
+                $dataLog = array();
+                $dataLog['adMa'] = Session::get('adMa');
+                $dataLog['alChitiet'] = "Cập nhật sản phẩm:".$re->spTen;
+                $dataLog['alNgaygio']= now();
+                DB::table('admin_log')->insert($dataLog);
+
                 $data = array();
                 $data['spMa']=$re->spMa;
                 $data['spTen']=$re->spTen;
@@ -1033,6 +1086,19 @@ class adminController extends Controller
             }
             else
             {
+                $dbKho = DB::table('kho')->where('spMa',$id)->get();
+                $dbSP = DB::table('sanpham')->where('spMa',$id)->get();
+                $a = array($dbKho);
+                $b = array($dbSP);
+                $spTen = str_replace('"','',json_encode($b[0][0]->spTen));
+                $khoSoluong = str_replace('"','',json_encode($a[0][0]->khoSoluong));
+                    
+                $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Cập nhật kho, sản phẩm có mã: ".$spTen." số lượng ".$khoSoluong."->".$re->khoSoluong;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+
                 $data = array();
                 $data['spMa'] = $id;
                 $data['khoSoluong']=$re->khoSoluong;

@@ -58,8 +58,9 @@ Danh sách sản phẩm
 	
 <div id="banners" class="col-lg-4">
 	<div>
-		@if($countBnCon1<2)
-		@for($i = 0;$i<$countBnCon1;$i++)
+		
+		@if($countBnCon1>0)
+		@for($i=0;$i<2;$i++)
 			@php 
 	 			$bn1 = array($bnCon) 
 	 		@endphp
@@ -78,8 +79,8 @@ Danh sách sản phẩm
 </div>
 <!--BANNER ROW-->
 <div class="row">
-	@if($countBnCon2>=3)
-	 @for($i = 2; $i<$countBnCon2;$i++)
+	 @if($countBnCon2>=3)
+	 @for($i = 1; $i<4;$i++)
 	 	@php 
 	 		$bn2 = array($bnCon) 
 	 	@endphp
@@ -91,7 +92,7 @@ Danh sách sản phẩm
 	@endfor
 	@else
 	<div></div>
-	@endif	
+	@endif	 
 </div>
 
 

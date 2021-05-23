@@ -37,23 +37,23 @@
                                             <th>Thương hiệu</th>
                                             <th>Loại</th>
                                             <th>Nhu cầu</th>
-                                            
+                                             <th>Nhà cung cấp</th>
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Mã sản phẩm</th>
+                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Giá</th>
-                                            <th>Tình trạng</th>
+                                             <th>Tình trạng</th>
                                             <th>Hạn bảo hành</th>
-                                            
+                                           <th>Khuyến mãi</th>
                                             <th>Thương hiệu</th>
                                             <th>Loại</th>
                                             <th>Nhu cầu</th>
-                                            
-                                             <th></th>
+                                            <th>Nhà cung cấp</th>
+                                            <th>Cập nhật</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -65,15 +65,11 @@
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
                                             <th>{{$value->spTinhtrang==0?"Hết hàng":"Còn hàng"}}</th>
                                             <th>{{$value->spHanbh}}&nbsp;năm</th>
-                                            <th>{{$value->kmMa}}</th>
-                                           
-                                           
+                                            <th>{{$value->kmMa!=null?"$value->kmMa":"0%"}}</th>
                                             <th>{{$value->thTen}}</th>
-                                            
                                             <th>{{$value->loaiTen}}</th>
-                                            
                                             <th>{{$value->ncTen}}</th>
-                                              
+                                            <th>{{$value->nccTen}}</th>
                                             <td>
                                                 <a href="{{url('updateSanpham/'.$value->spMa)}}" class="active" ui-toggle-class="">
                                                     <i class="fa far fa-edit"></i>

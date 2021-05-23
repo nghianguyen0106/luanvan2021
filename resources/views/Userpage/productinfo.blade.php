@@ -22,7 +22,7 @@ Thông tin sản phẩm
 					<ul class="slides">
 						@foreach($imgs as $v)
 						<li style="list-style-type: none;" data-thumb="{{URL::asset('public/images/products/'.$v->spHinh)}}">
-							<div class="thumb-image"> <img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" data-imagezoom="true" class="img-responsive"> </div>
+							<div class="thumb-image col-6"> <img class="col-6" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" data-imagezoom="true"> </div>
 						</li>
 						@endforeach
 					</ul>
