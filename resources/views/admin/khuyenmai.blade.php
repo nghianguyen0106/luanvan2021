@@ -31,26 +31,46 @@
                                     <thead>
                                         <tr>
                                             <th>Mã khuyến mãi</th>
+                                            <th>Mô tả</th>
+                                            <th>Loại khuyến mãi</th>
+                                            <th>Số lượng khuyến mãi</th>
+                                            <th>Ngày bắt đầu</th>
+                                            <th>Ngày kết thúc</th>
                                             <th>Trị giá</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Mã khuyến mãi</th>
-                                            <th>Trị giá</th>
-                                             <th></th>
-                                        </tr>
-                                    </tfoot>
+                                    
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->kmMa}}</td>
-                                            <td>{{$value->kmTrigia}}%</td>
+                                            <td>{{$value->kmMota}}</td>
+                                            <td>@if($value->kmLoai==0)
+                                                Theo sản phẩm
+                                                @else
+                                                Theo đơn hàng
+                                                @endif
+
+                                            </td>
                                             <td>
-                                                <a  href="{{url('deleteKhuyenmai/'.$value->kmMa)}}">
+                                                @if($value->kmSoluong==0)
+                                                    Không giới hạn số lượng
+                                                @else
+                                                    {{$value->kmSoluong}}
+                                                @endif
+                                            </td>
+                                            <td>{{$value->kmNgaybd}}</td>
+                                            <td>{{$value->kmNgaykt}}</td>
+
+                                            <td>{{$value->kmTrigia}} %</td>
+                                            <td>
+                                                <a  href="{{URL::to('suaKhuyenmaipage/'.$value->kmMa)}}">
+                                                    <i class="fa fas fa-edit" style="color: blue;"></i>
+                                                </a>
+                                                <a  href="{{URL::to('deleteKhuyenmai/'.$value->kmMa)}}">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></a>
+                                                </a>
                                             </td>
                                         </tr>
 
@@ -64,4 +84,25 @@
                 </div>
                 <!-- /.container-fluid -->
 
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Ok ! ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
+
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Opss... ! ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
   @endsection

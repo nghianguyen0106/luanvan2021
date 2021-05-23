@@ -44,8 +44,12 @@
 					 <div class="mb-3">
 					 <label for="exampleInputPassword1" class="form-label">Khuyến mãi</label>
 					  <select style="width: 205px" class="form-control m-bot15" name="kmMa">
-		                            @foreach($kmMa as $key => $value)
-		                                <option value="{{$kmMa[$key]->kmMa}}" >{{$kmMa[$key]->kmTrigia}}</option>
+
+		                            @foreach($kmMa as $v)
+		              					@if($v->kmLoai==0)             
+		                                <option value="{{$v->kmMa}}" >{{$v->kmTrigia}} % <p>{{$v->kmMota}}</p></option>
+
+		                           		@endif
 		                            @endforeach
 		               </select>
 		              
@@ -74,6 +78,14 @@
 		                <select style="width: 205px" class="form-control m-bot15" name="ncMa">
 		                            @foreach($ncMa as $key => $value)
 		                                <option value="{{$ncMa[$key]->ncMa}}" >{{$ncMa[$key]->ncTen}}</option>
+		                            @endforeach
+		               </select>
+		           </div>
+		           <div class="mb-3">
+					 <label for="exampleInputPassword1" class="form-label">Nhà cung cấp</label>
+		                <select style="width: 205px" class="form-control m-bot15" name="nccMa">
+		                            @foreach($nccMa as $v)
+		                                <option value="{{$v->nccMa}}" >{{$v->nccTen}}</option>
 		                            @endforeach
 		               </select>
 		           </div>

@@ -146,8 +146,8 @@ Route::post('/editBanner/{id}','adminController@editBanner');
 Route::get('addKhuyenmaiPage','adminController@addKhuyenmaiPage');
 Route::post('/checkAddKhuyenmai','adminController@adCheckAddKhuyenmai');
 Route::get('/deleteKhuyenmai/{id}','adminController@adDeleteKhuyenmai');
-
-
+Route::get('suaKhuyenmaipage/{id}','adminController@suaKhuyenmaipage');
+Route::post('checkSuaKhuyenmai/{id}','adminController@suaKhuyenmai');
 
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
@@ -162,3 +162,11 @@ Route::get('xoa-don/{id}','adminController@xoadon');
 Route::get('update-bao-cao-ngay','adminController@updateBaocao');
 Route::get('bao-cao-ngay','adminController@viewBaocao');
 Route::get('deleteBaocao/{id}','adminController@deleteBaocao');
+
+// --Nhà cung cấp --//
+
+Route::get('adNhacungcap','adminController@adviewNhacungcap');
+Route::post('checkAddNcc','adminController@checkAddNcc');
+Route::get('deleteNhacungcap/{id}','adminController@deleteNhacungcap');
+Route::get('suaNhacungcappage/{id}','adminController@suaNhacungcappage');
+Route::post('checkSuaNhacungcap/{id}','adminController@suaNhacungcap');

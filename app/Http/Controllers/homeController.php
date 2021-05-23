@@ -54,13 +54,18 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
+
+
         $slide = DB::table('banner')->where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
         $countSlide =DB::table('banner')->where('bnVitri',0)->orderBy('bnNgay','desc')->count();
         $bnCon = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
         $countBnCon1 = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
         $countBnCon2 = DB::table('banner')->where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
 
+
+
         $db = DB::table('sanpham')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+       // dd($db);
         $brand=thuonghieu::get();
         $cate=loai::get();
         $needs=nhucau::get();
@@ -397,10 +402,6 @@ class homeController extends Controller
     }
     public function order()
     {
-        //Xóa thông báo lỗi đổi mật khẩu khi chuyển trang
-        Session::forget("note__errC");
-       Session::forget("note__err");
-       //end
         if(Cart::count()>0)
         {
             if(session::has('khTaikhoan'))
@@ -412,13 +413,20 @@ class homeController extends Controller
                 {
                     $total+=$i->price*$i->qty;
                 }
+                $today=date_create();
+                $checkexistKhuyenmai=DB::table('khuyenmai')->where('kmNgaybd','<=',$today)->where('kmNgaykt','>=',$today)->get();
+                dd($checkexistKhuyenmai);
+                // kiem tra khuyen mai theo don hay theo san pham 
+                
+                //nhan du lieu dua ra trang checkout
+                
 
 
                 return view('Userpage.confirmcheckout',compact('cate','cart','total'));
             }
             else
             {
-                session::flash('loginmessage','Please login first !');
+                session::flash('loginmessage','Vui lòng đăng nhập trước khi thực hiện đặt hàng!');
                 return Redirect::to('login');
             }
         }

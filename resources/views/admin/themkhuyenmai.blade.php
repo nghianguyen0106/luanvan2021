@@ -5,47 +5,96 @@
             <!-- Main Content -->
         <div id="content" class="container">
         	<br/>
-			<form action="{{URL::to('checkAddAdmin')}}" method="POST"  enctype="multipart/form-data">
+			<form action="{{URL::to('checkAddKhuyenmai')}}" method="POST"  >
 				 {{ csrf_field() }}
 				 <legend>Thêm chương trình khuyến mãi</legend>
 				 <div class="row">
 				 	<div class="mb-3 col-6">
-						<label for="mota">Mô tả chương trình khuyến mãi <textarea class="form-control" id="kmMota" name="mota"  placeholder="Mô tả"></textarea></label>
+						<label for="mota">Mô tả chương trình khuyến mãi <textarea class="ckeditor form-control" id="kmMota" name="kmMota"  placeholder="Mô tả"></textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Trị giá khuyến mãi (%)
-						<input type="number" class="form-control" min="1" name="kmTrigia" ></label>
+						<input type="number" class="form-control" min="1" max="100" name="kmTrigia" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Ngày bắt đầu
-						<input type="date" class="form-control" min="1" name="kmNgaybt" ></label>
+						<input type="date" class="form-control" min="1" name="kmNgaybd" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Ngày kết thúc
-						<input type="date" class="form-control" min="1" name="kmNgaykt" ></label>
+						<input type="date" class="form-control" min="1" name="kmNgaykt" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Loại khuyến mãi
-						<select name="kmLoai">
-							<option value="0" onclick="chonsanpham()">Sản phẩm</option>
-							<option value="1">Hóa đơn</option>
+						<select id="type" class="form-control" name="kmLoai" onchange="chonsanpham()">
+							<option value=""></option>
+							<option value="0" >Sản phẩm</option>
+							<option value="1">Đơn hàng</option>
 						</select>
 						</label>
+						<span style="color: red;">{{$errors->first('kmLoai')}}</span>
 					</div>
-					<div class="mb-3 col-6">
-						<label for="mota">Số lượng sản phẩm được khuyến mãi
-						<input type="number" min="1" class="form-control" min="1" name="trigia" ></label>
+
+					<div id="qtySp"  style="display: none;" class="mb-3 col-6">
+						<label id for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng sản phẩm)
+						<input type="number" min="1" class="form-control" min="1" name="kmSoluong" ></label>
 					</div>
-				 </div>
-			
-			 
+
+					<div id="qtyHd" style="display: none;" class="mb-3 col-6">
+						<label id for="mota">Số lượng đơn hàng được khuyến mãi ( đế trống là không giới hạn số lượng đơn hàng)
+						<input type="number" min="1" class="form-control" min="1" name="kmSoluong" ></label>
+					</div>
+					 </div>
+					 <div class="row">
+					 	<div class="mb-3 col-6">
+					  <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>
+					</div>
+
+					 	<div class="mb-3 col-6">
+						  <button class="btn btn-primary" type="submit" name="btn_add">Thực hiện</button>
+						</div>
+
+					 
+					 </div>
+					
 
 			 	
-			  <button class="btn btn-primary" type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
 			</form>
-			<br/>
-                                <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>
+                               
 		</div>
 	</div>
+<script type="text/javascript" charset="utf-8">
+	function chonsanpham()
+	{
+		var x=document.getElementById('type');
+		var xValue = document.getElementById('type').value;
+
+		var sp=document.getElementById('qtySp');
+		var hd=document.getElementById('qtyHd');
+		if(xValue==0)
+		{
+			sp.style.display='block';
+			hd.style.display='none';
+		}
+		if(xValue==1)
+		{
+			sp.style.display='none';
+			hd.style.display='block';
+		}
+	}
+</script>
+
+
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Opss... ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
 
 @endsection
+

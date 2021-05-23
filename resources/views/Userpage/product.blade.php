@@ -226,7 +226,7 @@ Danh sách sản phẩm
 			
 					@foreach($db as $k => $i)	
 
-					@if (in_array($i->spMa, $check)==null && $i->spTinhtrang==0) 
+					@if (in_array($i->spMa, $check)==null && $i->spTinhtrang==1) 
 					
 					<?php array_push($check, $i->spMa); ?>
 				<div class="col-md-4 product-men p-4" style="height: 400px">

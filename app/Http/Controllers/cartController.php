@@ -64,6 +64,7 @@ class cartController extends Controller
     public function destroy()
     {
         Cart::destroy();
+        DB::table('giohang')->where('khMa',Session::get('khMa'))->delete();
         return redirect()->back();
     }
 

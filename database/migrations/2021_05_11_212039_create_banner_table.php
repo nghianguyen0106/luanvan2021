@@ -15,7 +15,10 @@ class CreateBannerTable extends Migration
     {
         Schema::create('banner', function (Blueprint $table) {
             $table->id('bnMa');
+            $table->string('bnTieude');
             $table->char('bnHinh',255);
+            $table->timestamp('bnNgay');
+            $table->integer('bnVitri');
             $table->integer('kmMa')->nullable(true);
             $table->engine = "InnoDB";
             

@@ -76,7 +76,7 @@
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
-                                            <td>{{$value->bnTieude}}</td>
+                                            <td>{{-- {{$value->bnTieude}} --}}</td>
                                             <td style="text-align: center"><img src="{{"public/images/banners/".$value->bnHinh}}" width="450" height="200" /></td>
                                             <td>
                                                 @if($value->bnVitri==0)

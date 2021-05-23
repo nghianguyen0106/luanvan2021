@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Carbon\Carbon;
@@ -116,7 +116,8 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
  $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            $data=DB::table('sanpham')->join('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('nhucau','nhucau.ncMa','=','sanpham.ncMa')->get();
+            //dd($data);
             
      
             return view('admin.sanpham')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
@@ -653,11 +654,13 @@ class adminController extends Controller
     // Sản phẩm
     public function themSanpham()
     {
-        $kmMa=DB::table('khuyenmai')->select('kmMa','kmTrigia')->get();
+        $kmMa=DB::table('khuyenmai')->get();
         $loaiMa=DB::table('loai')->select('loaiMa','loaiTen')->get();
         $thMa=DB::table('thuonghieu')->select('thMa','thTen')->get();
         $ncMa=DB::table('nhucau')->select('ncMa','ncTen')->get();
-        return view('admin.themsanpham')->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa);
+        $nccMa=DB::table('nhacungcap')->select('nccMa','nccTen')->get();
+
+        return view('admin.themsanpham')->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa)->with('nccMa',$nccMa);
     }
     public function adCheckAddSanpham(Request $re)
     {
@@ -712,6 +715,9 @@ class adminController extends Controller
                 $data['thMa']=$re->thMa;
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
+                
+                $data['nccMa']=$re->nccMa;
+                $data['kmMa']=$re->kmMa;
                 
                  DB::table('sanpham')->insert($data);
 
@@ -1054,6 +1060,7 @@ class adminController extends Controller
             }
         }
     }
+
     public function adDeleteLoai($id)
     {
 
@@ -1276,26 +1283,68 @@ class adminController extends Controller
   //Khuyến mãi
   public function adCheckAddKhuyenmai(Request $re)
   {
+
       if($re->kmTrigia == null)
         {
             Session::forget('th_err');
             $messages =[
-                'kmTrigia.required'=>'giá trị khuyến mãi không được để trống',
+                'kmTrigia.required'=>'Giá trị khuyến mãi không được để trống !',
+                'kmMota.required'=>'Mô tả không được để trống !',
+                'kmNgaybd.required'=>'Vui lòng nhập ngày bắt đầu khuyến mãi !',
+                'kmNgaykt.required'=>'Vui lòng nhập ngày kết thúc khuyến mãi !',
+                'kmLoai.required'=>'Vui lòng chọn loại khuyến mãi !'
             ];
             $this->validate($re,[
                 'kmTrigia'=>'required',
+                'kmMota'=>'required',
+                'kmNgaybd'=>'required',
+                'kmNgaykt'=>'required',
+                'kmLoai'=>'required',
             ],$messages);
-
-            $errors=$validate->errors();
-
         }
         else
         {
+
                 $data = array();
+                if($re->kmTrigia<1)
+                {
+                    Session::flash('err',"Giá trị khuyến mãi phải lớn hơn 1 ");
+                    return redirect()->back();
+                }
+                elseif($re->kmTrigia>100)
+                {
+                    Session::flash('err',"Giá trị khuyến mãi phải nhỏ hơn 100 !");
+                    return redirect()->back();
+                }
                 $data['kmTrigia']=$re->kmTrigia;
-                $data['kmMota']=null;
-                $data['kmNgaybd']=null;
-                $data['kmNgaykt']=null;
+                $data['kmMota']=$re->kmMota;
+                $today=date_create();
+                //dd($data['kmMota']);
+                if( $today < date_create($re->kmNgaybd) )
+                {
+                    
+                    if($re->kmNgaybd <= $re->kmNgaykt)
+                    {
+                        $data['kmNgaybd']=$re->kmNgaybd;
+                        $data['kmNgaykt']=$re->kmNgaykt;
+                    }
+                    else
+                    {
+                        Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
+                        return redirect()->back();
+                    }
+
+                }
+                else
+                {
+                    Session::flash('err',"Ngày bắt đầu khuyến mãi phải là trong tương lai !");
+                    return redirect()->back();
+                }
+                $data['kmLoai']=$re->kmLoai;
+                $data['kmSoluong']=$re->kmSoluong;
+                Session::flash('success','Thêm thành công !');
+                
+                //dd($re->kmMota);
                 DB::table('khuyenmai')->insert($data);
                 return redirect('adKhuyenmai');
         }
@@ -1312,6 +1361,83 @@ class adminController extends Controller
         return view('admin.themkhuyenmai');
       }
 
+      public function suaKhuyenmaipage(Request $re)
+      {
+        $checkExistKhuyenmai=DB::table('khuyenmai')->where('kmMa',$re->id)->first();
+        //dd($checkExistKhuyenmai);
+        if($checkExistKhuyenmai)
+        {
+            return view('admin.suaKhuyenmai')->with('data',$checkExistKhuyenmai);
+        }
+      }
+
+      public function suaKhuyenmai(Request $re)
+      {
+         if($re->kmTrigia == null)
+        {
+            Session::forget('th_err');
+            $messages =[
+                'kmTrigia.required'=>'Giá trị khuyến mãi không được để trống !',
+                'kmMota.required'=>'Mô tả không được để trống !',
+                'kmNgaybd.required'=>'Vui lòng nhập ngày bắt đầu khuyến mãi !',
+                'kmNgaykt.required'=>'Vui lòng nhập ngày kết thúc khuyến mãi !',
+                'kmLoai.required'=>'Vui lòng chọn loại khuyến mãi !'
+            ];
+            $this->validate($re,[
+                'kmTrigia'=>'required',
+                'kmMota'=>'required',
+                'kmNgaybd'=>'required',
+                'kmNgaykt'=>'required',
+                'kmLoai'=>'required',
+            ],$messages);
+        }
+        else
+        {
+
+                $data = array();
+                if($re->kmTrigia<1)
+                {
+                    Session::flash('err',"Giá trị khuyến mãi phải lớn hơn 1 ");
+                    return redirect()->back();
+                }
+                elseif($re->kmTrigia>100)
+                {
+                    Session::flash('err',"Giá trị khuyến mãi phải nhỏ hơn 100 !");
+                    return redirect()->back();
+                }
+                $data['kmTrigia']=$re->kmTrigia;
+                $data['kmMota']=$re->kmMota;
+                $today=date_create();
+                //dd($data['kmMota']);
+                if( $today < date_create($re->kmNgaybd) )
+                {
+                    
+                    if($re->kmNgaybd <= $re->kmNgaykt)
+                    {
+                        $data['kmNgaybd']=$re->kmNgaybd;
+                        $data['kmNgaykt']=$re->kmNgaykt;
+                    }
+                    else
+                    {
+                        Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
+                        return redirect()->back();
+                    }
+
+                }
+                else
+                {
+                    Session::flash('err',"Ngày bắt đầu khuyến mãi phải là trong tương lai !");
+                    return redirect()->back();
+                }
+                $data['kmLoai']=$re->kmLoai;
+                $data['kmSoluong']=$re->kmSoluong;
+                Session::flash('success','Sửa thành công !');
+                
+                //dd($re->kmMota);
+                DB::table('khuyenmai')->where('kmMa',$re->id)->update($data);
+                return redirect('adKhuyenmai');
+        }
+      }
 
 //end khuyến mãi  
 
@@ -1421,8 +1547,95 @@ class adminController extends Controller
     DB::table('baocao')->where('bcMa',$id)->delete();
     return redirect('bao-cao-ngay');
   }
+
+
+  // Nhà cung cấp
+    
+    public function adviewNhacungcap()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $data = DB::table('nhacungcap')->get();
+            return view('admin.nhacungcap')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        }   
+    } 
+
+    public function checkAddNcc(Request $re)
+    {
+        if($re->nccTen == null)
+        {
+       
+            $messages =[
+                'nccTen.required'=>'Tên nhà cung cấp không được để trống',
+            ];
+            $this->validate($re,[
+                'nccTen'=>'required',
+            ],$messages);
+
+            $errors=$validate->errors();
+        }
+        else
+        {
+             $dataBefore=DB::table('nhacungcap')->where('nccTen',$re->nccTen)->first();
+            if($dataBefore)
+            {
+                Session::flash('err','Nhà cung cấp đã tồn tại !');
+                return redirect()->back();
+            }
+            else
+            {
+                $data = array();
+                $data['nccTen']=$re->nccTen;
+                DB::table('nhacungcap')->insert($data);
+                
+                return redirect('adNhacungcap');
+            }
+        }
+    }
+
+    public function deleteNhacungcap(Request $re)
+    {
+        $d=DB::table('nhacungcap')->where('nccMa',$re->id)->delete();
+        
+        return redirect()->back();
+    }
+
+    public function suaNhacungcappage(Request $re)
+    {
+        $checkExistNhacungcap=DB::table('nhacungcap')->where('nccMa',$re->id)->first();
+       // dd($checkExistNhacungcap);
+        if($checkExistNhacungcap)
+        {
+            return view('admin.suanhacungcap')->with('data',$checkExistNhacungcap);
+        }
+    }
+
+    public function suaNhacungcap(Request $re)
+    {
+        $checkExistNhacungcap=DB::table('nhacungcap')->where('nccTen',$re->nccTen)->first();
+        //dd($checkExistNhacungcap);
+        if($checkExistNhacungcap)
+        {
+            Session::flash('err','Nhà cung cấp này đã tồn tại !');
+            return redirect()->back();
+        }
+        else
+        {
+            
+            
+            $data['nccTen']=strip_tags($re->nccTen);
+            $c=DB::table('nhacungcap')->where('nccMa',$re->id)->update($data);
+         
+            Session::flash('success','Cập nhật thành công !');
+            return Redirect::to('adNhacungcap');
+        }
+    }
+
 }
 
-
-
-    

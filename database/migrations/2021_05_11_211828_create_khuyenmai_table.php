@@ -15,11 +15,12 @@ class CreateKhuyenmaiTable extends Migration
     {
         Schema::create('khuyenmai', function (Blueprint $table) {
             $table->integer('kmMa')->autoIncrement();
-            $table->string('khMota');
+            $table->text('kmMota');
             $table->integer('kmTrigia');
-            $table->timestamp('khNgaybd');
+            $table->timestamp('kmNgaybd');
             $table->timestamp('kmNgaykt');
             $table->integer('kmLoai');
+            $table->integer('kmSoluong')->nullable(true);
             $table->engine = "InnoDB";
         });
     }
