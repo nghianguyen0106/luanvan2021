@@ -64,7 +64,15 @@
                                             <th>{{$value->spTen}}</th>
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
                                             <th>{{$value->spTinhtrang==0?"Hết hàng":"Còn hàng"}}</th>
-                                            <th>{{$value->spHanbh}}&nbsp;năm</th>
+                                            <th>
+                                                @if($value->spHanbh==0)
+                                                6 tháng
+                                                @elseif($value->spHanbh==1)
+                                                12 tháng
+                                                @else
+                                                24 tháng
+                                                @endif
+                                            </th>
                                             <th>{{$value->kmMa!=null?"$value->kmMa":"0%"}}</th>
                                             <th>{{$value->thTen}}</th>
                                             <th>{{$value->loaiTen}}</th>

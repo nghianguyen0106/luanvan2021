@@ -41,10 +41,13 @@
                          </div>
 
                         <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Hạn bảo hành</label>
-                                <input class="form-control" name="spHanbh" type="number" value="{{$value->spHanbh}}"/>
-                                <span style="color:red">{{$errors->first('spHanbh')}}</span>
-                        </div>
+                          <label for="exampleInputPassword1" class="form-label">Hạn bảo hành:</label><br/>
+                          <input name="spHanbh" {{$value->spHanbh==0?"checked":"unchecked"}} type="radio" value="0"  id="spHanbh"/>6 tháng &emsp;
+                          <input name="spHanbh" {{$value->spHanbh==1?"checked":"unchecked"}} type="radio" value="1"id="spHanbh"/>12 tháng &emsp;
+                          <input name="spHanbh" {{$value->spHanbh==2?"checked":"unchecked"}} type="radio" value="2"  id="spHanbh"/>24 tháng &emsp;
+                          <br/>
+                          <span style="color:red">{{$errors->first('spHanbh')}}</span>
+                       </div>
                     </div>
                     <br/>
                       <div class="flex__form">

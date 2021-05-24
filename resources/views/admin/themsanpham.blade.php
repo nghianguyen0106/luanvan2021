@@ -13,7 +13,7 @@
 				<h4>Tổng quan</h4>
 			<div class="flex__form">
 			  <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Tên sản phẩm </label>
+			    <label for="exampleInputPassword1" class="form-label">Tên sản phẩm:</label>
 			    <input name="spTen" type="text" class="form-control" id="spTen">
 			    <span style="color:red">{{$errors->first('spTen')}}</span>
 			    <span style="color:red">
@@ -23,19 +23,22 @@
 			    </span>
 			  </div>
 			   <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Số lượng</label>
+			    <label for="exampleInputPassword1" class="form-label">Số lượng:</label>
 			    <input name="khoSoluong" type="number" class="form-control" id="soluong">
 			     <span style="color:red">{{$errors->first('khoSoluong')}}</span>
 			  </div>
 			   <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">Giá</label>
+			    <label for="exampleInputPassword1" class="form-label">Giá:</label>
 			    <input name="spGia" type="number" class="form-control" id="spGia">
 			     <span style="color:red">{{$errors->first('spGia')}}</span>
 			  </div>
 			  
 				 <div class="mb-3">
-				    <label for="exampleInputPassword1" class="form-label">Hạn bảo hành</label>
-				    <input name="spHanbh" type="number" class="form-control" id="spHanbh">
+				    <label for="exampleInputPassword1" class="form-label">Hạn bảo hành:</label><br/>
+				    <input name="spHanbh" type="radio" value="0"  id="spHanbh"/>6 tháng &emsp;
+				    <input name="spHanbh" type="radio" value="1"id="spHanbh"/>12 tháng &emsp;
+				    <input name="spHanbh" type="radio" value="2"  id="spHanbh"/>24 tháng &emsp;
+				    <br/>
 				    <span style="color:red">{{$errors->first('spHanbh')}}</span>
 				 </div>
 			</div>
