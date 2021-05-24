@@ -91,6 +91,18 @@
                                 </select>
                             @endforeach
                          </div>
+
+                          <div class="mb-3">
+                           <label for="exampleInputPassword1" class="form-label">Nhà cung cấp</label>
+                            @foreach($nccOld as $nccOld)
+                                    <select style="width: 205px" class="form-control m-bot15" name="nccMa">
+                                      <option value="{{$nccOld->nccMa}}">{{$nccOld->nccTen}}</option>
+                                                @foreach($nccMa as $ncc)
+                                                    <option value="{{$ncc->nccMa}}" >{{$ncc->nccTen}}</option>
+                                                @endforeach
+                                   </select>
+                              @endforeach
+                               </div>
                     </div>
 
                   <!--field flex form-->

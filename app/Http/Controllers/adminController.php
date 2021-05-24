@@ -915,16 +915,18 @@ class adminController extends Controller
         $kmOld = DB::table('khuyenmai')->where('kmMa',$spMa->kmMa)->get(); 
         $loaiOld = DB::table('loai')->where('loaiMa',$spMa->loaiMa)->get(); 
         $thOld = DB::table('thuonghieu')->where('thMa',$spMa->thMa)->get();
+        $nccOld = DB::table('nhacungcap')->where('nccMa',$spMa->nccMa)->get();
         //
         $kmMa=DB::table('khuyenmai')->get();
         $loaiMa=DB::table('loai')->get();
         $thMa=DB::table('thuonghieu')->get();
         $ncMa=DB::table('nhucau')->get();
+        $nccMa=DB::table('nhacungcap')->get();
         $mota=DB::table('mota')->where('spMa',$id)->get();
         $hinh=DB::table('hinh')->where('spMa',$id)->get();
         $kho=DB::table('kho')->where('spMa',$id)->get();
         $data = DB::table('sanpham')->where('spMa',$id)->get();
-        return view('admin.suasanpham')->with('spMaCu',$data)->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa)->with('mota',$mota)->with('kho',$kho)->with('hinh',$hinh)->with('ncOld',$ncOld)->with('kmOld',$kmOld)->with('loaiOld',$loaiOld)->with('thOld',$thOld);
+        return view('admin.suasanpham')->with('spMaCu',$data)->with('kmMa',$kmMa)->with('loaiMa',$loaiMa)->with('thMa',$thMa)->with('ncMa',$ncMa)->with('mota',$mota)->with('kho',$kho)->with('hinh',$hinh)->with('ncOld',$ncOld)->with('kmOld',$kmOld)->with('loaiOld',$loaiOld)->with('thOld',$thOld)->with('nccOld',$nccOld)->with('nccMa',$nccMa);
     }
    
     public function editSanpham(Request $re, $id)
@@ -970,6 +972,7 @@ class adminController extends Controller
                 $data['spHanbh']=$re->spHanbh;
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
+                $data['nccMa']=$re->nccMa;
                 $data['loaiMa']=$re->loaiMa;
                 $data['ncMa']=$re->ncMa;
 
