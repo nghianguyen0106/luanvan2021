@@ -283,8 +283,7 @@ class adminController extends Controller
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
-            Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+           
             Session::put('hdTinhtrang1',$noteDonhang1);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
@@ -303,7 +302,7 @@ class adminController extends Controller
                             ->leftjoin('khachhang','khachhang.khMa','=','donhang.khMa')
                             ->leftjoin('admin','admin.adMa','=','donhang.adMa')
                             ->where('hdTinhtrang',3)->get();
-        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('data3',$data3)->with('data4',$data4)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang1',$noteDonhang1);
+        return view('admin.don-hang')->with('data1',$data1)->with('data2',$data2)->with('data3',$data3)->with('data4',$data4)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -316,6 +315,8 @@ class adminController extends Controller
         Session::put('dgTrangthai',$noteDanhgia);
         $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
         Session::put('hdTinhtrang',$noteDonhang);
+         Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         $bcNgay = DB::table('donhang')->distinct()->get('hdNgaytao');
         $data=DB::table('baocao')->get();
         return view('admin.bao-cao-ngay')->with('data',$data)->with('bcNgay',$bcNgay)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
@@ -1690,12 +1691,19 @@ class adminController extends Controller
         $data["bcNgaylap"]=date(now());
         
         DB::table('baocao')->insert($data);
+
+         $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Lập báo cáo từ:".$re->dateStart." đến ".$re->dateEnd;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
         return redirect('bao-cao-ngay');
         
     }
   }
   public function deleteBaocao($id)
   {
+    
     DB::table('baocao')->where('bcMa',$id)->delete();
     return redirect('bao-cao-ngay');
   }
