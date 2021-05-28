@@ -143,6 +143,11 @@ Route::post('/editBanner/{id}','adminController@editBanner');
 
 //--Khuyến mãi--//
 
+//- Loại khuyến mãi-//
+Route::get('adLoakhuyenmai','adminController@loaikhuyenmaipage');
+Route::post('checkAddLoaikhuyenmai','adminController@checkAddLoaikhuyenmai');
+
+//--//
 Route::get('addKhuyenmaiPage','adminController@addKhuyenmaiPage');
 Route::post('/checkAddKhuyenmai','adminController@adCheckAddKhuyenmai');
 Route::get('/deleteKhuyenmai/{id}','adminController@adDeleteKhuyenmai');

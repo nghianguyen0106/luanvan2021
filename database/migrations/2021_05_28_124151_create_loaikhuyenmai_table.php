@@ -14,7 +14,7 @@ class CreateLoaikhuyenmaiTable extends Migration
     public function up()
     {
         Schema::create('loaikhuyenmai', function (Blueprint $table) {
-            $table->integer('lkmMa')->primary();
+            $table->integer('lkmMa')->autoIncrement();
             $table->string('lkmTen')->unique();
             $table->engine = "InnoDB";
         });

@@ -1435,6 +1435,59 @@ class adminController extends Controller
    //endbanner
 
   //Khuyến mãi
+ public function loaikhuyenmaipage()
+ {
+    if(Session::has('adTaikhoan'))
+        {
+            $data=DB::table('loaikhuyenmai')->get();
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $data = DB::table('nhacungcap')->get();
+            return view('admin.loaikhuyenmai')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        }
+    return view('admin.login');
+ }
+
+public function checkAddLoaikhuyenmai(Request $re)
+{
+    if($re->lkmTen == null)
+        {
+       
+            $messages =[
+                'lkmTen.required'=>'Tên loại không được để trống',
+            ];
+            $this->validate($re,[
+                'lkmTen'=>'required',
+            ],$messages);
+
+            $errors=$validate->errors();
+        }
+        else
+        {
+             $dataBefore=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
+            if($dataBefore)
+            {
+                Session::flash('note_err','Nhà cung cấp đã tồn tại !');
+                return redirect()->back();
+            }
+            else
+            {
+                $data['lkmTen']=$re->lkmTen;
+                DB::table('loaikhuyenmai')->insert($data);
+
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Thêm loại khuyến mãi mới: ".$re->lkmTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+                return redirect()->back();
+            }
+        }
+}
+
   public function adCheckAddKhuyenmai(Request $re)
   {
 
