@@ -397,9 +397,19 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
+                        $today=date_create();
+
+         $checkexistKhuyenmai=DB::table('khuyenmai')->where('kmNgaybd','<=',$today)->where('kmNgaykt','>=',$today)->get();
+                dd($checkexistKhuyenmai);
+                // kiem tra khuyen mai theo don hay theo san pham 
+                foreach($checkexistKhuyenmai as $v)
+                {
+                    
+                }
         
        return view('Userpage.checkout',compact('cate','cart','total'));
     }
+
     public function order()
     {
         if(Cart::count()>0)
@@ -413,15 +423,6 @@ class homeController extends Controller
                 {
                     $total+=$i->price*$i->qty;
                 }
-                $today=date_create();
-                $checkexistKhuyenmai=DB::table('khuyenmai')->where('kmNgaybd','<=',$today)->where('kmNgaykt','>=',$today)->get();
-                dd($checkexistKhuyenmai);
-                // kiem tra khuyen mai theo don hay theo san pham 
-                
-                //nhan du lieu dua ra trang checkout
-                
-
-
                 return view('Userpage.confirmcheckout',compact('cate','cart','total'));
             }
             else

@@ -1322,15 +1322,16 @@ class adminController extends Controller
     }
     public function adDeleteThuonghieu($id)
     {
-         $db = DB::table('thuonghieu')->where('thMa',$id)->get();
+         $db = DB::table('thuonghieu')->where('thMa',$id)->first();
          $a = array($db);
-         $thTen = str_replace('"','',json_encode($a[0][0]->thTen));
+         $thTen = $db->thTen;
           $data1 = array();
                 $data1['adMa'] = Session::get('adMa');
                 $data1['alChitiet'] = "Xóa thương hiệu:".$thTen;
                 $data1['alNgaygio']= now();
+                //dd($data1['alChitiet']);
                 DB::table('admin_log')->insert($data1);
-        DB::table('thuonghieu')->where('thMa',$id)->delete();
+       DB::table('thuonghieu')->where('thMa',$id)->delete();
         return redirect('adThuonghieu');
        
     }
@@ -1486,7 +1487,6 @@ class adminController extends Controller
                         Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
                         return redirect()->back();
                     }
-
                 }
                 else
                 {
@@ -1495,8 +1495,9 @@ class adminController extends Controller
                 }
                 $data['kmLoai']=$re->kmLoai;
                 $data['kmSoluong']=$re->kmSoluong;
+                $date=getdate();
+                $data['kmMa']=$date['seconds'].$date['minutes'].substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'];
                 Session::flash('success','Thêm thành công !');
-                
                 //dd($re->kmMota);
                 DB::table('khuyenmai')->insert($data);
                 return redirect('adKhuyenmai');

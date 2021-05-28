@@ -14,7 +14,7 @@ class UpdateKhuyenmaiTable extends Migration
     public function up()
     {
          Schema::table('khuyenmai', function (Blueprint $table) {
-             $table->integer('kmSoluongsp')->nullable(true);
+             $table->foreign('lkmMa')->references('lkmMa')->on('loaikhuyenmai')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

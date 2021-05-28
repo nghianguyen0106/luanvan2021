@@ -22,6 +22,8 @@ class CreateMotaTable extends Migration
             $table->string('vga')->nullable(true);
             $table->string('mainboard')->nullable(true);
             $table->string('manhinh')->nullable(true);
+            $table->string('chuot')->nullable(true);
+            $table->string('banphim')->nullable(true);
             $table->string('vocase')->nullable(true);
             $table->string('pin')->nullable(true);
             $table->string('tannhiet')->nullable(true);

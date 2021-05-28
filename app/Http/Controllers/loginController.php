@@ -17,7 +17,7 @@ class loginController extends Controller
     {
         Cart::destroy();
     	$username=$re->username;
-    	$password=$re->password;
+    	$password=md5($re->password);
     	$result=DB::table('khachhang')->where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
     	if($result)
     	{
@@ -87,14 +87,17 @@ class loginController extends Controller
                 $data['khTen']=substr($userInfo->name,0,stripos($userInfo->name," "));
                 $data['khMatkhau']=md5("123"); 
                 $data['khEmail']=$userInfo->email;
-                $data['khNgaysinh']='1999-06-01';
-                $data['khDiachi']='180 cao lo phuong 4 quan 8';
+                $data['khNgaysinh']=date_create();
+                $data['khDiachi']='';
                 $data['khQuyen']=0;
                 $data['khGioitinh']=0;
                 $data['khSdt']=0;
                 $data['khTaikhoan']=$userInfo->id;
+                $data['khNgaythamgia']=date_create();
+                dd($data);
                 $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
                 DB::table('khachhang')->insert($data);
+                
                 //login
                 session::put("khMa",$data['khMa']);
                 session::put("khTen",$data['khTen']);
@@ -149,12 +152,14 @@ class loginController extends Controller
                     $data['khTen']=substr($userInfo->name,0,stripos($userInfo->name," "));
                     $data['khMatkhau']=md5("123"); 
                     $data['khEmail']=$userInfo->email;
-                    $data['khNgaysinh']='1999-06-01';
-                    $data['khDiachi']='180 cao lo phuong 4 quan 8';
+                    $data['khNgaysinh']=date_create();
+                    $data['khDiachi']="";
                     $data['khQuyen']=0;
                     $data['khGioitinh']=0;
                     $data['khSdt']=0;
                     $data['khTaikhoan']=$userInfo->id;
+                    $data['khNgaythamgia']=date_create();
+                //dd($data);
                     $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
                     DB::table('khachhang')->insert($data);
                     //login

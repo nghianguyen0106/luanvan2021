@@ -18,13 +18,13 @@ class CreateDonhangTable extends Migration
             $table->integer('khMa');
             $table->timestamp('hdNgaytao');
             $table->integer('hdSoluongsp');
-            $table->float('hdTongtien',20,4);
+            $table->float('hdTongtien',20,2);
             $table->integer('hdTinhtrang');
-            $table->string('hdDiachi');
             $table->char('hdSdtnguoinhan',11);
+            $table->string('hdDiachi');
             $table->string('hdGhichu')->nullable(true);
             $table->integer('kmMa')->nullable(true);
-            $table->integer('adMa');
+            $table->integer('adMa')->nullable(true);
             $table->engine = "InnoDB";
             
             //foreign key

@@ -14,13 +14,13 @@ class CreateKhuyenmaiTable extends Migration
     public function up()
     {
         Schema::create('khuyenmai', function (Blueprint $table) {
-            $table->integer('kmMa')->autoIncrement();
+            $table->integer('kmMa')->primary();
             $table->text('kmMota');
             $table->integer('kmTrigia');
             $table->timestamp('kmNgaybd');
             $table->timestamp('kmNgaykt');
-            $table->integer('kmLoai');
             $table->integer('kmSoluong')->nullable(true);
+            $table->integer('lkmMa');
             $table->engine = "InnoDB";
         });
     }

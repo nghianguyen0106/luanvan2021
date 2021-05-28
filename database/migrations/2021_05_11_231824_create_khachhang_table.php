@@ -28,6 +28,7 @@ class CreateKhachhangTable extends Migration
             $table->char('khXtemail')->nullable(true);
             $table->char('khResetpassword')->nullable(true);
             $table->integer('khQuyen');
+            $table->date('khNgaythamgia');
             $table->engine = "InnoDB";
         });
     }

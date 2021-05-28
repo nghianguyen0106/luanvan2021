@@ -19,10 +19,10 @@ class CreateSanphamTable extends Migration
             $table->float('spGia',20,4);
             $table->integer('spHanbh');
             $table->integer('spTinhtrang');
-            $table->integer('kmMa')->nullable(true);
             $table->integer('thMa');
             $table->integer('loaiMa');
             $table->integer('ncMa');
+            $table->integer('kmMa')->nullable(true);
           
             $table->engine = "InnoDB";
             // foreign key

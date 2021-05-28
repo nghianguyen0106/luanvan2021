@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNhacungcapTable extends Migration
+class CreateLoaikhuyenmaiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateNhacungcapTable extends Migration
      */
     public function up()
     {
-        Schema::create('nhacungcap', function (Blueprint $table) {
-            $table->integer('nccMa')->autoIncrement();
-            $table->string('nccTen');
-            $table->string('nccSdt');
-            $table->string('nccDiaChi');
+        Schema::create('loaikhuyenmai', function (Blueprint $table) {
+            $table->integer('lkmMa')->primary();
+            $table->string('lkmTen')->unique();
             $table->engine = "InnoDB";
         });
     }
@@ -29,6 +27,6 @@ class CreateNhacungcapTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhacungcap');
+        Schema::dropIfExists('loaikhuyenmai');
     }
 }
