@@ -22,6 +22,7 @@ class CreateSanphamTable extends Migration
             $table->integer('thMa');
             $table->integer('loaiMa');
             $table->integer('ncMa');
+            $table->integer('nccMa');
             $table->integer('kmMa')->nullable(true);
           
             $table->engine = "InnoDB";
@@ -30,6 +31,7 @@ class CreateSanphamTable extends Migration
             $table->foreign('loaiMa')->references('loaiMa')->on('loai')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('thMa')->references('thMa')->on('thuonghieu')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onUpdate('cascade');
+            
         });
     }
 

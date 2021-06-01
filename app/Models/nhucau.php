@@ -9,4 +9,6 @@ class nhucau extends Model
 {
     use HasFactory;
     protected $table='nhucau';
+    protected $primaryKey='ncMa';
+    protected $fillable=['ncMa','ncTen'];
 }

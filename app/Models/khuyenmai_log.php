@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class kho extends Model
+class khuyenmai_log extends Model
 {
     use HasFactory;
-    protected $table='kho';
-    protected $fillable=['spMa','khSoluongsp','khoNgaynhap'];
+    protected $table='khuyenmai_log';
+    protected $fillable=['kmMa','kmgSolan','kmMa'];
 }

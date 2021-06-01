@@ -27,18 +27,14 @@
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Loại khuyến mãi
-						<select id="type" class="form-control" name="kmLoai" onchange="chonsanpham()" >
-					
-							<option value="0"  
-							@if($data->kmLoai==0)
-							selected 
-							@endif >Sản phẩm</option>
-							<option value="1" @if($data->kmLoai==1)
-							selected
-							@endif>Đơn hàng</option>
+						<select id="type" class="form-control" name="lkmMa" onchange="chonsanpham()" >
+						<option value="{{$data->lkmMa}}">{{$data->lkmTen}}</option>
+							@foreach($lkm as $v)
+							<option value="{{$v->lkmMa}}">{{$v->lkmTen}}</option>
+							@endforeach
 						</select>
 						</label>
-						<span style="color: red;">{{$errors->first('kmLoai')}}</span>
+						<span style="color: red;">{{$errors->first('lkmMa')}}</span>
 					</div>
 
 					<div class="mb-3 col-6">

@@ -26,30 +26,22 @@
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Loại khuyến mãi
-						<select id="type" class="form-control" name="kmLoai" onchange="chonsanpham()">
+						<select id="type" class="form-control" name="lkmMa" onchange="chonsanpham()">
 							<option value=""></option>
-							<option value="0" >Sản phẩm</option>
-							<option value="1">Đơn hàng</option>
+							@foreach($lkm as $v)
+							<option value="{{$v->lkmMa}}" >{{$v->lkmTen}}</option>
+							@endforeach
 						</select>
 						</label>
 						<span style="color: red;">{{$errors->first('kmLoai')}}</span>
 					</div>
 
-					<div id="qtySp"  style="display: none;" class="mb-3 col-6">
-						<label id for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng sản phẩm)
+					<div id="qtySp" class="mb-3 col-6">
+						<label id for="mota">Số lượng được khuyến mãi ( đế trống là không giới hạn số lượng)
 						<input type="number" min="1" class="form-control" min="1" name="kmSoluong" ></label>
 					</div>
 
-					<div id="qtyHd" style="display: none;" class="mb-3 col-6">
-						<label id for="mota">Số lượng đơn hàng được khuyến mãi ( đế trống là không giới hạn số lượng đơn hàng)
-						<input type="number" min="1" class="form-control" min="1" name="kmSoluong" ></label>
-					</div>
-					 </div>
-					 <div class="row">
-					 	<div class="mb-3 col-6">
-					  <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>
-					</div>
-
+					
 					 	<div class="mb-3 col-6">
 						  <button class="btn btn-primary" type="submit" name="btn_add">Thực hiện</button>
 						</div>

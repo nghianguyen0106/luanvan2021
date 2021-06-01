@@ -20,7 +20,8 @@ class CreateKhuyenmaiTable extends Migration
             $table->timestamp('kmNgaybd');
             $table->timestamp('kmNgaykt');
             $table->integer('kmSoluong')->nullable(true);
-            $table->integer('lkmMa');
+            $table->integer('kmGioihanmoikh')->nullable(true);
+            $table->integer('kmGiatritoida')->nullable(true);
             $table->engine = "InnoDB";
         });
     }

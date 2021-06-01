@@ -28,8 +28,8 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Mã nhà cung cấp</th>
-                                            <th>Tên nhà cung cấp</th>
+                                            <th>Mã loại</th>
+                                            <th>Tên loại</th>
                                             <th></th>
                                              
                                         </tr>
@@ -39,13 +39,13 @@
 
                                     @foreach($data as $value)
                                         <tr>
-                                            <td>{{$value->nccMa}}</td>
-                                            <td>{{$value->nccTen}}</td>
+                                            <td>{{$value->lkmMa}}</td>
+                                            <td>{{$value->lkmTen}}</td>
                                            <td>
-                                                <a  href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}">
+                                                <a  href="{{URL::to('suaLoaikhuyenmaipage/'.$value->lkmMa)}}">
                                                     <i class="fa fas fa-edit" style="color: blue;"></i>
                                                 </a>
-                                                <a  href="{{URL::to('deleteNhacungcap/'.$value->nccMa)}}">
+                                                <a  href="{{URL::to('deleteloaikhuyenmai/'.$value->lkmMa)}}">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
                                                 </a>
                                             </td>
@@ -63,4 +63,26 @@
                 <!-- /.container-fluid -->
 
 
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Opss... ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
+
+
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Done ! ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
   @endsection

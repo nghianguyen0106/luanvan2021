@@ -21,7 +21,7 @@ class CreateAdminTable extends Migration
             $table->char('adEmail',100)->unique();
             $table->char('adSdt',11)->unique();
             $table->integer('adQuyen');
-            $table->char('adHinh',255);
+            $table->char('adHinh',255)->nullable(true);
             $table->engine = "InnoDB";
         });
     }

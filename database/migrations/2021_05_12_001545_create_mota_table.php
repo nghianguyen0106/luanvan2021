@@ -35,6 +35,7 @@ class CreateMotaTable extends Migration
             $table->string('chuanlan')->nullable(true);
             $table->string('chuanwifi')->nullable(true);
             $table->string('hedieuhanh')->nullable(true);
+            
             $table->engine = "InnoDB";
             // foreign key
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');

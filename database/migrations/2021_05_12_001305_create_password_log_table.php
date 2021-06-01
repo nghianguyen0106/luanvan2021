@@ -16,6 +16,7 @@ class CreatePasswordLogTable extends Migration
         Schema::create('password_log', function (Blueprint $table) {
             $table->integer('khMa');
             $table->char('plOld',50);
+            
             $table->engine = "InnoDB";
             
              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');

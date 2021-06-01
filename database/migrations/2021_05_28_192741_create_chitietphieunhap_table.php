@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CteateChitietphieunhapTable extends Migration
+class CreateChitietphieunhapTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ class CteateChitietphieunhapTable extends Migration
             $table->integer('ctpnSoluong');
             $table->integer('ctpnDongia');
             $table->integer('ctpnThanhtien');
+                
             $table->engine = "InnoDB";
             
             //foreign key

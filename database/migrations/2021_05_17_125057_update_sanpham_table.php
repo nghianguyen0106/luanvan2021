@@ -14,7 +14,7 @@ class UpdateSanphamTable extends Migration
     public function up()
     {
         Schema::table('sanpham', function (Blueprint $table) {
-             $table->integer('nccMa');
+            
              $table->foreign('nccMa')->references('nccMa')->on('nhacungcap')->onDelete('cascade')->onUpdate('cascade');
         });
     }

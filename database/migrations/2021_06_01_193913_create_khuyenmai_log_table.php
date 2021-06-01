@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGiohangTable extends Migration
+class CreateKhuyenmaiLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateGiohangTable extends Migration
      */
     public function up()
     {
-        Schema::create('giohang', function (Blueprint $table) {
+        Schema::create('khuyenmai_log', function (Blueprint $table) {
             $table->integer('khMa');
-            $table->integer('spMa');
-            $table->integer('ghSoluong');
-            
+            $table->integer('kmMa');
+            $table->integer('kmgSolan');
+
             $table->engine = "InnoDB";
 
             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
-             $table->foreign('spMa')->references('spMa')->on('sanpham')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateGiohangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('giohang');
+        Schema::dropIfExists('khuyenmai_log');
     }
 }

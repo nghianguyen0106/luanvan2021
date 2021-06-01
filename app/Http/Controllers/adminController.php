@@ -218,14 +218,17 @@ class adminController extends Controller
         public function viewKhuyenmai()
     {
          if(Session::has('adTaikhoan'))
-        {
+        {   
+
+
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-             $data=DB::table('khuyenmai')->get();
+             $data=DB::table('khuyenmai')->join('loaikhuyenmai','loaikhuyenmai.lkmMa','khuyenmai.lkmMa')->get();
+
             return view('admin.khuyenmai')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
@@ -1446,7 +1449,7 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data = DB::table('nhacungcap')->get();
+          
             return view('admin.loaikhuyenmai')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
     return view('admin.login');
@@ -1455,7 +1458,7 @@ class adminController extends Controller
 public function checkAddLoaikhuyenmai(Request $re)
 {
     if($re->lkmTen == null)
-        {
+    {
        
             $messages =[
                 'lkmTen.required'=>'Tên loại không được để trống',
@@ -1465,30 +1468,83 @@ public function checkAddLoaikhuyenmai(Request $re)
             ],$messages);
 
             $errors=$validate->errors();
+    }
+    else
+    {
+        $dataBefore=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
+        if($dataBefore)
+        {
+            Session::flash('note_err','Nhà cung cấp đã tồn tại !');
+                return redirect()->back();
         }
         else
         {
-             $dataBefore=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
-            if($dataBefore)
-            {
-                Session::flash('note_err','Nhà cung cấp đã tồn tại !');
-                return redirect()->back();
-            }
-            else
-            {
-                $data['lkmTen']=$re->lkmTen;
-                DB::table('loaikhuyenmai')->insert($data);
-
-                $data1['adMa'] = Session::get('adMa');
-                $data1['alChitiet'] = "Thêm loại khuyến mãi mới: ".$re->lkmTen;
-                $data1['alNgaygio']= now();
-                DB::table('admin_log')->insert($data1);
-                return redirect()->back();
+            $data['lkmTen']=$re->lkmTen;
+            DB::table('loaikhuyenmai')->insert($data);
+            $data1['adMa'] = Session::get('adMa');
+            $data1['alChitiet'] = "Thêm loại khuyến mãi mới: ".$re->lkmTen;
+            $data1['alNgaygio']= now();
+            Session::flash('success','Thêm thành công !');
+            DB::table('admin_log')->insert($data1);
+            return redirect('adLoakhuyenmai');
             }
         }
 }
 
-  public function adCheckAddKhuyenmai(Request $re)
+public function deleteloaikhuyenmai(Request $re)
+{
+    $checkExistLkm=DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->first();
+    if(!$checkExistLkm)
+    {
+        Session::flash('err','loai khuyến mãi không tồn tại !');
+        return Redirect()->back();
+    }
+    DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->delete();
+    $data1['adMa'] = Session::get('adMa');
+    $data1['alChitiet'] = "Xóa loại khuyến mãi: ".$checkExistLkm->lkmTen;
+    $data1['alNgaygio']= now();
+    Session::flash('success','Đã xóa loại khuyến mãi: '.$checkExistLkm->lkmTen);
+    DB::table('admin_log')->insert($data1);
+    return Redirect()->back();
+}
+
+public function suaLoaikhuyenmaipage(Request $re)
+{
+    $data=DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->first();
+    return view('admin.sualoaikhuyenmai',compact('data'));
+}
+
+public function suaLoaikhuyenmai(Request $re)
+{
+    $messages =[
+                 'lkmTen.required'=>'Tên loại khuyến mãi không được để trống',
+            ];
+            $this->validate($re,[
+                 'lkmTen'=>'required',
+            ],$messages);
+    $oldname=DB::table('loaikhuyenmai')->where('lkmMa',$re->lkmMa)->first();
+    $checkExistLkm=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
+    if($checkExistLkm)
+    {
+        Session::flash('err','Loại khuyến mãi này đã tồn tại !');
+        return Redirect()->back();
+    }      
+    else
+    {
+        $data['lkmTen']=$re->lkmTen;
+        DB::table('loaikhuyenmai')->where('lkmMa',$re->lkmMa)->update($data);
+
+        $data1['adMa'] = Session::get('adMa');
+        $data1['alChitiet'] = "Sửa loại khuyến mãi: ".$oldname->lkmTen.' => '.$data['lkmTen'];
+        $data1['alNgaygio']= now();
+        DB::table('admin_log')->insert($data1);
+        Session::flash('success','Sửa thành công !');
+        return Redirect::to('adLoakhuyenmai');
+    }
+}
+
+
+public function adCheckAddKhuyenmai(Request $re)
   {
 
       if($re->kmTrigia == null)
@@ -1499,14 +1555,14 @@ public function checkAddLoaikhuyenmai(Request $re)
                 'kmMota.required'=>'Mô tả không được để trống !',
                 'kmNgaybd.required'=>'Vui lòng nhập ngày bắt đầu khuyến mãi !',
                 'kmNgaykt.required'=>'Vui lòng nhập ngày kết thúc khuyến mãi !',
-                'kmLoai.required'=>'Vui lòng chọn loại khuyến mãi !'
+                'lkmMa.required'=>'Vui lòng chọn loại khuyến mãi !'
             ];
             $this->validate($re,[
                 'kmTrigia'=>'required',
                 'kmMota'=>'required',
                 'kmNgaybd'=>'required',
                 'kmNgaykt'=>'required',
-                'kmLoai'=>'required',
+                'lkmMa'=>'required',
             ],$messages);
         }
         else
@@ -1546,35 +1602,46 @@ public function checkAddLoaikhuyenmai(Request $re)
                     Session::flash('err',"Ngày bắt đầu khuyến mãi phải là trong tương lai !");
                     return redirect()->back();
                 }
-                $data['kmLoai']=$re->kmLoai;
+                $data['lkmMa']=$re->lkmMa;
                 $data['kmSoluong']=$re->kmSoluong;
+
                 $date=getdate();
-                $data['kmMa']=$date['seconds'].$date['minutes'].substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'];
+                $data['kmMa']=$date['seconds'].$date['minutes'].$date['yday'].$date['mon'];
                 Session::flash('success','Thêm thành công !');
-                //dd($re->kmMota);
+                $save_log['adMa']=Session::get('adMa');
+                $save_log['alChitiet']="Thêm khuyến mãi: " ;
                 DB::table('khuyenmai')->insert($data);
                 return redirect('adKhuyenmai');
         }
     }
-      public function adDeleteKhuyenmai($id)
+      public function adDeleteKhuyenmai(Request $re)
       {
-        DB::table('khuyenmai')->where('kmMa',$id)->delete();
-       
+        $promoInfo=DB::table('khuyenmai')->where('kmMa',$re->id)->first();
+        $save_log['adMa']=Session::get('adMa');
+        $save_log['alChitiet']='Xóa chương trình khuyến mãi: '.$promoInfo->kmMota;
+        DB::table('khuyenmai')->where('kmMa',$re->id)->delete();
         return redirect('adKhuyenmai');
       }
 
       public function addKhuyenmaiPage()
       {
-        return view('admin.themkhuyenmai');
+        $lkm=DB::table('loaikhuyenmai')->get();
+        return view('admin.themkhuyenmai',compact('lkm'));
       }
 
       public function suaKhuyenmaipage(Request $re)
       {
-        $checkExistKhuyenmai=DB::table('khuyenmai')->where('kmMa',$re->id)->first();
+        $checkExistKhuyenmai=DB::table('khuyenmai')->join('loaikhuyenmai','loaikhuyenmai.lkmMa','khuyenmai.lkmMa')->where('kmMa',$re->id)->first();
         //dd($checkExistKhuyenmai);
         if($checkExistKhuyenmai)
         {
-            return view('admin.suaKhuyenmai')->with('data',$checkExistKhuyenmai);
+            $lkm=DB::table('loaikhuyenmai')->get();
+            return view('admin.suaKhuyenmai')->with('data',$checkExistKhuyenmai)->with('lkm',$lkm);
+        }
+        else
+        {
+            Session::flash("err","Chương trình khuyến mãi không tồn tại !");
+            return redirect::to('adKhuyenmai');
         }
       }
 
@@ -1588,19 +1655,18 @@ public function checkAddLoaikhuyenmai(Request $re)
                 'kmMota.required'=>'Mô tả không được để trống !',
                 'kmNgaybd.required'=>'Vui lòng nhập ngày bắt đầu khuyến mãi !',
                 'kmNgaykt.required'=>'Vui lòng nhập ngày kết thúc khuyến mãi !',
-                'kmLoai.required'=>'Vui lòng chọn loại khuyến mãi !'
+                'lkmMa.required'=>'Vui lòng chọn loại khuyến mãi !'
             ];
             $this->validate($re,[
                 'kmTrigia'=>'required',
                 'kmMota'=>'required',
                 'kmNgaybd'=>'required',
                 'kmNgaykt'=>'required',
-                'kmLoai'=>'required',
+                'lkmMa'=>'required',
             ],$messages);
         }
         else
         {
-
                 $data = array();
                 if($re->kmTrigia<1)
                 {
@@ -1636,7 +1702,7 @@ public function checkAddLoaikhuyenmai(Request $re)
                     Session::flash('err',"Ngày bắt đầu khuyến mãi phải là trong tương lai !");
                     return redirect()->back();
                 }
-                $data['kmLoai']=$re->kmLoai;
+                $data['lkmMa']=$re->lkmMa;
                 $data['kmSoluong']=$re->kmSoluong;
                 Session::flash('success','Sửa thành công !');
                 

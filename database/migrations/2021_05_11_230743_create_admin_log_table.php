@@ -18,7 +18,6 @@ class CreateAdminLogTable extends Migration
             $table->string('alChitiet');
             $table->timestamp('alNgaygio');
             $table->engine = "InnoDB";
-            
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');
         });
     }

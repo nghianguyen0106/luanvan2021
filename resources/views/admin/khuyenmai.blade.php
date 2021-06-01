@@ -46,13 +46,7 @@
                                         <tr>
                                             <td>{{$value->kmMa}}</td>
                                             <td>{{$value->kmMota}}</td>
-                                            <td>@if($value->kmLoai==0)
-                                                Theo sản phẩm
-                                                @else
-                                                Theo đơn hàng
-                                                @endif
-
-                                            </td>
+                                            <td>{{$value->lkmTen}}</td>
                                             <td>
                                                 @if($value->kmSoluong==0)
                                                     Không giới hạn số lượng
@@ -92,13 +86,13 @@ Swal.fire({
   text: '{{Session::get('success')}}',
  
 })
-</script> 
+</script>   
 @endif
 
 @if(Session::has('err'))
  <script type="text/javascript" >
 Swal.fire({
-  icon: 'success',
+  icon: 'error',
   title: 'Opss... ! ',
   text: '{{Session::get('err')}}',
  

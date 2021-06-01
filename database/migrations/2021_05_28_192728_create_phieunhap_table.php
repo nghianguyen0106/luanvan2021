@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CteatePhieunhapTable extends Migration
+class CreatePhieunhapTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class CteatePhieunhapTable extends Migration
             $table->integer('pnMa')->autoIncrement();
             $table->timestamp('pnNgaylap');
             $table->integer('adMa');
+            $table->integer('pnSoluongsp');
             $table->integer('pnTongtien');
             $table->engine = "InnoDB";
 

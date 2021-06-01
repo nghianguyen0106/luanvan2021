@@ -21,6 +21,8 @@ class CreateBaocaoTable extends Migration
             $table->integer('bcChi');
             $table->integer('bcTonkho');
             $table->timestamp('bcNgaylap');
+            $table->timestamp('bcTungay');
+            $table->timestamp('bcDenngay');
             $table->string('bcGhichu');
             $table->integer('adMa');
             $table->engine = "InnoDB";

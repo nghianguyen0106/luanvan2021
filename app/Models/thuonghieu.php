@@ -9,4 +9,6 @@ class thuonghieu extends Model
 {
     use HasFactory;
     protected $table='thuonghieu';
+    protected $primaryKey='thMa';
+    protected $fillable=['thMa','thTen'];
 }

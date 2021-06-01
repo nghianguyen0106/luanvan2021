@@ -18,6 +18,7 @@ class CreateNhacungcapTable extends Migration
             $table->string('nccTen');
             $table->string('nccSdt');
             $table->string('nccDiaChi');
+            
             $table->engine = "InnoDB";
         });
     }

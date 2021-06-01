@@ -9,4 +9,5 @@ class admin extends Model
 {
     use HasFactory;
     protected $table='admin';
+    protected $fillable=['adMa','adTen','adTaikhoan','adMatkhau','adSdt','adEmail','adQuyen','adHinh'];
 }

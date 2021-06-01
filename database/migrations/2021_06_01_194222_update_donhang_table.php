@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateKhuyenmaiTable extends Migration
+class UpdateDonhangTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class UpdateKhuyenmaiTable extends Migration
      */
     public function up()
     {
-         Schema::table('khuyenmai', function (Blueprint $table) {
-             $table->foreign('lkmMa')->references('lkmMa')->on('loaikhuyenmai')->onDelete('cascade')->onUpdate('cascade');
+        Schema::table('donhang', function (Blueprint $table) {
+           
+             $table->foreign('vcMa')->references('vcMa')->on('voucher');
         });
     }
 

@@ -15,7 +15,6 @@ class CreateKhachhangTable extends Migration
     {
         Schema::create('khachhang', function (Blueprint $table) {
             $table->integer('khMa')->primary();
-            
             $table->string('khTen',50);
             $table->char('khEmail',100)->unique();
             $table->char('khTaikhoan')->unique();
@@ -27,8 +26,8 @@ class CreateKhachhangTable extends Migration
             $table->char('khHinh')->nullable(true);
             $table->char('khXtemail')->nullable(true);
             $table->char('khResetpassword')->nullable(true);
-            $table->integer('khQuyen');
             $table->date('khNgaythamgia');
+            $table->integer('khQuyen');
             $table->engine = "InnoDB";
         });
     }
