@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Carbon\Carbon;
+
+//Models
+use App\Models\danhgia;
+use App\Models\nhacungcap;
+use App\Models\admin_log;
+use App\Models\donhang;
+
+
 session_start();
 class adminController extends Controller
 {
@@ -1455,95 +1463,6 @@ class adminController extends Controller
     return view('admin.login');
  }
 
-public function checkAddLoaikhuyenmai(Request $re)
-{
-    if($re->lkmTen == null)
-    {
-       
-            $messages =[
-                'lkmTen.required'=>'Tên loại không được để trống',
-            ];
-            $this->validate($re,[
-                'lkmTen'=>'required',
-            ],$messages);
-
-            $errors=$validate->errors();
-    }
-    else
-    {
-        $dataBefore=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
-        if($dataBefore)
-        {
-            Session::flash('note_err','Nhà cung cấp đã tồn tại !');
-                return redirect()->back();
-        }
-        else
-        {
-            $data['lkmTen']=$re->lkmTen;
-            DB::table('loaikhuyenmai')->insert($data);
-            $data1['adMa'] = Session::get('adMa');
-            $data1['alChitiet'] = "Thêm loại khuyến mãi mới: ".$re->lkmTen;
-            $data1['alNgaygio']= now();
-            Session::flash('success','Thêm thành công !');
-            DB::table('admin_log')->insert($data1);
-            return redirect('adLoakhuyenmai');
-            }
-        }
-}
-
-public function deleteloaikhuyenmai(Request $re)
-{
-    $checkExistLkm=DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->first();
-    if(!$checkExistLkm)
-    {
-        Session::flash('err','loai khuyến mãi không tồn tại !');
-        return Redirect()->back();
-    }
-    DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->delete();
-    $data1['adMa'] = Session::get('adMa');
-    $data1['alChitiet'] = "Xóa loại khuyến mãi: ".$checkExistLkm->lkmTen;
-    $data1['alNgaygio']= now();
-    Session::flash('success','Đã xóa loại khuyến mãi: '.$checkExistLkm->lkmTen);
-    DB::table('admin_log')->insert($data1);
-    return Redirect()->back();
-}
-
-public function suaLoaikhuyenmaipage(Request $re)
-{
-    $data=DB::table('loaikhuyenmai')->where('lkmMa',$re->id)->first();
-    return view('admin.sualoaikhuyenmai',compact('data'));
-}
-
-public function suaLoaikhuyenmai(Request $re)
-{
-    $messages =[
-                 'lkmTen.required'=>'Tên loại khuyến mãi không được để trống',
-            ];
-            $this->validate($re,[
-                 'lkmTen'=>'required',
-            ],$messages);
-    $oldname=DB::table('loaikhuyenmai')->where('lkmMa',$re->lkmMa)->first();
-    $checkExistLkm=DB::table('loaikhuyenmai')->where('lkmTen',$re->lkmTen)->first();
-    if($checkExistLkm)
-    {
-        Session::flash('err','Loại khuyến mãi này đã tồn tại !');
-        return Redirect()->back();
-    }      
-    else
-    {
-        $data['lkmTen']=$re->lkmTen;
-        DB::table('loaikhuyenmai')->where('lkmMa',$re->lkmMa)->update($data);
-
-        $data1['adMa'] = Session::get('adMa');
-        $data1['alChitiet'] = "Sửa loại khuyến mãi: ".$oldname->lkmTen.' => '.$data['lkmTen'];
-        $data1['alNgaygio']= now();
-        DB::table('admin_log')->insert($data1);
-        Session::flash('success','Sửa thành công !');
-        return Redirect::to('adLoakhuyenmai');
-    }
-}
-
-
 public function adCheckAddKhuyenmai(Request $re)
   {
 
@@ -1835,16 +1754,33 @@ public function adCheckAddKhuyenmai(Request $re)
     {
         if(Session::has('adTaikhoan'))
         {
-            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data = DB::table('nhacungcap')->get();
+            $data = nhacungcap::all();
             return view('admin.nhacungcap')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
-        }   
+        }  
+        return Redirect('/adLogin');  
     } 
+
+    public function adThemnccpage()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+            $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = donhang::where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 =donhang::where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $data = nhacungcap::all();
+            return view('admin.themnhacungcap')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        }  
+        return Redirect('/adLogin');  
+    }
 
     public function checkAddNcc(Request $re)
     {
@@ -1852,34 +1788,51 @@ public function adCheckAddKhuyenmai(Request $re)
         {
        
             $messages =[
-                'nccTen.required'=>'Tên nhà cung cấp không được để trống',
+                'nccTen.required'=>'Tên nhà cung cấp không được để trống.',
+                'nccDiachi.required'=>'Địa chỉ không được để trống.',
+                'nccSdt.required'=>'Số điện thoại không được để trống.'
             ];
             $this->validate($re,[
                 'nccTen'=>'required',
-            ],$messages);
+                'nccDiachi'=>'required',
+                'nccSdt'=>'required'
 
-            $errors=$validate->errors();
+            ],$messages);
         }
         else
         {
-             $dataBefore=DB::table('nhacungcap')->where('nccTen',$re->nccTen)->first();
-            if($dataBefore)
+             $checkExistNhacungcap=nhacungcap::where('nccTen',$re->nccTen)->first();
+             
+            if($checkExistNhacungcap)
             {
-                Session::flash('note_err','Nhà cung cấp đã tồn tại !');
+                Session::flash('err','Nhà cung cấp đã tồn tại !');
                 return redirect()->back();
             }
             else
             {
-                $data = array();
-                $data['nccTen']=$re->nccTen;
-                DB::table('nhacungcap')->insert($data);
+                $ncc=new nhacungcap();
+                $ncc->nccTen=$re->nccTen;
+                if(strlen($re->nccDiachi)<10)
+                {
+                    Session::flash('err','Địa chỉ không hợp lệ !');
+                    return Redirect()->back();
+                }
+                $ncc->nccDiachi=$re->nccDiachi;
+                if($re->nccSdt<99999999 || $re->nccSdt>=10000000000)
+                {
+                    Session::flash('err','Số điện thoại không hợp lệ !');
+                    return Redirect()->back();
+                }
+                $ncc->nccSdt=$re->nccSdt;
+                Session::flash('success','Thêm thành công !');
+                $ncc->save();
                 
-
-                $data1 = array();
-                $data1['adMa'] = Session::get('adMa');
-                $data1['alChitiet'] = "Thêm nhà cung cấp mới:".$re->nccTen;
-                $data1['alNgaygio']= now();
-                DB::table('admin_log')->insert($data1);
+                $ad_log=new admin_log();
+                $ad_log->adMa=Session::get('adMa');
+                $ad_log->alChitiet= "Thêm nhà cung cấp mới: ".$re->nccTen;
+                $ad_log->alNgaygio=now();
+                $ad_log->save();
+               
                 return redirect('adNhacungcap');
             }
         }
@@ -1887,53 +1840,78 @@ public function adCheckAddKhuyenmai(Request $re)
 
     public function deleteNhacungcap(Request $re)
     {
-        $db = DB::table('nhacungcap')->where('nccMa',$id)->get();
-                $a = array($db);
-                $nccTen = str_replace('"','',json_encode($a[0][0]->nccTen));
-          $data1 = array();
-                $data1['adMa'] = Session::get('adMa');
-                $data1['alChitiet'] = "Xóa nhà cung cấp:".$nccTen;
-                $data1['alNgaygio']= now();
-                DB::table('admin_log')->insert($data1);
+        $checkExistNhacungcap =nhacungcap::where('nccMa',$re->id)->first();
+        if(!$checkExistNhacungcap)
+        {
+            Session::flash('err','Nhà cung cấp không tồn tại!');
+            return redirect()->back();
+        }        
+        $oldNccName=$checkExistNhacungcap->nccTen;
+
+        $ad_log=new admin_log();
+        $ad_log->adMa=Session::get('adMa');
+        $ad_log->alChitiet="Xóa nhà cung cấp: ".$oldNccName;
+        $ad_log->alNgaygio=now();        
+        $ad_log->save();               
         
-        DB::table('nhacungcap')->where('nccMa',$re->id)->delete();
+        Session::flash('success','Đã xóa nhà cung cấp: '.$oldNccName);
+        $checkExistNhacungcap->delete();
         
         return redirect()->back();
     }
 
     public function suaNhacungcappage(Request $re)
     {
-        $checkExistNhacungcap=DB::table('nhacungcap')->where('nccMa',$re->id)->first();
+        $checkExistNhacungcap=nhacungcap::where('nccMa',$re->id)->first();
        
         if($checkExistNhacungcap)
         {
             return view('admin.suanhacungcap')->with('data',$checkExistNhacungcap);
         }
+        else
+        {
+            Session::flash('err','Nhà cung cấp không tồn tại!');
+            return redirect()->back();
+        }
+        return Redirect('/adLogin'); 
     }
 
     public function suaNhacungcap(Request $re)
     {
-        $checkExistNhacungcap=DB::table('nhacungcap')->where('nccTen',$re->nccTen)->first();
+        $getNhacungcap=nhacungcap::where('nccMa',$re->id)->first();
+        $checkExistNhacungcap=nhacungcap::where('nccTen',$re->nccTen)->first();
         if($checkExistNhacungcap)
         {
-            Session::flash('note_err','Nhà cung cấp này đã tồn tại !');
+            Session::flash('err','Nhà cung cấp này đã tồn tại !');
             return redirect()->back();
         }
         else
         {
-            $db = DB::table('nhacungcap')->where('nccMa',$re->id)->get();
-                $a = array($db);
-                $nccTen = str_replace('"','',json_encode($a[0][0]->nccTen));
-                    
-                $data1 = array();
-                $data1['adMa'] = Session::get('adMa');
-                $data1['alChitiet'] = "Sửa nhà cung cấp:".$nccTen."->".$re->nccTen;
-                $data1['alNgaygio']= now();
-                DB::table('admin_log')->insert($data1);
+            $nccTenOld=$getNhacungcap->nccTen;
+            $nccDiachiOld=$getNhacungcap->nccDiachi;
+            $nccSdtOld=$getNhacungcap->nccSdt;
+            $ad_log=new admin_log();
+            $ad_log->alChitiet="Sửa thông tin nhà cung cấp:  ";
+            if($getNhacungcap->nccTen!=$re->nccTen)
+            {   
+                $ad_log->alChitiet.='Tên: '.$nccTenOld.' => '.$re->nccTen.'; ';
+                $getNhacungcap->nccTen=$re->nccTen;
+            }
+            if($getNhacungcap->nccDiachi!=$re->nccDiachi)
+            {
+                $ad_log->alChitiet.='Địa chỉ: '.$nccDiachiOld.' => '.$re->nccDiachi.'; ';
+                $getNhacungcap->nccDiachi=$re->nccDiachi;
+            }
+            if($getNhacungcap->nccSdt!=$re->nccSdt)
+            {
+                $ad_log->alChitiet.='Số điện thoại: '.$nccSdtOld.' => '.$re->nccSdt.'; ';
+                $getNhacungcap->nccSdt=$re->nccSdt;
+            }
+            $ad_log->adMa=Session::get('adMa');
+            $ad_log->alNgaygio=now();
+            $getNhacungcap->update();
+            $ad_log->save();
 
-            $data['nccTen']=strip_tags($re->nccTen);
-            $c=DB::table('nhacungcap')->where('nccMa',$re->id)->update($data);
-            
             return Redirect::to('adNhacungcap');
         }
     }

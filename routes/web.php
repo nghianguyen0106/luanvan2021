@@ -177,6 +177,7 @@ Route::get('deleteBaocao/{id}','adminController@deleteBaocao');
 // --Nhà cung cấp --//
 
 Route::get('adNhacungcap','adminController@adviewNhacungcap');
+Route::get('adthemncc','adminController@adThemnccpage');
 Route::post('checkAddNcc','adminController@checkAddNcc');
 Route::get('deleteNhacungcap/{id}','adminController@deleteNhacungcap');
 Route::get('suaNhacungcappage/{id}','adminController@suaNhacungcappage');

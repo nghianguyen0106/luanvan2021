@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class password_log extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='password_log';
     protected $fillable=['khMa','plOld'];
 }

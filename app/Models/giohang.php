@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class giohang extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='giohang';
     protected $fillable=['kmMa','ghSoluong','spMa'];
 }

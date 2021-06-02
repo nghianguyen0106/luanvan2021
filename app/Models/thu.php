@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class thu extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='thu';
     protected $fillable=['thuNgaygiolap','thuSoluongsp','thuTongtien','thuNoidung','adMa'];;
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class nhacungcap extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='nhacungcap';
     protected $primaryKey='nccMa';
     protected $fillable=['nccMa','nccTen','nccSdt','nccDiachi'];

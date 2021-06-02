@@ -10,14 +10,18 @@ use Cart;
 use App\Models\thuonghieu;
 use App\Models\loai;
 use App\Models\nhucau;
+use App\Models\sanpham;
+use App\Models\kho;
+use App\Models\nhacungcap;
+use App\Models\hinh;
 
 use Illuminate\Support\Facades\Mail;
 class homeController extends Controller
 {
     public function welcome()
     {
-        $dblap=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',1)->limit(6)->get();
-        $dbpc=DB::table('sanpham')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
+        $dblap=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',1)->limit(6)->get();
+        $dbpc=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')->where('sanpham.loaiMa',2)->limit(6)->get();
             return view('welcome',compact('dblap','dbpc'));
     }
     

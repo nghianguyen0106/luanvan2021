@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class voucher extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table='voucher';
     protected $primaryKey='vcMa';
     protected $fillable=['vcMa','vcTen','vcTinhtrang','vcSoluot','vcLoai','vcNgaybt','vcNgaykt','vcLoaiGiamgia','vcMucgiam','vcGiatritoithieu','spMa'];

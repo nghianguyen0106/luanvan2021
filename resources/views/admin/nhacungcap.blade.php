@@ -11,16 +11,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Quản lý nhà cung cấp</h6>
                             <hr/>
-                            	<form class="form-inline" action="{{URL::to('checkAddNcc')}}" method="post">
-
-									 {{ csrf_field() }}
-								    <label for="exampleInputPassword1" class="form-label">Thêm nhà cung cấp</label>
-								    &emsp;
-								    <input name="nccTen" type="text" class="form-control" id="nccTen">
-								 	<span style="color:red">{{$errors->first('nccTen')}}</span>
-								 	 &emsp;
-								  <button style="outline: none;" class="btn btn-success" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
-								</form>
+                            	<a href="{{URL::to('adthemncc')}}" class="btn btn-primary"><i class="fas fa-plus"> Thêm nhà cung cấp</i></a>
                         </div>
                     	<br/>
                         <div class="card-body">
@@ -30,6 +21,8 @@
                                         <tr>
                                             <th>Mã nhà cung cấp</th>
                                             <th>Tên nhà cung cấp</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Số điện thoại</th>
                                             <th></th>
                                              
                                         </tr>
@@ -41,6 +34,8 @@
                                         <tr>
                                             <td>{{$value->nccMa}}</td>
                                             <td>{{$value->nccTen}}</td>
+                                            <td>{{$value->nccDiachi}}</td>
+                                            <td>{{$value->nccSdt}}</td>
                                            <td>
                                                 <a  href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}">
                                                     <i class="fa fas fa-edit" style="color: blue;"></i>
@@ -62,5 +57,26 @@
                 </div>
                 <!-- /.container-fluid -->
 
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Opss... ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
+
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Done ! ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
 
   @endsection
