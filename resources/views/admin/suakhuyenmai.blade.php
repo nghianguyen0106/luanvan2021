@@ -1,96 +1,96 @@
 @extends('admin.layout')
 @section('content')
-  	<div id="content-wrapper" class="d-flex flex-column" >
-
+  	<div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
         <div id="content" class="container">
         	<br/>
-			<form action="{{URL::to('checkSuaKhuyenmai/'.$data->kmMa)}}" method="POST"  >
+			<form action="{{URL::to('checkSuaKhuyenmai/'.$km->kmMa)}}" method="POST"  >
 				 {{ csrf_field() }}
-				 <legend>Sửa chương trình khuyến mãi</legend>
+
+				 <legend>Thêm chương trình khuyến mãi</legend>
 				 <div class="row">
 				 	<div class="mb-3 col-6">
-						<label for="mota">Mô tả chương trình khuyến mãi <textarea class="ckeditor form-control" id="kmMota" name="kmMota"  placeholder="Mô tả">{{$data->kmMota}}</textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
+						<label for="mota">Tên chương trình: <input type="text" minlength="5" class="form-control" name="kmTen" value="{{$km->kmTen}}"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
+					</div>
+				 	<div class="mb-3 col-6">
+						<label for="mota">Mô tả : <textarea class="form-control" id="kmMota" name="kmMota"  placeholder="Mô tả">{{$km->kmMota}}</textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
+					</div>
+					
+					<div class="mb-3 col-6">
+						<label for="mota">Ngày bắt đầu
+						<input type="date" class="form-control" min="1" name="kmNgaybd" value="{{date_format(date_create($km->kmNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
+					</div>
+					<div class="mb-3 col-6">
+						<label for="mota">Ngày kết thúc
+						<input type="date" class="form-control" min="1" name="kmNgaykt" value="{{date_format(date_create($km->kmNgaykt),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
 						<label for="mota">Trị giá khuyến mãi (%)
-						<input type="number" class="form-control" min="1" max="100" name="kmTrigia" value="{{$data->kmTrigia}}" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
+						<input type="number" class="form-control" min="1" style="width: 190px;"  max="100" name="kmTrigia" value="{{$km->kmTrigia}}" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
 					<div class="mb-3 col-6">
-						<label for="mota">Ngày bắt đầu
-						<input type="date" class="form-control" min="1" name="kmNgaybd" value="{{date_format(date_create($data->kmNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
+						<label for="mota">Giá trị khuyến mãi tối đa (VND)
+						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="kmGiatritoida" value="{{$km->kmGiatritoida}}" ></label>
 					</div>
+					<div class="mb-3 col-6">
+						<label for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng)
+						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" value="{{$km->kmSoluong}}" ></label>
+					</div>
+					<div  class="mb-3 col-12">
+						<div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                	<legend>Chọn sản phẩm được khuyến mãi: </legend>
+                                    <thead>
+                                        <tr>
+                                        		<th></th>
+                                            <th>Mã sản phẩm</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Nhà cung cấp</th>
+                                    
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-					<div class="mb-3 col-6">
-						<label for="mota">Ngày kết thúc
-						<input type="date" class="form-control" value="{{date_format(date_create($data->kmNgaykt),"Y-m-d")}}" min="1" name="kmNgaykt" id="kmNgaykt" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
-					</div>
-					<div class="mb-3 col-6">
-						<label for="mota">Loại khuyến mãi
-						<select id="type" class="form-control" name="lkmMa" onchange="chonsanpham()" >
-						<option value="{{$data->lkmMa}}">{{$data->lkmTen}}</option>
-							@foreach($lkm as $v)
-							<option value="{{$v->lkmMa}}">{{$v->lkmTen}}</option>
-							@endforeach
-						</select>
-						</label>
-						<span style="color: red;">{{$errors->first('lkmMa')}}</span>
-					</div>
+                                    @foreach($sanpham as $v)
+                                        <tr>
+                                        	<td>
+                                        		<div >
+													<input type="checkbox" name="checkboxsp[]" 
+													@if($v->kmMa==$km->kmMa)
+													checked=""
+													@endif 
+													 value="{{$v->spMa}}">
+												</div>
+											</td>
+                                        	 
+                                          <td>{{$v->spMa}}</td>
+                                          <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active" ui-toggle-class="">
+                                                    {{$v->spTen}}
+                                                </a></td>
+                                          <td>
+                                          	 <div class="tooltips"><a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}</a>
+												<span class="tooltiptexts">
+													D/c: {{$v->nccDiachi}}<br>
+													Sdt: {{$v->nccSdt}}
+												</span>
+											</div>
+                                          </td>
+                                        </tr>
+                                    @endforeach
+                                       
+                                    </tbody>
+                                </table>
+                                <span style="color: red">{{$errors->first('checkboxsp')}}</span>
 
-					<div class="mb-3 col-6">
-						<label>Số lượng khuyến mãi:</label>
-						
-						<label id="qtySp"  style="display: none;" for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng sản phẩm)</label>
-						<label id="qtyHd"  style="display: none;" for="mota">Số lượng đơn hàng được khuyến mãi ( đế trống là không giới hạn số lượng đơn hàng)
-							</label>
-						<input type="number" min="1" class="form-control" min="1" name="kmSoluong" value="{{$data->kmSoluong}}" ></label>
+                            </div>
 					</div>
-					 </div>
-					 <div class="row">
-					 	<div class="mb-3 col-6">
-					  <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>
-					</div>
-
 					 	<div class="mb-3 col-6">
 						  <button class="btn btn-primary" type="submit" name="btn_add">Thực hiện</button>
 						</div>
-
-					 
 					 </div>
-					
-
-			 	
 			</form>
-                               
 		</div>
 	</div>
-<script type="text/javascript" charset="utf-8">
-	function chonsanpham()
-	{
-		var x=document.getElementById('type');
-		var xValue = document.getElementById('type').value;
-
-		var sp=document.getElementById('qtySp');
-		var hd=document.getElementById('qtyHd');
-		if(xValue==0)
-		{
-			sp.style.display='block';
-			hd.style.display='none';
-		}
-		if(xValue==1)
-		{
-			sp.style.display='none';
-			hd.style.display='block';
-		}
-
-
-	}
-
-
-
-</script>
-
-
 @if(Session::has('err'))
  <script type="text/javascript" >
 Swal.fire({
@@ -101,8 +101,6 @@ Swal.fire({
 })
 </script> 
 @endif
-
-
 
 @endsection
 

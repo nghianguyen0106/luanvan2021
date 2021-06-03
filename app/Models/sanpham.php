@@ -11,5 +11,5 @@ class sanpham extends Model
     public $timestamps = false;
     protected $table='sanpham';
     protected $primaryKey='spMa';
-    protected $fillable=['spMa','spTen','spGia','spHanbh','spTinhtrang','kmMa','ncMa','loaiMa','thMa'];
+    protected $fillable=['spMa','spTen','spGia','spHanbh','spTinhtrang','kmMa','ncMa','loaiMa','thMa','spSlkmtoida'];
 }

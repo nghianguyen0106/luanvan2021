@@ -49,10 +49,10 @@
 					  <select style="width: 205px" class="form-control m-bot15" name="kmMa">
 
 		                            @foreach($kmMa as $v)
-		              					@if($v->kmLoai==0)             
-		                                <option value="{{$v->kmMa}}" >{{$v->kmTrigia}} % <p>{{$v->kmMota}}</p></option>
+		              					     
+		                                <option value="{{$v->kmMa}}" >{{$v->kmTen}}.{{$v->kmTrigia}} % </option>
 
-		                           		@endif
+		                           		
 		                            @endforeach
 		               </select>
 		              

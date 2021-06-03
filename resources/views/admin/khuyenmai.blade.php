@@ -31,12 +31,12 @@
                                     <thead>
                                         <tr>
                                             <th>Mã khuyến mãi</th>
+                                            <th>Tên </th>
                                             <th>Mô tả</th>
-                                            <th>Loại khuyến mãi</th>
                                             <th>Số lượng khuyến mãi</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
-                                            <th>Trị giá</th>
+                                            <th>Trị giá </th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -45,8 +45,8 @@
                                         @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->kmMa}}</td>
+                                            <td>{{$value->kmTen}}</td>
                                             <td>{{$value->kmMota}}</td>
-                                            <td>{{$value->lkmTen}}</td>
                                             <td>
                                                 @if($value->kmSoluong==0)
                                                     Không giới hạn số lượng
@@ -54,6 +54,7 @@
                                                     {{$value->kmSoluong}}
                                                 @endif
                                             </td>
+
                                             <td>{{$value->kmNgaybd}}</td>
                                             <td>{{$value->kmNgaykt}}</td>
 

@@ -23,7 +23,9 @@
     <link href="{{url('public/style_admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+   <link rel="stylesheet" type="text/css" href="{{URL::to('public/style_admin/css/tooltip.css')}}">
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -120,7 +122,6 @@
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
                         <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
-                        <a class="collapse-item" href="{{URL::to('adLoakhuyenmai')}}">Loại khuyến mãi</a>
                         <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
                         <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Nhà cung cấp</a>
                     </div>
@@ -189,6 +190,7 @@
         </div>
     </div>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- Bootstrap core JavaScript-->
     <script src="{{url('public/style_admin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{url('public/style_admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -235,7 +237,11 @@
 <!----ERROR NHANVIEN/ ADMIN---->
 
  <!--end KHO-->
- 
+ <script type="text/javascript">
+     $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+ </script>
 </body>
 
 </html>

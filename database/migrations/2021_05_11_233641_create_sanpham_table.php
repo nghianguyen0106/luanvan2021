@@ -24,6 +24,7 @@ class CreateSanphamTable extends Migration
             $table->integer('ncMa');
             $table->integer('nccMa');
             $table->integer('kmMa')->nullable(true);
+            $table->integer('spSlkmtoida')->nullable(true);
           
             $table->engine = "InnoDB";
             // foreign key

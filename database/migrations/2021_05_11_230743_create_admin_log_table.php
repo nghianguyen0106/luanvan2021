@@ -15,7 +15,7 @@ class CreateAdminLogTable extends Migration
     {
         Schema::create('admin_log', function (Blueprint $table) {
             $table->integer('adMa');
-            $table->string('alChitiet');
+            $table->text('alChitiet');
             $table->timestamp('alNgaygio');
             $table->engine = "InnoDB";
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');

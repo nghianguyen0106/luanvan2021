@@ -15,6 +15,7 @@ class CreateKhuyenmaiTable extends Migration
     {
         Schema::create('khuyenmai', function (Blueprint $table) {
             $table->integer('kmMa')->primary();
+            $table->string('kmTen')->unique();
             $table->text('kmMota');
             $table->integer('kmTrigia');
             $table->timestamp('kmNgaybd');

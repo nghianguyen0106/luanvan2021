@@ -11,5 +11,5 @@ class khuyenmai extends Model
     public $timestamps = false;
     protected $table='khuyenmai';
     protected $primaryKey='kmMa';
-    protected $fillable=['kmMa','kmTen','kmMota','kmTrigia','kmNgaybt','kmNgaykt','kmSoluong','kmGiatritoida',];
+    protected $fillable=['kmMa','kmTen','kmMota','kmTrigia','kmNgaybt','kmNgaykt','kmSoluong','kmGiatritoida'];
 }
