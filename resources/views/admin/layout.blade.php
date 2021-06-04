@@ -40,7 +40,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img style="border-radius: 360px" src="{{{'public/images/nhanvien/'.Session::get('adHinh')}}}" width="50" height="50" />
+                    <img style="border-radius: 360px" src="{{{'./public/images/nhanvien/'.Session::get('adHinh')}}}" width="50" height="50" />
                 </div>
                 <div class="sidebar-brand-text mx-3">Hi {{Session::get('adTen')}}</div>
             </a>
@@ -119,11 +119,12 @@
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
+                        <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Quản lý nhà cung cấp</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
                         <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
                         <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
-                        <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Nhà cung cấp</a>
+                        
                     </div>
                 </div>
             </li>
@@ -222,7 +223,7 @@
    <script src="{{URL::asset("public/style_admin/js/js2.js")}}"></script>
    <script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
    
-  <!--Alert Date-->
+  
    @if(Session::has('note_err'))
      <script type="text/javascript">
     Swal.fire({
@@ -233,10 +234,8 @@
     });
     </script> 
    @endif
-<!--End Alert Date-->
-<!----ERROR NHANVIEN/ ADMIN---->
 
- <!--end KHO-->
+<!--Alert Date-->
  <script type="text/javascript">
      $(function () {
   $('[data-toggle="tooltip"]').tooltip()

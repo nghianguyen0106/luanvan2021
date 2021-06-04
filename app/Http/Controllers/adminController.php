@@ -28,7 +28,7 @@ class adminController extends Controller
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             return view('admin.index')->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -579,9 +579,10 @@ class adminController extends Controller
                     $data['khNgaysinh']=$re->khNgaysinh;
                     $data['khDiachi']=$re->khDiachi;
                     $data['khGioitinh']=$re->khGioitinh;
+                    $data['khNgaythamgia']=now();
                     $data['khQuyen']=$re->khQuyen;
                     $data['khTaikhoan']=$re->khTaikhoan;
-                    $data['khToken']="";
+                    
                     $data['khSdt']=$re->khSdt;
                     $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
                         $imgextention=$re->file('khHinh')->extension();
@@ -712,14 +713,12 @@ class adminController extends Controller
     {
          if($re->spTen ==null||$re->spGia==null||$re->khoSoluong==null)
         {
-            Session::forget('sp_err');
+            
             $messages =[
                 'spTen.required'=>'Sản phẩm không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
-                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống',
-                
-                
+                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống', 
             ];
             $this->validate($re,[
                 'spTen'=>'required',
@@ -738,7 +737,7 @@ class adminController extends Controller
                 $dataBefore = DB::table('sanpham')->where('spTen',$re->spTen)->first();
                 if( $dataBefore)
                 {
-                    Session::put('sp_err','Sản phẩm đã có sẵn trong dữ liệu!');
+                    Session::flash('note_err','Sản phẩm đã có sẵn trong dữ liệu!');
                      return redirect('/themsanpham');
                 }
                 else
@@ -1130,12 +1129,13 @@ class adminController extends Controller
              $dataBefore=DB::table('loai')->where('loaiTen',$re->loaiTen)->first();
             if($dataBefore)
             {
-                Session::put('loai_err',"Loại đã tồn tại!");
-                return redirect('/themloai');
+                Session::flash('note_err',"Loại đã tồn tại!");
+                return redirect('adLoai');
             }
             else
             {
                 $data = array();
+                $data['loaiMa']=$re->loaiTen;
                 $data['loaiTen']=$re->loaiTen;
                 DB::table('loai')->insert($data);
 
@@ -1145,7 +1145,7 @@ class adminController extends Controller
                 $data1['alNgaygio']= now();
                 DB::table('admin_log')->insert($data1);
 
-                Session::forget('loai_err');
+               
                 return redirect('adLoai');
             }
         }
@@ -1198,7 +1198,7 @@ class adminController extends Controller
     {
        if($re->ncTen == null)
         {
-             Session::forget('nc_err');
+            
             $messages =[
                 'ncTen.required'=>'Nhu cầu không được để trống',
             ];
@@ -1213,8 +1213,8 @@ class adminController extends Controller
               $dataBefore=DB::table('nhucau')->where('ncTen',$re->ncTen)->first();
             if($dataBefore)
             {
-                Session::put('nc_err',"Nhu cầu đã tồn tại!");
-                return redirect('/themnhucau');
+                Session::flash('note_err',"Nhu cầu đã tồn tại!");
+                return redirect('/adNhucau');
             }
             else
             {
@@ -1279,9 +1279,8 @@ class adminController extends Controller
     {
         if($re->thTen == null)
         {
-            Session::forget('th_err');
             $messages =[
-                'thTen.required'=>'Tên loại không được để trống',
+                'thTen.required'=>'Tên thương hiệu không được để trống',
             ];
             $this->validate($re,[
                 'thTen'=>'required',
@@ -1295,16 +1294,16 @@ class adminController extends Controller
              $dataBefore=DB::table('thuonghieu')->where('thTen',$re->thTen)->first();
             if($dataBefore)
             {
-                Session::put('th_err',"Thương hiệu đã tồn tại!");
-                return redirect('/themthuonghieu');
+                Session::flash('note_err',"Thương hiệu đã tồn tại!");
+                return redirect('/adThuonghieu');
             }
             else
             {
                 $data = array();
+                 $data['thMa']=$re->thTen;
                 $data['thTen']=$re->thTen;
                 DB::table('thuonghieu')->insert($data);
-                Session::forget('th_err');
-
+                
                 $data1 = array();
                 $data1['adMa'] = Session::get('adMa');
                 $data1['alChitiet'] = "Thêm thương hiệu mới:".$re->thTen;

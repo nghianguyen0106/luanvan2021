@@ -14,7 +14,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý nhu cầu sản phẩm</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Quản lý nhu cầu sản phẩm</h2>
                             <hr/>
                             <form class="form-inline" action="{{URL::to('/checkAddNhucau')}}" method="GET">
                              {{ csrf_field() }}     
@@ -38,17 +38,19 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã nhu cầu</th>
                                             <th>Tên nhu cầu</td>
-                                            <th>Cập nhật</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot  style="display:none;">
                                         <tr>
                                             <th>Mã nhu cầu</th>
                                             <th>Tên nhu cầu</td>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -62,10 +64,12 @@
                                             <td><input name="ncTen" value="{{$value->ncTen}}"/></td>
                                             <td>
                                                <button class="btn btn-primary" ui-toggle-class="">Cập nhật </button>
+                                           </td>
+                                           <td>
+                                            <a class="btn btn-danger" href="{{url('/deleteNhucau/'.$value->ncMa)}}" >
+                                                    Xóa
+                                                </a>
                                             </td>
-                                            <td> <a href="{{url('/deleteNhucau/'.$value->ncMa)}}" >
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></td>
                                         </form>
                                         </tr>
                                         @endforeach

@@ -3,6 +3,8 @@
   	<div id="content-wrapper" class="d-flex flex-column justify-content-center">
 						<div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary">Thêm sản phẩm</h2>
+                            <hr/>
+                            <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
                         </div>
                         <br/>
             <!-- Main Content -->
@@ -236,11 +238,11 @@
 			    	
 			  	</div>
 				<br/>
+
 			  <div class="flex__form"><button type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button></div>
 			</form>
 			<br/>
-                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
-			<br/>
+
 		</div>
 	</div>
 @endsection

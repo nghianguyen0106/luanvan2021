@@ -8,7 +8,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý thương hiệu</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Quản lý thương hiệu</h2>
                             <hr/>
                             <form class="form-inline" action="{{URL::to('checkAddThuonghieu')}}" method="GET">
                                  {{ csrf_field() }}
@@ -30,15 +30,15 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã thương hiệu</th>
                                             <th>Tên thương hiệu</th>
-                                           
-                                            <th>Cập nhật</th>
+                                           <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot  style="display:none;">
                                         <tr>
                                             <th>Mã thương hiệu</th>
                                             <th>Tên thương hiệu</th>

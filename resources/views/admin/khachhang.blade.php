@@ -25,7 +25,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Hình</th>
                                             <th>Tên khách hàng</th>
@@ -37,7 +37,7 @@
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                              <th>Hình</th>
                                             <th>Tên khách hàng</th>
