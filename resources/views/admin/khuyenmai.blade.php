@@ -34,6 +34,7 @@
                                             <th>Tên </th>
                                             <th>Mô tả</th>
                                             <th>Số lượng khuyến mãi</th>
+                                            <th>Giới hạn số lần mỗi khách hàng</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
                                             <th>Trị giá </th>
@@ -54,7 +55,12 @@
                                                     {{$value->kmSoluong}}
                                                 @endif
                                             </td>
-
+                                            <td>@if($value->kmGioihanmoikh==null)
+                                                    Không giới hạn
+                                                @else
+                                                    {{$value->kmGioihanmoikh}}
+                                                @endif
+                                            </td>
                                             <td>{{$value->kmNgaybd}}</td>
                                             <td>{{$value->kmNgaykt}}</td>
 

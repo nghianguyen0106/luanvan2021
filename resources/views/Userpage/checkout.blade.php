@@ -20,7 +20,8 @@ Giỏ hàng
 						<th>Xóa</th>
 					</tr>
 				</thead>
-				@if(Cart::count() !=0)
+				<tbody>
+					@if(Cart::count() !=0)
 
 					@foreach($cart as $k=> $i)
 					<tr class="rem1">
@@ -37,26 +38,25 @@ Giỏ hàng
 						<td class="invert">0%</td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
-						<td class="invert"><a class="btn btn-outline-danger" href="{{URL::to('remove-item/'.$k)}}">X</a></td>
+						<td class="invert"><a class="btn btn-outline-danger"
+						onclick="func{{$k}}()">X</a></td>
 					</tr>
 					@endforeach
 				@else
 				<tr>
-					<td colspan="6"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
+					<td colspan="7"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
 				</tr>
-					
 				@endif
+				</tbody>
+				
+				<tfoot>
+						<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}">Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+				</tfoot>
 			</table>
-			<div class="row">
-				<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}">Xóa toàn bộ sản phẩm trong giỏ hàng</a>
-			</div>
+			
 		</div>
 		
 		<div  class="checkout-left">	
-				
-				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
-				</div>
 				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
 					<h4> Đơn hàng tạm tính</h4>
 					<ul>
@@ -67,6 +67,28 @@ Giỏ hàng
 						@endforeach
 						<hr>
 						<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
+					</ul>
+				
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+
+			<div  class="checkout-left">	
+				
+				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
+				</div>
+				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+					<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
+					<ul>
+					@foreach($promotion as $v)
+						<li class="promoItem"><input type="radio" name="promo" value="{{$v->kmMa}}"> {{$v->kmTen}}
+							<ul>
+								<li>{{$v->kmMota}}</li>
+								<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
+							</ul>
+						</li>
+					@endforeach
 					</ul>
 				<a class="btn btn-success col-12" href="{{URL::to('order')}}">Tiến hành đặt hàng</a>
 				</div>
@@ -135,5 +157,31 @@ function decreaseCount(a, b) {
     input.value = value;
   }
 }
+
+@foreach($cart as $k=> $i)
+	function func{{$k}}()
+{
+	Swal.fire({
+  title: 'Bạn có muốn xóa',
+  text: "{{$i->name}} khỏi giỏ hàng ?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK !'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Deleted!',
+      'Đã xóa sản phẩm khỏi giỏ hàng !',
+      'success'
+    )
+    document.location.href="{{URL::to('remove-item/'.$k)}}";
+  }
+})
+}
+@endforeach
+
+
 </script>
 @endsection

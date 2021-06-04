@@ -31,36 +31,59 @@ Thông tin sản phẩm
 			</div>
 		</div>
 		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-			
-			@foreach($proinfo as $v)
-			<form action="{{URL::to('save-cart2/'.$v->spMa)}}" method="post" accept-charset="utf-8">
+		
+
+			<form action="{{URL::to('save-cart2/'.$proinfo->spMa)}}" method="post" accept-charset="utf-8">
 				{{ csrf_field() }}
-			
-					<h3>{{$v->spTen}}</h3>
-					<p><span style="color: red;" class="item_price">{{number_format($v->spGia)}} VND</span> </p>
-					<p>Thương hiệu:<span> {{$v->thTen}}</span></p>
+					<div class="row">
+						<div class="mb-3 col-6">
+							<h3>{{$proinfo->spTen}}</h3>
+					<p><span style="color: red;" class="item_price">{{number_format($proinfo->spGia)}} VND</span> </p>
+					<p>Thương hiệu:<span> {{$proinfo->thTen}}</span></p>
 					<p>Tình trạng:<span> 
 						<?php $x= 0;?>
-						@if($v->khoSoluong>0)
+						@if($proinfo->khoSoluong>0)
 							Còn hàng. &nbsp;<br>
-							Số lượng: {{$x=$v->khoSoluong}} sản phẩm.
-
+							Số lượng: {{$x=$proinfo->khoSoluong}} sản phẩm.
 						@else
 							Hết hàng
 						@endif
 					</span></p>
-					<p>Chọn số lượng: <span>
+					<p>Chọn số lượng: 
+						<span>
 						<div class="counter">
 						  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
-						  <input style="width:50px " class="form-control-success" min="1" max="{{$v->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
+						  <input style="width:50px " class="form-control-success" min="1" max="{{$proinfo->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
 						  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
 						</div>
-					</span></p>
+					</span>
+				</p>
+						</div>
+
+						@if($availPromo!=null)
+						<div class="mb-3 col-12">
+							<i class="far fa-star promoTitle"> Chương trình khuyến mãi khả dụng:</i>
+							@foreach($availPromo as $v)
+							<div class="row">
+								<div class="mb-3 col-12 promotionItem">
+									<span class="promoName"><i>{{$v->kmTen}}</i></span>
+
+									<ul class="promoDescription">
+										<li>{{$v->kmMota}}</li>
+										<li>Bắt đầu từ ngày <strong>{{date_format(date_create($v->kmNgaybd),"d/m/Y H:i:s")}}</strong> Đến ngày <strong>{{date_format(date_create($v->kmNgaykt),"d/m/Y H:i:s")}}</strong></li>
+									</ul>
+								</div>
+							</div>
+							@endforeach
+						</div>
+						@endif
+					</div>
+					
+
 					<div class="occasion-cart">
 						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button>
 					</div>
-			@endforeach
-
+		
 			</form>
 			
 		</div>
@@ -85,26 +108,33 @@ Thông tin sản phẩm
 					
 					<ul class=" list-group-item-light">
 					@foreach($details as  $i)
-	
-						@if($i->manhinh!=null)
-						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
-						@endif
+						
 						@if($i->ram!=null)
 						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
 						@endif
-				
-					
-						@if($i->psu!=null)
-						<li class="list-group-item"><label for="list-group-item">PSU: </label> {{$i->psu}}</li>
-						@endif
-						@if($i->mainboard!=null)
-						<li class="list-group-item"><label for="list-group-item">Mainboard: </label> {{$i->mainboard}}</li>
+						@if($i->cpu!=null)
+						<li class="list-group-item"><label for="list-group-item">CPU: </label> {{$i->cpu}}</li>
 						@endif
 						@if($i->ocung!=null)
 						<li class="list-group-item"><label for="list-group-item">Ổ Cứng:</label> {{$i->ocung}}</li>
 						@endif
+						@if($i->psu!=null)
+						<li class="list-group-item"><label for="list-group-item">PSU: </label> {{$i->psu}}</li>
+						@endif
 						@if($i->vga!=null)
 						<li class="list-group-item"><label for="list-group-item">VGA: </label> {{$i->vga}}</li>
+						@endif
+						@if($i->mainboard!=null)
+						<li class="list-group-item"><label for="list-group-item">Mainboard: </label> {{$i->mainboard}}</li>
+						@endif
+						@if($i->manhinh!=null)
+						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
+						@endif
+						@if($i->chuot!=null)
+						<li class="list-group-item"><label for="list-group-item">Chuột: </label> {{$i->chuot}}</li>
+						@endif
+						@if($i->banphim!=null)
+						<li class="list-group-item"><label for="list-group-item">Bàn phím:</label> {{$i->banphim}}</li>
 						@endif
 						@if($i->vocase!=null)
 						<li class="list-group-item"><label for="list-group-item">Vỏ Case: </label> {{$i->vocase}}</li>
@@ -118,6 +148,37 @@ Thông tin sản phẩm
 						@if($i->loa!=null)
 						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
 						@endif
+
+						@if($i->mau!=null)
+						<li class="list-group-item"><label for="list-group-item">Màu: </label> {{$i->mau}}</li>
+						@endif
+						@if($i->trongluong!=null)
+						<li class="list-group-item"><label for="list-group-item">Trọng lượng: </label> {{$i->trongluong}}</li>		 
+						@endif
+						@if($i->conggiaotiep!=null)
+						<li class="list-group-item"><label for="list-group-item">Cổng giao tiếp: </label> {{$i->conggiaotiep}}</li>
+						@endif
+						@if($i->webcam!=null)
+						<li class="list-group-item"><label for="list-group-item">Webcam: </label> {{$i->webcam}}</li>
+						@endif
+						@if($i->chuanlan!=null)
+						<li class="list-group-item"><label for="list-group-item">Chuẩn LAN: </label> {{$i->chuanlan}}</li>		 
+						@endif
+						@if($i->chuawifi!=null)
+						<li class="list-group-item"><label for="list-group-item">Chuẩn Wifi: </label> {{$i->chuawifi}}</li>
+						@endif
+						@if($i->hedieuhanh!=null)
+						<li class="list-group-item"><label for="list-group-item">Hệ điều hành: </label> {{$i->hedieuhanh}}</li>
+						@endif
+						
+
+						
+						
+						
+						
+						
+						
+						
 					@endforeach
 					</ul>    
 				</div>

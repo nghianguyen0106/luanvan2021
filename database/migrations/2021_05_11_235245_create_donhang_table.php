@@ -23,6 +23,8 @@ class CreateDonhangTable extends Migration
             $table->char('hdSdtnguoinhan',11);
             $table->string('hdDiachi');
             $table->string('hdGhichu')->nullable(true);
+            $table->integer('hdGiamgia');
+            $table->integer('hdGiakhuyenmai');
             $table->char('vcMa')->nullable(true);
             $table->integer('adMa')->nullable(true);
             $table->engine = "InnoDB";

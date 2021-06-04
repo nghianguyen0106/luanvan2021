@@ -54,12 +54,13 @@
                        <div class="mb-3">
                            <label for="exampleInputPassword1" class="form-label">khuyến mãi</label>
                              <select class="form-control" style="width: 205px" name="thMa">
+
                                 @foreach($kmOld as $kmOld)
-                                        <option value="{{$kmOld->kmMa}}">{{$kmOld->kmTrigia}}</option>
+                                        <option value="{{$kmOld->kmMa}}">{{$kmOld->kmTen}}.{{$kmOld->kmTrigia}}</option>
                                    @endforeach
-                                        @foreach($kmMa as $km)
-                                            <option  value="{{$km->kmMa}}">{{$km->kmTrigia}}</option>
-                                        @endforeach
+                                        @foreach($kmMa as $v)
+                                        <option value="{{$v->kmMa}}" >{{$v->kmTen}}.{{$v->kmTrigia}} % </option>
+                                    @endforeach
                                     </select>
                         </div>
                          <div class="mb-3">

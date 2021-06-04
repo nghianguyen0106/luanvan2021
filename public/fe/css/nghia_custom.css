@@ -1,0 +1,27 @@
+.promoTitle{
+	color: ;
+	font-size: 30px;  
+	animation-name: example;
+  	animation-duration: 4s;
+  	animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  0%   {color: red;}
+  14%   {color: orange;}
+  30%  {color: yellow;}
+  50% {color: green;}
+  65%  {color: blue;}
+  80%  {color: indigo;}
+  100%  {color: violet;}
+}
+.promotionItem{
+	border: 2px solid orange;
+	box-shadow: 2px solid black;
+}
+.promotionItem .promoName{
+	color: Red;
+}
+.promoDescription{
+	list-style-type: inherit;
+}

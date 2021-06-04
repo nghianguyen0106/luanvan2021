@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Cart;
+//Models
 use App\Models\thuonghieu;
 use App\Models\loai;
 use App\Models\nhucau;
@@ -14,6 +15,10 @@ use App\Models\sanpham;
 use App\Models\kho;
 use App\Models\nhacungcap;
 use App\Models\hinh;
+use App\Models\khuyenmai;
+use App\Models\danhgia;
+use App\Models\khachhang;
+use App\Models\mota;
 
 use Illuminate\Support\Facades\Mail;
 class homeController extends Controller
@@ -78,32 +83,28 @@ class homeController extends Controller
    
     public function proinfo(Request $re)
     {
-        $comment=DB::table('danhgia')->where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
-        $checkordered=DB::table('khachhang')->join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',4)->select('spMa')->first();
-        //dd($checkordered);
+        $comment=danhgia::where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
+        $checkordered=khachhang::join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',4)->select('spMa')->first();
+
         $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
         }
-        $imgs=DB::table('hinh')->where('spMa',$re->id)->get();
-        $cate=loai::get();
-        $details=DB::table('mota')->where('spMa',$re->id)->get(); 
-        $proinfo=DB::table('sanpham')->join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->get();
-        
-       $cateid='';
-       $brandid='';
-       $id='';
-        foreach ($proinfo as  $v) 
-        {
-            $cateid=$v->loaiMa;
-            $brandid=$v->thMa;
-            $id=$v->spMa;
-        }
+        $cate=loai::all();
 
-        $related_prod=DB::table('sanpham')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$cateid)->where('thuonghieu.thMa',$brandid)->get();
-        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','cate','total','id','comment','checkordered'));
+        $imgs=hinh::where('spMa',$re->id)->get();
+        $details=mota::where('spMa',$re->id)->get(); 
+        $proinfo=sanpham::join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->first();
+
+        $today=now();
+        $availPromo=sanpham::leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('kmNgaybd','<=',$today)->where('khuyenmai.kmNgaykt','>=',$today)->where('sanpham.spMa',$re->id)->get();
+       
+
+        $related_prod=sanpham::join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$proinfo->loaiMa)->where('thuonghieu.thMa',$proinfo->thMa)->get();
+
+        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','total','comment','checkordered','availPromo'));
     }
      //---Find product
     public function findpro(Request $re)
@@ -397,21 +398,19 @@ class homeController extends Controller
         $cate=loai::get();
         $cart=cart::content();
         $total=0;
+        $a=array();
         foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
+            array_push($a,$i->id);
         }
-                        $today=date_create();
-
-         $checkexistKhuyenmai=DB::table('khuyenmai')->where('kmNgaybd','<=',$today)->where('kmNgaykt','>=',$today)->get();
-                dd($checkexistKhuyenmai);
-                // kiem tra khuyen mai theo don hay theo san pham 
-                foreach($checkexistKhuyenmai as $v)
-                {
-                    
-                }
+        $today=now();
         
-       return view('Userpage.checkout',compact('cate','cart','total'));
+        $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
+        //dd($checkexistKhuyenmai);
+                
+        
+       return view('Userpage.checkout',compact('cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
     }
 
     public function order()
@@ -538,15 +537,15 @@ class homeController extends Controller
     public function editPass(Request $re ,$id)
     {
         $matkhaucu = md5($re->khPassCu);
-            $khPass = DB::table('khachhang')->where("khMa",$id)->where('khMatkhau',$matkhaucu)->first();
-           if(!$khPass)
-           {
+        $khPass = DB::table('khachhang')->where("khMa",$id)->where('khMatkhau',$matkhaucu)->first();
+        if(!$khPass)
+        {
             Session::put("note__errC","Mật khẩu không đúng");
             Session::forget("note__err");
             return redirect('/updatePass/'.$id);
-           }
-           else
-           {
+        }
+        else
+        {
         if($re->khPassCu ==null||$re->khRePassMoi == null||$re->khPassMoi==null)
         {
             Session::forget("note__errC");

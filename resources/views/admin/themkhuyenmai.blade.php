@@ -48,6 +48,7 @@
                                         		<th></th>
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Loại sản phẩm</th>
                                             <th>Nhà cung cấp</th>
                                     
                                         </tr>
@@ -66,6 +67,7 @@
                                           <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active" ui-toggle-class="">
                                                     {{$v->spTen}}
                                                 </a></td>
+                                                <td>{{$v->loaiTen}}</td>
                                           <td>
                                           	 <div class="tooltips"><a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}</a>
 												<span class="tooltiptexts">
