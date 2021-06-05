@@ -777,20 +777,22 @@ class adminController extends Controller
                  $data4['khoNgaynhap']=now();
                 DB::table('kho')->insert($data4);
 
-                if($re->loaiMa==1)
+                if($re->loaiMa=="LAPTOP" || $re->loaiMa=="Laptop" || $re->loaiMa=="laptop")
                 {
 
                     $data2 = array();
                     $data2['spMa']= $spMa;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = "";
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = "";
                     $data2['vga'] = "";
                     $data2['mainboard'] = "";
                     $data2['manhinh'] = $re->manhinh;
-                    $data2['pin'] = $re->pin;
+                    $data2['chuot'] = $re->chuot;
+                    $data2['banphim'] = $re->banphim;
                     $data2['vocase'] = "";
+                    $data2['pin'] = $re->pin;
                     $data2['tannhiet'] = $re->tannhiet;
                     $data2['loa'] =$re->loa;
                     $data2['mau']=$re->mau;
@@ -808,13 +810,15 @@ class adminController extends Controller
                     $data2['spMa']= $spMa;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = $re->psu;
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = $re->psu;
                     $data2['vga'] = $re->vga;
                     $data2['mainboard'] = $re->mainboard;
                     $data2['manhinh'] = "";
-                    $data2['pin'] = "";
+                    $data2['chuot'] = "";
+                    $data2['banphim'] = "";
                     $data2['vocase'] = $re->case;
+                    $data2['pin'] = "";
                     $data2['tannhiet'] = "";
                     $data2['loa'] ="";
                     $data2['mau']="";

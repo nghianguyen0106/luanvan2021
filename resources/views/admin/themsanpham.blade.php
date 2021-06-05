@@ -185,6 +185,20 @@
 					    <span style="color:red">{{$errors->first('')}}</span>
 					  	</div> 
 					</div>
+					<!---->
+						<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Chuột</label>
+					    <input name="chuot" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Bàn phím</label>
+					    <input name="banphim" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					  
+					</div>
 				</div>
 			   
 				<!--end mota__lap-->
@@ -210,9 +224,8 @@
 					    <label for="exampleInputPassword1" class="form-label">CASE</label>
 					    <input name="case" type="text" class="form-control" >
 					    <span style="color:red">{{$errors->first('')}}</span>
-					    </div>
-					
-				</div>
+					    </div>	
+					</div>
 				</div>
 				
 				<!--end mota__pc-->

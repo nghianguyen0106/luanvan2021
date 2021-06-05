@@ -197,6 +197,20 @@
                         <span style="color:red">{{$errors->first('')}}</span>
                         </div> 
                     </div>
+                    <!---->
+                        <div class="flex__form">
+                        <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Chuột</label>
+                        <input name="chuot" value="{{$mota->chuot}}" type="text" class="form-control">
+                        <span style="color:red">{{$errors->first('')}}</span>
+                        </div>
+                        <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Bàn phím</label>
+                        <input name="banphim" value="{{$mota->banphim}}" type="text" class="form-control" >
+                        <span style="color:red">{{$errors->first('')}}</span>
+                        </div>
+                      
+                    </div>
                 </div>
                
                 <!--end mota__lap-->
