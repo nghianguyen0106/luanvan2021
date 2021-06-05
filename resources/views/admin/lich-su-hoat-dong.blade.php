@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý loại</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Hoạt động gần đây</h2>
                             <hr/>	
                             <form action="{{url('tim-kiem-lshd')}}" method="GET">
                                 <select name="alNgaygio">
@@ -24,17 +24,16 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                   <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
-                                            <th>Mã loại</th>
-                                            <th>Tên loại</th>
-                                            <th></th>
-                                            
+                                           <th>Cá nhân thực hiện</th>
+                                            <th>Chi tiết hoạt động</th>
+                                            <th>Thời gian thực hiện</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
-                                           <th>Mã loại</th>
+                                           <th>Cá nhân thực hiện</th>
                                             <th>Chi tiết hoạt động</th>
                                             <th>Thời gian thực hiện</th>
                                            

@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý loại</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Quản lý loại</h2>
                             <hr/>
                             	<form class="form-inline" action="{{URL::to('checkAddLoai')}}" method="GET">
 
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã loại</th>
                                             <th>Tên loại</th>
@@ -39,7 +39,7 @@
                                              <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                            <th>Mã loại</th>
                                             <th>Tên loại</th>

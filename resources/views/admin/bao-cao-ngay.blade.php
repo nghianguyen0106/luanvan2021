@@ -14,7 +14,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Báo cáo theo ngày</h2>
                              <form action="{{url('update-bao-cao-ngay')}}" method="GET">
                             {{csrf_field()}}
                              <div class="mb-3">
@@ -39,7 +39,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>
@@ -53,7 +53,7 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                             <th>Mã báo cáo</th>
                                             <th>Tổng sản phẩm đã bán</th>

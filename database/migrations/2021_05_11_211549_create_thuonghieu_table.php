@@ -14,8 +14,9 @@ class CreateThuonghieuTable extends Migration
     public function up()
     {
         Schema::create('thuonghieu', function (Blueprint $table) {
-            $table->integer('thMa')->autoIncrement();
+            $table->string('thMa',11)->autoIncrement();
             $table->string('thTen',30)->unique();
+            $table->primary('thMa');
             $table->engine = "InnoDB";
         });
     }

@@ -57,12 +57,12 @@ mota__lap.style.display = 'block';
 function change()
 {
  var loai = document.getElementById('select__loai').value;
- if(loai==1)
+ if(loai=="LAPTOP"||loai=="Laptop"||loai=="laptop")
  {
     mota__lap.style.display = 'block';
     mota__pc.style.display = 'none';
  }
- else if(loai==2)
+ else if(loai=="PC"||loai=="Pc"||loai=="pc")
  {
      mota__lap.style.display = 'none';
     mota__pc.style.display = 'block';

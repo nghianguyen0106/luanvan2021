@@ -56,13 +56,16 @@
 			    <input name="adHinh" type="file" class="form-control" id="adHinh">
 			    <label for="adHinh" class="lb__adHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh nhân viên</i></label>
 			  </div>
-			  
+			  <br/>
+			   &emsp;
+			  <button class="btn btn-dark" type="button" onclick="back()">Trở về</button>
+			  &emsp; &emsp; &emsp;
 
 			 	
 			  <button class="btn_ok" type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
 			</form>
 			<br/>
-                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
+                               
 		</div>
 	</div>
 

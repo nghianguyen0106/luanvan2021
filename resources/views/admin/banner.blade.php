@@ -55,7 +55,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Tiêu đề</th>
                                             <th>Banner</td>
@@ -64,7 +64,7 @@
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                             <th>Tiêu đề</th>
                                             <th>Banner</td>

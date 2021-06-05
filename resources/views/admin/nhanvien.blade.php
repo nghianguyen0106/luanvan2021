@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h2>
                         </div>
                          <a  href="{{url('/themnhanvien')}}" class="btn btn-primary" style="width: 20%;">
                                         <span class="icon text-white-50">
@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th></th>
                                             <th>Tên nhân viên</th>
@@ -32,7 +32,7 @@
                                             <th>Cập nhật</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot  style="display:none;">
                                         <tr>
                                             <th></th>
                                             <th>Tên nhân viên</th>

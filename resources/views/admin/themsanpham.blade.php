@@ -3,6 +3,8 @@
   	<div id="content-wrapper" class="d-flex flex-column justify-content-center">
 						<div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary">Thêm sản phẩm</h2>
+                            <hr/>
+                            <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
                         </div>
                         <br/>
             <!-- Main Content -->
@@ -183,6 +185,20 @@
 					    <span style="color:red">{{$errors->first('')}}</span>
 					  	</div> 
 					</div>
+					<!---->
+						<div class="flex__form">
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Chuột</label>
+					    <input name="chuot" type="text" class="form-control">
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					    <div class="mb-3">
+					    <label for="exampleInputPassword1" class="form-label">Bàn phím</label>
+					    <input name="banphim" type="text" class="form-control" >
+					    <span style="color:red">{{$errors->first('')}}</span>
+					    </div>
+					  
+					</div>
 				</div>
 			   
 				<!--end mota__lap-->
@@ -208,9 +224,8 @@
 					    <label for="exampleInputPassword1" class="form-label">CASE</label>
 					    <input name="case" type="text" class="form-control" >
 					    <span style="color:red">{{$errors->first('')}}</span>
-					    </div>
-					
-				</div>
+					    </div>	
+					</div>
 				</div>
 				
 				<!--end mota__pc-->
@@ -236,11 +251,11 @@
 			    	
 			  	</div>
 				<br/>
+
 			  <div class="flex__form"><button type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button></div>
 			</form>
 			<br/>
-                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
-			<br/>
+
 		</div>
 	</div>
 @endsection

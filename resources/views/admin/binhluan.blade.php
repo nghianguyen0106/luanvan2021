@@ -14,21 +14,20 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h2>
                         </div>
                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
-                                           
                                             <th>Tên sản phẩm</td>
                                             <th>Thông báo</td>
                                             <th>Hành động</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                          
 

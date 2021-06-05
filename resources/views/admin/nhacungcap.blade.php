@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý nhà cung cấp</h6>
+                            <h2 class="m-0 font-weight-bold text-primary">Quản lý nhà cung cấp</h2>
                             <hr/>
                             	<a href="{{URL::to('adthemncc')}}" class="btn btn-primary"><i class="fas fa-plus"> Thêm nhà cung cấp</i></a>
                         </div>
@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã nhà cung cấp</th>
                                             <th>Tên nhà cung cấp</th>
@@ -27,7 +27,17 @@
                                              
                                         </tr>
                                     </thead>
-                                    
+                                   
+                                     <tfoot  style="display:none;"> 
+                                         <tr>
+                                            <th>Mã nhà cung cấp</th>
+                                            <th>Tên nhà cung cấp</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Số điện thoại</th>
+                                            <th></th>
+                                             
+                                        </tr>
+                                    </tfoot>
                                     <tbody>
 
                                     @foreach($data as $value)

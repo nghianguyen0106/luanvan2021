@@ -33,7 +33,7 @@
                             <div class="table-responsive">
                                 <h3>Đơn hàng đang chờ hủy</h3>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                   <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã hóa đơn</th>
                                             
@@ -45,7 +45,7 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
+                                    <tfoot style="display:none;">
                                         <tr>
                                            <th>Mã hóa đơn</th>
                                          

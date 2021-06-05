@@ -72,10 +72,13 @@
 			     <label for="khHinh" class="lb__khHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh khách hàng</i></label>
 			  </div>
 			  <br/>
+			   &emsp;
+			  <button class="btn btn-dark" type="button" onclick="back()">Trở về</button>
+			  &emsp; &emsp; &emsp;
 			  <button class="btn_ok" type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
 			</form>
 			<br/>
-                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
+                    
 		</div>
 	</div>
 	</div>

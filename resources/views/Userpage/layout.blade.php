@@ -66,7 +66,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    		@if(Session::has('khTen'))
 				    		<li class="li">
 							<a style="text-decoration: none;font-size: 24px;color:white">
-								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />&nbsp;{{Session::get('khTen')}}</a>
+								@if(Session::get('khHinh')!=null)
+								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+								@else
+								<span></span>
+								@endif
+								&nbsp;{{Session::get('khTen')}}</a>
 								<ul class="menu__account--child">
 									<li class="li2">
 										<a style="text-decoration: none;font-size: 20px;color:black" href="{{url("/infomation/".Session::get('khMa'))}}">

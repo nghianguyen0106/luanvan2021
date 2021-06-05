@@ -28,7 +28,7 @@ class adminController extends Controller
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             return view('admin.index')->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -277,8 +277,7 @@ class adminController extends Controller
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
-           
-            Session::put('hdTinhtrang1',$noteDonhang1);
+            Session::put('hdTinhtrang1',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             $data1=DB::table('donhang')
@@ -579,9 +578,10 @@ class adminController extends Controller
                     $data['khNgaysinh']=$re->khNgaysinh;
                     $data['khDiachi']=$re->khDiachi;
                     $data['khGioitinh']=$re->khGioitinh;
+                    $data['khNgaythamgia']=now();
                     $data['khQuyen']=$re->khQuyen;
                     $data['khTaikhoan']=$re->khTaikhoan;
-                    $data['khToken']="";
+                    
                     $data['khSdt']=$re->khSdt;
                     $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
                         $imgextention=$re->file('khHinh')->extension();
@@ -712,14 +712,12 @@ class adminController extends Controller
     {
          if($re->spTen ==null||$re->spGia==null||$re->khoSoluong==null)
         {
-            Session::forget('sp_err');
+            
             $messages =[
                 'spTen.required'=>'Sản phẩm không được để trống',
                 'spGia.required'=>'Giá không được để trống',
                 'spHanbh.required'=>'Hạn bảo hành không được để trống',
-                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống',
-                
-                
+                'khoSoluong.required'=>'Số lượng sản phẩm không được để trống', 
             ];
             $this->validate($re,[
                 'spTen'=>'required',
@@ -738,7 +736,7 @@ class adminController extends Controller
                 $dataBefore = DB::table('sanpham')->where('spTen',$re->spTen)->first();
                 if( $dataBefore)
                 {
-                    Session::put('sp_err','Sản phẩm đã có sẵn trong dữ liệu!');
+                    Session::flash('note_err','Sản phẩm đã có sẵn trong dữ liệu!');
                      return redirect('/themsanpham');
                 }
                 else
@@ -779,20 +777,22 @@ class adminController extends Controller
                  $data4['khoNgaynhap']=now();
                 DB::table('kho')->insert($data4);
 
-                if($re->loaiMa==1)
+                if($re->loaiMa=="LAPTOP" || $re->loaiMa=="Laptop" || $re->loaiMa=="laptop")
                 {
 
                     $data2 = array();
                     $data2['spMa']= $spMa;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = "";
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = "";
                     $data2['vga'] = "";
                     $data2['mainboard'] = "";
                     $data2['manhinh'] = $re->manhinh;
-                    $data2['pin'] = $re->pin;
+                    $data2['chuot'] = $re->chuot;
+                    $data2['banphim'] = $re->banphim;
                     $data2['vocase'] = "";
+                    $data2['pin'] = $re->pin;
                     $data2['tannhiet'] = $re->tannhiet;
                     $data2['loa'] =$re->loa;
                     $data2['mau']=$re->mau;
@@ -810,13 +810,15 @@ class adminController extends Controller
                     $data2['spMa']= $spMa;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = $re->psu;
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = $re->psu;
                     $data2['vga'] = $re->vga;
                     $data2['mainboard'] = $re->mainboard;
                     $data2['manhinh'] = "";
-                    $data2['pin'] = "";
+                    $data2['chuot'] = "";
+                    $data2['banphim'] = "";
                     $data2['vocase'] = $re->case;
+                    $data2['pin'] = "";
                     $data2['tannhiet'] = "";
                     $data2['loa'] ="";
                     $data2['mau']="";
@@ -973,19 +975,22 @@ class adminController extends Controller
 
                  DB::table('sanpham')->where('spMa',$id)->update($data);
                 //
-                  if($re->loaiMa==1)
+                 if($re->loaiMa=="LAPTOP" || $re->loaiMa=="Laptop" || $re->loaiMa=="laptop")
                 {
 
                     $data2 = array();
+                    $data2['spMa']= $id;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = "";
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = "";
                     $data2['vga'] = "";
                     $data2['mainboard'] = "";
                     $data2['manhinh'] = $re->manhinh;
-                    $data2['pin'] = $re->pin;
+                    $data2['chuot'] = $re->chuot;
+                    $data2['banphim'] = $re->banphim;
                     $data2['vocase'] = "";
+                    $data2['pin'] = $re->pin;
                     $data2['tannhiet'] = $re->tannhiet;
                     $data2['loa'] =$re->loa;
                     $data2['mau']=$re->mau;
@@ -995,20 +1000,23 @@ class adminController extends Controller
                     $data2['chuanlan'] = $re->chuanlan;
                     $data2['chuanwifi'] = $re->chuanwifi;
                     $data2['hedieuhanh'] = $re->hedieuhanh;
-                    DB::table('mota')->where('spMa',$id)->update($data2);
+                    DB::table('mota')->insert($data2);
             }
                else
                {
                     $data2 = array();
+                    $data2['spMa']= $id;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = $re->psu;
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = $re->psu;
                     $data2['vga'] = $re->vga;
                     $data2['mainboard'] = $re->mainboard;
                     $data2['manhinh'] = "";
-                    $data2['pin'] = "";
+                    $data2['chuot'] = "";
+                    $data2['banphim'] = "";
                     $data2['vocase'] = $re->case;
+                    $data2['pin'] = "";
                     $data2['tannhiet'] = "";
                     $data2['loa'] ="";
                     $data2['mau']="";
@@ -1018,7 +1026,7 @@ class adminController extends Controller
                     $data2['chuanlan'] = "";
                     $data2['chuanwifi'] = "";
                     $data2['hedieuhanh'] = "";
-                    DB::table('mota')->where('spMa',$id)->update($data2);
+                    DB::table('mota')->insert($data2);
                 }
                 
                 
@@ -1130,12 +1138,13 @@ class adminController extends Controller
              $dataBefore=DB::table('loai')->where('loaiTen',$re->loaiTen)->first();
             if($dataBefore)
             {
-                Session::put('loai_err',"Loại đã tồn tại!");
-                return redirect('/themloai');
+                Session::flash('note_err',"Loại đã tồn tại!");
+                return redirect('adLoai');
             }
             else
             {
                 $data = array();
+                $data['loaiMa']=$re->loaiTen;
                 $data['loaiTen']=$re->loaiTen;
                 DB::table('loai')->insert($data);
 
@@ -1145,7 +1154,7 @@ class adminController extends Controller
                 $data1['alNgaygio']= now();
                 DB::table('admin_log')->insert($data1);
 
-                Session::forget('loai_err');
+               
                 return redirect('adLoai');
             }
         }
@@ -1198,7 +1207,7 @@ class adminController extends Controller
     {
        if($re->ncTen == null)
         {
-             Session::forget('nc_err');
+            
             $messages =[
                 'ncTen.required'=>'Nhu cầu không được để trống',
             ];
@@ -1213,8 +1222,8 @@ class adminController extends Controller
               $dataBefore=DB::table('nhucau')->where('ncTen',$re->ncTen)->first();
             if($dataBefore)
             {
-                Session::put('nc_err',"Nhu cầu đã tồn tại!");
-                return redirect('/themnhucau');
+                Session::flash('note_err',"Nhu cầu đã tồn tại!");
+                return redirect('/adNhucau');
             }
             else
             {
@@ -1279,9 +1288,8 @@ class adminController extends Controller
     {
         if($re->thTen == null)
         {
-            Session::forget('th_err');
             $messages =[
-                'thTen.required'=>'Tên loại không được để trống',
+                'thTen.required'=>'Tên thương hiệu không được để trống',
             ];
             $this->validate($re,[
                 'thTen'=>'required',
@@ -1295,16 +1303,16 @@ class adminController extends Controller
              $dataBefore=DB::table('thuonghieu')->where('thTen',$re->thTen)->first();
             if($dataBefore)
             {
-                Session::put('th_err',"Thương hiệu đã tồn tại!");
-                return redirect('/themthuonghieu');
+                Session::flash('note_err',"Thương hiệu đã tồn tại!");
+                return redirect('/adThuonghieu');
             }
             else
             {
                 $data = array();
+                 $data['thMa']=$re->thTen;
                 $data['thTen']=$re->thTen;
                 DB::table('thuonghieu')->insert($data);
-                Session::forget('th_err');
-
+                
                 $data1 = array();
                 $data1['adMa'] = Session::get('adMa');
                 $data1['alChitiet'] = "Thêm thương hiệu mới:".$re->thTen;

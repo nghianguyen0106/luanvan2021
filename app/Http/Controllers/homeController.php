@@ -110,7 +110,7 @@ class homeController extends Controller
     public function findpro(Request $re)
     {
         //Xóa thông báo lỗi đổi mật khẩu khi chuyển trang
-        Session::forget("note__errC");
+    Session::forget("note__errC");
        Session::forget("note__err");
        //end
          $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
