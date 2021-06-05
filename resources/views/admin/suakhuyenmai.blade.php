@@ -64,8 +64,12 @@
 											</td>
                                         	 
                                           <td>{{$v->spMa}}</td>
-                                          <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active" ui-toggle-class="">
-                                                    {{$v->spTen}}
+                                          <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
+                                               {{$v->spTen}}
+												<span class="tooltiptexts">
+													<img style="height:100px;width: 200px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt="" class="pro-image-front">
+												</span>
+												
                                                 </a></td>
                                           <td>
                                           	 <div class="tooltips"><a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}</a>

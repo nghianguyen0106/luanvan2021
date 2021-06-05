@@ -79,18 +79,23 @@ Giỏ hàng
 					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
 				</div>
 				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-					<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
+					<form>
+						<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
 					<ul>
+						<li class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li>
 					@foreach($promotion as $v)
-						<li class="promoItem"><input type="radio" name="promo" value="{{$v->kmMa}}"> {{$v->kmTen}}
+						<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}}"> {{$v->kmTen}}
 							<ul>
 								<li>{{$v->kmMota}}</li>
 								<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
 							</ul>
 						</li>
+						<hr>
 					@endforeach
 					</ul>
 				<a class="btn btn-success col-12" href="{{URL::to('order')}}">Tiến hành đặt hàng</a>
+					</form>
+					
 				</div>
 				<div class="clearfix"> </div>
 			</div>

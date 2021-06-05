@@ -62,14 +62,24 @@
 													<input type="checkbox" name="checkboxsp[]"  value="{{$v->spMa}}">
 												</div>
 											</td>
-                                        	 
                                           <td>{{$v->spMa}}</td>
-                                          <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active" ui-toggle-class="">
-                                                    {{$v->spTen}}
-                                                </a></td>
+                                          <td>
+                                          	<a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
+                                               {{$v->spTen}}
+                                               @if($v->kmMa!=null)
+                                               	(Đã thuộc khuyến mãi: {{$v->kmTen}})
+                                               @endif
+												<span class="tooltiptexts">
+													<img style="height:100px;width: 200px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt="" class="pro-image-front">
+												</span>
+												
+                                                </a>
+                                            </td>
                                                 <td>{{$v->loaiTen}}</td>
                                           <td>
-                                          	 <div class="tooltips"><a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}</a>
+                                          	 <div class="tooltips">
+                                          	 	<a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}
+                                          	 	</a>
 												<span class="tooltiptexts">
 													D/c: {{$v->nccDiachi}}<br>
 													Sdt: {{$v->nccSdt}}

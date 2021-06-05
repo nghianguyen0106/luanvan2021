@@ -1452,14 +1452,25 @@ public function addKhuyenmaiPage()
 {
     if(Session::has('adTaikhoan'))
         {   
-            $sanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->get();
+            $checksanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->join('hinh','sanpham.spMa','hinh.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->get();
             $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = donhang::where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-
+            $a=array();
+            $sanpham=array();
+            foreach($checksanpham as $i)
+            {
+              
+                if(in_array($i->spMa, $a)==null)
+                {
+                    array_push($a, $i->spMa);
+                    array_push($sanpham, $i);
+                }
+            }
+            
             return view('admin.themkhuyenmai',compact('sanpham','noteDanhgia','noteDonhang','noteDonhang1'));
         }
         else
@@ -1558,21 +1569,22 @@ public function adCheckAddKhuyenmai(Request $re)
                 $kmMa=$km->kmMa;
                 Session::flash('success','Thêm thành công !');
                 $list="";
+                $km->save();
                 if($re->checkboxsp!=null)
                 {
                    
                     foreach($re->checkboxsp as $v)
                     {
-                    $sp=sanpham::where('spMa',$v)->first();
-                    $sp->kmMa=$kmMa;
-                    $sp->spSlkmtoida=$km->kmSoluong;
-                    //dd($km,$sp);
-                    
-                    $list.=' '.$v.',';
-                    $sp->update();    
+                        $sp=sanpham::where('spMa',$v)->first();
+                        $sp->kmMa=$kmMa;
+                        $sp->spSlkmtoida=$km->kmSoluong;
+                        //dd($km,$sp);
+                        
+                        $list.=' '.$v.',';
+                        $sp->update();    
                     }
                 }
-                $km->save();
+                
 
                 //add promotion code to products
                 //dd($re->checkboxsp);
@@ -1634,14 +1646,24 @@ public function adCheckAddKhuyenmai(Request $re)
        
         if(Session::has('adTaikhoan'))
         {   
-            $sanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->get();
+            $checksanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->join('hinh','sanpham.spMa','hinh.spMa')->get();
             $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = donhang::where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            
+            $a=array();
+            $sanpham=array();
+            foreach($checksanpham as $i)
+            {
+              
+                if(in_array($i->spMa, $a)==null)
+                {
+                    array_push($a, $i->spMa);
+                    array_push($sanpham, $i);
+                }
+            }
             return view('admin.suaKhuyenmai',compact('km','sanpham','noteDanhgia','noteDonhang','noteDonhang1'));
         }
         else
@@ -1722,14 +1744,14 @@ public function adCheckAddKhuyenmai(Request $re)
   
                     if($re->kmNgaybd <= $re->kmNgaykt)
                     {
-                        if($km->kmTen!=$re->kmTen)
+                        if($km->kmNgaybd!=$re->kmNgaybd)
                         {
-                            $kmNgaybdOld='Ngày bắt đầu: '.$km->kmNgaybd.' => ' .$re->kkmNgaybdmTen.'; ';
+                            $kmNgaybdOld='Ngày bắt đầu: '.$km->kmNgaybd.' => ' .$re->kmNgaybd.'; ';
                             $km->kmNgaybd=$re->kmNgaybd;
                             $checkFixed++;  
                         }
                         
-                        if($km->kmTen!=$re->kmTen)
+                        if($km->kmNgaykt!=$re->kmNgaykt)
                         {
                             $kmNgayktOld='Ngày kết thúc: '.$km->kmNgaykt.' => ' .$re->kmNgaykt.'; ';
                             $km->kmNgaykt=$re->kmNgaykt;   
@@ -1798,6 +1820,15 @@ public function adCheckAddKhuyenmai(Request $re)
                 //dd($re->checkboxsp);
                 if($re->checkboxsp!=null)
                 {
+                    foreach ($sp as $v) 
+                    {
+                        
+                        $v->kmMa=null;
+                        $removelist.=', '.$v->spMa;
+                        $v->save();
+                        $checkFixed++; 
+                    }
+
                     foreach($re->checkboxsp as $v)
                     {
                         $sp=sanpham::where('spMa',$v)->first();
@@ -1809,14 +1840,6 @@ public function adCheckAddKhuyenmai(Request $re)
                         $addlist.=$v.', ';
                         $sp->update();    
                     }
-                    foreach ($sp as$v) 
-                    {
-
-                        $v->kmMa=null;
-                        $removelist.=', '.$v->spMa;
-                        $v->save();
-                        $checkFixed++; 
-                    }
                 }
                 
 
@@ -1824,11 +1847,11 @@ public function adCheckAddKhuyenmai(Request $re)
                 if($checkFixed!=0)
                 {
                     $ad_log=new admin_log();
-                $ad_log->adMa=Session::get('adMa');
+                    $ad_log->adMa=Session::get('adMa');
 
-                $ad_log->alChitiet="Sửa khuyến mãi: ".$re->kmTen.'; Sản phẩm được áp dụng: '.$addlist.'; '.$removelist.'; '.$kmTenOld.$kmMotaOld.$kmTrigiaOld.$kmNgaybdOld.$kmNgayktOld.$kmSoluongOld.$kmGioihanmoikhOld.$kmGiatritoidaOld;
-                $ad_log->alNgaygio=now();
-                $ad_log->save();
+                    $ad_log->alChitiet="Sửa khuyến mãi: ".$re->kmTen.'; Sản phẩm được áp dụng: '.$addlist.'; '.$removelist.'; '.$kmTenOld.$kmMotaOld.$kmTrigiaOld.$kmNgaybdOld.$kmNgayktOld.$kmSoluongOld.$kmGioihanmoikhOld.$kmGiatritoidaOld;
+                    $ad_log->alNgaygio=now();
+                    $ad_log->save();
                 }
                 return redirect('adKhuyenmai');
         }

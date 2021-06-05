@@ -22,7 +22,7 @@ Xác nhận hóa đơn
 <div  class="mb-3">	
 				
 	<div style="width: 600px;"  class="checkout-left-basket" data-wow-delay=".5s">
-					<h4>Hóa đơn của bạn</h4>
+					<h4>Đơn hàng của bạn</h4>
 					<ul>
 						@foreach($cart as $k=> $i)
 							

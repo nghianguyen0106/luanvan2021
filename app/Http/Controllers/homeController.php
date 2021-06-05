@@ -403,7 +403,7 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
             array_push($a,$i->id);
-        }
+        }   
         $today=now();
         
         $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
