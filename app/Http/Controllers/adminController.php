@@ -277,8 +277,7 @@ class adminController extends Controller
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
-           
-            Session::put('hdTinhtrang1',$noteDonhang1);
+            Session::put('hdTinhtrang1',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             $data1=DB::table('donhang')
