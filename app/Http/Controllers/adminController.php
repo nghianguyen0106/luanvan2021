@@ -975,19 +975,22 @@ class adminController extends Controller
 
                  DB::table('sanpham')->where('spMa',$id)->update($data);
                 //
-                  if($re->loaiMa==1)
+                 if($re->loaiMa=="LAPTOP" || $re->loaiMa=="Laptop" || $re->loaiMa=="laptop")
                 {
 
                     $data2 = array();
+                    $data2['spMa']= $id;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = "";
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = "";
                     $data2['vga'] = "";
                     $data2['mainboard'] = "";
                     $data2['manhinh'] = $re->manhinh;
-                    $data2['pin'] = $re->pin;
+                    $data2['chuot'] = $re->chuot;
+                    $data2['banphim'] = $re->banphim;
                     $data2['vocase'] = "";
+                    $data2['pin'] = $re->pin;
                     $data2['tannhiet'] = $re->tannhiet;
                     $data2['loa'] =$re->loa;
                     $data2['mau']=$re->mau;
@@ -997,20 +1000,23 @@ class adminController extends Controller
                     $data2['chuanlan'] = $re->chuanlan;
                     $data2['chuanwifi'] = $re->chuanwifi;
                     $data2['hedieuhanh'] = $re->hedieuhanh;
-                    DB::table('mota')->where('spMa',$id)->update($data2);
+                    DB::table('mota')->insert($data2);
             }
                else
                {
                     $data2 = array();
+                    $data2['spMa']= $id;
                     $data2['ram'] = $re->ram;
                     $data2['cpu'] = $re->cpu;
-                    $data2['psu'] = $re->psu;
                     $data2['ocung'] = $re->ocung;
+                    $data2['psu'] = $re->psu;
                     $data2['vga'] = $re->vga;
                     $data2['mainboard'] = $re->mainboard;
                     $data2['manhinh'] = "";
-                    $data2['pin'] = "";
+                    $data2['chuot'] = "";
+                    $data2['banphim'] = "";
                     $data2['vocase'] = $re->case;
+                    $data2['pin'] = "";
                     $data2['tannhiet'] = "";
                     $data2['loa'] ="";
                     $data2['mau']="";
@@ -1020,7 +1026,7 @@ class adminController extends Controller
                     $data2['chuanlan'] = "";
                     $data2['chuanwifi'] = "";
                     $data2['hedieuhanh'] = "";
-                    DB::table('mota')->where('spMa',$id)->update($data2);
+                    DB::table('mota')->insert($data2);
                 }
                 
                 
