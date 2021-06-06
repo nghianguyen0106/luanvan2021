@@ -50,7 +50,9 @@ Giỏ hàng
 				</tbody>
 				
 				<tfoot>
-						<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}">Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+					<tr>
+							<td colspan="7"><a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></td>
+					</tr>
 				</tfoot>
 			</table>
 			
@@ -79,12 +81,13 @@ Giỏ hàng
 					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
 				</div>
 				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-					<form>
+
+					<form action="{{URL::to('order')}}" method="get">
 						<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
 					<ul>
 						<li class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li>
 					@foreach($promotion as $v)
-						<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}}"> {{$v->kmTen}}
+						<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}}
 							<ul>
 								<li>{{$v->kmMota}}</li>
 								<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
@@ -93,7 +96,7 @@ Giỏ hàng
 						<hr>
 					@endforeach
 					</ul>
-				<a class="btn btn-success col-12" href="{{URL::to('order')}}">Tiến hành đặt hàng</a>
+				<button type="submit" class="btn btn-success col-12" href="">Tiến hành đặt hàng</button>
 					</form>
 					
 				</div>
@@ -133,12 +136,12 @@ Giỏ hàng
 </div>
 
 
-@if(Session::has('errCheckout'))
+@if(Session::has('err'))
  <script type="text/javascript" >
 Swal.fire({
   icon: 'error',
   title: 'Thông báo: ',
-  text: '{{Session::get('errCheckout')}}',
+  text: '{{Session::get('err')}}',
  
 })
 </script> 
