@@ -3,7 +3,7 @@
 Danh sách đơn hàng
 @endsection
 @section('content')
-<br><br><br>
+<br>
 <div class="container">
 	<div class="row">
 		<table style="text-align: center;" class="table-hover table table-inverse table-responsive">
@@ -21,8 +21,6 @@ Danh sách đơn hàng
 			</thead>
 			<tbody>
 					@foreach($list as $i)
-
-
 						<tr>
 							<td>{{$i->hdMa}}</td>
 							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
@@ -30,8 +28,6 @@ Danh sách đơn hàng
 							<td>{{$i->hdDiachi}}</td>
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>{{$i->hdGhichu}}</td>
-							
-							
 								@if($i->hdTinhtrang==0)
 									<td><span style="color:red;">Đang chờ xác nhận</span></td>
 									<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
@@ -42,12 +38,7 @@ Danh sách đơn hàng
 									@else
 										<td><span style="color:red;">Đang chờ xử lý hủy</span></td>
 								@endif
-							
-							
-		
-
 							</td>
-							
 							<td>
 								<a class="btn btn-outline-warning" id="myBtn" onclick="view{{$i->hdMa}}()">Xem</a>
 									<!-- The Modal -->

@@ -11,7 +11,7 @@ Route::get('/', 'homeController@welcome' );
 Route::get('/infomation/{id}','homeController@viewInfomation');
 Route::post('edit_infomation/{id}','homeController@editInfomation');
 Route::get('updatePass/{id}','homeController@updatePass');
-Route::get('editPass/{id}','homeController@editPass');
+Route::post('editPass/{id}','homeController@editPass');
 Route::get('changeEmail/{id}','homeController@changeEmail');
 Route::get('listorder','homeController@listorder');
 //--------User register------//

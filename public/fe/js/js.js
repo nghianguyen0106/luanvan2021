@@ -1,4 +1,4 @@
-
+//đổi pass 1
 var pass = document.getElementById("cont__pass");
 pass.setAttribute("type","password");
 function showPass()
@@ -27,7 +27,7 @@ document.getElementById("click__pass").addEventListener("click", function () {
     }
 }, false);
 
-//2
+// nhập lại đổi pass 1
 var pass = document.getElementById("cont__pass2");
 pass.setAttribute("type","password");
 function showPass2()
@@ -56,7 +56,7 @@ document.getElementById("click__pass2").addEventListener("click", function () {
     }
 }, false);
 
-//3
+// nhập lại đổi pass 2 
 var pass = document.getElementById("cont__pass3");
 pass.setAttribute("type","password");
 function showPass3()
@@ -84,3 +84,4 @@ document.getElementById("click__pass3").addEventListener("click", function () {
         hidePass3();
     }
 }, false);
+

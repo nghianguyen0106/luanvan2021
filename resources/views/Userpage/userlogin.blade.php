@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,8 +45,9 @@
               <div class="form-group last mb-3">
                 <label for="password">Mật khẩu</label>
                 <input type="password" name="password" class="form-control" id="password">
-                
+                 <i id="show__pass1" class="far fa-eye" style="font-size: 23px;position: absolute;top:1.5rem;left:90%;"></i>
               </div>
+
               
               <div class="d-flex mb-5 align-items-center">
                 <label class="control control--checkbox mb-0"><span class="caption">Nhớ tài khoản</span>
@@ -87,6 +87,7 @@
     <script src="{{{'public/fe/login/js/popper.min.js'}}}"></script>
     <script src="{{{'public/fe/login/js/bootstrap.min.js'}}}"></script>
     <script src="{{{'public/fe/login/js/main.js'}}}"></script>
+    <script src="{{{'public/fe/login/js/js.js'}}}"></script>
 
   </body>
 </html>

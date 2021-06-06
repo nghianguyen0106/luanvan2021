@@ -6,12 +6,13 @@ Giỏ hàng
 <!-- check out -->
 <div class="checkout">
 	<div class="container">
-		<h3>Giỏ hàng</h3>
 		<div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+			<br/>
+			<h3><strong>Sản phẩm bạn đã chọn</strong></h3>
 			<table class="timetable_sub">
 				<thead>
 					<tr>
-						<th style="width: 300px;">Tên sản phẩm</th>
+						<th style="width: 250px;">Tên sản phẩm</th>
 						<th style="width: 200px;">Hình</th>
 						<th>Đơn giá</th>
 						<th>Số lượng</th>
@@ -51,59 +52,59 @@ Giỏ hàng
 				
 				<tfoot>
 					<tr>
-							<td colspan="7"><a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></td>
+							<td colspan="7"style="text-align:right;"><a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></td>
 					</tr>
 				</tfoot>
 			</table>
-			
 		</div>
-		
-		<div  class="checkout-left">	
-				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-					<h4> Đơn hàng tạm tính</h4>
-					<ul>
-						@foreach($cart as $k=> $i)
+		<br/>
+		<!---->
+		<div class="row">
+			<div  class="col-lg-6 checkout-right">	
+					<div class="checkout-left-basket animated wow slideInRight" data-wow-delay=".5s">
+						<h4> Đơn hàng tạm tính</h4>
+						<ul>
+							@foreach($cart as $k=> $i)
+								
+							<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span></li>
+								
+							@endforeach
+							<hr>
+							<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
+						</ul>
 							
-						<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span></li>
-							
+				</div>
+				</div>
+
+				<div  class="col-lg-6 checkout-left">	
+					<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+
+						<form action="{{URL::to('order')}}" method="get">
+							<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
+						<ul>
+							<li class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li>
+						@foreach($promotion as $v)
+							<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}}
+								<ul>
+									<li>{{$v->kmMota}}</li>
+									<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
+								</ul>
+							</li>
+							<hr>
 						@endforeach
-						<hr>
-						<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
-					</ul>
+						</ul>
+					<button type="submit" class="btn btn-success col-12" href="">Tiến hành đặt hàng</button>
+						</form>		
+					</div>
 				
 				</div>
-				<div class="clearfix"> </div>
-			</div>
-
-			<div  class="checkout-left">	
-				
-				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
-					<a href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
-				</div>
-				<div style="width: 600px;"  class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-
-					<form action="{{URL::to('order')}}" method="get">
-						<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
-					<ul>
-						<li class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li>
-					@foreach($promotion as $v)
-						<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}}
-							<ul>
-								<li>{{$v->kmMota}}</li>
-								<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
-							</ul>
-						</li>
-						<hr>
-					@endforeach
-					</ul>
-				<button type="submit" class="btn btn-success col-12" href="">Tiến hành đặt hàng</button>
-					</form>
-					
-				</div>
-				<div class="clearfix"> </div>
-			</div>
+		</div>
+		<div class="btn btn-dark" data-wow-delay=".5s">
+						<a class="text-white" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
+					</div>
 	</div>
 </div>	
+<br/>
 <!-- //check out -->
 <!-- //product-nav -->
 <div class="coupons">

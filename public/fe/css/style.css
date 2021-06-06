@@ -2668,17 +2668,9 @@ background:#FDA30E;
 /*-- //Ratings --*/
 /*-- //single-page --*/
 /*-- check out --*/
-.checkout{
-	padding:90px 0;
-}
 
-.checkout h3 {
-    color: #000;
-    text-align: center;
-    font-size: 26px;
-	margin:0 0 3em;
-	text-transform:uppercase;
-}
+
+
 .checkout h3 span{
 	color:#d8703f;
 }
@@ -2804,6 +2796,7 @@ td.invert-image a img {
 }
 .checkout-left {
     margin: 2em 0 0;
+    width: 100%;
 }
 .checkout-left-basket ul li{
 	list-style-type:none;
@@ -2812,12 +2805,9 @@ td.invert-image a img {
 	color:#999;
 }
 .checkout-left-basket {
-    float: right;
-    width: 25%;
     border: 1px solid #ccc;
 }
 .checkout-right-basket{
-	float: left;
     margin: 8em 0 0 0em;
 }
 .checkout-left-basket ul li span {
@@ -5063,9 +5053,7 @@ td.invert-image a img {
 		font-size: 13px;
 		margin-top: 23px;
 	}	
-	.checkout h3 {
-		font-size: 22px;
-	}
+	
 	.timetable_sub td {
 		width: 12% !important;
 	}

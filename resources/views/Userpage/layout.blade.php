@@ -32,106 +32,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
 <body>
-<!-- header -->
-{{-- <div class="header">
-	<div class="container-fluid header__container" >
-		<ul>
-		<li>
-			<h1><a href="{{URL::to('/')}}"><img style="height: 150px;width: 150px;" src="{{URL::asset('public/fe/images/logo3.png')}}"></a></h1>
-		</li>
-	<li></li>
-		<li><span style="color:white;font-size: 18px" class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a style="font-size: 18px;color:white">luanvan@gmail.com</a></li>
-	</ul>
-	</div>
 
-</div>
-<br/><br/><br/>
-<!-- //header -->
-<!-- header-bot -->
-
-<!-- //header-bot -->
-<!-- banner -->
-<div class="ban-top">
-	<div class="container-fluid">
-		<div class="top_nav_left">
-			<nav class="navbar navbar-default">
-			  <div class="container-fluid">
-				<nav class="navbar navbar-expand-lg navbar-default">
-				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				  <ul id="list__menu">
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Home</a></li>
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Liên hệ với chúng tôi</a></li>
-				    	<li class="list__menu--item">
-				    		<ul class="menu__account">
-				    		@if(Session::has('khTen'))
-				    		<li class="li">
-							<a style="text-decoration: none;font-size: 24px;color:white">
-								@if(Session::get('khHinh')!=null)
-								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
-								@else
-								<span></span>
-								@endif
-								&nbsp;{{Session::get('khTen')}}</a>
-								<ul class="menu__account--child">
-									<li class="li2">
-										<a style="text-decoration: none;font-size: 20px;color:black" href="{{url("/infomation/".Session::get('khMa'))}}">
-					 						Thông tin cá nhân&nbsp;
-					 							<i class="far fa-eye"></i>
-					 					</a>
-									</li>
-									<li class="li2">
-										<a style="text-decoration: none;font-size: 20px;color:black" href="{{URL::to('logout')}}">
-					 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
-					 					</a>
-									</li>
-									<br/>
-								</ul>
-								</li>
-							</ul>
-							@else
-							<div>				
-									<a style="text-decoration: none;font-size: 20px;color:white" href="{{URL::to('login')}}">
-										Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
-									</a>
-							</div>
-							@endif
-						</li>
-				    		@if(Session::has('khTen'))
-				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng</a></li>
-				    		  		@endif
-				    </ul>
-				    
-				  </div>
-				</nav>
-			  </div>
-			</nav>	
-		</div>
-		  
-		<div class="top_nav_right">
-			<div class="cart box_1">
-						<a href="{{URL::to('/checkout')}}">
-							<h3 style="font-size: 16px;"> <div class="total">
-								 <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								{{number_format($total)}} VND <br><br> ({{Cart::count()}})Sản phẩm</div>
-							</h3>
-						</a>
-					
-						
-			</div>	
-		</div>
-		<div class="clearfix"></div>
-	</div>
-</div> --}}
-<!-- //banner-top -->
-<!-- banner -->
-
-<!-- //banner -->
 <section class="container-fluid header">
 		<div class="row header__top">
-			<div class="col-5">
+			<div class="col-4">
 				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
 			</div>
-			<div class="col-7">
+			<div class="col-8">
 				<ul class="menu__header--top">
 					<li>
 				    	<ul class="menu__account">

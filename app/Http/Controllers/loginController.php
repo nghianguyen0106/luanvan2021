@@ -30,6 +30,8 @@ class loginController extends Controller
             session::put('khMa',$result->khMa);
             session::put('khEmail',$result->khEmail);
             session::put('khHinh',$result->khHinh);
+             session::put('khDiachi',$result->khDiachi);
+            session::put('khSdt',$result->khSdt);
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
 

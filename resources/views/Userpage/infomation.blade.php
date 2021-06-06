@@ -69,6 +69,7 @@ Thông tin cá nhân
 					</span>
 					<span style="color:red">{{$errors->first('khSdt')}}</span>
 				</div>
+				<br/>
 				<div class="flex__info">
 					<span class="info__item">Địa chỉ:</span>
 					<span  class="info__item" class="info__item">

@@ -35,15 +35,15 @@
             {{csrf_field()}}
                <div class="form-group first">
                 <label for="name">Tên của bạn</label>
-                <input type="text" name="name" required class="form-control" id="password">
+                <input type="text" name="name" required class="form-control" >
               </div>
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" required class="form-control" id="password">
+                <input type="email" name="email" required class="form-control" >
               </div>
                <div class="form-group">
-                <input type="date" name="date" required class="form-control" id="password">
+                <input type="date" name="date" required class="form-control" >
               </div>
                <div class="form-group">
                 <label for="username">Tên đăng nhập</label>
@@ -51,20 +51,22 @@
               </div>
                <div class="form-group ">
                 <label for="password">Mật khẩu</label>
-                <input type="password" name="password" required class="form-control" id="password">
+                <input id="password" type="password" name="password" required class="form-control" >
+                <i id="show__pass1" class="far fa-eye" style="font-size: 23px;position: absolute;top:1.5rem;left:90%;"></i>
               </div>
               <div class="form-group  ">
                 <label for="repassword">Nhập lại mật khẩu</label>
-                <input type="password" name="repassword" required class="form-control" id="password">
+                <input id="repassword" type="password" name="repassword" required class="form-control">
+                 <i id="show__pass2" class="far fa-eye" style="font-size: 23px;position: absolute;top:1.5rem;left:90%;"></i>
               </div>
               
               <div class="form-group  ">
                 <label for="address">Địa chỉ</label>
-                <input type="text" name="address" required class="form-control" id="password">
+                <input type="text" name="address" required class="form-control" >
               </div>
               <div class="form-group  ">
                 <label for="sdt">Số điện thoại</label>
-                <input type="number" name="sdt" required class="form-control" id="password">
+                <input type="number" name="sdt" required class="form-control" >
               </div>
               <div class="form-group last  mb-3">
                 <input type="radio" name="sex" checked value="0" >&nbsp;Nam &nbsp;&nbsp;
@@ -99,6 +101,7 @@
     <script src="{{url('public/fe/login/js/popper.min.js')}}"></script>
     <script src="{{url('public/fe/login/js/bootstrap.min.js')}}"></script>
     <script src="{{url('public/fe/login/js/main.js')}}"></script>
+     <script src="{{url('public/fe/login/js/js.js')}}"></script>
   </body>
 </html>
 

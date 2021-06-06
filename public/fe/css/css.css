@@ -61,7 +61,7 @@
 }
 .header__top .menu__header--top li a
 {
-	font-size: 20px;
+	font-size: 18px;
 	color: orange;
 	cursor: pointer;
 	text-decoration: none;
@@ -71,7 +71,8 @@
 	color: #928DF5;
 }
 .header__bot{
-	height: 80px;
+	height: 60px;
+	font-size: 18px;
 	box-shadow: 1px;
 	display: flex;
 	align-items: center;
@@ -113,10 +114,10 @@
 }
 .list__menu--item a
 {
+	font-size: 18px;
 	position: relative;
 	color: orange;
 	text-decoration: none;
-	font-size: 22px;
 	z-index: 2;
 }
 .list__menu--item a:hover
@@ -205,19 +206,6 @@ h2
 	transition: 0.4s;
 }
 
-.flex__btnPass
-{
-	display: flex;
-	flex-direction: row;
-	text-align: center;
-	width: 100%;
-}
-.flex__btnPass button
-{
-	border: 0;
-	outline: none;
-	background-color: white;
-}
 #khHinh
 {
 	display: none;
@@ -236,12 +224,20 @@ h2
 	background-color: #859BEC;
 	font-family: "Montserrat",san-serif;
 }
-
+.flex__btnPass
+{
+	display: flex;
+	justify-content: space-around;
+}
+.flex__btnPass button a
+{
+	color: white;
+}
 #click__pass, #click__pass2, #click__pass3
 {
 	position: relative;
-	top:-1.5rem;
-	left:150%;
+	top:-1.7rem;
+	left:90%;
 	z-index: 100;
 	cursor: pointer;
 }
@@ -348,3 +344,45 @@ background:  #192A69;
 	width: 101%;
 	height: 200px;
 }
+
+/* LOGIN */
+.content__login form, .content__register form
+{
+	border: 1px solid rgba(103, 151, 255, .11);
+	box-shadow: 0 8px 60px 0 rgba(103, 151, 255, .11), 0 12px 90px 0 rgba(103, 151, 255, .11);
+}
+.content__login form .form-group, .content__register form .form-group
+{
+	position: relative;
+}
+.content__login form .fa-eye, 
+.content__register form .fa-eye,
+.content__login form .fa-eye-slash, 
+.content__register form .fa-eye-slash{
+	position: absolute;
+	top: 2rem;
+	left: 90%;
+	z-index: 1;
+}
+
+
+.content__login form legend, .content__register form legend
+{
+	color: orange;
+	text-align: center;
+}
+.content__login--form, .content__register--form
+{
+ 	padding: 0 5rem 0 5rem;
+}
+.forgot-pass:hover
+{
+	color: orange;
+	border-bottom: 1px solid orange;
+}
+.content__login--link a:hover, .content__register--link a:hover
+{
+	color: orange;
+	border-bottom: 1px solid orange;
+}
+
