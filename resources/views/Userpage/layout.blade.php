@@ -128,10 +128,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //banner -->
 <section class="container-fluid header">
 		<div class="row header__top">
-			<div class="col-4">
+			<div class="col-5">
 				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
 			</div>
-			<div class="col-8">
+			<div class="col-7">
 				<ul class="menu__header--top">
 					<li>
 				    	<ul class="menu__account">
@@ -159,12 +159,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<br/>
 							</ul>
 							</li>
-						</ul>
 							@else		
-								<a style="text-decoration: none;" href="{{URL::to('login')}}">
+								<a st href="{{URL::to('login')}}">
 									Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
 								</a>
 							@endif
+						</ul>
+							
+					</li>
+					<li>
+						&emsp;<a href="{{URL::to('/checkout')}}">
+						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								({{Cart::count()}})Giỏ hàng
+						</a>
 					</li>
 					<li>
 						&emsp;
@@ -173,18 +180,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li>
 						&emsp;<a><i class="fas fa-phone-alt" style="font-size: 18px;color: orange;"></i>&nbsp;0123456789</a>
 					</li>
-					<li>
-						&emsp;<a href="{{URL::to('/checkout')}}"></a>
-
-					</li>
+					
 				</ul>
 			</div>
 		</div>
 		<div class="row header__bot">
 			<div class="col-lg-12">
-				 <ul id="list__menu">
-				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Home</a></li>
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Product</a></li>
+				 <ul class="list__menu">
+				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
+				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Sản phẩm</a></li>
+				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Tin tức</a></li>
+				    	@if(Session::has('khTen'))
+				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng của bạn</a></li>
+				    		  		@endif
 				 </ul>
 			</div>
 		</div>
