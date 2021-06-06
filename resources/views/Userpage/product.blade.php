@@ -347,6 +347,18 @@ Swal.fire({
 })
 </script> 
 @endif
+
+@if(Session::has('err'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo: ',
+  text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
+
  <script>
  	var inpf = document.getElementById('priceFrom');
  	var outpf =document.getElementById('pf');

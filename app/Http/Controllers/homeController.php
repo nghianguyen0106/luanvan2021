@@ -427,20 +427,31 @@ class homeController extends Controller
        return view('Userpage.checkout',compact('cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
     }
 
-    public function order()
+    public function order(Request $re)
     {
+        //  dd($re->promo);
         if(Cart::count()>0)
         {
             if(session::has('khTaikhoan'))
             {
                 $cart=Cart::content();
+                $leng=strlen($re->promo);
+                $str=strpos($re->promo,",");//vi tri
+                $kmMa=substr($re->promo,0,$str);
+                $spMa=substr($re->promo,$str+1,$leng);
+                $promoInfo=khuyenmai::where('khuyenmai.kmMa',$kmMa)->join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->first();
+                //dd($promoInfo);
+
+                
                 $cate=loai::get();
                 $total=0;
                 foreach ($cart as  $i) 
                 {
                     $total+=$i->price*$i->qty;
                 }
-                return view('Userpage.confirmcheckout',compact('cate','cart','total'));
+
+                
+                return view('Userpage.confirmcheckout',compact('promoInfo','cate','cart','total'));
             }
             else
             {

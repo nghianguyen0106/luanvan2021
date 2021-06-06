@@ -64,7 +64,25 @@ class cartController extends Controller
     public function savecart2(Request $re)
     {
         $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->first();
-       
+                $khMa=Session::get('khMa');
+                if(Session::has('khMa'))
+                {
+                    $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->first();
+                    //dd($checkExistIteminCart);
+                     if($checkExistIteminCart==null)
+                    {
+                        $cart=new giohang();
+                        $cart->khMa=$khMa;
+                        $cart->spMa=$productInfo->spMa;
+                        $cart->ghSoluong=1;
+                        $cart->save();
+                    }
+                    else
+                    {   
+                       $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
+                        DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                    }
+                }
         Cart::add($productInfo->spMa,$productInfo->spTen,$re->quanty,$productInfo->spGia,0,[ 'spHinh' => $productInfo->spHinh] );
 
         Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
@@ -140,6 +158,7 @@ class cartController extends Controller
 
     public function gocheckout(Request $re,$money)
     {
+     
      
         if(Cart::count()>0)
         {
