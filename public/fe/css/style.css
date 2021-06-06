@@ -49,7 +49,7 @@ label{
 /*-- header --*/
 .header {
     border-bottom: 1px solid #eee;
-    height: 80px;
+   
 }
 .header .header__container
 {
@@ -58,17 +58,10 @@ label{
 }
 .header ul li {
     display: inline-block;
-    width: 33%;
     text-align: center;
-	color:#848484;
-	font-size:16px;
     padding: 12px 0;
 }
 
-.header ul li a {
-	color:#848484;
-	text-decoration:none;
-}
 .header ul li span {
     margin-right: 12px;
     top: 2px;
@@ -2066,7 +2059,7 @@ width:48%;
 /*-- //electronics --*/
 /*-- men-wear --*/
 .men-wear{
-	padding:90px 0;
+	padding:1rem 0;
 }
 /*-- Slider range --*/
 ul.dropdown-menu6 ,ul.dropdown-menu5{

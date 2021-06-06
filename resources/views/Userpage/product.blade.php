@@ -7,6 +7,7 @@ Danh sách sản phẩm
 
 
 <!--Slide-->
+<br/>
 <div class="container-fluid" >
 <div class="row">
 <div class="col-lg-8" style="margin:0;padding:0;">
@@ -19,8 +20,7 @@ Danh sách sản phẩm
 	
   	@foreach($slide as $slide)
     <div class="slide">
-      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" style="width: 100%" alt="...">
-      
+      <img src="{{{'public/images/banners/'.$slide->bnHinh}}}" style="width: 100%" alt="...">  
     </div>
     @endforeach
     <!---button navigation--->
@@ -43,7 +43,6 @@ Danh sách sản phẩm
 	var counter = 1;
 	setInterval(function(){
 		document.getElementById("radio"+counter).checked = true;
-		
 		counter++;
 		if(counter > 3)
 		{
@@ -57,8 +56,7 @@ Danh sách sản phẩm
 <!--COL 4-->
 	
 <div id="banners" class="col-lg-4">
-	<div>
-		
+	<div>	
 		@if($countBnCon1>0)
 		@for($i=0;$i<2;$i++)
 			@php 
@@ -104,7 +102,7 @@ Danh sách sản phẩm
 <!-- mens -->
 
 <div class="men-wear">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="col-md-3 products-left">
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>

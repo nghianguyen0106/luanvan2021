@@ -33,7 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <!-- header -->
-<div class="header">
+{{-- <div class="header">
 	<div class="container-fluid header__container" >
 		<ul>
 		<li>
@@ -121,12 +121,75 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div class="clearfix"></div>
 	</div>
-</div>
+</div> --}}
 <!-- //banner-top -->
 <!-- banner -->
 
 <!-- //banner -->
+<section class="container-fluid header">
+		<div class="row header__top">
+			<div class="col-4">
+				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
+			</div>
+			<div class="col-8">
+				<ul class="menu__header--top">
+					<li>
+				    	<ul class="menu__account">
+				    		@if(Session::has('khTen'))
+				    		<li class="li">
+							<a>
+								@if(Session::get('khHinh')!=null)
+								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+								@else
+								<span></span>
+								@endif
+								&nbsp;{{Session::get('khTen')}}</a>
+							<ul class="menu__account--child">
+								<li class="li2">
+									<a href="{{url("/infomation/".Session::get('khMa'))}}">
+					 						Thông tin cá nhân&nbsp;
+					 					<i class="far fa-eye"></i>
+					 				</a>
+								</li>
+								<li class="li2">
+									<a href="{{URL::to('logout')}}">
+					 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
+					 				</a>
+								</li>
+								<br/>
+							</ul>
+							</li>
+						</ul>
+							@else		
+								<a style="text-decoration: none;" href="{{URL::to('login')}}">
+									Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
+								</a>
+							@endif
+					</li>
+					<li>
+						&emsp;
+						<a><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>luanvan@gmail.com</a>
+					</li>
+					<li>
+						&emsp;<a><i class="fas fa-phone-alt" style="font-size: 18px;color: orange;"></i>&nbsp;0123456789</a>
+					</li>
+					<li>
+						&emsp;<a href="{{URL::to('/checkout')}}"></a>
 
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row header__bot">
+			<div class="col-lg-12">
+				 <ul id="list__menu">
+				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Home</a></li>
+				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Product</a></li>
+				 </ul>
+			</div>
+		</div>
+	
+</section>
 @yield('content')
 
 <!-- footer -->

@@ -8,10 +8,7 @@
 	list-style-type: none;
 	color: #181D5E;
 }
-.menu__account .li
-{
-	width: 300px;
-}
+
 .menu__account--child
 {
 	position: absolute;
@@ -25,22 +22,59 @@
 }
 .menu__account--child .li2
 {
-	border: 0;
+	height:30px;
 	width: 200px;
 	display: block;
-	margin-left: 1.5rem;
+	text-align: center;
 }
-
+.menu__account li a
+{
+	font-size: 20px;
+}
 .menu__account li:hover .menu__account--child
 {
-	display: block;
-	height: auto;
+ 	display: block;
+	height: 100px;
 	opacity: 100%;
 	transition: 1s;
 }
+.menu__account li .menu__account--child li a:hover
+{
+	color: #928DF5;
+}
 
 
-/* */
+/* HEADER */
+.header__top{
+	height: 100px;
+	box-shadow: 1px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid lightgrey;
+	box-shadow: 0 8px 6px -6px grey;
+}
+.header__top a img
+{
+	width: 160px;
+	margin-top: -30px;
+	margin-left: 35px;
+}
+.header__top .menu__header--top li a
+{
+	color: orange;
+	cursor: pointer;
+	text-decoration: none;
+}
+.header__top .menu__header--top li a:hover
+{
+	color: #928DF5;
+}
+.header__bot{
+	height: 80px;
+	box-shadow: 1px;
+	display: flex;
+	align-items: center;
+}
 #list__menu
 {
 	list-style-type: none;
@@ -48,18 +82,18 @@
 .list__menu--item
 {
 	display: inline-block;
-	margin-left: 3rem;
+	margin-left: 1rem;
 	padding-top: 1rem;
 }
 .list__menu--item a
 {
-	color: white;
+	color: orange;
 	text-decoration: none;
 	font-size: 22px;
 }
 .list__menu--item a:hover
 {
-	color:orange;
+	color: #928DF5;
 }
 
 
@@ -184,10 +218,7 @@ h2
 	cursor: pointer;
 }
 /* CART */
-.box_1
-{
-	margin-top:0.7rem; 
-}
+
 /* BANNERS */
 .slider
 {
