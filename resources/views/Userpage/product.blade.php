@@ -333,7 +333,7 @@ Swal.fire({
   icon: 'success',
   title: '',
   text: '{{Session::get('addCart')}}',
- 
+ 	footer: '<a href="{{URL::to('checkout')}}" class="btn btn-outline-warning">Tới giỏ hàng</a></span>'
 })
 </script> 
 @endif

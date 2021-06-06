@@ -7,16 +7,24 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Cart;
 use Illuminate\Support\Facades\Mail;
-
 use Session;
 session_start();
+
+//Models
+use App\Models\giohang;
+use App\Models\sanpham;
+use App\Models\khachhang;
+use App\Models\donhang;
+use App\Models\chitietdonhang;
+use App\Models\kho;
+
 class cartController extends Controller
 {
     public function savecart(Request $re)
     {
         $khMa=Session::get('khMa');
-        $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->join('kho','kho.spMa','sanpham.spMa')->first();
-       // dd($productInfo);
+        $productInfo=sanpham::join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->join('kho','kho.spMa','sanpham.spMa')->first();
+        //dd($productInfo);
         $count = array();
     
             if($productInfo->khoSoluong ==0 )
@@ -28,19 +36,21 @@ class cartController extends Controller
             {
                 array_push($count,$productInfo->spMa);
                 Cart::add( $productInfo->spMa , $productInfo->spTen , 1 ,$productInfo->spGia ,0, [ 'spHinh' => $productInfo->spHinh] );
-                $checkExistItem=DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->select('ghSoluong')->first();
+
+                $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->select('ghSoluong')->first();
                 if(Session::has('khMa'))
                 {
-                     if($checkExistItem==null)
+                     if($checkExistIteminCart==null)
                     {
-                        $data['khMa']=$khMa;
-                        $data['spMa']=$productInfo->spMa;
-                        $data['ghSoluong']=1;
-                        DB::table('giohang')->insert($data);    
+                        $cart=new giohang();
+                        $cart->khMa=$khMa;
+                        $cart->spMa=$productInfo->spMa;
+                        $cart->ghSoluong=1;
+                        $cart->save();
                     }
                     else
-                    {
-                        $quanty['ghSoluong']=$checkExistItem->ghSoluong+1;
+                    {   
+                       $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
                         DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
                     }
                 }
@@ -74,10 +84,8 @@ class cartController extends Controller
         //dd(Cart::get($re->id)->id);
         if(Session::has('khMa'))
         {
-
-            $productInfo=DB::table('sanpham')->where('spMa',Cart::get($re->id)->id)->first();
-            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',Cart::get($re->id)->id)->delete();
-            
+            $productInfo=sanpham::where('spMa',Cart::get($re->id)->id)->first();
+            giohang::where('khMa',Session::get('khMa'))->where('spMa',Cart::get($re->id)->id)->delete();
         }
         Cart::remove($re->id);
         return redirect()->back();
@@ -86,15 +94,26 @@ class cartController extends Controller
     public function changeQuantyIncrease(Request $re)
     {
         $check=Cart::get($re->id);
-        $d=$check->qty;
-        $d++;
 
-        $productInfo=DB::table('giohang')->join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
-        
-        DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
+        //dd($check);
+        $checkQty=kho::where('spMa',$check->id)->first();
 
-        //dd($productInfo);
-        Cart::update($re->id,$d);
+        //dd($checkQty->khoSoluong);
+        if($checkQty->khoSoluong>$check->qty)
+        {
+            $d=$check->qty;
+            $d++;
+
+            $productInfo=giohang::join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
+            
+            giohang::where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
+            Cart::update($re->id,$d);
+        }
+        else
+        {
+            Session::flash('err','Số lượng sản phẩm: '.$check->name.' còn: '.$checkQty->khoSoluong);
+        }
+       
         return Redirect::to('checkout');
     }
 
@@ -148,7 +167,8 @@ class cartController extends Controller
                     $data['hdNgaytao']=date_create();
                     $data['hdTinhtrang']=0;
                     $data['adMa']=0;
-                    $data['kmMa']=null;
+                    $data['hdGiamgia']=0;
+                    $data['hdGiakhuyenmai']=0;
                     $date=getdate();
 
                     $name=Session::get('khTaikhoan');

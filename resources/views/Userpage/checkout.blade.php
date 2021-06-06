@@ -133,12 +133,12 @@ Giỏ hàng
 </div>
 
 
-@if(Session::has('errCheckout'))
+@if(Session::has('err'))
  <script type="text/javascript" >
 Swal.fire({
   icon: 'error',
   title: 'Thông báo: ',
-  text: '{{Session::get('errCheckout')}}',
+  text: '{{Session::get('err')}}',
  
 })
 </script> 
