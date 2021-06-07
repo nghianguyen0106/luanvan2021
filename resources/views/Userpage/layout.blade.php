@@ -34,15 +34,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 
 <section class="container-fluid header">
+	<!--screen large-->
+	<div class="menu__lg">
 		<div class="row header__top">
-			<div class="col-4">
+			<div class="col-5">
 				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
 			</div>
-			<div class="col-8">
+			<div class="col-7">
 				<ul class="menu__header--top">
 					<li>
 				    	<ul class="menu__account">
-				    		@if(Session::has('khTen'))
+				    		@if(Session::has('khTaikhoan'))
 				    		<li class="li">
 							<a>
 								@if(Session::get('khHinh')!=null)
@@ -50,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								@else
 								<span></span>
 								@endif
-								&nbsp;{{Session::get('khTen')}}</a>
+								&nbsp;{{Session::get('khTaikhoan')}}</a>
 							<ul class="menu__account--child">
 								<li class="li2">
 									<a href="{{url("/infomation/".Session::get('khMa'))}}">
@@ -103,8 +105,75 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				 </ul>
 			</div>
 		</div>
-	
+	</div>
+	<!--end-->
 </section>
+	<!--Mobile-->
+	<div class="col-md-12 menu__sm">
+		<div class="row">
+			<!----menu con --->
+			<input id="show" type="checkbox" hidden/>
+			<div class="col-sm-12 col-12 box__menu">
+				<h3><span>Menu</span> 
+					<label for="show" class="exit__menu">
+					<i class="fas fa-sign-out-alt" style="font-size: 28px;background-color: #9597B2;border: 0;background-color: transparent;"></i>
+					</label>
+				</h3>
+				<hr/>
+				<ul class="menu__sm--child">
+						@if(Session::has('khTaikhoan'))
+						<li>	
+						<a href="{{url('infomation/'.Session::get('khMa'))}}">
+						@if(Session::get('khHinh')!=null)
+							<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+							&nbsp;{{Session::get('khTaikhoan')}}
+						</a>
+						@endif
+						</li>
+						@else	
+						<li>	
+							<a href="{{URL::to('login')}}">
+								Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
+							</a>
+						</li>
+						@endif
+					<li>
+						<a style="color: white;font-size: 20px;" href="{{URL::to('/checkout')}}">
+						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								({{Cart::count()}})&nbsp; Giỏ hàng
+						</a>
+					</li>
+					<li><a href="{{url('/')}}">Trang chủ</a></li>
+					<li><a href="{{url('product')}}">Sản phẩm</a></li>
+					<li><a href="{{url('product')}}">Tin tức</a></li>
+					@if(Session::has('khTen'))
+				    <li><a href="{{URL::to('listorder')}}">Danh sách đơn hàng của bạn</a></li>
+				    		  		@endif
+					<li>
+						<a href="{{URL::to('logout')}}">
+					 		Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
+					 	</a>
+					</li>
+					
+				</ul>
+			</div>
+			<!----end menu con--->
+			<div class="col-sm-6 left">
+				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
+			</div>
+			<div class="col-sm-6 right">
+				<a style="color: black;font-size: 30px;" href="{{URL::to('/checkout')}}">
+						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								({{Cart::count()}})
+						</a>
+				&nbsp;
+				<label for="show" class="show__menu">
+					<i class="fas fa-bars" style="font-size: 38px;"></i>
+				</label>
+			</div>
+
+	</div>
+	</div>
 @yield('content')
 
 <!-- footer -->

@@ -1,4 +1,4 @@
-/*menu account */
+/* ////////////////menu account////////////////// */
 .menu__account
 {
 	position: relative;
@@ -44,7 +44,7 @@
 }
 
 
-/* HEADER */
+/* //////////////////////////////HEADER//////////////////////////////// */
 .header__top{
 	height: 100px;
 	box-shadow: 1px;
@@ -241,9 +241,9 @@ h2
 	z-index: 100;
 	cursor: pointer;
 }
-/* CART */
 
-/* BANNERS */
+
+/* //////////////////BANNERS//////////////////// */
 .slider
 {
 	width: 100%;
@@ -345,7 +345,7 @@ background:  #192A69;
 	height: 200px;
 }
 
-/* FORM LOGIN REGISTER */
+/* ////////////////FORM LOGIN REGISTER///////////////// */
 .content__login form, .content__register form
 {
 	border: 1px solid rgba(103, 151, 255, .11);
@@ -394,8 +394,6 @@ background:  #192A69;
 	transition: .5s;
 }
 
-
-
 .content__login form .fa-eye, 
 .content__register form .fa-eye,
 .content__login form .fa-eye-slash, 
@@ -431,3 +429,79 @@ background:  #192A69;
 }
 
 /* END FORM LOGIN */
+
+
+/* /////////////RESPONSIVE////////////// */
+.menu__sm
+{
+	display: none;
+}
+.menu__sm .left a img
+{
+	width: 120px;	
+}
+.menu__sm .right
+{
+	margin-top: -5rem;
+	text-align: right;
+}
+.box__menu
+{
+	position: fixed;
+	top: 0;
+	right: -400px;
+	bottom: 0;
+	z-index: 100;
+
+	background-color: #1C125C;
+	color: white;
+	padding-top: 1rem;
+	line-height: 3rem;
+
+	transition: 0.5s;
+}
+.box__menu h3
+{
+	display: flex;
+	justify-content: space-between;
+}
+.box__menu .menu__sm--child
+{
+	list-style-type: none;
+	width: 100%;
+	font-size: 18px;
+	text-align: left;
+}	
+.box__menu .menu__sm--child li
+{
+	margin-left: -2rem;
+}
+.box__menu .menu__sm--child li a
+{
+	color: white;
+}
+.box__menu .menu__sm--child li a:hover
+{
+	color:orange;
+} 
+#show:checked ~ .box__menu
+{
+	right: 0;
+	transition: 0.5s;
+}
+
+@media only screen and (max-width: 736px)
+{
+	.menu__lg
+	{
+	display: none;
+	}
+	.menu__sm
+	{
+	display: block;
+	}
+	.content__login--form, .content__register--form
+	{
+ 	padding: 0;
+	}
+}
