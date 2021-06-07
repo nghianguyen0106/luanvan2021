@@ -55,7 +55,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-lg-12">
 				 <ul class="list__menu">
 				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Quay lại trang chủ</a></li>
-				 </ul>
+				    	&emsp;
+				    	@if(View::hasSection('login'))
+				    	<li class="list__menu--item"><a href="{{URL::to('login')}}">@yield('login')</a></li>
+				    	@endif
+				    	@if(View::hasSection('register'))
+				    	<li class="list__menu--item"><a href="{{URL::to('register')}}">@yield('register')</a></li>
+				    	@endif
+ 				 </ul>
 			</div>
 		</div>
 	

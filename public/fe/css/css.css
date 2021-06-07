@@ -345,31 +345,73 @@ background:  #192A69;
 	height: 200px;
 }
 
-/* LOGIN */
+/* FORM LOGIN REGISTER */
 .content__login form, .content__register form
 {
 	border: 1px solid rgba(103, 151, 255, .11);
 	box-shadow: 0 8px 60px 0 rgba(103, 151, 255, .11), 0 12px 90px 0 rgba(103, 151, 255, .11);
+	border-radius: 30px;
 }
 .content__login form .form-group, .content__register form .form-group
 {
 	position: relative;
+	top: 1rem;
 }
+.input__login,
+.input__register{
+	height: 48px;
+	margin-top: 2rem;
+	
+}
+.form__label
+{
+	position: absolute;
+	top: 0.8rem;
+	left: 1rem;
+	font-weight: normal;
+	z-index: 10;
+	background-color: white;
+	transition: .5s;
+}
+.input__login:focus+ .form__label,
+.input__register:focus+ .form__label{
+	top: -1rem;
+	left: 0.5rem;
+	font-size: 16px;
+	padding: 0 10px 0 10px;
+	color: #40B7D9;
+	transition: .5s;
+}
+.input__login:not(:placeholder-shown).input__login:not(:focus)+ .form__label,
+.input__register:not(:placeholder-shown).input__register:not(:focus)+ .form__label{
+	top: -1rem;
+	left: 0.5rem;
+	font-size: 16px;
+	padding: 0 10px 0 10px;
+	color: #40B7D9;
+	transition: .5s;
+}
+
+
+
 .content__login form .fa-eye, 
 .content__register form .fa-eye,
 .content__login form .fa-eye-slash, 
 .content__register form .fa-eye-slash{
 	position: absolute;
-	top: 2rem;
+	top: 1rem;
 	left: 90%;
 	z-index: 1;
 }
 
-
 .content__login form legend, .content__register form legend
 {
 	color: orange;
-	text-align: center;
+	text-align:left;
+	padding: 0.1rem 0 0.1rem 3rem;
+	background-color: #463F89;
+	border-radius: 30px 30px 0 0;
+
 }
 .content__login--form, .content__register--form
 {
@@ -386,3 +428,4 @@ background:  #192A69;
 	border-bottom: 1px solid orange;
 }
 
+/* END FORM LOGIN */
