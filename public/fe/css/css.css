@@ -358,10 +358,10 @@ background:  #192A69;
 	top: 1rem;
 }
 .input__login,
-.input__register{
+.input__register,
+.input__upPass{
 	height: 48px;
 	margin-top: 2rem;
-	
 }
 .form__label
 {
@@ -374,7 +374,8 @@ background:  #192A69;
 	transition: .5s;
 }
 .input__login:focus+ .form__label,
-.input__register:focus+ .form__label{
+.input__register:focus+ .form__label,
+.input__upPass:focus+ .form__label{
 	top: -1rem;
 	left: 0.5rem;
 	font-size: 16px;
@@ -383,7 +384,8 @@ background:  #192A69;
 	transition: .5s;
 }
 .input__login:not(:placeholder-shown).input__login:not(:focus)+ .form__label,
-.input__register:not(:placeholder-shown).input__register:not(:focus)+ .form__label{
+.input__register:not(:placeholder-shown).input__register:not(:focus)+ .form__label,
+.input__upPass:not(:placeholder-shown).input__upPass:not(:focus)+ .form__label{
 	top: -1rem;
 	left: 0.5rem;
 	font-size: 16px;
@@ -399,7 +401,7 @@ background:  #192A69;
 .content__login form .fa-eye-slash, 
 .content__register form .fa-eye-slash{
 	position: absolute;
-	top: 1rem;
+	top: 0.8rem;
 	left: 90%;
 	z-index: 1;
 }
