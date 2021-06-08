@@ -8,7 +8,7 @@ Giỏ hàng
 	<div class="container">
 		<div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
 			<br/>
-			<h3><strong>Sản phẩm bạn đã chọn</strong></h3>
+			<h3><strong>Giỏ hàng</strong></h3>
 			<table class="timetable_sub">
 				<thead>
 					<tr>

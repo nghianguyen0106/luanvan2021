@@ -48,23 +48,12 @@ Xác nhận hóa đơn
 											<thead style="font-weight: bold; font-size: 20px;">
 												<th>Địa chỉ giao hàng</th>
 												<th>Số điện thoại người nhận</th>
-												<th>Ghi chú</th>
-												
 											</thead>
 											<tbody>
-													@foreach($cart as $k=> $i)
 													<tr>
 														<td>{{Session::get('khDiachi')}}</td>
 														<td>{{Session::get('khSdt')}}</td>
-														<td>
-																@if(Session::get('khGhichu')==null)
-														     	Không có
-														     	@else
-														     	{{Session::get("khGhichu")}}
-														     	@endif
-														</td>
 													</tr>
-													@endforeach
 											</tbody>
 										</table>
 						</div>
