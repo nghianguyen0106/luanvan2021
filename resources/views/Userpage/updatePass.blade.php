@@ -13,12 +13,11 @@
 					{{csrf_field()}}
 					<legend style="color:orange">Đổi mật khẩu</legend>
 					 <div class="content__login--form">
-					<div class="form-group first">
-						<span class="info__item">Mật khẩu cũ:</span>
-						<span  class="info__item" class="info__item">
-						<input id="cont__pass" class="form-control" type="password"  name="khPassCu" placeholder="Nhập vào đây" />
-							<i id="click__pass" class="far fa-eye" style="font-size: 23px;"></i>
-						</span><br/>
+					<div class="form-group">
+						<input id="cont__pass" class="form-control input__upPass" type="password"  name="khPassCu" placeholder=" " />
+							<label class="info__item form__label">Mật khẩu cũ:</label>
+							<i id="click__pass" class="far fa-eye" style="font-size: 23px;top: -2rem;"></i>
+						<br/>
 						
 						@if(Session::has('note__errC')!=null)
 						{
@@ -27,18 +26,16 @@
 						@endif
 					</div>
 					<div class="form-group first">
-						<span class="info__item">Mật khẩu mới:</span>
-						
-							<input id="cont__pass2"class="form-control" type="password"  name="khPassMoi" placeholder="Nhập vào đây" />
-							<i id="click__pass2" class="far fa-eye" style="font-size: 23px;"></i>
+							<input id="cont__pass2" class="form-control input__upPass" type="password"  name="khPassMoi" placeholder=" " />
+							<label class="info__item form__label">Mật khẩu mới:</label>
+							<i id="click__pass2" class="far fa-eye" style="font-size: 23px;top: -2rem;"></i>
 						<br/>
 						<span style="color:red">{{$errors->first('khPassMoi')}}</span>
 					</div>
 					<div class="form-group first">
-						<span class="info__item">Nhập lại mật khẩu mới:</span>
-						
-							<input id="cont__pass3" class="form-control" type="password"  name="khRePassMoi" placeholder="Nhập vào đây" />
-							<i id="click__pass3" class="far fa-eye" style="font-size: 23px;"></i>
+							<input id="cont__pass3" class="form-control input__upPass" type="password"  name="khRePassMoi" placeholder=" " />
+							<label class="info__item form__label">Nhập lại mật khẩu mới:</label>
+							<i id="click__pass3" class="far fa-eye" style="font-size: 23px;top: -2rem;"></i>
 						<br/>
 						<span style="color:red">{{$errors->first('khRePassMoi')}}</span>
 						@if(Session::has('note__err')!=null)

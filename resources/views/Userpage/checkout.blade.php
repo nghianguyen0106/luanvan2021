@@ -52,7 +52,13 @@ Giỏ hàng
 				
 				<tfoot>
 					<tr>
-							<td colspan="7"style="text-align:right;"><a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a></td>
+						<td colspan="3" style="text-align:left;">
+						<a class="text-white btn btn-dark" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
+					</div>
+						</td>
+							<td colspan="4" style="text-align:right;">
+								<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+							</td>
 					</tr>
 				</tfoot>
 			</table>
@@ -99,9 +105,7 @@ Giỏ hàng
 				
 				</div>
 		</div>
-		<div class="btn btn-dark" data-wow-delay=".5s">
-						<a class="text-white" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
-					</div>
+		
 	</div>
 </div>	
 <br/>
