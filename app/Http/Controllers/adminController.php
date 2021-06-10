@@ -54,18 +54,17 @@ class adminController extends Controller
                 Session::put('adTen',$result->adTen);
                 Session::put('adHinh',$result->adHinh);
                 Session::put('adQuyen',$result->adQuyen);
-                Session::forget('error_login');
                 $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
- $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
                 return view('admin.index')->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
             }
             else
             {
-                Session::put('error_login','Tên tài khoản hoặc mật khẩu không chính xác!');
+                Session::flash('note_err','Tên tài khoản hoặc mật khẩu không chính xác!');
                 return view('admin.login');
             }
     }
@@ -578,15 +577,17 @@ class adminController extends Controller
                     $data['khNgaysinh']=$re->khNgaysinh;
                     $data['khDiachi']=$re->khDiachi;
                     $data['khGioitinh']=$re->khGioitinh;
-                    $data['khNgaythamgia']=now();
-                    $data['khQuyen']=$re->khQuyen;
                     $data['khTaikhoan']=$re->khTaikhoan;
-                    
                     $data['khSdt']=$re->khSdt;
                     $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
                         $imgextention=$re->file('khHinh')->extension();
                                     $file=$re->file('khHinh');
                                     $file->move('public/images/khachhang',$data['khHinh']);
+                   $data['khXtemail'] = 1;
+                    $data['khResetpassword']=null;
+                    $data['khNgaythamgia']=now();
+                    $data['khQuyen']=$re->khQuyen;
+                    
                     DB::table('khachhang')->insert($data);
                     Session::forget('kh_err');
                     return redirect('adKhachhang');
@@ -601,11 +602,13 @@ class adminController extends Controller
                     $data['khNgaysinh']=$re->khNgaysinh;
                     $data['khDiachi']=$re->khDiachi;
                     $data['khGioitinh']=$re->khGioitinh;
-                    $data['khQuyen']=$re->khQuyen;
                     $data['khTaikhoan']=$re->khTaikhoan;
-                    $data['khToken']="";
                     $data['khSdt']=$re->khSdt;
                     $data['khHinh'] = "";
+                    $data['khXtemail'] = 1;
+                    $data['khResetpassword']=null;
+                    $data['khNgaythamgia']=now();
+                    $data['khQuyen']=$re->khQuyen;
                     DB::table('khachhang')->insert($data);
                     Session::forget('kh_err');
                     return redirect('adKhachhang');
@@ -655,39 +658,46 @@ class adminController extends Controller
         }
         else
         {
+            $yearNow = Carbon::now()->year;
+            $yearKh = new Carbon($re->khNgaysinh);
+            $yearKhNgaysinh = $yearKh->year;
+            if($yearNow - $yearKhNgaysinh<=10)
+            {
+                Session::flash('note_err','Khách hàng phải trên 10 tuổi');
+                return Redirect('updateKhachhang/'.$id); 
+            }
             if($re->hasFile('khHinh')==true)
             {
                 $data = array();
-                $data['khMa']=$id;
                 $data['khTen']=$re->khTen;
                 $data['khEmail']=$re->khEmail;
                 $data['khMatkhau']=$re->khMatkhau;
                 $data['khNgaysinh']=$re->khNgaysinh;
                 $data['khDiachi']=$re->khDiachi;
                 $data['khGioitinh']=$re->khGioitinh;
-                $data['khQuyen']=$re->khQuyen;
                 $data['khTaikhoan']=$re->khTaikhoan;
                 $data['khSdt']=$re->khSdt;
                 $data['khHinh'] = $re->file('khHinh')->getClientOriginalName();;
                     $imgextention=$re->file('khHinh')->extension();
                                 $file=$re->file('khHinh');
                                 $file->move('public/images/khachhang',$data['khHinh']);
+                 $data['khQuyen']=$re->khQuyen;
                 DB::table('khachhang')->where('khMa',$id)->update($data);
                 return redirect('adKhachhang');
             }
             else
             {
                 $data = array();
-                $data['khMa']=$id;
                 $data['khTen']=$re->khTen;
                 $data['khEmail']=$re->khEmail;
                 $data['khMatkhau']=$re->khMatkhau;
                 $data['khNgaysinh']=$re->khNgaysinh;
                 $data['khDiachi']=$re->khDiachi;
                 $data['khGioitinh']=$re->khGioitinh;
-                $data['khQuyen']=$re->khQuyen;
                 $data['khTaikhoan']=$re->khTaikhoan;
                 $data['khSdt']=$re->khSdt;
+                $data['khHinh'] = "";
+                $data['khQuyen']=$re->khQuyen;
                 DB::table('khachhang')->where('khMa',$id)->update($data);
                 return redirect('adKhachhang');
             }

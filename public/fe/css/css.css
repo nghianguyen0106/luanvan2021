@@ -368,6 +368,8 @@ background:  #192A69;
 	position: absolute;
 	top: 0.8rem;
 	left: 1rem;
+	font-size: 16px;
+	color:#939299;
 	font-weight: normal;
 	z-index: 10;
 	background-color: white;
@@ -407,8 +409,8 @@ background:  #192A69;
 .content__login form legend, .content__register form legend
 {
 	color: orange;
-	text-align:left;
-	padding: 0.1rem 0 0.1rem 3rem;
+	text-align: center;
+	padding: 0.1rem 0 0.1rem 0;
 	background-color: #463F89;
 	border-radius: 30px 30px 0 0;
 
@@ -449,9 +451,9 @@ background:  #192A69;
 {
 	position: fixed;
 	top: 0;
-	right: -400px;
+	right: -500px;
 	bottom: 0;
-	z-index: 100;
+	z-index: 110;
 
 	background-color: #1C125C;
 	color: white;
@@ -503,5 +505,9 @@ background:  #192A69;
 	.content__login--form, .content__register--form
 	{
  	padding: 0;
+	}
+	.list__menu--item
+	{
+	margin-left: -0.8rem;
 	}
 }

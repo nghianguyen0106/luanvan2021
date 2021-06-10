@@ -77,7 +77,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
 			</div>
 	</div>
-	</div>
 	<div class="row header__bot">
 			<div class="col-lg-12">
 				 <ul class="list__menu">
@@ -91,6 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    	@endif
  				 </ul>
 			</div>
+		</div>
 		</div>
 <!--end-->
 @yield('content')
@@ -166,6 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
 <!-- cart -->
 <script src="{{URL::asset("public/fe/login/js/js.js")}}"></script>
+
 
 
 </body>

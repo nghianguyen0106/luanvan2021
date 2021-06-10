@@ -1,6 +1,4 @@
-
 @extends('admin.layout')
-
 @section('content')
   	<div id="content-wrapper" class="d-flex flex-column">
 
@@ -15,13 +13,15 @@
 			<div class="flex__form">
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tên khách hàng</label>
-			    <input name="khTen" type="text" value="{{$value->khTen}}" class="form-control" id="khTen">
+			    <input onblur="onName()" id="ip__name" name="khTen" type="text" value="{{$value->khTen}}" class="form-control">
 			    <span style="color:red">{{$errors->first('khTen')}}</span>
+			    <span id="name__err--regis"></span>
 			  </div>
 			  <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">SDT</label>
-			    <input name="khSdt" type="number" value="{{$value->khSdt}}" class="form-control" id="adSdt">
+			    <input onblur="onSDT()" id="sdt" name="khSdt" type="number" value="{{$value->khSdt}}" class="form-control">
 			     <span style="color:red">{{$errors->first('khSdt')}}</span>
+			     <span id="sdt__err--regis"></span>
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Email</label>
@@ -33,26 +33,30 @@
 			<div class="flex__form">
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Tài khoản cho khách hàng</label>
-			    <input name="khTaikhoan" type="text" value="{{$value->khTaikhoan}}" class="form-control" id="khTaikhoan">
+			    <input onblur="onAcc()" id="ip__acc" name="khTaikhoan" type="text" value="{{$value->khTaikhoan}}" class="form-control">
 			     <span style="color:red">{{$errors->first('khTaikhoan')}}</span>
+			     <span id="acc__err--regis"></span>
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
-			    <input name="khMatkhau" type="password" value="{{$value->khMatkhau}}" class="form-control" id="khMatkhau">
+			    <input onblur="onPass1()" id="password" name="khMatkhau" type="password" value="{{$value->khMatkhau}}" class="form-control">
 			     <span style="color:red">{{$errors->first('khMatkhau')}}</span>
+			     <span id="pass__err"></span>
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Ngày sinh</label>
 			    <input name="khNgaysinh" type="date" value="{{$value->khNgaysinh}}" class="dateInput" id="khNgaysinh">
-			     <span style="color:red">{{$errors->first('khNgaysinhn')}}</span>
+			     <span style="color:red">{{$errors->first('khNgaysinh')}}</span>
 			  </div>
 			</div>
 
 			<div class="flex__form">
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Địa chỉ</label>
-			    <input name="khDiachi" type="text" value="{{$value->khDiachi}}" class="form-control" id="khDiachi">
+			    <input onblur="onAddress()" id="address" name="khDiachi" type="text" value="{{$value->khDiachi}}" class="form-control">
 			     <span style="color:red">{{$errors->first('khDiachi')}}</span>
+			     <span id="address__err--regis"></span>
+
 			  </div>
 			   <div class="mb-3">
 			    <label for="exampleInputPassword1" class="form-label">Giới tính</label>
@@ -85,3 +89,4 @@
 	</div>
 	
 @endsection
+ <script src="{{url('public/fe/js/js-validate/validate-register.js')}}"></script>

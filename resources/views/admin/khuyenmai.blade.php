@@ -22,7 +22,7 @@
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
                                         </span>
-                                        <span class="text"><b>Thêm chương trình khuyến mãi</b></span>
+                                        <span class="text"><b>Thêm chương trình</b></span>
                                     </a>
                         <br/>
                         <div class="card-body">

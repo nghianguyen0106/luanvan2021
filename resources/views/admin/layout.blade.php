@@ -230,8 +230,8 @@
       icon: 'error',
       title: 'Thông báo lỗi',
       text: '{{Session::get('note_err')}}!',
-     
     });
+    {{Session::forget('note_err')}}
     </script> 
    @endif
 
