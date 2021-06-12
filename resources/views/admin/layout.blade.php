@@ -49,30 +49,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link">
-                    <label>Thông báo</label>
-                    @if(Session::get('dgTrangthai')!=null)
-                    <a class="collapse-item announce_note"  href="{{URL::to('/adBinhluan')}}">
-                     &emsp;<i class="fas fa-comment-alt" style="font-size: 25px;color:red">!</i>
-                     </a>
-                    @else
-                     <a class="collapse-item announce_note"  href="{{URL::to('/adBinhluan')}}">
-                     &emsp;<i class="fas fa-comment-alt" style="font-size: 25px;color:white"></i>
-                 </a>
-                     @endif
-                   
-                    &emsp;
-                    @if(Session::get('hdTinhtrang')!=null)
-                    <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
-                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:#B65A5A;">({{$noteDonhang}})</i>
-                    </a>
-                    @else
-                     <a class="collapse-item announce_note"  href="{{URL::to('/don-hang')}}">
-                    <i class="fas fa-file-invoice-dollar" style="font-size: 25px;color:white;"></i>
-                    @endif
-                </a>
-            </li>
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -85,7 +62,7 @@
           
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            @if(Session::get('adQuyen')==1)
+            
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -100,7 +77,7 @@
                     </div>
                 </div>
             </li>
-            @endif
+           
              <li class="nav-item">
                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -112,10 +89,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                         <a class="collapse-item"  href="{{URL::to('lich-su-hoat-dong')}}">lịch sử hoạt động</a>
-                        <a class="collapse-item"  href="{{URL::to('bao-cao-ngay')}}">Báo cáo ngày</a>
                         <a class="collapse-item"  href="{{URL::to('don-hang')}}">Đơn hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
                         <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
+                        <a class="collapse-item"  href="{{URL::to('quan-ly-phieu-nhap')}}">Quản lý phiếu nhập</a>
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
                         <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
@@ -230,8 +207,8 @@
       icon: 'error',
       title: 'Thông báo lỗi',
       text: '{{Session::get('note_err')}}!',
-     
     });
+    {{Session::forget('note_err')}}
     </script> 
    @endif
 

@@ -22,35 +22,32 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
-                                            <th>Mã sản phẩm</th>
+                                            <th>Sản phẩm</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Ngày cập nhật</th>
-                                             <th>Cập nhật</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot style="display:none;">
                                         <tr>
-                                            <th>Mã sản phẩm</th>
+                                            <th>Sản phẩm</th>
                                             <th>Số lượng sản phẩm</th>
                                             <th>Ngày cập nhật</th>
-                                             <th>Cập nhật</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
 
                                     @foreach($data as $value)
                                         <tr>
-                                            <td>{{$value->spMa}}</td>
-                                            <form action="{{URL::to('/editKho/'.$value->spMa)}}" method="POST">
-                                            {{ csrf_field() }}
+                                            <td>{{$value->spTen}}</td>
+                                            
                                             <td>
-                                                <input type="number" value="{{$value->khoSoluong}}" name="khoSoluong"/>
+                                               {{$value->khoSoluong}}
                                             </td>
                                             <td>{{$value->khoNgaynhap}}</td>
-                                            <td>
-                                             <button class="btn btn-primary" type="submit">Cập nhật</button>
-                                            </td>
-                                            </form>
+                                           
+                                           
 
                                         </tr>
                                     @endforeach

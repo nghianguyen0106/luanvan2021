@@ -4,7 +4,7 @@
   var loai = document.getElementById('loai').value;
   lap.style.display = 'none';
   pc.style.display = 'none';
-  if(loai=="LAPTOP"||loai=="Laptop"||loai=="laptop")
+  if(loai==1)
   {
   	lap.style.display = 'block';
     pc.style.display = 'none';

@@ -180,3 +180,9 @@ Route::post('checkSuaNhacungcap/{id}','adminController@suaNhacungcap');
 //--Lịch sử hoạt động --//
 Route::get('lich-su-hoat-dong','adminController@viewLShoatdong');
 Route::get('tim-kiem-lshd','adminController@timLSHD');
+//--Quản lý phiếu nhập--//
+Route::get('quan-ly-phieu-nhap','adminController@viewQlPhieunhap');
+Route::get('lap-phieu-nhap','adminController@viewLapPhieuNhap');
+Route::post('addPhieuNhap','adminController@addPhieuNhap');
+Route::get('chi-tiet-phieu-nhap/{id}','adminController@viewCTPhieunhap');
+Route::get('chi-tiet-phieu-thu/{id}','adminController@viewCTDonhang');

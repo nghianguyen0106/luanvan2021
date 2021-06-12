@@ -3,7 +3,7 @@
   	<div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-        <div id="content">
+        <div id="content" class="container">
         	@foreach($data as $value)
 			<form action="{{URL::to('giaohang/'.$value->hdMa)}}" method="GET">
 				 {{ csrf_field() }}
@@ -17,10 +17,10 @@
 		                            @endforeach
 		         </select>
 			 	<br/>
+			 	 <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
 			  <button type="submit" name="btn_add" class="btn btn-primary">Bắt đầu giao hàng</button>
 			</form>
-			<br/>
-                                <button class="btn btn-info" type="button" onclick="back()">Trở về</button>
+                               
 		</div>
 		@endforeach
 	</div>

@@ -103,3 +103,26 @@ table
 {
 	border-bottom:1px solid blue; 
 }
+
+#thead__phieunhap
+{
+	border: 0;
+	background-color: #A4B5ED;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+#tbody__phieunhap tr td
+{
+	border-bottom:1px solid black;
+}
+#tbody__phieunhap input
+{
+	text-align: center;
+}
+.input__phieunhap
+{
+	border: 0;
+	outline: none;
+	background-color: transparent;
+}

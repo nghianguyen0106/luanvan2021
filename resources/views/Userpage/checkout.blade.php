@@ -65,7 +65,7 @@ Giỏ hàng
 		<!---->
 		<div class="row">
 			<div  class="col-lg-6 checkout-right">	
-					<div class="checkout-left-basket animated wow slideInRight" data-wow-delay=".5s">
+					<div class="checkout-left-basket col-sm-12 col-12 animated wow slideInRight" data-wow-delay=".5s">
 						<h4> Đơn hàng tạm tính</h4>
 						<ul>
 							@foreach($cart as $k=> $i)
@@ -81,7 +81,7 @@ Giỏ hàng
 				</div>
 
 				<div  class="col-lg-6 checkout-left">	
-					<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+					<div class="col-sm-12 col-12 checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
 
 						<form action="{{URL::to('order')}}" method="get">
 							<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>

@@ -89,8 +89,8 @@ Thông tin cá nhân
 				<div class="flex__info">
 					<span class="info__item">Giới tính:</span>
 					<span class="info__item">
-						<input value="0" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
-					 	<input value="1" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nữ
+						<input value="0" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
+					 	<input value="1" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nữ
 					 </span>
 				 </div>
 				 <br/>

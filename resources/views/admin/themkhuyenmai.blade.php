@@ -6,31 +6,32 @@
         	<br/>
 			<form action="{{URL::to('checkAddKhuyenmai')}}" method="POST"  >
 				 {{ csrf_field() }}
-				 <legend>Thêm chương trình khuyến mãi</legend>
+				 <legend>Thêm chương trình</legend>
 				 <div class="row">
-				 	<div class="mb-3 col-4">
+				 	<div class="mb-4 col-4">
 						<label for="mota">Tên chương trình: <input type="text" minlength="5" class="form-control" name="kmTen"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
 					</div>
-				 	<div class="mb-3 col-4">
+				 	<div class="mb-4 col-4">
 						<label for="mota">Mô tả : <textarea class="form-control" id="kmMota" name="kmMota"  placeholder="Mô tả"></textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
 					</div>
-					<div class="mb-3 col-4">
+					<div class="mb-4 col-4">
 						<label for="mota">Trị giá khuyến mãi (%)
 						<input type="number" class="form-control" min="1" style="width: 190px;"  max="100" name="kmTrigia" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
-					<div class="mb-3 col-4">
+					<div class="mb-4 col-4">
 						<label for="mota">Ngày bắt đầu
 						<input type="date" class="form-control" min="1" name="kmNgaybd" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
 					</div>
-					<div class="mb-3 col-4">
+					<div class="mb-4 col-4">
 						<label for="mota">Ngày kết thúc
 						<input type="date" class="form-control" min="1" name="kmNgaykt" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
 					</div>
 					
-					<div class="mb-3 col-4">
+					<div class="mb-4 col-4">
 						<label for="mota">Giá trị khuyến mãi tối đa (VND)
 						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="kmGiatritoida" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
+<<<<<<< HEAD
 					<div class="mb-3 col-4">
 						<label for="mota">Giới hạn số lần khuyến mãi
 						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
@@ -38,6 +39,15 @@
 					<div class="mb-3 col-4">
 						<label for="mota">Số lượng sản phẩm được khuyến mãi 
 						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
+=======
+					<div class="mb-4 col-4">
+						<label for="mota">Giới hạn sử dụng
+						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh"><span style="color: red;"></span></label>
+					</div>
+					<div class="mb-4 col-4">
+						<label for="mota">Số lượng sản phẩm
+						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;"></label>
+>>>>>>> cc0983f3c7cf66021094a2fed900629c3eccbbce
 					</div>
 					<div  class="mb-3 col-12">
 						<div class="table-responsive">
