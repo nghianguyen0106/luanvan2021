@@ -19,8 +19,8 @@ class CreateSanphamTable extends Migration
             $table->float('spGia',20,4);
             $table->integer('spHanbh');
             $table->integer('spTinhtrang');
-            $table->string('thMa',11);
-            $table->string('loaiMa',11);
+            $table->integer('thMa');
+            $table->integer('loaiMa');
             $table->integer('ncMa');
             $table->integer('nccMa');
             $table->integer('kmMa')->nullable(true);

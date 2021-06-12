@@ -26,14 +26,7 @@
                             <input class="form-control" name="spTen" type="text"  value="{{$value->spTen}}"/>
                             <span style="color:red">{{$errors->first('spTen')}}</span>
                         </div>
-                         @foreach($kho as $kho)
-                         <div class="mb-3">
 
-                             <label for="exampleInputPassword1" class="form-label">Số lượng</label>
-                             <input class="form-control" name="khoSoluong" type="number"  value="{{$kho->khoSoluong}}"/>
-                             <span style="color:red">{{$errors->first('spGia')}}</span>
-                         </div>
-                         @endforeach
                         <div class="mb-3">
                              <label for="exampleInputPassword1" class="form-label">Giá</label>
                              <input class="form-control" name="spGia" type="number"  value="{{$value->spGia}}"/>

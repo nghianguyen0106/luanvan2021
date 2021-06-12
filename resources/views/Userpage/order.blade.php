@@ -14,29 +14,29 @@ Danh sách đơn hàng
 					<th>Số lượng sản phẩm</th>
 					<th>Địa chỉ giao hàng</th>
 					<th>Số điện thoại người nhận</th>
-					<th>Ghi chú</th>
 					<th>Tình trạng</th>
+					<th></th>
+					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 					@foreach($list as $i)
+					@if($i->hdTinhtrang!=3)
 						<tr>
 							<td>{{$i->hdMa}}</td>
 							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
 							<td>{{$i->hdSoluongsp}}</td>
 							<td>{{$i->hdDiachi}}</td>
 							<td>{{$i->hdSdtnguoinhan}}</td>
-							<td>{{$i->hdGhichu}}</td>
+							<td>
 								@if($i->hdTinhtrang==0)
 									<td><span style="color:red;">Đang chờ xác nhận</span></td>
-									<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
+										<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
 									@elseif($i->hdTinhtrang==1)
 										<td><span style="color:blue;">Đang giao hàng</span></td>
 									@elseif($i->hdTinhtrang==2)
 										<td><span style="color:green;">Đã thanh toán</span></td>
-									@else
-										<td><span style="color:red;">Đang chờ xử lý hủy</span></td>
 								@endif
 							</td>
 							<td>
@@ -49,7 +49,7 @@ Danh sách đơn hàng
 								    <div class="close">Chi tiết đơn hàng</div>
 
 								    <table class="table-hover table table-inverse table-responsive">
-								    	<thead>
+								    	<thead style="font-size: 20px;">
 								    		<tr>
 								    			<th>Tên sản phẩm</th>
 								    			<th></th>
@@ -57,7 +57,7 @@ Danh sách đơn hàng
 								    			<th>Đơn giá</th>
 								    		</tr>
 								    	</thead>
-								    	<tbody>
+								    	<tbody style="font-size: 20px;">
 								    		@foreach($details as $v)
 								    			@if($v->hdMa==$i->hdMa)
 										    		<tr>
@@ -74,7 +74,12 @@ Danh sách đơn hàng
 								</div>
 
 							</td>
+							
+							
 						</tr>
+						
+						@endif
+
 							
 					@endforeach					
 			</tbody>

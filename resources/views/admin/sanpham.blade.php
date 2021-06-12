@@ -4,13 +4,8 @@
 
             <!-- Main Content -->
             <div id="content">
-
-          
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -31,12 +26,10 @@
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Giá</th>
-                                             <th>Tình trạng</th>
+                                            <th>Tình trạng</th>
                                             <th>Hạn bảo hành</th>
                                            <th>Khuyến mãi</th>
-                                            <th>Thương hiệu</th>
-                                            <th>Loại</th>
-                                            <th>Nhu cầu</th>
+                                            
                                              <th>Nhà cung cấp</th>
                                             <th>Cập nhật</th>
                                         </tr>
@@ -49,9 +42,7 @@
                                              <th>Tình trạng</th>
                                             <th>Hạn bảo hành</th>
                                            <th>Khuyến mãi</th>
-                                            <th>Thương hiệu</th>
-                                            <th>Loại</th>
-                                            <th>Nhu cầu</th>
+                                           
                                             <th>Nhà cung cấp</th>
                                             <th>Cập nhật</th>
                                         </tr>
@@ -74,9 +65,7 @@
                                                 @endif
                                             </th>
                                             <th>{{$value->kmMa!=null?"$value->kmMa":"0%"}}</th>
-                                            <th>{{$value->thTen}}</th>
-                                            <th>{{$value->loaiTen}}</th>
-                                            <th>{{$value->ncTen}}</th>
+                                            
                                             <th>{{$value->nccTen}}</th>
                                             <td>
                                                 <a href="{{url('updateSanpham/'.$value->spMa)}}" class="active" ui-toggle-class="">

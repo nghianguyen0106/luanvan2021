@@ -28,12 +28,12 @@ mota__lap.style.display = 'block';
 function change()
 {
  var loai = document.getElementById('select__loai').value;
- if(loai=="LAPTOP"||loai=="Laptop"||loai=="laptop")
+ if(loai==1)
  {
     mota__lap.style.display = 'block';
     mota__pc.style.display = 'none';
  }
- else if(loai=="PC"||loai=="Pc"||loai=="pc")
+ else
  {
      mota__lap.style.display = 'none';
     mota__pc.style.display = 'block';
