@@ -44,7 +44,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul class="menu__header--top">
 					<li>
 				    	<ul class="menu__account">
-				    		@if(Session::has('khTaikhoan'))
+				    		@if(Session::has('khTen'))
 				    		<li class="li">
 							<a>
 								@if(Session::get('khHinh')!=null)
@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								@else
 								<span></span>
 								@endif
-								&nbsp;{{Session::get('khTaikhoan')}}</a>
+								&nbsp;{{Session::get('khTen')}}</a>
 							<ul class="menu__account--child">
 								<li class="li2">
 									<a href="{{url("/infomation/".Session::get('khMa'))}}">
@@ -100,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Sản phẩm</a></li>
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Tin tức</a></li>
 				    	@if(Session::has('khTen'))
-				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng của bạn</a></li>
+				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng</a></li>
 				    		  		@endif
 				 </ul>
 			</div>
@@ -174,6 +174,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	</div>
 	</div>
+
+
+
+	
 @yield('content')
 
 <!-- footer -->

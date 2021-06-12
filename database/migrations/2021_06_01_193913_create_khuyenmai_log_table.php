@@ -17,6 +17,7 @@ class CreateKhuyenmaiLogTable extends Migration
             $table->integer('khMa');
             $table->integer('kmMa');
             $table->integer('kmgSolan');
+            //$table->integer('kmgSlspdamua');
 
             $table->engine = "InnoDB";
 

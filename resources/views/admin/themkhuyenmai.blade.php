@@ -32,11 +32,11 @@
 						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="kmGiatritoida" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
 					<div class="mb-3 col-4">
-						<label for="mota">Giới hạn số lần khuyến mãi cho mỗi khách hàng( Để trống là không giới hạn)
+						<label for="mota">Giới hạn số lần khuyến mãi
 						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
 					</div>
 					<div class="mb-3 col-4">
-						<label for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng)
+						<label for="mota">Số lượng sản phẩm được khuyến mãi 
 						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
 					</div>
 					<div  class="mb-3 col-12">
@@ -67,7 +67,7 @@
                                           	<a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
                                                {{$v->spTen}}
                                                @if($v->kmMa!=null)
-                                               	(Đã thuộc khuyến mãi: {{$v->kmTen}})
+                                               	({{$v->kmTen}})
                                                @endif
 												<span class="tooltiptexts">
 													<img style="height:100px;width: 200px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt="" class="pro-image-front">

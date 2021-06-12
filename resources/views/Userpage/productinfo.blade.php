@@ -40,7 +40,8 @@ Thông tin sản phẩm
 							<h3>{{$proinfo->spTen}}</h3>
 					<p><span style="color: red;" class="item_price">{{number_format($proinfo->spGia)}} VND</span> </p>
 					<p>Thương hiệu:<span> {{$proinfo->thTen}}</span></p>
-					<p>Tình trạng:<span> 
+					<p>Tình trạng:
+						<span> 
 						<?php $x= 0;?>
 						@if($proinfo->khoSoluong>0)
 							Còn hàng. &nbsp;<br>
@@ -48,19 +49,23 @@ Thông tin sản phẩm
 						@else
 							Hết hàng
 						@endif
-					</span></p>
+						</span>
+					</p>
+
+					@if($proinfo->khoSoluong>0)
 					<p>Chọn số lượng: 
 						<span>
-						<div class="counter">
-						  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
-						  <input style="width:50px " class="form-control-success" min="1" max="{{$proinfo->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
-						  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
-						</div>
-					</span>
-				</p>
+							<div class="counter">
+							  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
+							  <input style="width:50px " class="form-control-success" min="1" max="{{$proinfo->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
+							  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
+							</div>
+						</span>
+					</p>
+					@endif
 						</div>
 
-						@if($availPromo!=null)
+						@if($availPromo!=null && $proinfo->khoSoluong>0)
 						<div class="mb-3 col-12">
 							<i class="far fa-star promoTitle"> Chương trình khuyến mãi khả dụng:</i>
 							@foreach($availPromo as $v)
@@ -79,11 +84,11 @@ Thông tin sản phẩm
 						@endif
 					</div>
 					
-
+					@if($proinfo->khoSoluong>0)
 					<div class="occasion-cart">
 						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button>
 					</div>
-		
+					@endif
 			</form>
 			
 		</div>

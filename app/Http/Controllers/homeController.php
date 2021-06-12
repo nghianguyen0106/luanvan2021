@@ -20,6 +20,7 @@ use App\Models\danhgia;
 use App\Models\khachhang;
 use App\Models\mota;
 use App\Models\banner;
+use App\Models\khuyenmai_log;
 
 
 use Illuminate\Support\Facades\Mail;
@@ -80,7 +81,8 @@ class homeController extends Controller
         $db = sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
        // dd($db);
         $brand=thuonghieu::get();
-        $cate=loai::get();
+        $cate=loai::where('loaiMa','laptop')->get();
+        //dd($cate);
         $needs=nhucau::get();
         return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2'));
     }
@@ -120,12 +122,13 @@ class homeController extends Controller
     Session::forget("note__errC");
        Session::forget("note__err");
        //end
-         $db = DB::table('hinh')->join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
-        $brand=DB::table('thuonghieu')->get();
+         $db = hinh::join('sanpham', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+        $brand=thuonghieu::get();
         $cate=loai::get();
         $needs=nhucau::get();
          $cart=Cart::content();
         $total=0;
+
         $slide = banner::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
         $countSlide =banner::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
         $bnCon = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
@@ -202,6 +205,7 @@ class homeController extends Controller
             }
             elseif( $re->category !=null )
             {
+
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceTo,$re->priceFrom])->whereIn('sanpham.loaiMa',$re->category)->get();
                 return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2'));
             }
@@ -281,6 +285,7 @@ class homeController extends Controller
             }
             elseif( $re->category !=null )
             {
+                //return $re->category;
                 $db=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->join('nhucau','nhucau.ncMa','sanpham.ncMa')->whereBetween('sanpham.spGia',[$re->priceFrom,$re->priceTo])->whereIn('sanpham.loaiMa',$re->category)->get();
                 return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2'));
             }
@@ -409,6 +414,7 @@ class homeController extends Controller
         Session::forget("note__errC");
        Session::forget("note__err");
        //end
+       
         $cate=loai::get();
         $cart=cart::content();
         $total=0;
@@ -418,40 +424,51 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
             array_push($a,$i->id);
         }   
-        $today=now();
-        
+        $today=date_create();
+     
         $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
-        //dd($checkexistKhuyenmai);
-                
+        $usedKm=khuyenmai_log::where('khMa',Session::get('khMa'))->get();
         
-       return view('Userpage.checkout',compact('cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
+            
+        return view('Userpage.checkout',compact('usedKm','cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
     }
 
     public function order(Request $re)
     {
-        //  dd($re->promo);
+        
         if(Cart::count()>0)
         {
             if(session::has('khTaikhoan'))
             {
                 $cart=Cart::content();
                 $leng=strlen($re->promo);
-                $str=strpos($re->promo,",");//vi tri
+                $str=strpos($re->promo,",");
+
                 $kmMa=substr($re->promo,0,$str);
                 $spMa=substr($re->promo,$str+1,$leng);
+                $proinfo=sanpham::where('spMa',$spMa)->first();
+                //dd($proinfo);
                 $promoInfo=khuyenmai::where('khuyenmai.kmMa',$kmMa)->join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->first();
-                //dd($promoInfo);
 
-                
                 $cate=loai::get();
+                $pricePromo=0;
                 $total=0;
                 foreach ($cart as  $i) 
                 {
-                    $total+=$i->price*$i->qty;
-                }
+                    if($i->id==$spMa)
+                    {
+                        $pricePromo=$i->price*$i->qty*($promoInfo->kmTrigia/100);
+                        $total+=$i->price*$i->qty-($i->price*$i->qty*($promoInfo->kmTrigia/100));
 
+                    }
+                    else
+                    {
+                        $total+=$i->price*$i->qty;
+                    }
+                }
+                //return $total;
                 
-                return view('Userpage.confirmcheckout',compact('promoInfo','cate','cart','total'));
+                return view('Userpage.confirmcheckout',compact('pricePromo','promoInfo','proinfo','cate','cart','total'));
             }
             else
             {
@@ -472,10 +489,10 @@ class homeController extends Controller
     {
         
         Session::forget("note__errC");
-         Session::forget("note__err");
+        Session::forget("note__err");
  
-         $cate=loai::get();
-          $cart=Cart::content();
+        $cate=loai::get();
+        $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
@@ -549,8 +566,8 @@ class homeController extends Controller
     }
     public function updatePass($id)
     {
-         $cate=loai::get();
-          $cart=Cart::content();
+        $cate=loai::get();
+        $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
@@ -583,7 +600,6 @@ class homeController extends Controller
                 'khPassCu'=>'required',
                 'khRePassMoi'=>'required',
                 'khPassMoi'=>'required',
-                
             ],$messages);
             $errors=$validate->errors();
         }

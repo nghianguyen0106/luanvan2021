@@ -17,6 +17,9 @@ use App\Models\khachhang;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
 use App\Models\kho;
+use App\Models\khuyenmai;
+use App\Models\khuyenmai_log;
+
 
 class cartController extends Controller
 {
@@ -35,8 +38,6 @@ class cartController extends Controller
             elseif(in_array($productInfo->spMa,$count)==null)
             {
                 array_push($count,$productInfo->spMa);
-                Cart::add( $productInfo->spMa , $productInfo->spTen , 1 ,$productInfo->spGia ,0, [ 'spHinh' => $productInfo->spHinh] );
-
                 $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->select('ghSoluong')->first();
                 if(Session::has('khMa'))
                 {
@@ -49,26 +50,36 @@ class cartController extends Controller
                         $cart->save();
                     }
                     else
-                    {   
-                       $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
-                        DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                    {  
+                        $cart=cart::content();
+                        foreach($cart as $v)
+                        {
+                            if($v->qty < $productInfo->khoSoluong)
+                            {
+                                $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
+                                DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                            }
+                            else
+                            {
+                                Session::flash('errCart','Số lượng sản phẩm:'.$productInfo->spTen.' trong giỏ hàng đã đạt tối đa !');
+                                return Redirect::to('product');
+                            }
+                        }
                     }
                 }
-               
-                
-                 Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
+                Cart::add( $productInfo->spMa , $productInfo->spTen , 1 ,$productInfo->spGia ,0, [ 'spHinh' => $productInfo->spHinh] );
+                Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
             }
         return Redirect::to('product');
     }
 
     public function savecart2(Request $re)
     {
-        $productInfo=DB::table('sanpham')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->first();
+        $productInfo=sanpham::join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->first();
                 $khMa=Session::get('khMa');
                 if(Session::has('khMa'))
                 {
                     $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->first();
-                    //dd($checkExistIteminCart);
                      if($checkExistIteminCart==null)
                     {
                         $cart=new giohang();
@@ -79,8 +90,20 @@ class cartController extends Controller
                     }
                     else
                     {   
-                       $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
-                        DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                       $cart=cart::content();
+                        foreach($cart as $v)
+                        {
+                            if($v->qty < $productInfo->khoSoluong)
+                            {
+                                $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
+                                DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
+                            }
+                            else
+                            {
+                                Session::flash('errCart','Số lượng sản phẩm:'.$productInfo->spTen.' trong giỏ hàng đã đạt tối đa !');
+                                return Redirect::to('product');
+                            }
+                        }
                     }
                 }
         Cart::add($productInfo->spMa,$productInfo->spTen,$re->quanty,$productInfo->spGia,0,[ 'spHinh' => $productInfo->spHinh] );
@@ -112,11 +135,7 @@ class cartController extends Controller
     public function changeQuantyIncrease(Request $re)
     {
         $check=Cart::get($re->id);
-
-        //dd($check);
         $checkQty=kho::where('spMa',$check->id)->first();
-
-        //dd($checkQty->khoSoluong);
         if($checkQty->khoSoluong>$check->qty)
         {
             $d=$check->qty;
@@ -158,51 +177,72 @@ class cartController extends Controller
 
     public function gocheckout(Request $re,$money)
     {
-     
-     
         if(Cart::count()>0)
         {
             foreach (Cart::content() as $v) 
             {
-                $checkQty=DB::table('kho')->where('spMa',$v->id)->first();
+                $checkQty=kho::where('spMa',$v->id)->first();
                 if($v->qty>$checkQty->khoSoluong)
                 {
-                    session::flash('errCheckout','Số lượng của sản phẩm '.$v->name.' vượt quá số lượng trong kho hàng vui lòng điều chỉnh lại !');
+                    session::flash('err','Sản phẩm '.$v->name.' Vừa có khách hàng đặt trước bạn và cũng là sản phẩm cuối cùng, vui lòng liên hệ Hotline để biết thêm thông tin!');
                     return Redirect::to('checkout');
                 }
-
             }
             if(session::has('khTaikhoan'))
             {
-                $customerInfo=DB::table('khachhang')->where('khMa',Session::get('khMa'))->first();
-                //dd(date_create());
+                $customerInfo=khachhang::where('khMa',Session::get('khMa'))->first();
                 if($customerInfo->khXtemail==1)
                 {
-                    //dd(date_timestamp_get(localtime()));
                     //create order
-                    $data['khMa']=Session::get('khMa');
-                    $data['hdSoluongsp']=Cart::count();
-                    $data['hdTongtien']=$money;
-                    $data['hdNgaytao']=date_create();
-                    $data['hdTinhtrang']=0;
-                    $data['adMa']=0;
-                    $data['hdGiamgia']=0;
-                    $data['hdGiakhuyenmai']=0;
-                    $date=getdate();
-
-                    $name=Session::get('khTaikhoan');
-                    $data['hdMa']=''.$date['seconds'].$date['minutes'].substr($data['hdTongtien'],0,1).$date['yday'].$date['mon'];
-                  
-                    if($re->address !=null)
+                    $dh= new donhang();
+                    $dh->khMa=Session::get('khMa');
+                    $dh->hdSoluongsp=Cart::count();
+                    $dh->hdTongtien=$money;
+                    $dh->hdNgaytao=date_create();
+                    $dh->hdTinhtrang=0;
+                    $dh->adMa=0;
+                 
+                    if($re->discount!=null && $re->price!=null)
                     {
-                        $data['hdDiachi']=$re->address;
+                        $dh->hdGiamgia=$re->discount;
+                        $dh->hdGiakhuyenmai=$re->price;
+                        
+                        //save to khuyenmai_log table
+                        $checkExistKhuyenmai_log=khuyenmai_log::where('kmMa',$re->kmMa)->where('khMa',Session::get('khMa'))->first();
+                        if($checkExistKhuyenmai_log)
+                        {
+                            $sl['kmgSolan']=$checkExistKhuyenmai_log->kmgSolan+=1;
+                            DB::table('khuyenmai_log')->where('khMa',Session::get('khMa'))->where('kmMa',$re->kmMa)->update($sl);
+                        }
+                        else
+                        {
+                            $kmg= new khuyenmai_log();
+                            $kmg->kmMa=$promoInfo->kmMa;
+                            $kmg->khMa=Session::get('khMa');
+                            $kmg->kmgSolan=1;
+                            //$kmg->save();
+                        }
                     }
                     else
                     {
-                        $data['hdDiachi']=$customerInfo->khDiachi;
+                        $dh->hdGiamgia=0;
+                        $dh->hdGiakhuyenmai=0;
                     }
-                    $data['hdGhichu']=$re->note;
+                    $date=getdate();
 
+                    $name=Session::get('khTaikhoan');
+                    $dh->hdMa=''.$date['seconds'].$date['minutes'].substr($dh->hdTongtien,0,1).$date['yday'].$date['mon'];
+                    $hdMa=$dh->hdMa;
+                
+                    if($re->address !=null)
+                    {
+                        $dh->hdDiachi=$re->address;
+                    }
+                    else
+                    {
+                        $dh->hdDiachi=$customerInfo->khDiachi;
+                    }
+                    $dh->hdGhichu=$re->note;
                     if($re->sdt==null)
                     {
                         if($customerInfo->khSdt<100000000|| $customerInfo->khSdt>10000000000)
@@ -212,8 +252,7 @@ class cartController extends Controller
                         }
                         else
                         {
-                            
-                        $data['hdSdtnguoinhan']=$customerInfo->khSdt;
+                            $dh->hdSdtnguoinhan=$customerInfo->khSdt;
                         }
                     }
                     elseif($re->sdt>10000000000||$re->sdt<100000000)
@@ -223,31 +262,41 @@ class cartController extends Controller
                     }
                     else
                     {
-                        $data['hdSdtnguoinhan']=$re->sdt;
+                        $dh->hdSdtnguoinhan=$re->sdt;
                     }
-
-                    DB::table('donhang')->insert($data);
-                    
+                    $dh->save();
                     
                     //create order details
                     foreach (Cart::content() as $k => $i) 
                     {
+                        //update Quanty of Kho table
+                        $productInfo=kho::where('spMa',$i->id)->first();
+                        $updateKho['khoSoluong']=$productInfo->khoSoluong-$i->qty;
+                        DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
+                        //
 
-                        $productQuanty=DB::table('kho')->where('spMa',$i->id)->first();
-                                         
-
-                        $update['khoSoluong']=$productQuanty->khoSoluong-$i->qty;
-                        DB::table('kho')->where('spMa',$i->id)->update($update);
-                        $dd['hdMa']=$data['hdMa'];
-                        $dd['spMa']= $i->id;
-                        $dd['cthdSoluong']=$i->qty;
-                        $dd['cthdGia']=$i->price * $i->qty;
-                        DB::table('chitietdonhang')->insert($dd);
+                        $ct=new chitietdonhang();
+                        $ct->hdMa=$hdMa;
+                        $ct->spMa= $i->id;
+                        $ct->cthdSoluong=$i->qty;
+                        $ct->cthdGia=$i->price * $i->qty;
+                        if($productInfo->spMa==$re->spMa && $productInfo->spSlkmtoida >0 )
+                        {
+                            $proinfo=sanpham::where('spMa',$re->spMa)->first();
+                            $proinfo->spSlkmtoida-=$i->qty;
+                            $proinfo->update();
+                            $ct->cthdTrigiakm=$re->discount;    
+                        }
+                        
+                        $ct->save();
                     }
-                    Cart::destroy();
-                    DB::table('giohang')->where('khMa',Session::get('khMa'))->delete();
-                    $this->sendmail($data['hdMa']);
-                     return Redirect::to('product');
+
+                    //clear cart
+                     //   Cart::destroy();
+                    giohang::where('khMa',Session::get('khMa'))->delete();
+                    $this->sendmail($hdMa);
+                    
+                    return Redirect::to('product');
                 }
                 else
                 {
@@ -257,7 +306,7 @@ class cartController extends Controller
             }
             else
             {
-                session::put('loginmessage','Please login first !');
+                session::put('loginmessage','Vui lòng đăng nhập để thực hiện đặt hàng!');
                 return Redirect::to('login');
             }
         }
@@ -269,10 +318,9 @@ class cartController extends Controller
 
     public function sendmail($hdMa)
     {
-       
-        $details=DB::table('donhang')->join('chitietdonhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','sanpham.spMa','chitietdonhang.spMa')->where('donhang.hdMa',$hdMa)->get();
-
-        Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details));
+        $details=chitietdonhang::where('hdMa',$hdMa)->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->get();
+        $order=donhang::Where('donhang.hdMa',$hdMa)->first();
+        Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details,$order));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
     }
     

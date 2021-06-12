@@ -17,7 +17,7 @@ class CreateKhoTable extends Migration
             $table->integer('spMa');
             $table->integer('khoSoluong');
             $table->timestamp('khoNgaynhap');
-            
+            $table->integer('khoSoluongdaban')->default(0);
             $table->engine = "InnoDB";
             
             // foreign key

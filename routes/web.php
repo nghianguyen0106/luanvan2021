@@ -59,6 +59,7 @@ Route::get('sendmail','cartController@sendmail');
 Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
 Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
 
+
 //--Đơn hàng--//
 Route::get('huy-don/{id}','homeController@huyDon');
 //---------------------------------------------END USER--------------------------------------------//

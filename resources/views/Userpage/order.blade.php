@@ -29,7 +29,7 @@ Danh sách đơn hàng
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>{{$i->hdGhichu}}</td>
 								@if($i->hdTinhtrang==0)
-									<td><span style="color:red;">Đang chờ xác nhận</span></td>
+									<td><span stylFFe="color:red;">Đang chờ xác nhận</span></td>
 									<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
 									@elseif($i->hdTinhtrang==1)
 										<td><span style="color:blue;">Đang giao hàng</span></td>

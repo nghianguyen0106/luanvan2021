@@ -8,12 +8,12 @@
 <body>
    
   <div class="container">
-  	 <h1>Hóa đơn {{$details[0]->hdMa}}</h1>
+  	 <h1>Hóa đơn {{$order->hdMa}}</h1>
      <h3>Chào {{Session::get('khTen')}}</h3>
-     <h4>Ngày đặt hàng: {{$details[0]->hdNgaytao}}</h4>
-     <h4>Số lượng sản phẩm: {{$details[0]->hdSoluongsp}}</h4>
-     <h4>Địa chỉ giao hàng: {{$details[0]->hdDiachi}}</h4>
-     <h4>Số điện thoại người nhận: {{$details[0]->hdSdtnguoinhan}}</h4>
+     <h4>Ngày đặt hàng: {{$order->hdNgaytao}}</h4>
+     <h4>Số lượng sản phẩm: {{$order->hdSoluongsp}}</h4>
+     <h4>Địa chỉ giao hàng: {{$order->hdDiachi}}</h4>
+     <h4>Số điện thoại người nhận: {{$order->hdSdtnguoinhan}}</h4>
 	  <table border="1" class="table" style="text-align: center;">
   <thead>
     <tr>
@@ -26,26 +26,34 @@
     </tr>
   </thead>
   <tbody>
+
   	@foreach($details as $k => $v)
     <tr>
       <th style="margin-left: 15px;">{{$k+1}}</th>
       <td style="margin-left: 15px;">{{$v->spTen}}</td>
       <td style="margin-left: 15px;">{{$v->cthdSoluong}}</td>
       <td style="margin-left: 15px;">{{number_format($v->spGia)}} VND</td>
-      <td style="margin-left: 15px;">0%</td>
+      <td style="margin-left: 15px;">{{$v->cthdTrigiakm}} %</td>
       <td style="margin-left: 15px;">{{number_format($v->cthdGia)}} VND</td>
     </tr>
     @endforeach
+
+    @if($order->hdGiakhuyenmai)
+    <tr>
+      <td>Số tiền được giảm giá: </td>
+      <td colspan="5"  style="color: red;">{{number_format($order->hdGiakhuyenmai)}} VND</td>
+    </tr>
+    @endif
+
     <tr>
     	<td colspan="6">
     			<span><strong>Tổng tiền: </strong></span>
-    			<span><strong style="color: red;">{{number_format($details[0]->hdTongtien)}}</strong> VND</span>
+    			<span><strong style="color: red;">{{number_format($order->hdTongtien)}}</strong> VND</span>
     			
     	</td>
     </tr>
   </tbody>
 </table>
     <p style="color: green;"><strong>Thank you !</strong></p>
-
 </body>
 </html>

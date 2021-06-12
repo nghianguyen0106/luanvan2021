@@ -102,7 +102,7 @@ Danh sách sản phẩm
 <!-- mens -->
 
 <div class="men-wear">
-	<div class="container-fluid">
+	<div class="container">
 		<div class="col-md-3 products-left">
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>

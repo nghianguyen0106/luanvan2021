@@ -1144,7 +1144,7 @@ class adminController extends Controller
             else
             {
                 $data = array();
-                $data['loaiMa']=$re->loaiTen;
+                //$data['loaiMa']=$re->loaiTen;
                 $data['loaiTen']=$re->loaiTen;
                 DB::table('loai')->insert($data);
 
@@ -1309,7 +1309,7 @@ class adminController extends Controller
             else
             {
                 $data = array();
-                 $data['thMa']=$re->thTen;
+                //$data['thMa']=$re->thTen;
                 $data['thTen']=$re->thTen;
                 DB::table('thuonghieu')->insert($data);
                 
@@ -1565,7 +1565,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 }
                 if($re->kmGioihanmoikh!=null)
                 {
-                    $km->kmGioihanmoikh=$re->kmSolukmGioihanmoikhong;
+                    $km->kmGioihanmoikh=$re->kmGioihanmoikh;
                 }
                 else
                 {
@@ -1574,7 +1574,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 $km->kmGiatritoida=$re->kmGiatritoida;
                 $date=getdate();
                 $km->kmMa=$date['seconds'].$date['minutes'].$date['yday'].$date['mon'];
-                $kmMa=$km->kmMa;
+                $kmMa=$km->kmMa.$date['year'];
                 Session::flash('success','Thêm thành công !');
                 $list="";
                 $km->save();
@@ -1594,7 +1594,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 }
                 
 
-                //add promotion code to products
+                
                 //dd($re->checkboxsp);
                 
                 //Save_log

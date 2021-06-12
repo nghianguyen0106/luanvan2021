@@ -3,6 +3,7 @@
 Giỏ hàng
 @endsection
 @section('content')
+
 <!-- check out -->
 <div class="checkout">
 	<div class="container">
@@ -16,7 +17,6 @@ Giỏ hàng
 						<th style="width: 200px;">Hình</th>
 						<th>Đơn giá</th>
 						<th>Số lượng</th>
-						<th>Khuyến mãi</th>
 						<th>Thành tiền</th>
 						<th>Xóa</th>
 					</tr>
@@ -36,7 +36,6 @@ Giỏ hàng
 						 
 						   <a class="btn btn-outline-success" href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a>
 						</div></td>
-						<td class="invert">0%</td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
 						<td class="invert"><a class="btn btn-outline-danger"
@@ -52,11 +51,10 @@ Giỏ hàng
 				
 				<tfoot>
 					<tr>
-						<td colspan="3" style="text-align:left;">
+												<td colspan="3" style="text-align:left;">
 						<a class="text-white btn btn-dark" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
-					</div>
 						</td>
-							<td colspan="4" style="text-align:right;">
+						<td colspan="4" style="text-align:right;">
 								<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
 							</td>
 					</tr>
@@ -88,15 +86,34 @@ Giỏ hàng
 						<form action="{{URL::to('order')}}" method="get">
 							<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
 						<ul>
-							<li class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li>
+							<li style="color:black;" class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li><li><hr></li>
 						@foreach($promotion as $v)
-							<li class="promoItem"><input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}}
+						
+						@if( $v->spSlkmtoida!=0 )
+							<li></li>
+							<li style="color:black;" class="promoItem">
+								@foreach($usedKm as $i)
+								@if($i->kmMa == $v->kmMa )
+									@if($v->kmGioihanmoikh==null||  $i->kmgSolan < $v->kmGioihanmoikh  && $i->khMa==Session::get('khMa'))
+										
+									<input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> 								{{$v->kmTen}}
+									
+									@else
+									<input type="radio" name="promo" disabled="" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}} 	(Bạn đã dùng tối đa số lần cho khuyến mãi này.)
+									@endif
+								
+								@endif
+
+								 @endforeach
+
 								<ul>
-									<li>{{$v->kmMota}}</li>
-									<li>Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</li>
+									<li style="color:black;">{{$v->kmMota}}</li>
+									<li style="color:black;">
+										Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND
+									</li>
 								</ul>
 							</li>
-							<hr>
+						@endif
 						@endforeach
 						</ul>
 					<button type="submit" class="btn btn-success col-12" href="">Tiến hành đặt hàng</button>

@@ -19,8 +19,8 @@ class CreateSanphamTable extends Migration
             $table->float('spGia',20,4);
             $table->integer('spHanbh');
             $table->integer('spTinhtrang');
-            $table->string('thMa',11);
-            $table->string('loaiMa',11);
+            $table->integer('thMa');
+            $table->integer('loaiMa');
             $table->integer('ncMa');
             $table->integer('nccMa');
             $table->integer('kmMa')->nullable(true);
@@ -30,8 +30,9 @@ class CreateSanphamTable extends Migration
             // foreign key
             $table->foreign('ncMa')->references('ncMa')->on('nhucau')->onDelete('cascade')->onUpdate('cascade');
            
-            
-            $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onUpdate('cascade');
+             $table->foreign('loaiMa')->references('loaiMa')->on('loai')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('thMa')->references('thMa')->on('thuonghieu')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onUpdate('cascade')->onDelete('cascade');
             
         });
     }

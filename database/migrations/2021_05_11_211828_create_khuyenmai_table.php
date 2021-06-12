@@ -18,11 +18,13 @@ class CreateKhuyenmaiTable extends Migration
             $table->string('kmTen')->unique();
             $table->text('kmMota');
             $table->integer('kmTrigia');
+            $table->integer('kmTinhtrang');
             $table->timestamp('kmNgaybd');
             $table->timestamp('kmNgaykt');
             $table->integer('kmSoluong')->nullable(true);
             $table->integer('kmGioihanmoikh')->nullable(true);
             $table->integer('kmGiatritoida')->nullable(true);
+            //$table->integer('kmGioihanslspdh')->nullable(true);
             $table->engine = "InnoDB";
         });
     }
