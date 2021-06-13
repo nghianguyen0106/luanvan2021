@@ -15,12 +15,12 @@ class CreateDanhgiaTable extends Migration
     {
         Schema::create('danhgia', function (Blueprint $table) {
             $table->integer('dgMa')->primary();
-            $table->integer('khMa');
             $table->string('dgNoidung');
-            $table->integer('spMa');
             $table->timestamp('dgNgay');
             $table->integer('dgTrangthai');
             $table->engine = "InnoDB";
+            $table->integer('khMa');
+            $table->integer('spMa');
             //foreign key
             
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');

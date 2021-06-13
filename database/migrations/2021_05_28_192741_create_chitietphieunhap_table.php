@@ -18,8 +18,8 @@ class CreateChitietphieunhapTable extends Migration
             $table->integer('spMa');
             $table->integer('nccMa');
             $table->integer('ctpnSoluong');
-            $table->integer('ctpnDongia');
-            $table->integer('ctpnThanhtien');
+            $table->float('ctpnDongia',20,2);
+            $table->float('ctpnThanhtien',20,2);
                 
             $table->engine = "InnoDB";
             

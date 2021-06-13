@@ -556,6 +556,7 @@ class ComposerStaticInit9eb52166cf50f3ae5af27c780c593536
         'App\\Models\\hinh' => __DIR__ . '/../..' . '/app/Models/hinh.php',
         'App\\Models\\khachhang' => __DIR__ . '/../..' . '/app/Models/khachhang.php',
         'App\\Models\\kho' => __DIR__ . '/../..' . '/app/Models/kho.php',
+        'App\\Models\\kho_sp_hong' => __DIR__ . '/../..' . '/app/Models/kho_sp_hong.php',
         'App\\Models\\khuyenmai' => __DIR__ . '/../..' . '/app/Models/khuyenmai.php',
         'App\\Models\\khuyenmai_log' => __DIR__ . '/../..' . '/app/Models/khuyenmai_log.php',
         'App\\Models\\loai' => __DIR__ . '/../..' . '/app/Models/loai.php',

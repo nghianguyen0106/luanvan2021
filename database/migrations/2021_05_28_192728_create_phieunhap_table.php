@@ -18,7 +18,7 @@ class CreatePhieunhapTable extends Migration
             $table->timestamp('pnNgaylap');
             $table->integer('adMa');
             $table->integer('pnSoluongsp');
-            $table->integer('pnTongtien');
+            $table->float('pnTongtien',20,2);
             $table->engine = "InnoDB";
 
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');

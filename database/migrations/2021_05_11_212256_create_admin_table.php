@@ -16,12 +16,13 @@ class CreateAdminTable extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->integer('adMa')->primary();
             $table->string('adTen',50)->unique();
-            $table->char('adTaikhoan',100)->unique();
-            $table->char('adMatkhau',255);
-            $table->char('adEmail',100)->unique();
+            $table->char('adTaikhoan',50)->unique();
+            $table->char('adMatkhau',50);
+            $table->char('adEmail',50)->unique();
+            $table->char('adHinh',50)->nullable(true);
             $table->char('adSdt',11)->unique();
             $table->integer('adQuyen');
-            $table->char('adHinh',255)->nullable(true);
+            $table->integer('adTinhtrang');
             $table->engine = "InnoDB";
         });
     }

@@ -24,7 +24,6 @@ class CreateKhuyenmaiTable extends Migration
             $table->integer('kmSoluong')->nullable(true);
             $table->integer('kmGioihanmoikh')->nullable(true);
             $table->integer('kmGiatritoida')->nullable(true);
-            //$table->integer('kmGioihanslspdh')->nullable(true);
             $table->engine = "InnoDB";
         });
     }

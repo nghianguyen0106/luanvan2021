@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateDonhangTable extends Migration
+class CreateKhoSpHongTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class UpdateDonhangTable extends Migration
      */
     public function up()
     {
-        Schema::table('donhang', function (Blueprint $table) {
-             $table->foreign('vcMa')->references('vcMa')->on('voucher');
+        Schema::create('kho_sp_hong', function (Blueprint $table) {
+            $table->integer('spMa');
+            $table->integer('khoSlsphong');
+
+            $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
         });
     }
 
@@ -25,6 +28,6 @@ class UpdateDonhangTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('kho_sp_hong');
     }
 }

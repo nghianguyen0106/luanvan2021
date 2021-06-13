@@ -13,16 +13,14 @@ class CreateBannerTable extends Migration
      */
     public function up()
     {
-        Schema::create('banner', function (Blueprint $table) {
+        Schema::create('slide', function (Blueprint $table) {
             $table->id('bnMa');
             $table->string('bnTieude');
-            $table->char('bnHinh',255);
+            $table->char('bnHinh',50);
             $table->timestamp('bnNgay');
             $table->integer('bnVitri');
-            $table->integer('kmMa')->nullable(true);
+  
             $table->engine = "InnoDB";
-            
-            $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -21,8 +21,8 @@ class CreateDonhangTable extends Migration
             $table->float('hdTongtien',20,2);
             $table->integer('hdTinhtrang');
             $table->char('hdSdtnguoinhan',11);
-            $table->string('hdDiachi');
-            $table->string('hdGhichu')->nullable(true);
+            $table->string('hdDiachi',100);
+            $table->string('hdGhichu',100)->nullable(true);
             $table->integer('hdGiamgia');
             $table->integer('hdGiakhuyenmai');
             $table->char('vcMa')->nullable(true);

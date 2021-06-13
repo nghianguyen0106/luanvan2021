@@ -39,6 +39,7 @@ return array(
     'App\\Models\\hinh' => $baseDir . '/app/Models/hinh.php',
     'App\\Models\\khachhang' => $baseDir . '/app/Models/khachhang.php',
     'App\\Models\\kho' => $baseDir . '/app/Models/kho.php',
+    'App\\Models\\kho_sp_hong' => $baseDir . '/app/Models/kho_sp_hong.php',
     'App\\Models\\khuyenmai' => $baseDir . '/app/Models/khuyenmai.php',
     'App\\Models\\khuyenmai_log' => $baseDir . '/app/Models/khuyenmai_log.php',
     'App\\Models\\loai' => $baseDir . '/app/Models/loai.php',

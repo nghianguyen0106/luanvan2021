@@ -1347,11 +1347,7 @@ class adminController extends Controller
             else
             {
                 $data = array();
-<<<<<<< HEAD
-                //$data['thMa']=$re->thTen;
-=======
-                
->>>>>>> cc0983f3c7cf66021094a2fed900629c3eccbbce
+
                 $data['thTen']=$re->thTen;
                 DB::table('thuonghieu')->insert($data);
                 

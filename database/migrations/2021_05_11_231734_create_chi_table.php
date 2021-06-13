@@ -17,7 +17,7 @@ class CreateChiTable extends Migration
             $table->integer('adMa');
             $table->timestamp('chiNgaygiolap');
             $table->integer('chiSoluong');
-            $table->float('chiTongtien',20,4);
+            $table->float('chiTongtien',20,2);
             $table->string('chiNoidung');
             $table->engine = "InnoDB";
             

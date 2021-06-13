@@ -16,7 +16,7 @@ class CreateKhachhangTable extends Migration
         Schema::create('khachhang', function (Blueprint $table) {
             $table->integer('khMa')->primary();
             $table->string('khTen',50);
-            $table->char('khEmail',100)->unique();
+            $table->char('khEmail',50)->unique();
             $table->char('khTaikhoan')->unique();
             $table->char('khMatkhau',50);
             $table->date('khNgaysinh');

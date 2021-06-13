@@ -31,7 +31,7 @@
 						<label for="mota">Giá trị khuyến mãi tối đa (VND)
 						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="kmGiatritoida" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
 					</div>
-<<<<<<< HEAD
+
 					<div class="mb-3 col-4">
 						<label for="mota">Giới hạn số lần khuyến mãi
 						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
@@ -39,16 +39,12 @@
 					<div class="mb-3 col-4">
 						<label for="mota">Số lượng sản phẩm được khuyến mãi 
 						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
-=======
+					</div>
 					<div class="mb-4 col-4">
-						<label for="mota">Giới hạn sử dụng
+						<label for="mota">Giá khuyến mãi tối đa
 						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh"><span style="color: red;"></span></label>
 					</div>
-					<div class="mb-4 col-4">
-						<label for="mota">Số lượng sản phẩm
-						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;"></label>
->>>>>>> cc0983f3c7cf66021094a2fed900629c3eccbbce
-					</div>
+					
 					<div  class="mb-3 col-12">
 						<div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
