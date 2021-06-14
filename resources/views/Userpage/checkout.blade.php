@@ -92,19 +92,17 @@ Giỏ hàng
 						@if( $v->spSlkmtoida!=0 )
 							<li></li>
 							<li style="color:black;" class="promoItem">
-								@foreach($usedKm as $i)
-								@if($i->kmMa == $v->kmMa )
-									@if($v->kmGioihanmoikh==null||  $i->kmgSolan < $v->kmGioihanmoikh  && $i->khMa==Session::get('khMa'))
-										
-									<input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> 								{{$v->kmTen}}
-									
-									@else
-									<input type="radio" name="promo" disabled="" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}} 	(Bạn đã dùng tối đa số lần cho khuyến mãi này.)
-									@endif
-								
-								@endif
 
-								 @endforeach
+										
+									<input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">{{$v->kmTen}}
+									
+
+									<input type="radio" name="promo" disabled="" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}} 	(Bạn đã dùng tối đa số lần cho khuyến mãi này.)
+						
+								
+							
+
+								 
 
 								<ul>
 									<li style="color:black;">{{$v->kmMota}}</li>

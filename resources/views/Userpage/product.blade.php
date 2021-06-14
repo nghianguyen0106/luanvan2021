@@ -106,8 +106,8 @@ Danh sách sản phẩm
 		<div class="col-md-3 products-left">
 			{{-- SEARCH --}}
 			<h4 style="color: #FDA30E; font-size: 25px; text-transform: uppercase;">Lọc sản phẩm</h4>
-			<form class="form" action="{{URL::to('findpro')}}"  method="post" accept-charset="utf-8">
-			{{csrf_field()}}
+			<form class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
+		
 				<div class="col">
 					<div class="row-1">
 						<div class="input-group mb-1">
@@ -167,7 +167,7 @@ Danh sách sản phẩm
 			<h5>Danh sách sản phẩm</h5>
 
 			{{-- QUICK SORT --}}
-		{{-- 	 <div class="sort-grid">
+			{{--  <div class="sort-grid">
 				<div class="sorting">
 					<h6>Sort By</h6>
 					<select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
@@ -192,8 +192,8 @@ Danh sách sản phẩm
 					<div class="clearfix"></div>
 				</div>
 				<div class="clearfix"></div>
-			</div>  --}}
-
+			</div> 
+ --}}
 
 			<div class="men-wear-top">
 				<script src="{{URL::asset('public/fe/js/responsiveslides.min.js')}}"></script>
@@ -251,7 +251,10 @@ Danh sách sản phẩm
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
 									
 									</div>
-									<a href="{{URL::to('save-cart/'.$i->spMa)}}" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
+									<a href="{{URL::to('save-cart/'.$i->spMa)}}" class="item_add single-item hvr-outline-out button2"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
+									@if(Session::has('khMa'))
+											<a href="{{URL::to('addtowishlist/'.$i->spMa)}}" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+									@endif
 						</div>
 					</div>
 				</div>
@@ -264,19 +267,7 @@ Danh sách sản phẩm
 		</div>
 		<div class="clearfix"></div>
 		
-		{{-- PAGING --}}
-		{{-- <div class="pagination-grid text-right">
-			<ul class="pagination paging">
-				<li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-				<li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-			</ul>
-		</div> --}}
-		{{--  --}}
+		
 	</div>
 </div>	
 <!-- //mens -->
@@ -352,6 +343,17 @@ Swal.fire({
   icon: 'error',
   title: 'Thông báo: ',
   text: '{{Session::get('err')}}',
+ 
+})
+</script> 
+@endif
+
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Thông báo: ',
+  text: '{{Session::get('success')}}',
  
 })
 </script> 

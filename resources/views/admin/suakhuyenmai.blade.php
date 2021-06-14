@@ -6,36 +6,52 @@
         	<br/>
 			<form action="{{URL::to('checkSuaKhuyenmai/'.$km->kmMa)}}" method="POST"  >
 				 {{ csrf_field() }}
-
-				 <legend>Thêm chương trình khuyến mãi</legend>
+				 <legend>Thêm chương trình</legend>
 				 <div class="row">
-				 	<div class="mb-3 col-6">
+				 	<div class="mb-4 col-4">
 						<label for="mota">Tên chương trình: <input type="text" minlength="5" class="form-control" name="kmTen" value="{{$km->kmTen}}"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
 					</div>
-				 	<div class="mb-3 col-6">
-						<label for="mota">Mô tả : <textarea class="form-control" id="kmMota" name="kmMota"  placeholder="Mô tả">{{$km->kmMota}}</textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
+				 	<div class="mb-4 col-4">
+						<label for="mota">Mô tả : <textarea class="form-control" id="kmMota" name="kmMota"  placeholder="Mô tả"> {{$km->kmMota}}</textarea><span style="color: red;">{{$errors->first('kmMota')}}</span></label>
 					</div>
-					
-					<div class="mb-3 col-6">
+					<div class="mb-4 col-4">
+						<label for="mota">Trị giá khuyến mãi (%)
+						<input type="number" class="form-control" min="1" style="width: 190px;"  max="100" name="kmTrigia"  value="{{$km->kmTrigia}}"><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
+					</div>
+					<div class="mb-4 col-4">
 						<label for="mota">Ngày bắt đầu
-						<input type="date" class="form-control" min="1" name="kmNgaybd" value="{{date_format(date_create($km->kmNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
+						<input type="date" class="form-control" min="1" name="kmNgaybd" value="{{date_format(date_create($km->kmNgaybd),"Y-m-d")}}"><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
 					</div>
-					<div class="mb-3 col-6">
+					<div class="mb-4 col-4">
 						<label for="mota">Ngày kết thúc
 						<input type="date" class="form-control" min="1" name="kmNgaykt" value="{{date_format(date_create($km->kmNgaykt),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
 					</div>
-					<div class="mb-3 col-6">
-						<label for="mota">Trị giá khuyến mãi (%)
-						<input type="number" class="form-control" min="1" style="width: 190px;"  max="100" name="kmTrigia" value="{{$km->kmTrigia}}" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
-					</div>
-					<div class="mb-3 col-6">
+					
+					<div class="mb-4 col-4">
 						<label for="mota">Giá trị khuyến mãi tối đa (VND)
-						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="kmGiatritoida" value="{{$km->kmGiatritoida}}" ></label>
+						<input type="number" class="form-control" min="1000" value="{{$km->kmGiatritoida}}" style="width: 190px;"  name="kmGiatritoida" ><span style="color: red;">{{$errors->first('kmGiatritoida')}}</span></label>
 					</div>
-					<div class="mb-3 col-6">
-						<label for="mota">Số lượng sản phẩm được khuyến mãi ( đế trống là không giới hạn số lượng)
-						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" value="{{$km->kmSoluong}}" ></label>
+
+					<div class="mb-3 col-4">
+						<label for="mota">Giới hạn số lần khuyến mãi
+						<input type="number" class="form-control" style="width: 190px;" value="{{$km->kmGioihanmoikh}}"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
 					</div>
+					<div class="mb-3 col-4">
+						<label for="mota">Số lượng sản phẩm được khuyến mãi 
+						<input type="number" class="form-control" min="1" name="kmSoluong" value="{{$km->kmSoluong}}" style="width: 190px;" ></label>
+					</div>
+					<div class="mb-4 col-4">
+						<label for="mota">Tình trạng
+							<span><label class="switch">
+						  <input type="checkbox" name="kmTinhtrang" value="1"
+						  @if($km->kmTinhtrang!=0)
+							checked=""
+							@endif >
+						  <span class="slider round"></span>
+						</label></span>
+			</label>
+					</div>
+					
 					<div  class="mb-3 col-12">
 						<div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,6 +61,7 @@
                                         		<th></th>
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Loại sản phẩm</th>
                                             <th>Nhà cung cấp</th>
                                     
                                         </tr>
@@ -55,24 +72,30 @@
                                         <tr>
                                         	<td>
                                         		<div >
-													<input type="checkbox" name="checkboxsp[]" 
+													<input type="checkbox" name="checkboxsp[]"
 													@if($v->kmMa==$km->kmMa)
 													checked=""
-													@endif 
-													 value="{{$v->spMa}}">
+													@endif   value="{{$v->spMa}}">
 												</div>
 											</td>
-                                        	 
                                           <td>{{$v->spMa}}</td>
-                                          <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
+                                          <td>
+                                          	<a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
                                                {{$v->spTen}}
+                                               @if($v->kmMa!=null)
+                                               	({{$v->kmTen}})
+                                               @endif
 												<span class="tooltiptexts">
 													<img style="height:100px;width: 200px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt="" class="pro-image-front">
 												</span>
 												
-                                                </a></td>
+                                                </a>
+                                            </td>
+                                                <td>{{$v->loaiTen}}</td>
                                           <td>
-                                          	 <div class="tooltips"><a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}</a>
+                                          	 <div class="tooltips">
+                                          	 	<a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}
+                                          	 	</a>
 												<span class="tooltiptexts">
 													D/c: {{$v->nccDiachi}}<br>
 													Sdt: {{$v->nccSdt}}

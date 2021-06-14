@@ -33,48 +33,6 @@ class loginController extends Controller
             session::put('khSdt',$result->khSdt);
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
-
-            
-            
-            //-save old cart
-            $count = array();
-            foreach(cart::content() as $v)
-            {
-
-                if(in_array($v->id,$count)==null)
-                {
-                    array_push($count, $v->id);
-                    $checkExistprod=giohang::where('khMa',Session::get('khMa'))->where('spMa',$v->id)->first();
-                    if($checkExistprod)
-                    {
-                        $checkExistprod->ghSoluong=$v->qty;
-                        $checkExistprod->update();
-                    }
-                    else
-                    {
-                        $cart= new giohang();
-                        $cart->khMa=Session::get('khMa');
-                        $cart->spMa=$v->id;
-                        $cart->ghSoluong=$v->qty;
-                        $cart->save();
-                    }
-                }
-            }
-            cart::  destroy();
-            //load cart
-            $count2 = array();
-            $productInfo=giohang::leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$result->khMa)->get();
-            //dd($productInfo);
-            foreach ($productInfo as $v) 
-            {
-                if(in_array($v->spMa,$count2)==null)
-                {
-                    array_push($count2, $v->spMa);
-                    Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
-                    var_dump($v->spMa);
-                }
-            }
-            
     		return Redirect::to('product');
     	}
     	else
@@ -112,43 +70,6 @@ class loginController extends Controller
                 Session::flash('loginmess','Đăng nhập thành công !');
                 Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
 
-                $count = array();
-                foreach(cart::content() as $v)
-                {
-
-                    if(in_array($v->id,$count)==null)
-                    {
-                        array_push($count, $v->id);
-                        $checkExistprod=giohang::where('khMa',Session::get('khMa'))->where('spMa',$v->id)->first();
-                        if($checkExistprod)
-                        {
-                            $sl['ghSoluong']=$checkExistprod->ghSoluong+$v->qty;
-                            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$checkExistprod->spMa)->update($sl);
-                        }
-                        else
-                        {
-                            $cart= new giohang();
-                            $cart->khMa=Session::get('khMa');
-                            $cart->spMa=$v->id;
-                            $cart->ghSoluong=$v->qty;
-                            $cart->save();
-                        }
-                    }
-                }
-                cart::  destroy();
-                //load cart
-                $count2 = array();
-                $productInfo=giohang::leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',Session::get('khMa'))->get();
-                //dd($productInfo);
-                foreach ($productInfo as $v) 
-                {
-                    if(in_array($v->spMa,$count2)==null)
-                    {
-                        array_push($count2, $v->spMa);
-                        Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
-                        //var_dump($v->spMa);
-                    }
-                }
                 return Redirect::to('product');
            }
            else
@@ -210,43 +131,7 @@ class loginController extends Controller
                     Session::flash('loginmess','Đăng nhập thành công !');
                     Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
 
-                 $count = array();
-                foreach(cart::content() as $v)
-                {
-
-                    if(in_array($v->id,$count)==null)
-                    {
-                        array_push($count, $v->id);
-                        $checkExistprod=giohang::where('khMa',Session::get('khMa'))->where('spMa',$v->id)->first();
-                        if($checkExistprod)
-                        {
-                            $sl['ghSoluong']=$checkExistprod->ghSoluong+$v->qty;
-                            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$checkExistprod->spMa)->update($sl);
-                        }
-                        else
-                        {
-                            $cart= new giohang();
-                            $cart->khMa=Session::get('khMa');
-                            $cart->spMa=$v->id;
-                            $cart->ghSoluong=$v->qty;
-                            $cart->save();
-                        }
-                    }
-                }
-                cart::destroy();
-                //load cart
-                $count2 = array();
-                $productInfo=giohang::leftjoin('sanpham','sanpham.spMa','giohang.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',Session::get('khMa'))->get();
-                //dd($productInfo);
-                foreach ($productInfo as $v) 
-                {
-                    if(in_array($v->spMa,$count2)==null)
-                    {
-                        array_push($count2, $v->spMa);
-                        Cart::add( $v->spMa , $v->spTen , $v->ghSoluong ,$v->spGia ,0, [ 'spHinh' => $v->spHinh]);
-                      
-                    }
-                }
+                
                 return Redirect::to('product');
                 }
                 else

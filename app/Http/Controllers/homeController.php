@@ -19,8 +19,9 @@ use App\Models\khuyenmai;
 use App\Models\danhgia;
 use App\Models\khachhang;
 use App\Models\mota;
-use App\Models\banner;
-use App\Models\khuyenmai_log;
+use App\Models\slide;
+use App\Models\wishlist;
+
 
 
 use Illuminate\Support\Facades\Mail;
@@ -68,22 +69,28 @@ class homeController extends Controller
         {
             $total+=$i->price*$i->qty;
         }
+        $brand=thuonghieu::all();
+        $cate=loai::all();
+        $needs=nhucau::all();
+        $slide = slide::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
+        $countSlide =slide::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
+        $bnCon = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
+        $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
+        $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
 
 
-        $slide = banner::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
-        $countSlide =banner::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
-        $bnCon = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
-        $countBnCon1 = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
-        $countBnCon2 = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
-
-
-
-        $db = sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+        if(Session::has('khMa'))
+        {
+            $db=sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+        }
+        else
+        {
+            $db = sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+        }
        // dd($db);
-        $brand=thuonghieu::get();
-        $cate=loai::where('loaiMa','laptop')->get();
+        
         //dd($cate);
-        $needs=nhucau::get();
+        
         return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2'));
     }
    
@@ -129,11 +136,11 @@ class homeController extends Controller
          $cart=Cart::content();
         $total=0;
 
-        $slide = banner::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
-        $countSlide =banner::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
-        $bnCon = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
-        $countBnCon1 = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
-        $countBnCon2 = banner::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
+        $slide = slide::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
+        $countSlide =slide::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
+        $bnCon = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
+        $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
+        $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
 
 
         foreach ($cart as  $i) 
@@ -427,10 +434,10 @@ class homeController extends Controller
         $today=date_create();
      
         $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
-        $usedKm=khuyenmai_log::where('khMa',Session::get('khMa'))->get();
+      
         
             
-        return view('Userpage.checkout',compact('usedKm','cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
+        return view('Userpage.checkout',compact('cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
     }
 
     public function order(Request $re)
@@ -715,6 +722,23 @@ class homeController extends Controller
 
         DB::table('donhang')->where('hdMa',$id)->update($data);
         return redirect()->back();
+    }
+
+    public function wishlist()
+    {
+        $getwishlist=wishlist::join('sanpham','sanpham.spMa','wishlist.spMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('kho','sanpham.spMa','kho.spMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->get();
+        $check=array();
+        $wl=array();
+        foreach ($getwishlist as  $i)
+        {
+           if(in_array($i->spMa,$check)==null)
+           {
+                array_push($check,$i->spMa);
+                array_push($wl,$i);
+           }
+        }
+        //dd($wl);
+        return view('Userpage.wishlist',compact('wl'));
     }
 }
 

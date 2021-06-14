@@ -1553,11 +1553,11 @@ public function adCheckAddKhuyenmai(Request $re)
             //create promotion
                 $km=new khuyenmai();
                 $checkExistKhuyenmai=khuyenmai::where('kmTen',$re->kmTen)->first();
-                if($checkExistKhuyenmai)
-                {
-                    Session::flash('err','Khuyến mãi này đã tồn tại');
-                    return redirect()->back();
-                }
+                // if($checkExistKhuyenmai)
+                // {
+                //     Session::flash('err','Khuyến mãi này đã tồn tại');
+                //     return redirect()->back();
+                // }
                 $km->kmTen=$re->kmTen;
                 if($re->kmTrigia<1)
                 {
@@ -1573,24 +1573,16 @@ public function adCheckAddKhuyenmai(Request $re)
                 $km->kmMota=$re->kmMota;
                 $today=date_create();
                 
-                if( $today < date_create($re->kmNgaybd) )
+
+                if($re->kmNgaybd <= $re->kmNgaykt)
                 {
-                    
-                    if($re->kmNgaybd <= $re->kmNgaykt)
-                    {
-                        $km->kmNgaybd=$re->kmNgaybd;
-                        $km->kmNgaykt=$re->kmNgaykt;
-                    }
-                    else
-                    {
-                        Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
-                        return redirect()->back();
-                    }
+                $km->kmNgaybd=$re->kmNgaybd;
+                $km->kmNgaykt=$re->kmNgaykt;
                 }
                 else
                 {
-                    Session::flash('err',"Ngày bắt đầu khuyến mãi phải là trong tương lai !");
-                    return redirect()->back();
+                Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
+                        return redirect()->back();
                 }
 
                 if($re->kmSoluong!=null)
@@ -1611,8 +1603,18 @@ public function adCheckAddKhuyenmai(Request $re)
                 }
                 $km->kmGiatritoida=$re->kmGiatritoida;
                 $date=getdate();
+                if($re->kmTinhtrang!=0)
+                {
+                    $km->kmTinhtrang=1;    
+                }
+                else
+                {
+                    $km->kmTinhtrang=0;       
+                }
+                
                 $km->kmMa=$date['seconds'].$date['minutes'].$date['yday'].$date['mon'];
-                $kmMa=$km->kmMa.$date['year'];
+                //dd($km->kmMa);
+                $kmMa=$km->kmMa;
                 Session::flash('success','Thêm thành công !');
                 $list="";
                 $km->save();
@@ -1623,16 +1625,12 @@ public function adCheckAddKhuyenmai(Request $re)
                         $sp=sanpham::where('spMa',$v)->first();
                         $sp->kmMa=$kmMa;
                         $sp->spSlkmtoida=$km->kmSoluong;
-                        //dd($km,$sp);
+                            
                         
                         $list.=' '.$v.',';
                         $sp->update();    
                     }
                 }
-                
-
-                
-                //dd($re->checkboxsp);
                 
                 //Save_log
                 $ad_log=new admin_log();
@@ -1657,10 +1655,10 @@ public function adCheckAddKhuyenmai(Request $re)
         {
             foreach($checkExistProduct as $i)
             {
-            $sp = sanpham::where('spMa',$i->spMa)->first();
-            $sp->kmMa==null;
-            $sp->spSlkmtoida=null;
-            $sp->update();
+                $sp = sanpham::where('spMa',$i->spMa)->first();
+                $sp->kmMa==null;
+                $sp->spSlkmtoida=null;
+                $sp->update();
             }
         }
         
@@ -1691,7 +1689,7 @@ public function adCheckAddKhuyenmai(Request $re)
        
         if(Session::has('adTaikhoan'))
         {   
-            $checksanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->join('hinh','sanpham.spMa','hinh.spMa')->get();
+            $checksanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->join('hinh','sanpham.spMa','hinh.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->get();
             $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
             $noteDonhang = donhang::where('hdTinhtrang',0)->count();
@@ -1709,6 +1707,7 @@ public function adCheckAddKhuyenmai(Request $re)
                     array_push($sanpham, $i);
                 }
             }
+            //dd($sanpham);
             return view('admin.suaKhuyenmai',compact('km','sanpham','noteDanhgia','noteDonhang','noteDonhang1'));
         }
         else
@@ -1847,6 +1846,14 @@ public function adCheckAddKhuyenmai(Request $re)
                     $km->kmGiatritoida=$re->kmGiatritoida;
                     $checkFixed++; 
                 }
+                if($re->kmTinhtrang!=0)
+                {
+                    $km->kmTinhtrang=1;    
+                }
+                else
+                {
+                    $km->kmTinhtrang=0;       
+                }
                 
                 $date=getdate();
                 
@@ -1901,6 +1908,28 @@ public function adCheckAddKhuyenmai(Request $re)
         }
       }
 
+      public function switchStatus(Request $re)
+      {
+        $checkExistKhuyenmai=khuyenmai::Where('kmMa',$re->id)->first();
+        if($checkExistKhuyenmai)
+        {
+            if($checkExistKhuyenmai->kmTinhtrang!=0)
+            {
+                $checkExistKhuyenmai->kmTinhtrang=0;
+                $checkExistKhuyenmai->update();
+            }
+            else
+            {
+                $checkExistKhuyenmai->kmTinhtrang=1;
+                $checkExistKhuyenmai->update();
+            }
+        }
+        else
+        {
+            Session::flash('err','Khuyến mãi không tồn tại !');
+        }
+        return redirect::to('adKhuyenmai');
+      }
 //end khuyến mãi  
 
   //Bình luận đánh giá

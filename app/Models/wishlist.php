@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class khuyenmai_log extends Model
+class wishlist extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table='khuyenmai_log';
-    protected $fillable=['kmMa','kmgSolan','kmMa'];
+    protected $table='wishlist';
+    protected $fillable=['khMa','spMa'];
 }

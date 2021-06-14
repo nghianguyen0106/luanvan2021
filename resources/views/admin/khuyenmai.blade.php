@@ -38,6 +38,7 @@
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
                                             <th>Trị giá </th>
+                                            <th>Tình trạng (ẩn/hiện)</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -65,6 +66,16 @@
                                             <td>{{$value->kmNgaykt}}</td>
 
                                             <td>{{$value->kmTrigia}} %</td>
+                                            <td>
+                                                <label class="switch">
+                                                <a href="{{URL::to('switchStatus/'.$value->kmMa)}}">
+                                                  <input type="checkbox" name="kmTinhtrang" value="1" 
+                                                  @if($value->kmTinhtrang!=0) checked="" @endif>
+                                                  <span class="slider round"></span>
+                                                </a>
+                                                </label>
+
+                                            </td>
                                             <td>
                                                 <a  href="{{URL::to('suaKhuyenmaipage/'.$value->kmMa)}}">
                                                     <i class="fa fas fa-edit" style="color: blue;"></i>

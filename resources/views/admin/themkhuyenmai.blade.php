@@ -41,8 +41,12 @@
 						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
 					</div>
 					<div class="mb-4 col-4">
-						<label for="mota">Giá khuyến mãi tối đa
-						<input type="number" class="form-control" style="width: 190px;"  name="kmGioihanmoikh"><span style="color: red;"></span></label>
+						<label for="mota">Tình trạng
+							<span><label class="switch">
+						  <input type="checkbox" name="kmTinhtrang" value="1" checked>
+						  <span class="slider round"></span>
+						</label></span>
+			</label>
 					</div>
 					
 					<div  class="mb-3 col-12">

@@ -23,9 +23,9 @@
     <link href="{{url('public/style_admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-   <link rel="stylesheet" type="text/css" href="{{URL::to('public/style_admin/css/tooltip.css')}}">
+   <link rel="stylesheet" type="text/css" href="{{URL::asset('public/style_admin/css/tooltip.css')}}">
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+   <link rel="stylesheet" type="text/css" href="{{URL::asset('public/style_admin/css/switchbutton.css')}}">
 
 </head>
 

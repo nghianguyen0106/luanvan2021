@@ -77,9 +77,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							
 					</li>
 					<li>
-						&emsp;<a href="{{URL::to('/checkout')}}">
+						&emsp;
+						<a href="{{URL::to('/checkout')}}">
 						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								({{Cart::count()}})Giỏ hàng
+								({{Cart::count()}}) Giỏ hàng
 						</a>
 					</li>
 					<li>
@@ -101,6 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Tin tức</a></li>
 				    	@if(Session::has('khTen'))
 				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng</a></li>
+				    		  		<li class="list__menu--item"><a href="{{URL::to('wishlist')}}">Danh mục yêu thích</a></li>
 				    		  		@endif
 				 </ul>
 			</div>

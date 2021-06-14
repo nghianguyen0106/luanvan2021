@@ -11,14 +11,15 @@ use Session;
 session_start();
 
 //Models
-use App\Models\giohang;
+
 use App\Models\sanpham;
 use App\Models\khachhang;
 use App\Models\donhang;
 use App\Models\chitietdonhang;
 use App\Models\kho;
 use App\Models\khuyenmai;
-use App\Models\khuyenmai_log;
+use App\Models\wishlist;
+
 
 
 class cartController extends Controller
@@ -38,35 +39,7 @@ class cartController extends Controller
             elseif(in_array($productInfo->spMa,$count)==null)
             {
                 array_push($count,$productInfo->spMa);
-                $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->select('ghSoluong')->first();
-                if(Session::has('khMa'))
-                {
-                     if($checkExistIteminCart==null)
-                    {
-                        $cart=new giohang();
-                        $cart->khMa=$khMa;
-                        $cart->spMa=$productInfo->spMa;
-                        $cart->ghSoluong=1;
-                        $cart->save();
-                    }
-                    else
-                    {  
-                        $cart=cart::content();
-                        foreach($cart as $v)
-                        {
-                            if($v->qty < $productInfo->khoSoluong)
-                            {
-                                $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
-                                DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
-                            }
-                            else
-                            {
-                                Session::flash('errCart','Số lượng sản phẩm:'.$productInfo->spTen.' trong giỏ hàng đã đạt tối đa !');
-                                return Redirect::to('product');
-                            }
-                        }
-                    }
-                }
+                
                 Cart::add( $productInfo->spMa , $productInfo->spTen , 1 ,$productInfo->spGia ,0, [ 'spHinh' => $productInfo->spHinh] );
                 Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
             }
@@ -77,35 +50,7 @@ class cartController extends Controller
     {
         $productInfo=sanpham::join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('sanpham.spMa','=',$re->id)->first();
                 $khMa=Session::get('khMa');
-                if(Session::has('khMa'))
-                {
-                    $checkExistIteminCart=giohang::where('khMa',$khMa)->where('spMa',$productInfo->spMa)->first();
-                     if($checkExistIteminCart==null)
-                    {
-                        $cart=new giohang();
-                        $cart->khMa=$khMa;
-                        $cart->spMa=$productInfo->spMa;
-                        $cart->ghSoluong=1;
-                        $cart->save();
-                    }
-                    else
-                    {   
-                       $cart=cart::content();
-                        foreach($cart as $v)
-                        {
-                            if($v->qty < $productInfo->khoSoluong)
-                            {
-                                $quanty['ghSoluong']=$checkExistIteminCart->ghSoluong+1;
-                                DB::table('giohang')->where('khMa',$khMa)->where('spMa',$productInfo->spMa)->update($quanty);
-                            }
-                            else
-                            {
-                                Session::flash('errCart','Số lượng sản phẩm:'.$productInfo->spTen.' trong giỏ hàng đã đạt tối đa !');
-                                return Redirect::to('product');
-                            }
-                        }
-                    }
-                }
+                
         Cart::add($productInfo->spMa,$productInfo->spTen,$re->quanty,$productInfo->spGia,0,[ 'spHinh' => $productInfo->spHinh] );
 
         Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
@@ -115,7 +60,6 @@ class cartController extends Controller
     public function destroy()
     {
         Cart::destroy();
-        DB::table('giohang')->where('khMa',Session::get('khMa'))->delete();
         return redirect()->back();
     }
 
@@ -123,11 +67,7 @@ class cartController extends Controller
     {
   
         //dd(Cart::get($re->id)->id);
-        if(Session::has('khMa'))
-        {
-            $productInfo=sanpham::where('spMa',Cart::get($re->id)->id)->first();
-            giohang::where('khMa',Session::get('khMa'))->where('spMa',Cart::get($re->id)->id)->delete();
-        }
+      
         Cart::remove($re->id);
         return redirect()->back();
     }
@@ -140,10 +80,6 @@ class cartController extends Controller
         {
             $d=$check->qty;
             $d++;
-
-            $productInfo=giohang::join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
-            
-            giohang::where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
             Cart::update($re->id,$d);
         }
         else
@@ -161,15 +97,11 @@ class cartController extends Controller
         if($check->qty==1)
         {
             Cart::remove($re->id);
-            DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->delete();
+            
             return Redirect::to('checkout');
         }
         $d=$check->qty;
         $d--;
-
-        $productInfo=DB::table('giohang')->join('sanpham','sanpham.spMa','giohang.spMa')->where('sanpham.spMa',$check->id)->first();
-        DB::table('giohang')->where('khMa',Session::get('khMa'))->where('spMa',$check->id)->update(['ghSoluong'=>$d]);
-
         Cart::update($re->id,$d);
         //dd(Cart::get($re->id));
         return Redirect::to('checkout');
@@ -206,22 +138,6 @@ class cartController extends Controller
                     {
                         $dh->hdGiamgia=$re->discount;
                         $dh->hdGiakhuyenmai=$re->price;
-                        
-                        //save to khuyenmai_log table
-                        $checkExistKhuyenmai_log=khuyenmai_log::where('kmMa',$re->kmMa)->where('khMa',Session::get('khMa'))->first();
-                        if($checkExistKhuyenmai_log)
-                        {
-                            $sl['kmgSolan']=$checkExistKhuyenmai_log->kmgSolan+=1;
-                            DB::table('khuyenmai_log')->where('khMa',Session::get('khMa'))->where('kmMa',$re->kmMa)->update($sl);
-                        }
-                        else
-                        {
-                            $kmg= new khuyenmai_log();
-                            $kmg->kmMa=$promoInfo->kmMa;
-                            $kmg->khMa=Session::get('khMa');
-                            $kmg->kmgSolan=1;
-                            //$kmg->save();
-                        }
                     }
                     else
                     {
@@ -292,10 +208,8 @@ class cartController extends Controller
                     }
 
                     //clear cart
-                     //   Cart::destroy();
-                    giohang::where('khMa',Session::get('khMa'))->delete();
+                    Cart::destroy();
                     $this->sendmail($hdMa);
-                    
                     return Redirect::to('product');
                 }
                 else
@@ -324,4 +238,25 @@ class cartController extends Controller
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
     }
     
+
+
+    public function addtowishlist(Request $re)
+    {
+        $checkExistProduct=sanpham::join('wishlist','wishlist.spMa','sanpham.spMa')->where('sanpham.spMa',$re->id)->first();
+        if(!$checkExistProduct)
+        {
+            $wl=new wishlist();
+            $wl->spMa=$re->id;
+            $wl->khMa=Session::get('khMa');   
+            $wl->save(); 
+            Session::flash('success','Đã thêm vào danh mục yêu thích.');
+            
+        }
+        else
+        {
+            $wl=wishlist::where('spMa',$checkExistProduct->spMa)->delete();
+            Session::flash('success','Đã xóa khỏi danh mục yêu thích.');
+        }
+        return Redirect()->back();
+    }
 }

@@ -41,7 +41,7 @@ Route::get('facebookredirect','loginController@facebookredirect');
 // -------Product -----------//
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
-Route::post('findpro','homeController@findpro');
+Route::get('findpro','homeController@findpro');
 	//--comment
 Route::post('addcomment/{id}','homeController@addcomment');
 Route::get('deletecomment/{id}','homeController@deletecomment');
@@ -59,7 +59,9 @@ Route::get('sendmail','cartController@sendmail');
 Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
 Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
 
-
+//Wishlist
+Route::get('wishlist','homeController@wishlist');
+Route::get('addtowishlist/{id}','cartController@addtowishlist');
 //--Đơn hàng--//
 Route::get('huy-don/{id}','homeController@huyDon');
 //---------------------------------------------END USER--------------------------------------------//
@@ -151,7 +153,7 @@ Route::post('/checkAddKhuyenmai','adminController@adCheckAddKhuyenmai');
 Route::get('/deleteKhuyenmai/{id}','adminController@adDeleteKhuyenmai');
 Route::get('suaKhuyenmaipage/{id}','adminController@suaKhuyenmaipage');
 Route::post('checkSuaKhuyenmai/{id}','adminController@suaKhuyenmai');
-
+Route::get('switchStatus/{id}','adminController@switchStatus');
 
 
 ////--Bình luận--//
