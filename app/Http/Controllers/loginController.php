@@ -74,32 +74,33 @@ class loginController extends Controller
            }
            else
            {
-                //if not exist Account go to auto register
-                $data['khTen']=substr($userInfo->name,0,stripos($userInfo->name," "));
-                $data['khMatkhau']=md5("123"); 
-                $data['khEmail']=$userInfo->email;
-                $data['khNgaysinh']=date_create();
-                $data['khDiachi']='';
-                $data['khQuyen']=0;
-                $data['khGioitinh']=0;
-                $data['khSdt']=0;
-                $data['khTaikhoan']=$userInfo->id;
-                $data['khNgaythamgia']=date_create();
+                //if Account is not exist go to auto register
+                $kh=new khachhang();
+                $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
+                $kh->khMatkhau=md5("12345678");
+                $kh->khEmail=$userInfo->email;            
+                $kh->khNgaysinh=date_create();
+                $kh->khDiachi='';
+                $kh->khQuyen=0;
+                $kh->khGioitinh=0;
+                $kh->khSdt="";
+                $kh->khTaikhoan=$userInfo->id;
+                $kh->khNgaythamgia=date_create();
+                $kh->khXtemail=1;
+                $date=getdate();
                 //dd($data);
-                $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
-                DB::table('khachhang')->insert($data);
+                $kh->khMa=strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
+                
                 
                 //login
-                session::put("khMa",$data['khMa']);
-                session::put("khTen",$data['khTen']);
-                session::put('khTaikhoan',$data['khTaikhoan']);
-                session::put('khEmail',$data['khEmail']);
-                Session::flash('loginmess','Đăng ký thành công vui lòng xác thực Email và kiểm tra thông tin trong mục thông tin cá nhân !');
-                Session::flash('name','Chào '.$data['khTen'].' !!!');
+                session::put("khMa",$kh->khMa);
+                session::put("khTen",$kh->khTen);
+                session::put('khTaikhoan',$kh->khTaikhoan);
+                session::put('khEmail',$kh->khEmail);
+               
+                $kh->save();
                 return Redirect::to('product');
-      
            }
-       
     }
 
     public function loginFacebook()
@@ -117,46 +118,49 @@ class loginController extends Controller
         {
                 $userInfo=Socialite::driver('facebook')->user();
                 //dd($userInfo);
-                $checkEmail= khachhang::where('khEmail',$userInfo->email)->first();
-               if($checkEmail!=null)
-               {
-                    session::put("khMa",$checkEmail->khMa);
-                    session::put("khTen",$checkEmail->khTen);
-                    session::put('khTaikhoan',$checkEmail->khTaikhoan);
-                    session::put('khMa',$checkEmail->khMa);
-                    session::put('khEmail',$checkEmail->khEmail);
-                    session::put('khHinh',$checkEmail->khHinh);
-                    session::put('khDiachi',$checkEmail->khDiachi);
-                    session::put('khSdt',$checkEmail->khSdt);
-                    Session::flash('loginmess','Đăng nhập thành công !');
-                    Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
+               $checkEmail=khachhang::where('khEmail',$userInfo->email)->first();
+           if($checkEmail!=null)
+           {
+                session::put("khMa",$checkEmail->khMa);
+                session::put("khTen",$checkEmail->khTen);
+                session::put('khTaikhoan',$checkEmail->khTaikhoan);
+                session::put('khMa',$checkEmail->khMa);
+                session::put('khEmail',$checkEmail->khEmail);
+                session::put('khHinh',$checkEmail->khHinh);
+                session::put('khDiachi',$checkEmail->khDiachi);
+                session::put('khSdt',$checkEmail->khSdt);
+                Session::flash('loginmess','Đăng nhập thành công !');
+                Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
 
-                
                 return Redirect::to('product');
-                }
-                else
-                {
-                    $data['khTen']=substr($userInfo->name,0,stripos($userInfo->name," "));
-                    $data['khMatkhau']=md5("123"); 
-                    $data['khEmail']=$userInfo->email;
-                    $data['khNgaysinh']=date_create();
-                    $data['khDiachi']="";
-                    $data['khQuyen']=0;
-                    $data['khGioitinh']=0;
-                    $data['khSdt']=0;
-                    $data['khTaikhoan']=$userInfo->id;
-                    $data['khNgaythamgia']=date_create();
+           }
+           else
+           {
+                //if Account is not exist go to auto register
+                $kh=new khachhang();
+                $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
+                $kh->khMatkhau=md5("123456789");
+                $kh->khEmail=$userInfo->email;            
+                $kh->khNgaysinh=date_create();
+                $kh->khDiachi='';
+                $kh->khQuyen=0;
+                $kh->khGioitinh=0;
+                $kh->khSdt="";
+                $kh->khTaikhoan=$userInfo->id;
+                $kh->khNgaythamgia=date_create();
+                $kh->khXtemail=1;
+                $date=getdate();
                 //dd($data);
-                    $data['khMa']="".strlen($data['khTen']).strlen( $data['khDiachi']).strlen($data['khTaikhoan']).strlen($data['khMatkhau']);
-                    DB::table('khachhang')->insert($data);
-                    //login
-                    session::put("khMa",$data['khMa']);
-                    session::put("khTen",$data['khTen']);
-                    session::put('khTaikhoan',$data['khTaikhoan']);
-                    session::put('khEmail',$data['khEmail']);
-                    Session::flash('loginmess','Đăng ký thành công vui lòng xác thực Email và kiểm tra thông tin trong mục thông tin cá nhân !');
-                    Session::flash('name','Chào '.$data['khTen'].' !!!');
-                    return Redirect::to('product');
+                $kh->khMa=strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
+                
+                
+                //login
+                session::put("khMa",$kh->khMa);
+                session::put("khTen",$kh->khTen);
+                session::put('khTaikhoan',$kh->khTaikhoan);
+                session::put('khEmail',$kh->khEmail);
+                $kh->save();
+                return Redirect::to('product');
           
                }
         }
@@ -167,7 +171,7 @@ class loginController extends Controller
           $date=getdate();
         if($checkAccount)
         {
-            $details=strlen($checkAccount->khMa).$checkAccount->khMa.$date['seconds'].$date['minutes'].$date['hours'].$date['hours'].$date['yday'];
+            $details=strlen($checkAccount->khMa).$checkAccount->khMa.$date['seconds'].$date['minutes'].$date['hours'].$date['yday'];
             
             DB::table('khachhang')->where('khEmail',$re->email)->update(['khResetpassword'=> $details]);
            Mail::to($re->email)->send(new \App\Mail\mailToGetAcc($details));
@@ -188,6 +192,7 @@ class loginController extends Controller
     
     public function changepassword(Request $re)
     {
+        //dd($re->id);
         if($re->id == null)
         {
             session::flash('loginmessage','Đường link không hợp lệ!!');

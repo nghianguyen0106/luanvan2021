@@ -88,28 +88,27 @@ Giỏ hàng
 						<ul>
 							<li style="color:black;" class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li><li><hr></li>
 						@foreach($promotion as $v)
-						
+			
 						@if( $v->spSlkmtoida!=0 )
-							<li></li>
 							<li style="color:black;" class="promoItem">
-
+								@if($b)
+									@foreach($b as $k=> $i)
+										@if($i['kmMa']==$v->kmMa && $i['kmSolan'] <= $v->kmGioihanmoikh)
+											
+											<ul>
+												<li class="promotitleItem" style="color:black;"><input type="radio" name="promo" class=" form-inline form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;{{$v->kmTen}}</li>
+												<li style="color:black;">{{$v->kmMota}}</li>
+												<li style="color:black;">
+													Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND
+												</li>
+											</ul> 
+										@endif
+									@endforeach
+								@endif
 										
-									<input type="radio" name="promo" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">{{$v->kmTen}}
-									
-
-									<input type="radio" name="promo" disabled="" class="form-check-input" value="{{$v->kmMa}},{{$v->spMa}}"> {{$v->kmTen}} 	(Bạn đã dùng tối đa số lần cho khuyến mãi này.)
-						
-								
-							
-
 								 
 
-								<ul>
-									<li style="color:black;">{{$v->kmMota}}</li>
-									<li style="color:black;">
-										Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND
-									</li>
-								</ul>
+								
 							</li>
 						@endif
 						@endforeach

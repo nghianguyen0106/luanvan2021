@@ -1,9 +1,30 @@
 .promoTitle{
-	color: ;
 	font-size: 30px;  
 	animation-name: example;
   	animation-duration: 4s;
   	animation-iteration-count: infinite;
+}
+.promotitleItem{
+  font-weight: bold;
+  font-size: 15px;
+  animation-name: example1;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+@keyframes example1 {
+  0%   {color: red;}
+  7%   {color: orange;}
+  14%  {color: yellow;}
+  26% {color: green;}
+  35%  {color: blue;}
+  46%  {color: indigo;}
+  55%  {color: violet;}
+  66%  {color: indigo;}
+  73%  {color: blue;}
+  82% {color: green;} 
+  88%  {color: yellow;}
+  98%   {color: orange;}
+  100%   {color: red;}
 }
 
 @keyframes example {
@@ -23,7 +44,7 @@
 }
 .promotionItem{
 	border: 2px solid orange;
-	box-shadow: 2px solid black;
+	box-shadow: 5px 6px solid black;
 }
 .promotionItem .promoName{
 	color: Red;

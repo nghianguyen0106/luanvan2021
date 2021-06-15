@@ -11,7 +11,7 @@
       <div class="col-lg-6 col-sm-12">
 <form id="box__editPass" class="box__info"  action="{{url('editPass/'.$v->khMa)}}" method="post">
 					{{csrf_field()}}
-					<legend style="color:orange">Đổi mật khẩu</legend>
+					<legend style="color:orange">Đổi mật khẩu (Mặc định khi mới tạo tài khoản là 123456789)</legend>
 					 <div class="content__login--form">
 					<div class="form-group">
 						<input onblur="onPass1()" id="cont__pass" class="form-control input__upPass" type="password"  name="khPassCu" placeholder=" " />

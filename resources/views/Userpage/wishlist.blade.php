@@ -10,6 +10,7 @@ Danh mục yêu thích
 				<thead>
 					<th>STT</th>
 					<th>Tên sản phẩm</th>
+					<th></th>
 					<th>Loại</th>
 					<th>Thương hiệu</th>
 					<th>Giá</th>
@@ -20,7 +21,8 @@ Danh mục yêu thích
 					@foreach($wl as $k=> $i)
 					<tr>
 						<td>{{$k+1}}</td>
-						<td>{{$i->spTen}}</td>
+						<td><a  href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></td>
+						<td><a  href="{{URL::to('proinfo/'.$i->spMa)}}"><img style="height: 150px;" src="{{URL::asset('public/images/products/'.$i->spHinh)}}"></a></td>
 						<td>{{$i->loaiTen}}</td>
 						<td>{{$i->thTen}}</td>
 						<td>{{number_format($i->spGia)}} VND</td>

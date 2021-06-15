@@ -28,7 +28,7 @@ Thông tin cá nhân
 				</div>
 				<br/>
 				<div class="flex__info">
-					<span class="info__item">Tài khoản đăng nhập:</span>
+					<span class="info__item">Tên đăng nhập: </span>
 					<span  class="info__item">
 						<input class="ip" type="text" value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
 					</span>
@@ -131,6 +131,27 @@ Swal.fire({
  
 })
 </script> 
+@endif
+
+@if(Session::has('success'))
+<script type="text/javascript" >
+	Swal.fire({
+		icon:'info',
+  title: '{{Session::get('success')}}',
+  showDenyButton: true,
+
+  confirmButtonText: `Ok`,
+  denyButtonText: `Để sau`,
+
+}).then((result) => {
+  if(result.isDenied) 
+  {
+    document.location.href="{{URL::to('cancelinfo')}}";
+  }
+})
+
+</script> 
+
 @endif
 @endsection
 

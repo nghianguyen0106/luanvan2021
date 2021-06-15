@@ -116,7 +116,7 @@ class cartController extends Controller
                 $checkQty=kho::where('spMa',$v->id)->first();
                 if($v->qty>$checkQty->khoSoluong)
                 {
-                    session::flash('err','Sản phẩm '.$v->name.' Vừa có khách hàng đặt trước bạn và cũng là sản phẩm cuối cùng, vui lòng liên hệ Hotline để biết thêm thông tin!');
+                    session::flash('err','Sản phẩm '.$v->name.' còn: '.$checkQty->khoSoluong.', vui lòng liên hệ Hotline để biết thêm thông tin!');
                     return Redirect::to('checkout');
                 }
             }
@@ -163,8 +163,8 @@ class cartController extends Controller
                     {
                         if($customerInfo->khSdt<100000000|| $customerInfo->khSdt>10000000000)
                         {
-                            session::flash('errsdt','Số điện thoại trong thông tin cá nhân không hợp lệ !');
-                            return redirect()->back();
+                            session::flash('err','Số điện thoại trong thông tin cá nhân không hợp lệ !');
+                            return redirect('infomation/'.Session::get('khMa'));
                         }
                         else
                         {
@@ -188,20 +188,22 @@ class cartController extends Controller
                         //update Quanty of Kho table
                         $productInfo=kho::where('spMa',$i->id)->first();
                         $updateKho['khoSoluong']=$productInfo->khoSoluong-$i->qty;
-                        DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
-                        //
+                        //DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
 
+                        //
+                        
                         $ct=new chitietdonhang();
                         $ct->hdMa=$hdMa;
                         $ct->spMa= $i->id;
                         $ct->cthdSoluong=$i->qty;
-                        $ct->cthdGia=$i->price * $i->qty;
-                        if($productInfo->spMa==$re->spMa && $productInfo->spSlkmtoida >0 )
+                        $ct->cthdGia=$i->price * $i->qty;  
+                        $proinfo=sanpham::where('spMa',$re->spMa)->first();
+                        if($productInfo->spMa==$re->spMa && $proinfo->spSlkmtoida > 0 )
                         {
-                            $proinfo=sanpham::where('spMa',$re->spMa)->first();
                             $proinfo->spSlkmtoida-=$i->qty;
+                            //dd($proinfo);
                             $proinfo->update();
-                            $ct->cthdTrigiakm=$re->discount;    
+                            $ct->cthdTrigiakm=$re->discount; 
                         }
                         
                         $ct->save();
@@ -210,7 +212,7 @@ class cartController extends Controller
                     //clear cart
                     Cart::destroy();
                     $this->sendmail($hdMa);
-                    return Redirect::to('product');
+                    
                 }
                 else
                 {
@@ -224,10 +226,9 @@ class cartController extends Controller
                 return Redirect::to('login');
             }
         }
-        else
-        {   
+  
             return Redirect::to('product');
-        }
+        
     }
 
     public function sendmail($hdMa)

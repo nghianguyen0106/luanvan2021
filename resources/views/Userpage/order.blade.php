@@ -31,16 +31,12 @@ Danh sách đơn hàng
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>
 								@if($i->hdTinhtrang==0)
-<<<<<<< HEAD
-									<td><span stylFFe="color:red;">Đang chờ xác nhận</span></td>
-									<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
-=======
+
 									<td><span style="color:red;">Đang chờ xác nhận</span></td>
 										<td><a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}" >Hủy đơn</a></td>
->>>>>>> cc0983f3c7cf66021094a2fed900629c3eccbbce
-									@elseif($i->hdTinhtrang==1)
+								@elseif($i->hdTinhtrang==1)
 										<td><span style="color:blue;">Đang giao hàng</span></td>
-									@elseif($i->hdTinhtrang==2)
+								@elseif($i->hdTinhtrang==2)
 										<td><span style="color:green;">Đã thanh toán</span></td>
 								@endif
 							</td>

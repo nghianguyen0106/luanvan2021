@@ -14,6 +14,8 @@ Route::get('updatePass/{id}','homeController@updatePass');
 Route::post('editPass/{id}','homeController@editPass');
 Route::get('changeEmail/{id}','homeController@changeEmail');
 Route::get('listorder','homeController@listorder');
+Route::post('addInfomation/{id}','loginController@addInfomation');
+Route::get('cancelinfo','homeController@cancelinfo');
 //--------User register------//
 Route::get('/register','registerController@index');
 Route::post('/getregister','registerController@getregister');
@@ -66,7 +68,11 @@ Route::get('addtowishlist/{id}','cartController@addtowishlist');
 Route::get('huy-don/{id}','homeController@huyDon');
 //---------------------------------------------END USER--------------------------------------------//
 
-
+// test view
+Route::get('test',function()
+{
+	return view('userpage.addInfomation');
+});
 
 
 

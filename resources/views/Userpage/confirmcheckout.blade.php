@@ -61,7 +61,7 @@ Xác nhận hóa đơn
 
 													<td></td>
 													<td></td>
-													<td><span style="font-weight: BOLD;">TỔNG TIỀN:</span>	</td>
+													<td><span style="font-weight: bold;">TỔNG TIỀN:</span>	</td>
 													<td>
 														<span style="color: red;font-weight: bold; font-size: 20px;">{{number_format($total)}} VND</span>
 														<input type="number" style="display:none" readonly="" value="{{$total}}" name="total">  
@@ -77,9 +77,10 @@ Xác nhận hóa đơn
 												<tr>
 													<td></td>
 													<td></td>
-													<td><span style="font-weight: BOLD;">TỔNG TIỀN:</span>	</td>
+													<td><span style="font-weight: bold;">TỔNG TIỀN:</span>	</td>
 													<td>
-														 <input type="number" style="width:200px;border: none; font-size: 20px;text-align: center;color: red;font-weight: bold;" readonly="" value="{{$total}}" name="total">  VND
+														<span style="color: red;font-weight: bold; font-size: 20px;">{{number_format($total)}} VND</span>
+														 <input type="number" style="display:none" readonly="" value="{{$total}}" name="total">  
 													</td>
 												</tr>
 											</tfoot>
@@ -105,7 +106,7 @@ Xác nhận hóa đơn
 						</div>
 
 						 <div class="mb-3 col-lg-12">
-					     <button id="show__boxAddress" type="button" class="btn btn-secondary">Gửi đến bạn bè</button>
+					     <button id="show__boxAddress" type="button" class="btn btn-secondary">Gửi đến địa chỉ khác</button>
 					     <div id="update__address">
 					     	<br/>
 					     	 <label for="address" class="form-label">Địa chỉ giao hàng:</label>

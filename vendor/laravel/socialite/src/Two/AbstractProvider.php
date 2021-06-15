@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Contracts\Provider as ProviderContract;
+use Illuminate\Support\Facades\Redirect;
+
 
 abstract class AbstractProvider implements ProviderContract
 {
@@ -233,7 +235,7 @@ abstract class AbstractProvider implements ProviderContract
         }
 
         if ($this->hasInvalidState()) {
-            throw new InvalidStateException;
+            return view('userpage.userlogin');
         }
 
         $response = $this->getAccessTokenResponse($this->getCode());

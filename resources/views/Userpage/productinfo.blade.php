@@ -65,7 +65,7 @@ Thông tin sản phẩm
 					@endif
 						</div>
 
-						@if($availPromo!=null && $proinfo->khoSoluong>0)
+						@if($availPromo->count() != 0 && $proinfo->khoSoluong>0)
 						<div class="mb-3 col-12">
 							<i class="far fa-star promoTitle"> Chương trình khuyến mãi khả dụng:</i>
 							@foreach($availPromo as $v)
@@ -86,7 +86,8 @@ Thông tin sản phẩm
 					
 					@if($proinfo->khoSoluong>0)
 					<div class="occasion-cart">
-						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button>
+						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button><span></span>
+						<a href="{{URL::to('addtowishlist/'.$v->spMa)}}" class="btn btn-danger"><i class="fas fa-heart"></i></a>
 					</div>
 					@endif
 			</form>
@@ -194,32 +195,29 @@ Thông tin sản phẩm
 			   			@if(count($comment)>0)
 			   			@foreach($comment as $i)
 			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
-			   			<div class="list-group-item-primary mb-3 p-4 row">
-			   				<div class="col-11">
-			   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong> <span class="date">{{$i->dgNgay}}</span></div>
-			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
-			   					
-			   				</div>
-			   				<div class="col-1"><a class="btn btn-outline-danger" href="{{URL::to('deletecomment/'.$i->dgMa)}}">X</a></div>
-
-			   				<hr>
-			   			</div>
-			   			@else
-			   			<div class="list-group-item mb-3">
-			   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong>  <span class="date">{{$i->dgNgay}}</span></div>
-			   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
-			   				<hr>
-			   			</div>
-			   			@endif
+					   			<div class=" mb-3 p-4 row">
+					   				<div class="col-11">
+					   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong> <span class="date">{{$i->dgNgay}}</span></div>
+					   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
+					   					
+					   				</div>
+					   				<div class="col-1"><a class="btn btn-outline-danger" href="{{URL::to('deletecomment/'.$i->dgMa)}}">X</a></div>
+					   				<hr>
+					   			</div>
+				   			@else
+					   			<div class="list-group-item mb-3">
+					   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong>  <span class="date">{{$i->dgNgay}}</span></div>
+					   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
+					   				<hr>
+					   			</div>
+				   			@endif
 			   			@endforeach
 			   			@else
 			   			<div class="col-12"> <p class="bg-info">Chưa có bình nào về sản phẩm này.</p></div>
 			   			@endif
 			   			
-			   		{{-- add comment --}}
-			   		{{-- @dd($checkordered) --}}
 			   			@if($checkordered!=null)
-			   			<form action="{{URL::to('addcomment/'.$id)}}" method="post" accept-charset="utf-8">
+			   			<form action="{{URL::to('addcomment/'.$i->spMa)}}" method="post" accept-charset="utf-8">
 			   				{{ csrf_field() }}
 			   				<div class="form-floating mb-3">
 							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >

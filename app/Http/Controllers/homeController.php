@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Cart;
+use Illuminate\Support\Facades\Mail;
 //Models
 use App\Models\thuonghieu;
 use App\Models\loai;
@@ -21,10 +22,9 @@ use App\Models\khachhang;
 use App\Models\mota;
 use App\Models\slide;
 use App\Models\wishlist;
+use App\Models\donhang;
+//
 
-
-
-use Illuminate\Support\Facades\Mail;
 class homeController extends Controller
 {
     public function welcome()
@@ -63,6 +63,16 @@ class homeController extends Controller
 // PRODUCT
      public function product()
     {
+        if(Session::has('khMa'))
+        {
+            $kh= khachhang::where('khMa',Session::get('khMa'))->first();
+            if ($kh->khDiachi==null || $kh->khSdt ==null)
+            {
+                Session::flash('success',' Vui lòng điền thông tin của bạn để phục vụ cho việc giao hàng !');
+                return Redirect::to('infomation/'.Session::get('khMa'));
+            }
+        }
+
         $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
@@ -97,8 +107,19 @@ class homeController extends Controller
     public function proinfo(Request $re)
     {
         $comment=danhgia::where('spMa',$re->id)->leftjoin('khachhang','danhgia.khMa','khachhang.khMa')->orderBy('dgNgay','asc')->get();
-        $checkordered=khachhang::join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',4)->select('spMa')->first();
+        $countorderedProduct=khachhang::join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',2)->count();
+        $usercomment=danhgia::where('khMa',Session::get('khMa'))->where('spMa',$re->id)->count();
+            // dd($countorderedProduct,$usercomment);
+        if($countorderedProduct > $usercomment)
+        {
+            $checkordered=khachhang::join('donhang','donhang.khMa','khachhang.khMa')->join('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->where('chitietdonhang.spMa',$re->id)->where('donhang.khMa',Session::get('khMa'))->where('donhang.hdTinhtrang',2)->select('spMa')->first();
+        }
+        else
+        {
+            $checkordered=null;
+        }
 
+        
         
 
 
@@ -434,10 +455,22 @@ class homeController extends Controller
         $today=date_create();
      
         $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
-      
+        $b=array();
+        if(Session::has('khMa'))
+        {
+            foreach($checkexistKhuyenmai as $k => $i)
+            {
+                $checkordered=donhang::leftjoin('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->join('sanpham','sanpham.spMa','chitietdonhang.spMa')->where('sanpham.kmMa',$i->kmMa)->groupby('donhang.khMa')->count();
+                $kmcheck['kmMa']=$i->kmMa;
+                $kmcheck['kmSolan']=$checkordered;
+                array_push($b,$kmcheck);
+            }
+        }
+        
+       
         
             
-        return view('Userpage.checkout',compact('cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
+        return view('Userpage.checkout',compact('b','cate','cart','total'))->with('promotion',$checkexistKhuyenmai);
     }
 
     public function order(Request $re)
@@ -629,6 +662,17 @@ class homeController extends Controller
                 }
            }
         }
+    }
+
+    public function cancelinfo()
+    {
+        $kh=khachhang::where('khMa',Session::get('khMa'))->first();
+        $kh->khDiachi="x";
+        $kh->khSdt="x";
+        $kh->update();
+        Session::flash('loginmess','Đăng nhập thành công !');
+            Session::flash('name','Chào '.$kh->khTen.' !!!');
+        return Redirect::to('product');
     }
     // Verify Email
     public function verifyemail($id)
