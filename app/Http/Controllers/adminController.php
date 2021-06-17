@@ -236,7 +236,7 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data = DB::table('banner')->get();
+            $data = DB::table('slide')->orderBy('bnNgay','desc')->get();
             return view('admin.banner')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
@@ -323,7 +323,7 @@ class adminController extends Controller
         $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
         Session::put('hdTinhtrang',$noteDonhang);
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
-        $pn = DB::table('phieunhap')->leftjoin('chitietphieunhap','chitietphieunhap.pnMa','=','phieunhap.pnMa')->join('admin','admin.adMa','=','phieunhap.adMa')->get();
+        $pn = DB::table('phieunhap')->join('admin','admin.adMa','=','phieunhap.adMa')->get();
 
         return view('admin.quan-ly-phieu-nhap',compact('pn','noteDanhgia','noteDonhang','noteDonhang1'));
     }
@@ -1433,10 +1433,10 @@ class adminController extends Controller
                 $imgextention = $re->file('bnHinh')->extension();
                 $file = $re->file('bnHinh');
                 $file->move('public/images/banners',$data['bnHinh']);
-            $data['kmMa']=null;
+           
             $data['bnVitri']= $re->bnVitri;
             $data['bnNgay']= now();
-            DB::table('banner')->insert($data);
+            DB::table('slide')->insert($data);
             Session::forget('bnError');
             return redirect('adBanner');
         }
@@ -1449,7 +1449,7 @@ class adminController extends Controller
   }
   public function adDeleteBanner($id)
   {
-    DB::table('banner')->where('bnMa',$id)->delete();
+    DB::table('slide')->where('bnMa',$id)->delete();
    
     return redirect('adBanner');
   }
@@ -1468,7 +1468,7 @@ class adminController extends Controller
             $imgextention =$re->file('bnHinh')->extension();
             $file=$re->file('bnHinh');
             $file->move('public/images/banners',$data['bnHinh']);
-        DB::table('banner')->where('bnMa',$id)->update($data);
+        DB::table('slide')->where('bnMa',$id)->update($data);
         return redirect('adBanner');
     }
   }

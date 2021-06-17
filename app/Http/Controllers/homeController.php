@@ -85,8 +85,8 @@ class homeController extends Controller
         $slide = slide::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
         $countSlide =slide::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
         $bnCon = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
-        $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(2)->count();
-        $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->count();
+        $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
+        $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
 
 
         if(Session::has('khMa'))

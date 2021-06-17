@@ -199,6 +199,7 @@
    <script src="{{URL::asset("public/style_admin/js/js.js")}}"></script>
    <script src="{{URL::asset("public/style_admin/js/js2.js")}}"></script>
    <script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
+ 
    
   
    @if(Session::has('note_err'))
