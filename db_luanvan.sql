@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3308
--- Thời gian đã tạo: Th5 23, 2021 lúc 11:33 PM
+-- Thời gian đã tạo: Th6 17, 2021 lúc 03:06 PM
 -- Phiên bản máy phục vụ: 5.7.28
 -- Phiên bản PHP: 7.4.0
 
@@ -31,12 +31,13 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `adMa` int(11) NOT NULL,
   `adTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adTaikhoan` char(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adMatkhau` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adEmail` char(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adTaikhoan` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adMatkhau` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adEmail` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adHinh` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `adSdt` char(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adQuyen` int(11) NOT NULL,
-  `adHinh` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adTinhtrang` int(11) NOT NULL,
   PRIMARY KEY (`adMa`),
   UNIQUE KEY `admin_adten_unique` (`adTen`),
   UNIQUE KEY `admin_adtaikhoan_unique` (`adTaikhoan`),
@@ -48,8 +49,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Đang đổ dữ liệu cho bảng `admin`
 --
 
-INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adEmail`, `adSdt`, `adQuyen`, `adHinh`) VALUES
-(1, 'Lê Trung Nhân', 'nhan', '1', 'a@gmail.com', '123', 1, 'ok.jpg');
+INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adEmail`, `adHinh`, `adSdt`, `adQuyen`, `adTinhtrang`) VALUES
+(1, 'boss', 'master', '12345', 't@n.com', 'ok.jpg', '1234567890', 1, 0),
+(35212, 'giao hàng 1', 'giaohang1', '123456789', 'a@a.com', 'bg-login.png', '1234567891', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -60,8 +62,8 @@ INSERT INTO `admin` (`adMa`, `adTen`, `adTaikhoan`, `adMatkhau`, `adEmail`, `adS
 DROP TABLE IF EXISTS `admin_log`;
 CREATE TABLE IF NOT EXISTS `admin_log` (
   `adMa` int(11) NOT NULL,
-  `alChitiet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alNgaygio` date NOT NULL,
+  `alChitiet` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alNgaygio` timestamp NOT NULL,
   KEY `admin_log_adma_foreign` (`adMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -70,75 +72,23 @@ CREATE TABLE IF NOT EXISTS `admin_log` (
 --
 
 INSERT INTO `admin_log` (`adMa`, `alChitiet`, `alNgaygio`) VALUES
-(1, 'Thêm loại mới:LAPTOP', '2021-05-23'),
-(1, 'Thêm loại mới:PC', '2021-05-23'),
-(1, 'Thêm loại mới:a', '2021-05-23'),
-(1, 'Xóa loại:', '2021-05-23'),
-(1, 'Thêm loại mới:zxczxc', '2021-05-23'),
-(1, 'Sửa loại:[{\"loaiTen\":\"zxczxc\"}] thành ok', '2021-05-23'),
-(1, 'Sửa loại:[{\"loaiTen\":\"ok\"}] thành ssf', '2021-05-23'),
-(1, 'Sửa loại:[{loaiTen:ssf}] thành ssfzxcc', '2021-05-23'),
-(1, 'Sửa loại: thành ssfzxcczxczc', '2021-05-23'),
-(1, 'Sửa loại:loaiTen thành a', '2021-05-23'),
-(1, 'Sửa loại:[{\"loaiTen\":\"a\"}] thành ab', '2021-05-23'),
-(1, 'Sửa loại:ab thành abzxcx', '2021-05-23'),
-(1, 'Xóa loại:abzxcx', '2021-05-23'),
-(1, 'Thêm nhu cầu mới:Văn phòng', '2021-05-23'),
-(1, 'Thêm nhu cầu mới:LAPTOP', '2021-05-23'),
-(1, 'Sửa nhu cầu:LAPTOP->Gaming', '2021-05-23'),
-(1, 'Thêm nhu cầu mới:z', '2021-05-23'),
-(1, 'Xóa nhu cầu:z', '2021-05-23'),
-(1, 'Thêm thương hiệu mới:MSI', '2021-05-23'),
-(1, 'Thêm thương hiệu mới:ASUS', '2021-05-23'),
-(1, 'Thêm thương hiệu mới:MACBOOK', '2021-05-23'),
-(1, 'Sửa thương hiệu:MACBOOK->MACBOOKK', '2021-05-23'),
-(1, 'Xóa thương hiệu:MACBOOKK', '2021-05-23'),
-(1, 'Thêm thương hiệu mới:MACBOOK', '2021-05-23'),
-(1, 'Thêm nhà cung cấp mới:hcm', '2021-05-23'),
-(1, 'Sửa nhà cung cấp:hcm->hcmmm', '2021-05-23'),
-(1, 'Sửa nhà cung cấp:hcmmm->hcn', '2021-05-23'),
-(1, 'Thêm thương hiệu mới:DELL', '2021-05-24'),
-(1, 'Thêm thương hiệu mới:A', '2021-05-24'),
-(1, 'Sửa thương hiệu:A->ACER', '2021-05-24'),
-(1, 'Thêm thương hiệu mới:GVN', '2021-05-24'),
-(1, 'Cập nhật nhân viên:trung nh\\u00e2n->Lê Trung Nhân', '2021-05-24'),
-(1, 'Cập nhật sản phẩm:ASUS', '2021-05-24'),
-(1, 'Thêm sản phẩm mới:GVN Aresss', '2021-05-24'),
-(1, 'Xóa sản phẩm: GVN Aress', '2021-05-24'),
-(1, 'Xóa sản phẩm: GVN Ares', '2021-05-24'),
-(1, 'Cập nhật sản phẩm:GVN Ares', '2021-05-24'),
-(1, 'Cập nhật kho, sản phẩm có mã: ASUS số lượng 16->19', '2021-05-24');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `banner`
---
-
-DROP TABLE IF EXISTS `banner`;
-CREATE TABLE IF NOT EXISTS `banner` (
-  `bnMa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `bnTieude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bnHinh` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bnNgay` timestamp NOT NULL,
-  `bnVitri` int(11) NOT NULL,
-  `kmMa` int(11) DEFAULT NULL,
-  PRIMARY KEY (`bnMa`),
-  KEY `banner_kmma_foreign` (`kmMa`)
-) ENGINE=InnoDB AUTO_INCREMENT=100234 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `banner`
---
-
-INSERT INTO `banner` (`bnMa`, `bnTieude`, `bnHinh`, `bnNgay`, `bnVitri`, `kmMa`) VALUES
-(41233, 'd', 'solid5.jpg', '2021-05-23 22:37:09', 1, NULL),
-(43232, '3', 'backlight_neon_electronics_144683_3840x2400.jpg', '2021-05-23 22:49:56', 0, NULL),
-(50233, 'b', 'solid3.png', '2021-05-23 22:36:54', 1, NULL),
-(53233, '1', 'bg-login.png', '2021-05-23 22:36:28', 0, NULL),
-(83233, 'cc', 'solid4.png', '2021-05-23 22:48:48', 1, NULL),
-(86233, 'a', 'solid2.png', '2021-05-23 22:36:46', 1, NULL),
-(97223, '2', 'img-main.png', '2021-05-23 22:36:34', 0, NULL);
+(1, 'Thêm loại mới:Laptop', '2021-06-17 05:43:44'),
+(1, 'Thêm loại mới:PC', '2021-06-17 05:43:47'),
+(1, 'Thêm thương hiệu mới:MSI', '2021-06-17 05:44:00'),
+(1, 'Thêm thương hiệu mới:ASUS', '2021-06-17 05:44:03'),
+(1, 'Thêm thương hiệu mới:MACBOOK', '2021-06-17 05:44:08'),
+(1, 'Thêm nhu cầu mới:Văn phòng', '2021-06-17 05:44:25'),
+(1, 'Thêm nhu cầu mới:Gaming', '2021-06-17 05:44:29'),
+(1, 'Thêm nhà cung cấp mới: ho chi minh', '2021-06-17 05:44:47'),
+(1, 'Thêm nhà cung cấp mới: ha noi', '2021-06-17 05:44:58'),
+(1, 'Thêm sản phẩm mới:GVN Aresâs', '2021-06-17 05:45:54'),
+(1, 'Lập phiếu nhập mới, ngày2021-06-17 12:46:21', '2021-06-17 05:46:21'),
+(1, 'Thêm sản phẩm mới:GVN Usopp', '2021-06-17 06:41:43'),
+(1, 'Cập nhật nhân viên:nhan->nhan', '2021-06-17 06:42:03'),
+(1, 'Lập phiếu nhập mới, ngày2021-06-17 13:59:00', '2021-06-17 06:59:00'),
+(1, 'Thêm nhân mới: giao hàng 1', '2021-06-17 10:46:53'),
+(1, 'Thêm sản phẩm mới:GVN Ares', '2021-06-17 12:05:00'),
+(1, 'Lập phiếu nhập mới, ngày2021-06-17 19:05:22', '2021-06-17 12:05:22');
 
 -- --------------------------------------------------------
 
@@ -155,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `baocao` (
   `bcChi` int(11) NOT NULL,
   `bcTonkho` int(11) NOT NULL,
   `bcNgaylap` timestamp NOT NULL,
+  `bcTungay` timestamp NOT NULL,
+  `bcDenngay` timestamp NOT NULL,
   `bcGhichu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adMa` int(11) NOT NULL,
   PRIMARY KEY (`bcMa`),
@@ -172,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `chi` (
   `adMa` int(11) NOT NULL,
   `chiNgaygiolap` timestamp NOT NULL,
   `chiSoluong` int(11) NOT NULL,
-  `chiTongtien` double(20,4) NOT NULL,
+  `chiTongtien` double(20,2) NOT NULL,
   `chiNoidung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `chi_adma_foreign` (`adMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -189,9 +141,51 @@ CREATE TABLE IF NOT EXISTS `chitietdonhang` (
   `spMa` int(11) NOT NULL,
   `cthdSoluong` int(11) NOT NULL,
   `cthdGia` double(20,4) NOT NULL,
+  `cthdTrigiakm` int(11) NOT NULL DEFAULT '0',
+  `cthdImeisp` char(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   KEY `chitietdonhang_hdma_foreign` (`hdMa`),
   KEY `chitietdonhang_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chitietdonhang`
+--
+
+INSERT INTO `chitietdonhang` (`hdMa`, `spMa`, `cthdSoluong`, `cthdGia`, `cthdTrigiakm`, `cthdImeisp`) VALUES
+(84231676, 63811650, 1, 3300000.0000, 0, '0'),
+(592011676, 6679439, 1, 1100000.0000, 0, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitietphieunhap`
+--
+
+DROP TABLE IF EXISTS `chitietphieunhap`;
+CREATE TABLE IF NOT EXISTS `chitietphieunhap` (
+  `pnMa` int(11) NOT NULL,
+  `spMa` int(11) NOT NULL,
+  `nccMa` int(11) NOT NULL,
+  `ctpnSoluong` int(11) NOT NULL,
+  `ctpnDongia` double(20,2) NOT NULL,
+  `ctpnThanhtien` double(20,2) NOT NULL,
+  KEY `chitietphieunhap_pnma_foreign` (`pnMa`),
+  KEY `chitietphieunhap_spma_foreign` (`spMa`),
+  KEY `chitietphieunhap_nccma_foreign` (`nccMa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chitietphieunhap`
+--
+
+INSERT INTO `chitietphieunhap` (`pnMa`, `spMa`, `nccMa`, `ctpnSoluong`, `ctpnDongia`, `ctpnThanhtien`) VALUES
+(9984118, 63811650, 2, 0, 12000000.00, 0.00),
+(58429, 63811650, 1, 15, 15000000.00, 225000000.00),
+(423497, 6679439, 2, 0, 2000000.00, 0.00),
+(72428, 6679439, 2, 12, 1000000.00, 12000000.00),
+(72428, 63811650, 1, 16, 3000000.00, 48000000.00),
+(96484, 3748253, 2, 0, 0.00, 0.00),
+(24428, 3748253, 2, 10, 1111111.00, 11111110.00);
 
 -- --------------------------------------------------------
 
@@ -202,11 +196,11 @@ CREATE TABLE IF NOT EXISTS `chitietdonhang` (
 DROP TABLE IF EXISTS `danhgia`;
 CREATE TABLE IF NOT EXISTS `danhgia` (
   `dgMa` int(11) NOT NULL,
-  `khMa` int(11) NOT NULL,
   `dgNoidung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `spMa` int(11) NOT NULL,
   `dgNgay` timestamp NOT NULL,
   `dgTrangthai` int(11) NOT NULL,
+  `khMa` int(11) NOT NULL,
+  `spMa` int(11) NOT NULL,
   PRIMARY KEY (`dgMa`),
   KEY `danhgia_spma_foreign` (`spMa`),
   KEY `danhgia_khma_foreign` (`khMa`)
@@ -224,32 +218,27 @@ CREATE TABLE IF NOT EXISTS `donhang` (
   `khMa` int(11) NOT NULL,
   `hdNgaytao` timestamp NOT NULL,
   `hdSoluongsp` int(11) NOT NULL,
-  `hdTongtien` double(20,4) NOT NULL,
+  `hdTongtien` double(20,2) NOT NULL,
   `hdTinhtrang` int(11) NOT NULL,
-  `hdDiachi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hdSdtnguoinhan` char(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hdGhichu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kmMa` int(11) DEFAULT NULL,
-  `adMa` int(11) NOT NULL,
+  `hdDiachi` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hdGhichu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hdGiamgia` int(11) NOT NULL,
+  `hdGiakhuyenmai` int(11) NOT NULL,
+  `vcMa` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `adMa` int(11) DEFAULT NULL,
   PRIMARY KEY (`hdMa`),
   KEY `donhang_khma_foreign` (`khMa`),
-  KEY `donhang_kmma_foreign` (`kmMa`)
+  KEY `donhang_vcma_foreign` (`vcMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Cấu trúc bảng cho bảng `giohang`
+-- Đang đổ dữ liệu cho bảng `donhang`
 --
 
-DROP TABLE IF EXISTS `giohang`;
-CREATE TABLE IF NOT EXISTS `giohang` (
-  `khMa` int(11) NOT NULL,
-  `spMa` int(11) NOT NULL,
-  `ghSoluong` int(11) NOT NULL,
-  KEY `giohang_khma_foreign` (`khMa`),
-  KEY `giohang_spma_foreign` (`spMa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `donhang` (`hdMa`, `khMa`, `hdNgaytao`, `hdSoluongsp`, `hdTongtien`, `hdTinhtrang`, `hdSdtnguoinhan`, `hdDiachi`, `hdGhichu`, `hdGiamgia`, `hdGiakhuyenmai`, `vcMa`, `adMa`) VALUES
+(84231676, 1018410, '2021-06-17 10:42:08', 1, 3300000.00, 2, '1234567890', 'ấdadadsadadasdad', NULL, 0, 0, NULL, 35212),
+(592011676, 1018410, '2021-06-17 12:20:59', 1, 1100000.00, 3, '1234567890', 'ấdadadsadadasdad', NULL, 0, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -260,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `giohang` (
 DROP TABLE IF EXISTS `hinh`;
 CREATE TABLE IF NOT EXISTS `hinh` (
   `spMa` int(11) NOT NULL,
-  `spHinh` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `spHinh` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `hinh_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -269,10 +258,9 @@ CREATE TABLE IF NOT EXISTS `hinh` (
 --
 
 INSERT INTO `hinh` (`spMa`, `spHinh`) VALUES
-(1384796, 'asus1.png'),
-(50811675, 'gvn1.png'),
-(6284837, 'acer1.png'),
-(76710833, 'gvn2.png');
+(63811650, 'gvn1.png'),
+(6679439, 'acer1.png'),
+(3748253, 'gvn2.png');
 
 -- --------------------------------------------------------
 
@@ -284,7 +272,7 @@ DROP TABLE IF EXISTS `khachhang`;
 CREATE TABLE IF NOT EXISTS `khachhang` (
   `khMa` int(11) NOT NULL,
   `khTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `khEmail` char(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `khEmail` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khTaikhoan` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khMatkhau` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `khNgaysinh` date NOT NULL,
@@ -294,11 +282,19 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
   `khHinh` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `khXtemail` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `khResetpassword` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `khNgaythamgia` date NOT NULL,
   `khQuyen` int(11) NOT NULL,
   PRIMARY KEY (`khMa`),
   UNIQUE KEY `khachhang_khemail_unique` (`khEmail`),
   UNIQUE KEY `khachhang_khtaikhoan_unique` (`khTaikhoan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `khachhang`
+--
+
+INSERT INTO `khachhang` (`khMa`, `khTen`, `khEmail`, `khTaikhoan`, `khMatkhau`, `khNgaysinh`, `khDiachi`, `khSdt`, `khGioitinh`, `khHinh`, `khXtemail`, `khResetpassword`, `khNgaythamgia`, `khQuyen`) VALUES
+(1018410, 'trung nhan', 'letrungnhan99@gmail.com', 'nhan', 'e807f1fcf82d132f9bb018ca6738a19f', '1999-08-22', 'adas23432423234', '1234567890', 0, 'ok.jpg', '1', NULL, '2021-06-17', 0);
 
 -- --------------------------------------------------------
 
@@ -311,6 +307,7 @@ CREATE TABLE IF NOT EXISTS `kho` (
   `spMa` int(11) NOT NULL,
   `khoSoluong` int(11) NOT NULL,
   `khoNgaynhap` timestamp NOT NULL,
+  `khoSoluongdaban` int(11) NOT NULL DEFAULT '0',
   KEY `kho_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -318,11 +315,23 @@ CREATE TABLE IF NOT EXISTS `kho` (
 -- Đang đổ dữ liệu cho bảng `kho`
 --
 
-INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
-(6284837, 10, '2021-05-23 22:32:46'),
-(1384796, 19, '2021-05-23 23:32:23'),
-(50811675, 5, '2021-05-23 22:58:35'),
-(76710833, 9, '2021-05-23 23:24:03');
+INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`, `khoSoluongdaban`) VALUES
+(63811650, 31, '2021-06-17 06:59:00', 0),
+(6679439, 12, '2021-06-17 06:59:00', 0),
+(3748253, 10, '2021-06-17 12:05:22', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `kho_sp_hong`
+--
+
+DROP TABLE IF EXISTS `kho_sp_hong`;
+CREATE TABLE IF NOT EXISTS `kho_sp_hong` (
+  `spMa` int(11) NOT NULL,
+  `khoSlsphong` int(11) NOT NULL,
+  KEY `kho_sp_hong_spma_foreign` (`spMa`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -332,15 +341,18 @@ INSERT INTO `kho` (`spMa`, `khoSoluong`, `khoNgaynhap`) VALUES
 
 DROP TABLE IF EXISTS `khuyenmai`;
 CREATE TABLE IF NOT EXISTS `khuyenmai` (
-  `kmMa` int(11) NOT NULL AUTO_INCREMENT,
+  `kmMa` int(11) NOT NULL,
+  `kmTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kmMota` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `kmTrigia` int(11) NOT NULL,
+  `kmTinhtrang` int(11) NOT NULL,
   `kmNgaybd` timestamp NOT NULL,
   `kmNgaykt` timestamp NOT NULL,
-  `kmLoai` int(11) NOT NULL,
   `kmSoluong` int(11) DEFAULT NULL,
-  `kmSoluongsp` int(11) DEFAULT NULL,
-  PRIMARY KEY (`kmMa`)
+  `kmGioihanmoikh` int(11) DEFAULT NULL,
+  `kmGiatritoida` int(11) DEFAULT NULL,
+  PRIMARY KEY (`kmMa`),
+  UNIQUE KEY `khuyenmai_kmten_unique` (`kmTen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -355,14 +367,14 @@ CREATE TABLE IF NOT EXISTS `loai` (
   `loaiTen` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`loaiMa`),
   UNIQUE KEY `loai_loaiten_unique` (`loaiTen`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `loai`
 --
 
 INSERT INTO `loai` (`loaiMa`, `loaiTen`) VALUES
-(1, 'LAPTOP'),
+(1, 'Laptop'),
 (2, 'PC');
 
 -- --------------------------------------------------------
@@ -377,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `migrations`
@@ -388,7 +400,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2021_05_11_211549_create_thuonghieu_table', 1),
 (3, '2021_05_11_211737_create_nhucau_table', 1),
 (4, '2021_05_11_211828_create_khuyenmai_table', 1),
-(5, '2021_05_11_212039_create_banner_table', 1),
+(5, '2021_05_11_212039_create_slide_table', 1),
 (6, '2021_05_11_212256_create_admin_table', 1),
 (7, '2021_05_11_214518_create_baocao_table', 1),
 (8, '2021_05_11_230743_create_admin_log_table', 1),
@@ -399,14 +411,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2021_05_11_235245_create_donhang_table', 1),
 (14, '2021_05_12_000239_create_chitietdonhang_table', 1),
 (15, '2021_05_12_000327_create_danhgia_table', 1),
-(16, '2021_05_12_000851_create_giohang_table', 1),
+(16, '2021_05_12_000851_create_wishlist_table', 1),
 (17, '2021_05_12_001305_create_password_log_table', 1),
 (18, '2021_05_12_001413_create_hinh_table', 1),
 (19, '2021_05_12_001445_create_kho_table', 1),
 (20, '2021_05_12_001545_create_mota_table', 1),
 (21, '2021_05_17_124939_create_nhacungcap_table', 1),
 (22, '2021_05_17_125057_update_sanpham_table', 1),
-(23, '2021_05_18_001638_update_khuyenmai_table', 1);
+(23, '2021_05_28_192728_create_phieunhap_table', 1),
+(24, '2021_05_28_192741_create_chitietphieunhap_table', 1),
+(25, '2021_06_01_193313_create_voucher_table', 1),
+(26, '2021_06_01_194222_update_donhang_table', 1),
+(27, '2021_06_13_153020_create_kho_sp_hong_table', 1);
 
 -- --------------------------------------------------------
 
@@ -417,24 +433,26 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 DROP TABLE IF EXISTS `mota`;
 CREATE TABLE IF NOT EXISTS `mota` (
   `spMa` int(11) NOT NULL,
-  `ram` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cpu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ocung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `psu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vga` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mainboard` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manhinh` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vocase` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tannhiet` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `loa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mau` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trongluong` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `conggiaotiep` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `webcam` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `chuanlan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `chuanwifi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hedieuhanh` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ram` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cpu` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ocung` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `psu` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vga` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mainboard` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `manhinh` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `chuot` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banphim` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vocase` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pin` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tannhiet` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `loa` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mau` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trongluong` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `conggiaotiep` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `webcam` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `chuanlan` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `chuanwifi` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hedieuhanh` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   KEY `mota_spma_foreign` (`spMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -442,11 +460,10 @@ CREATE TABLE IF NOT EXISTS `mota` (
 -- Đang đổ dữ liệu cho bảng `mota`
 --
 
-INSERT INTO `mota` (`spMa`, `ram`, `cpu`, `ocung`, `psu`, `vga`, `mainboard`, `manhinh`, `vocase`, `pin`, `tannhiet`, `loa`, `mau`, `trongluong`, `conggiaotiep`, `webcam`, `chuanlan`, `chuanwifi`, `hedieuhanh`) VALUES
-(6284837, '8GB DDR4 2400MHz (2x SO-DIMM socket, up to 32GB SDRAM)', 'AMD Ryzen 5 3550H 2.1GHz up to 3.7GHz 4MB', '512GB PCIe® NVMe™ M.2 SSD', '', '', '', '15.6\" FHD (1920 x 1080) IPS, Anti-Glare', '', '4 Cell 48Whr', 'Có', 'True Harmony; Dolby® Audio Premium', 'đen', '2kg', '2x USB 3.2- 1x USB Type C -1x USB 2.0 -1x HDMI -1x RJ45', 'HD Webcam', '10/100/1000/Gigabits Base T', 'Wi-Fi 6(Gig+)(802.11ax) (2x2)', 'Windows 10 Home'),
-(1384796, '8GB Onboard DDR4 3200MHz (1x SO-DIMM socket, up to 24GB SDRAM)', 'Intel Core i7-11370H 3.0GHz up to 4.8GHz 12MB', '512GB SSD M.2 NVMe™ PCIe® 3.0 (Còn trống 1 khe SSD M.2 PCIE/ SATA3)', '', '', '', '15.6\" FHD (1920 x 1080) 16:9, Anti-Glare Display, 62.5% sRGB, 144Hz, IPS, Adaptive-Sync', '', '4 Cell 76Whr', 'Có', 'DTS:X® Ultra', 'Đen', '2,5kg', '1x Type C USB 4 with Power Delivery, Display Port and Thunderbolt™ 4-	 1x Type C USB 4 with Power Delivery, Display Port and Thunderbolt™ 4 3x USB 3.2 Gen 1 Type-A-1x HDMI 2.0b-1x RJ45-1x 3.5mm Combo Audio Jack', 'None', '10/100/1000 Mbps', '802.11ax (2X2), Bluetooth v5.1', 'Windows 10 Home'),
-(50811675, 'G.SKILL Ripjaws V 1x8G bus 2800', 'Intel Core i5 10400F / 12MB / 2.9GHz / 6 Nhân 12 Luồng / LGA 1200', 'Gigabyte SSD 240GB 2.5\" Sata 3', 'Nguồn SilverStone ST65F-ES230 - 80 Plus', 'GIGABYTE GeForce RTX™ 2060 OC 6G', 'ASROCK B460M Pro4', '', 'Case MSI MAG VAMPIRIC 100R', '', '', '', '', '', '', '', '', '', ''),
-(76710833, 'G.SKILL Ripjaws V 1x8G bus 2800', 'CPU AMD Athlon™ 3000G 3.5GHz / 2 nhân 4 luồng / Radeon™ Vega 3 Graphics', 'Lexar NS100 RB 2.5\'\' SATA3 128GB', 'Nguồn Deepcool DN450 - 80 Plus', 'none', 'Mainboard ASUS PRIME A320M-E', '', 'XIGMATEK XA-20 (ATX)', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `mota` (`spMa`, `ram`, `cpu`, `ocung`, `psu`, `vga`, `mainboard`, `manhinh`, `chuot`, `banphim`, `vocase`, `pin`, `tannhiet`, `loa`, `mau`, `trongluong`, `conggiaotiep`, `webcam`, `chuanlan`, `chuanwifi`, `hedieuhanh`) VALUES
+(63811650, '12312', '1232131', '123213', '123213', '123213', '123123213', '', '', '', '12313', '', '', '', '', '', '', '', '', '', ''),
+(6679439, 'ádasdas', 'đâsd', 'ádasdasd', '', '', '', 'ádasd', 'ádasd', 'ádasd', '', 'ádasdasd', 'đâsd', 'ádasdas', 'đâsd', 'đâs', 'ádasdas', 'đâs', 'sadsadsa', 'ádasdasd', 'ádasdasd'),
+(3748253, 'qưe', 'qưew', 'qưeqwe', 'qeqw', 'eqwe', 'qưeqwe', '', '', '', 'qưew', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -457,16 +474,20 @@ INSERT INTO `mota` (`spMa`, `ram`, `cpu`, `ocung`, `psu`, `vga`, `mainboard`, `m
 DROP TABLE IF EXISTS `nhacungcap`;
 CREATE TABLE IF NOT EXISTS `nhacungcap` (
   `nccMa` int(11) NOT NULL AUTO_INCREMENT,
-  `nccTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`nccMa`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `nccTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nccSdt` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nccDiachi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`nccMa`),
+  UNIQUE KEY `nhacungcap_nccten_unique` (`nccTen`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `nhacungcap`
 --
 
-INSERT INTO `nhacungcap` (`nccMa`, `nccTen`) VALUES
-(1, 'hcn');
+INSERT INTO `nhacungcap` (`nccMa`, `nccTen`, `nccSdt`, `nccDiachi`) VALUES
+(1, 'ho chi minh', '1234567890', 'adasdqweasdadqwe'),
+(2, 'ha noi', '1234567890', 'ádasdwewrwwrwer');
 
 -- --------------------------------------------------------
 
@@ -480,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `nhucau` (
   `ncTen` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ncMa`),
   UNIQUE KEY `nhucau_ncten_unique` (`ncTen`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `nhucau`
@@ -506,23 +527,52 @@ CREATE TABLE IF NOT EXISTS `password_log` (
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `phieunhap`
+--
+
+DROP TABLE IF EXISTS `phieunhap`;
+CREATE TABLE IF NOT EXISTS `phieunhap` (
+  `pnMa` int(11) NOT NULL AUTO_INCREMENT,
+  `pnNgaylap` timestamp NOT NULL,
+  `adMa` int(11) NOT NULL,
+  `pnSoluongsp` int(11) NOT NULL,
+  `pnTongtien` double(20,2) NOT NULL,
+  PRIMARY KEY (`pnMa`),
+  KEY `phieunhap_adma_foreign` (`adMa`)
+) ENGINE=InnoDB AUTO_INCREMENT=9984119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`pnMa`, `pnNgaylap`, `adMa`, `pnSoluongsp`, `pnTongtien`) VALUES
+(24428, '2021-06-17 12:05:22', 1, 10, 11111110.00),
+(58429, '2021-06-17 05:46:21', 1, 15, 225000000.00),
+(72428, '2021-06-17 06:59:00', 1, 28, 60000000.00),
+(96484, '2021-06-17 12:05:00', 1, 0, 0.00),
+(423497, '2021-06-17 06:41:43', 1, 0, 0.00),
+(9984118, '2021-06-17 05:45:54', 1, 0, 0.00);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `sanpham`
 --
 
 DROP TABLE IF EXISTS `sanpham`;
 CREATE TABLE IF NOT EXISTS `sanpham` (
   `spMa` int(11) NOT NULL,
-  `spTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `spGia` double(20,4) NOT NULL,
+  `spTen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `spGia` double(20,2) NOT NULL,
   `spHanbh` int(11) NOT NULL,
   `spTinhtrang` int(11) NOT NULL,
-  `kmMa` int(11) DEFAULT NULL,
   `thMa` int(11) NOT NULL,
   `loaiMa` int(11) NOT NULL,
   `ncMa` int(11) NOT NULL,
   `nccMa` int(11) NOT NULL,
+  `kmMa` int(11) DEFAULT NULL,
+  `spSlkmtoida` int(11) DEFAULT NULL,
   PRIMARY KEY (`spMa`),
-  UNIQUE KEY `sanpham_spten_unique` (`spTen`),
   KEY `sanpham_ncma_foreign` (`ncMa`),
   KEY `sanpham_loaima_foreign` (`loaiMa`),
   KEY `sanpham_thma_foreign` (`thMa`),
@@ -534,11 +584,40 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spHanbh`, `spTinhtrang`, `kmMa`, `thMa`, `loaiMa`, `ncMa`, `nccMa`) VALUES
-(1384796, 'ASUS', 24000000.0000, 1, 1, NULL, 2, 1, 2, 1),
-(6284837, 'Acer', 19000000.0000, 1, 1, NULL, 6, 1, 1, 1),
-(50811675, 'GVN Ghost S', 20000000.0000, 1, 1, NULL, 7, 2, 2, 1),
-(76710833, 'GVN Ares', 5000000.0000, 1, 1, NULL, 7, 2, 1, 1);
+INSERT INTO `sanpham` (`spMa`, `spTen`, `spGia`, `spHanbh`, `spTinhtrang`, `thMa`, `loaiMa`, `ncMa`, `nccMa`, `kmMa`, `spSlkmtoida`) VALUES
+(3748253, 'GVN Ares', 1222222.10, 0, 1, 2, 2, 2, 2, NULL, NULL),
+(6679439, 'GVN Usopp', 1100000.00, 1, 1, 2, 1, 2, 2, NULL, NULL),
+(63811650, 'GVN Aresâs', 3300000.00, 0, 1, 2, 2, 2, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `slide`
+--
+
+DROP TABLE IF EXISTS `slide`;
+CREATE TABLE IF NOT EXISTS `slide` (
+  `bnMa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bnTieude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bnHinh` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bnNgay` timestamp NOT NULL,
+  `bnVitri` int(11) NOT NULL,
+  PRIMARY KEY (`bnMa`)
+) ENGINE=InnoDB AUTO_INCREMENT=100234 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `slide`
+--
+
+INSERT INTO `slide` (`bnMa`, `bnTieude`, `bnHinh`, `bnNgay`, `bnVitri`) VALUES
+(12233, '12', 'solid2.png', '2021-06-17 09:48:25', 1),
+(16233, '2', 'solid3.png', '2021-06-17 09:48:34', 1),
+(23233, 'ádasd', 'img-main.png', '2021-06-17 09:23:05', 0),
+(26233, '334543fr', 'solid4.png', '2021-06-17 09:58:28', 1),
+(29233, 'get34a', 'img-main.png', '2021-06-17 09:58:48', 1),
+(75233, 'ab', 'tải xuống.png', '2021-06-17 09:29:09', 0),
+(87233, '23r', 'solid4.png', '2021-06-17 09:58:16', 1),
+(88233, 'x', 'bg-login.png', '2021-06-17 09:29:01', 0);
 
 -- --------------------------------------------------------
 
@@ -551,7 +630,7 @@ CREATE TABLE IF NOT EXISTS `thu` (
   `adMa` int(11) NOT NULL,
   `alNgaygio` timestamp NOT NULL,
   `thuSoluong` int(11) NOT NULL,
-  `thuTongtien` double(20,4) NOT NULL,
+  `thuTongtien` double(20,2) NOT NULL,
   `thuNoidung` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `thu_adma_foreign` (`adMa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -568,19 +647,54 @@ CREATE TABLE IF NOT EXISTS `thuonghieu` (
   `thTen` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`thMa`),
   UNIQUE KEY `thuonghieu_thten_unique` (`thTen`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `thuonghieu`
 --
 
 INSERT INTO `thuonghieu` (`thMa`, `thTen`) VALUES
-(6, 'ACER'),
 (2, 'ASUS'),
-(5, 'DELL'),
-(7, 'GVN'),
-(4, 'MACBOOK'),
+(3, 'MACBOOK'),
 (1, 'MSI');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `voucher`
+--
+
+DROP TABLE IF EXISTS `voucher`;
+CREATE TABLE IF NOT EXISTS `voucher` (
+  `vcMa` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vcTen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vcTinhtrang` int(11) NOT NULL,
+  `vcSoluot` int(11) NOT NULL,
+  `vcLoai` int(11) NOT NULL,
+  `vcNgaybd` timestamp NOT NULL,
+  `vcNgaykt` timestamp NOT NULL,
+  `vcLoaigiamgia` int(11) NOT NULL,
+  `vcMucgiam` int(11) NOT NULL,
+  `vcGiatritoithieu` int(11) DEFAULT NULL,
+  `spMa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`vcMa`),
+  UNIQUE KEY `voucher_vcten_unique` (`vcTen`),
+  KEY `voucher_spma_foreign` (`spMa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+CREATE TABLE IF NOT EXISTS `wishlist` (
+  `khMa` int(11) NOT NULL,
+  `spMa` int(11) NOT NULL,
+  KEY `wishlist_khma_foreign` (`khMa`),
+  KEY `wishlist_spma_foreign` (`spMa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -591,12 +705,6 @@ INSERT INTO `thuonghieu` (`thMa`, `thTen`) VALUES
 --
 ALTER TABLE `admin_log`
   ADD CONSTRAINT `admin_log_adma_foreign` FOREIGN KEY (`adMa`) REFERENCES `admin` (`adMa`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `banner`
---
-ALTER TABLE `banner`
-  ADD CONSTRAINT `banner_kmma_foreign` FOREIGN KEY (`kmMa`) REFERENCES `khuyenmai` (`kmMa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `baocao`
@@ -618,6 +726,14 @@ ALTER TABLE `chitietdonhang`
   ADD CONSTRAINT `chitietdonhang_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `chitietphieunhap`
+--
+ALTER TABLE `chitietphieunhap`
+  ADD CONSTRAINT `chitietphieunhap_nccma_foreign` FOREIGN KEY (`nccMa`) REFERENCES `nhacungcap` (`nccMa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chitietphieunhap_pnma_foreign` FOREIGN KEY (`pnMa`) REFERENCES `phieunhap` (`pnMa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chitietphieunhap_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `danhgia`
 --
 ALTER TABLE `danhgia`
@@ -629,14 +745,7 @@ ALTER TABLE `danhgia`
 --
 ALTER TABLE `donhang`
   ADD CONSTRAINT `donhang_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `donhang_kmma_foreign` FOREIGN KEY (`kmMa`) REFERENCES `khuyenmai` (`kmMa`) ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `giohang`
---
-ALTER TABLE `giohang`
-  ADD CONSTRAINT `giohang_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `giohang_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `donhang_vcma_foreign` FOREIGN KEY (`vcMa`) REFERENCES `voucher` (`vcMa`);
 
 --
 -- Các ràng buộc cho bảng `hinh`
@@ -663,10 +772,16 @@ ALTER TABLE `password_log`
   ADD CONSTRAINT `password_log_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  ADD CONSTRAINT `phieunhap_adma_foreign` FOREIGN KEY (`adMa`) REFERENCES `admin` (`adMa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD CONSTRAINT `sanpham_kmma_foreign` FOREIGN KEY (`kmMa`) REFERENCES `khuyenmai` (`kmMa`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `sanpham_kmma_foreign` FOREIGN KEY (`kmMa`) REFERENCES `khuyenmai` (`kmMa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sanpham_loaima_foreign` FOREIGN KEY (`loaiMa`) REFERENCES `loai` (`loaiMa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sanpham_nccma_foreign` FOREIGN KEY (`nccMa`) REFERENCES `nhacungcap` (`nccMa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sanpham_ncma_foreign` FOREIGN KEY (`ncMa`) REFERENCES `nhucau` (`ncMa`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -677,6 +792,19 @@ ALTER TABLE `sanpham`
 --
 ALTER TABLE `thu`
   ADD CONSTRAINT `thu_adma_foreign` FOREIGN KEY (`adMa`) REFERENCES `admin` (`adMa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `voucher`
+--
+ALTER TABLE `voucher`
+  ADD CONSTRAINT `voucher_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `wishlist`
+--
+ALTER TABLE `wishlist`
+  ADD CONSTRAINT `wishlist_khma_foreign` FOREIGN KEY (`khMa`) REFERENCES `khachhang` (`khMa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `wishlist_spma_foreign` FOREIGN KEY (`spMa`) REFERENCES `sanpham` (`spMa`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
