@@ -60,14 +60,12 @@
                     </div>
                    
                 	<button class="btn btn-info" type="button" onclick="back()">Trở về</button>
-                    &emsp; <button class="btn btn-secondary" onclick="printt('content__print')">In file</button>
+                    &emsp; <button class="btn btn-secondary" onclick="printt('content__print')">In phiếu nhập</button>
                 </div>
             </div>
             
       </div>
 
-
-@endsection
 
 <script>
    
@@ -80,3 +78,5 @@
         document.body.innerHTML = restorepage;
     }
 </script>
+
+@endsection

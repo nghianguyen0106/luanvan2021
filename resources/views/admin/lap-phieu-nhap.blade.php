@@ -105,7 +105,7 @@ Swal.fire({
 })
 </script> 
 @endif
-@endsection
+
 
 <script>
 	var btnPN = document.getElementById("btn__phieunhap");
@@ -157,10 +157,6 @@ Swal.fire({
 				 rowSL.value = sumSL;
 				 rowGia.style.display = 'block';
 				 rowGia.value = sumGia;
-
-				 
-				
-
-
 	}
 </script>
+@endsection
