@@ -10,8 +10,11 @@
                             <h2 class="m-0 font-weight-bold text-primary" style="text-align: center;">Chi tiết đơn hàng</h2>
                         </div>
                      <div class="card-body">
+                         <div id="content__print" class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
                         @foreach($data as $data)
-                        <div class="table-responsive">
+                       
                             <label>Mã đơn hàng:&nbsp;{{$data->hdMa}}</label><br/>
                              <label>Ngày lập:&nbsp;{{$data->hdNgaytao}}</label><br/>
                             <label>Người đặt:&nbsp;{{$data->khTen}}</label><br/>
@@ -26,8 +29,7 @@
                             @if($data->adMa!=null)
                             <label>Nhân viên giao:&nbsp;{{$data->adTen}}</label><br/>
                             @endif
-                            <table class="table table-bordered" width="100%" cellspacing="0">
-                                <thead>
+                            
                                     <tr>
                                         <td>Sản phẩm</td>
                                         <td>Số lượng</td>
@@ -46,9 +48,9 @@
                                     @endforeach
                                     
                                 </tbody>
+                                 @endforeach
                             </table>
                         </div>
-                        @endforeach
                     </div>
                     <br/>
                 	<button class="btn btn-info" type="button" onclick="back()">Trở về</button>

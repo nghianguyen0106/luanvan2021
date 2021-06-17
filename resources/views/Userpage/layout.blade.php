@@ -37,52 +37,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--screen large-->
 	<div class="menu__lg">
 		<div class="row header__top">
-			<div class="col-5">
+			<div class="col-8">
 				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
 			</div>
-			<div class="col-7">
+			<div class="col-4">
 				<ul class="menu__header--top">
-					<li>
-				    	<ul class="menu__account">
-				    		@if(Session::has('khTen'))
-				    		<li class="li">
-							<a>
-								@if(Session::get('khHinh')!=null)
-								<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
-								@else
-								<span></span>
-								@endif
-								&nbsp;{{Session::get('khTen')}}</a>
-							<ul class="menu__account--child">
-								<li class="li2">
-									<a href="{{url("/infomation/".Session::get('khMa'))}}">
-					 						Thông tin cá nhân&nbsp;
-					 					<i class="far fa-eye"></i>
-					 				</a>
-								</li>
-								<li class="li2">
-									<a href="{{URL::to('logout')}}">
-					 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
-					 				</a>
-								</li>
-								<br/>
-							</ul>
-							</li>
-							@else		
-								<a st href="{{URL::to('login')}}">
-									Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
-								</a>
-							@endif
-						</ul>
-							
-					</li>
-					<li>
-						&emsp;
-						<a href="{{URL::to('/checkout')}}">
-						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								({{Cart::count()}}) Giỏ hàng
-						</a>
-					</li>
 					<li>
 						&emsp;
 						<a><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>luanvan@gmail.com</a>
@@ -97,14 +56,55 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="row header__bot">
 			<div class="col-lg-12">
 				 <ul class="list__menu">
-				    	<li class="list__menu--item"><a href="{{URL::to('/')}}">Trang chủ</a></li>
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Sản phẩm</a></li>
-				    	<li class="list__menu--item"><a href="{{URL::to('product')}}">Tin tức</a></li>
+				    		<li class="list__menu--item">
+				    			<a href="{{URL::to('/')}}">Trang chủ</a>
+				    		</li>
+				    		<li class="list__menu--item">
+				    		<a href="{{URL::to('product')}}">Sản phẩm</a>
+				    		</li>
+				    		<li class="list__menu--item" style="text-align: center;"><a href="{{URL::to('/checkout')}}">
+						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								({{Cart::count()}}) Giỏ hàng</a>
+						</li>
 				    	@if(Session::has('khTen'))
 				    		  		<li class="list__menu--item"><a href="{{URL::to('listorder')}}">Danh sách đơn hàng</a></li>
 				    		  		<li class="list__menu--item"><a href="{{URL::to('wishlist')}}">Danh mục yêu thích</a></li>
-				    		  		@endif
-				 </ul>
+				    		@endif
+				    		@if(Session::has('khTen'))
+				    		<li class="list__menu--item" style="width: 120px;">
+				    			 <a style="color: white;">
+								{{-- @if(Session::get('khHinh')!=null)
+								<img style="width: 40px;height: 40px;border-radius: 360px;" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+								@else
+								<span></span>
+								@endif  --}}
+								&nbsp;{{Session::get('khTen')}}
+							</a>
+						<ul class="menu__account--child">
+								<li class="item">
+									<a href="{{url("/infomation/".Session::get('khMa'))}}">
+					 						Thông tin cá nhân&nbsp;
+					 					<i class="far fa-eye"></i>
+					 				</a>
+								</li>
+								<li class="item">
+									<a href="{{URL::to('logout')}}">
+					 						Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
+					 				</a>
+								</li>
+								<br/>
+							</ul>
+							
+						</li>
+							@else	
+								<li class="list__menu--item" style="width: 100px;color: ;white"><a href="{{URL::to('login')}}">
+									Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
+								</a>
+							</li>
+							@endif
+							
+						</ul>
+				 </div>
 			</div>
 		</div>
 	</div>

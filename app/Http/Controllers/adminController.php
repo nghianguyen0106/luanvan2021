@@ -405,6 +405,7 @@ class adminController extends Controller
                                 $file=$re->file('adHinh');
                                 $file->move('public/images/nhanvien',$data['adHinh']);
                     $data['adQuyen']=$re->adQuyen;
+                    $data['adTinhtrang']=1;
                     DB::table('admin')->insert($data);
 
                     $data1 = array();
@@ -2287,6 +2288,7 @@ public function adCheckAddKhuyenmai(Request $re)
 
             $data4 = array();
             $phantram = $re->gia[$key]*0.1;
+             $data4['spTinhtrang'] =1;
             $data4['spGia'] =$re->gia[$key]+$phantram;
             //0.1 là 10%
             $data4["nccMa"] =$re->nccMa[$key];

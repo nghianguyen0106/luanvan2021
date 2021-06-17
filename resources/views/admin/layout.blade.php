@@ -58,18 +58,15 @@
             <div class="sidebar-heading">
                 Interface
             </div>
-
-          
-
             <!-- Nav Item - Utilities Collapse Menu -->
             
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Quản lý người dùng</span>
                 </a>
-               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                         <a class="collapse-item" href="{{URL::to('/adNhanvien')}}">Quản lý nhân viên</a>
@@ -77,29 +74,53 @@
                     </div>
                 </div>
             </li>
-           
+            <li class="nav-item">
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Quản lý dữ liệu cửa hàng</span>
+                </a>
+               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Danh mục quản lý:</h6>
+                        <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
+                        <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
+<a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
+                        <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Quản lý nhà cung cấp</a>
+                        <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
+                        <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
+                        <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Quản lý nhập/xuất hàng</span>
+                </a>
+               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Danh mục quản lý:</h6>
+                        <a class="collapse-item"  href="{{URL::to('don-hang')}}">Quản lý đơn hàng</a>
+                        <a class="collapse-item"  href="{{URL::to('quan-ly-phieu-nhap')}}">Quản lý phiếu nhập</a>
+                    </div>
+                </div>
+            </li>
              <li class="nav-item">
                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quản lý dữ liệu cửa hàng</span>
+                    <span>Quản lý website</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                         <a class="collapse-item"  href="{{URL::to('lich-su-hoat-dong')}}">lịch sử hoạt động</a>
-                        <a class="collapse-item"  href="{{URL::to('don-hang')}}">Đơn hàng</a>
-                        <a class="collapse-item"  href="{{URL::to('/adKho')}}">Quản lý kho</a>
-                        <a class="collapse-item"  href="{{URL::to('/adSanpham')}}">Quản lý sản phẩm</a>
-                        <a class="collapse-item"  href="{{URL::to('quan-ly-phieu-nhap')}}">Quản lý phiếu nhập</a>
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
-                        <a class="collapse-item" href="{{URL::to('/adThuonghieu')}}">Quản lý thương hiệu</a>
-                        <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Quản lý nhà cung cấp</a>
-                        <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
-                        <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
-                        <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
+                        
                         <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
                         
                     </div>
