@@ -5,11 +5,10 @@ Thông tin cá nhân
 @section('content')
 
 <!-- banner -->
-
+<br/>
 <!---Content--->
  <div class="container">
 	<div class="row">
-		<br/>
 			<h2 style="color:orange;">Thông tin của bạn</h2>
 				<hr/>
 		<div class="col-lg-12">
@@ -21,16 +20,21 @@ Thông tin cá nhân
 				<div class="col-lg-7">
 				<div class="flex__info">
 					<span class="info__item">Tên:</span>
-					<span  class="info__item">
-						<input class="ip" type="text" value="{{$v->khTen}}" name="khTen"/>
+					<span class="info__item">
+						<input onblur="onName()" id="ip__name" class="ip" type="text" value="{{$v->khTen}}" name="khTen"/>
 					</span>
-					 <span style="color:red">{{$errors->first('khTen')}}</span>
+					 <div>
+						<br/>
+						<br/>
+						 <span style="color:red">{{$errors->first('khTen')}}</span>
+					<span style="margin-left: -6rem;" id="name__err--regis"></span>
+					</div>
 				</div>
 				<br/>
 				<div class="flex__info">
 					<span class="info__item">Tên đăng nhập: </span>
 					<span  class="info__item">
-						<input class="ip" type="text" value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
+						<input class="ip" type="text" readonly value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
 					</span>
 					<span style="color:red">{{$errors->first('khTaikhoan')}}</span>
 				</div>
@@ -64,18 +68,28 @@ Thông tin cá nhân
 				<br/>
 				<div class="flex__info">
 					<span class="info__item">Số điện thoại:</span>
-					<span  class="info__item" class="info__item">
-						<input class="ip" type="text" value="{{$v->khSdt}}" name="khSdt"/>
+					<span class="info__item" class="info__item">
+						<input onblur="onSDT()" id="sdt" class="ip" type="text" value="{{$v->khSdt}}" name="khSdt"/>
 					</span>
-					<span style="color:red">{{$errors->first('khSdt')}}</span>
+					<div>
+						<br/>
+						<br/>
+						<span style="color:red">{{$errors->first('khSdt')}}</span>
+					<span style="margin-left: -6rem;" id="sdt__err--regis"></span>
+					</div>
 				</div>
 				<br/>
 				<div class="flex__info">
 					<span class="info__item">Địa chỉ:</span>
 					<span  class="info__item" class="info__item">
-						<input class="ip" type="text" value="{{$v->khDiachi}}" name="khDiachi"/>
+						<input onblur="onAddress()" id="address" class="ip" type="text" value="{{$v->khDiachi}}" name="khDiachi"/>
 					</span>
-					<span style="color:red">{{$errors->first('khDiachi')}}</span>
+						<div>
+						<br/>
+						<br/>
+						<span style="color:red">{{$errors->first('khDiachi')}}</span>
+					<span style="margin-left: -3rem;" id="address__err--regis"></span>
+					</div>
 				</div>
 				<br/>
 				<div class="flex__info">
@@ -112,7 +126,7 @@ Thông tin cá nhân
 			</div>
 			 <a class="btn_editPass" href="{{url('updatePass/'.$v->khMa)}}">Đổi mật khẩu</a>
 				
-					<button class="btn_editInfo" type="submit">Cập nhật thông tin</button>
+					<button id="btn__register" class="btn_editInfo" type="submit">Cập nhật thông tin</button>
 				 <br/>
 				</form>
 				 <br/>
@@ -154,7 +168,7 @@ Swal.fire({
 
 @endif
 @endsection
-
+<script src="{{url('public/fe/js/js-validate/validate-register.js')}}"></script>
 
 
 

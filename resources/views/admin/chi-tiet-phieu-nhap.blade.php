@@ -6,17 +6,29 @@
             <div id="content">
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                     <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary" style="text-align: center;">Chi tiết phiếu nhập</h2>
-                        </div>
                      <div class="card-body">
+                        <div id="content__print" class="table-responsive">
+                             <table class="table table-bordered" width="100%" cellspacing="0">
                         @foreach($data as $data)
-                        <div class="table-responsive">
-                            <label>Mã phiếu nhập:&nbsp;{{$data->pnMa}}</label><br/>
-                             <label>Ngày lập:&nbsp;{{$data->pnNgaylap}}</label><br/>
-                            <label>Tên người lập:&nbsp;{{$data->adTen}}</label><br/>
-                            <table class="table table-bordered" width="100%" cellspacing="0">
-                                <thead>
+                        
+                        <thead>
+                            <tr>
+                                <td colspan="5" style="text-align: left;">
+                                   <h2 class="m-0 font-weight-bold text-primary" style="text-align: center;">Chi tiết phiếu nhập</h2> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="text-align: left;"><label>Mã phiếu nhập:&nbsp;{{$data->pnMa}}</label><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="text-align: left;"> <label>Ngày lập:&nbsp;{{$data->pnNgaylap}}</label><br/>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="5" style="text-align: left;">  <label>Tên người lập:&nbsp;{{$data->adTen}}</label><br/>
+                                </td>
+                            </tr>
                                     <tr>
                                         <td>Sản phẩm</td>
                                         <td>Nhà cung cấp</td>
@@ -43,17 +55,28 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
                         @endforeach
+                         </div>
                     </div>
                    
                 	<button class="btn btn-info" type="button" onclick="back()">Trở về</button>
+                    &emsp; <button class="btn btn-secondary" onclick="printt('content__print')">In phiếu nhập</button>
                 </div>
             </div>
-
+            
       </div>
 
-     
+
+<script>
+   
+    function printt(content__print)
+    {
+        var restorepage = document.body.innerHTML; 
+         var content = document.getElementById(content__print).innerHTML;
+         document.body.innerHTML = content;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>
 
 @endsection
-

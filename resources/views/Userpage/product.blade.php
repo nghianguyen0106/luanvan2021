@@ -25,15 +25,29 @@ Danh sách sản phẩm
     @endforeach
     <!---button navigation--->
 	  <div class="navigation-auto">
+	  	@if($countSlide == 1)
+	    	<div class="auto-btn1"></div>
+	    @elseif($countSlide == 2)
+	    	<div class="auto-btn1"></div>
+	    	<div class="auto-btn2"></div>
+	    	@elseif($countSlide == 3)
 	    	<div class="auto-btn1"></div>
 	    	<div class="auto-btn2"></div>
 	    	<div class="auto-btn3"></div>
+	    	@endif
 	 </div>
 	</div>
 	<div class="navigation-manual">
+		@if($countSlide == 1)
+    	<label for="radio1" class="manual-btn"></label>
+    	@elseif($countSlide == 2)
+    	<label for="radio1" class="manual-btn"></label>
+    	<label for="radio2" class="manual-btn" ></label>
+    	@elseif($countSlide == 3)
     	<label for="radio1" class="manual-btn"></label>
     	<label for="radio2" class="manual-btn" ></label>
     	<label for="radio3" class="manual-btn"></label>
+    	@endif
     </div>
      <!---end button navigation--->
 </div>
@@ -57,7 +71,20 @@ Danh sách sản phẩm
 	
 <div id="banners" class="col-lg-4">
 	<div>	
-		@if($countBnCon1>0)
+		@if($countBnCon1==0)
+			<div></div>
+		@elseif($countBnCon1==1)
+		@for($i=0;$i<1;$i++)
+			@php 
+	 			$bn1 = array($bnCon) 
+	 		@endphp
+			@foreach($bn1 as $key => $v)
+			<div class="banners__child">
+				<img src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+			</div>
+			@endforeach
+			@endfor
+			@elseif($countBnCon1>=2)
 		@for($i=0;$i<2;$i++)
 			@php 
 	 			$bn1 = array($bnCon) 
@@ -68,8 +95,6 @@ Danh sách sản phẩm
 			</div>
 			@endforeach
 			@endfor
-		@else
-		<div class="banners__child"></div>
 		@endif
 	</div>
 </div>
@@ -77,8 +102,30 @@ Danh sách sản phẩm
 </div>
 <!--BANNER ROW-->
 <div class="row">
-	 @if($countBnCon2>=3)
-	 @for($i = 1; $i<4;$i++)
+	 @if($countBnCon2==3)
+	 @for($i = 2; $i<=2;$i++)
+	 	@php 
+	 		$bn2 = array($bnCon) 
+	 	@endphp
+		@foreach($bn2 as $key => $v)
+		<div class="col-lg-4 banners__child">
+				<img  style="width:102%;height:200px" src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+		</div>
+		@endforeach
+	@endfor
+	@elseif($countBnCon2==4)
+	 @for($i = 2; $i<=3;$i++)
+	 	@php 
+	 		$bn2 = array($bnCon) 
+	 	@endphp
+		@foreach($bn2 as $key => $v)
+		<div class="col-lg-4 banners__child">
+				<img  style="width:102%;height:200px" src="{{{'public/images/banners/'.str_replace('"','',json_encode($v[$i]->bnHinh))}}}"/>
+		</div>
+		@endforeach
+	@endfor
+	@elseif($countBnCon2>4)
+	 @for($i = 2; $i<=4;$i++)
 	 	@php 
 	 		$bn2 = array($bnCon) 
 	 	@endphp
