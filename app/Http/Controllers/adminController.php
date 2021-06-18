@@ -31,7 +31,12 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            return view('admin.index')->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+            $nv = DB::table('admin')->get();
+            $sp = DB::table('sanpham')
+                ->join('hinh','hinh.spMa','=','sanpham.spMa')
+                ->join('kho','kho.spMa','=','sanpham.spMa')
+                ->get();
+            return view('admin.index')->with('nv',$nv)->with('sp',$sp)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
         { return Redirect('/adLogin'); }
