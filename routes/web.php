@@ -161,6 +161,9 @@ Route::get('suaKhuyenmaipage/{id}','adminController@suaKhuyenmaipage');
 Route::post('checkSuaKhuyenmai/{id}','adminController@suaKhuyenmai');
 Route::get('switchStatus/{id}','adminController@switchStatus');
 
+// Voucher
+Route::get('adVoucher','adminController@viewVoucher');
+Route::get('addVoucherpage','adminController@addVoucherpage');
 
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');

@@ -45,7 +45,7 @@
                    <a href="{{URL::to('/google')}}" style="text-decoration: none;" class="btn btn-outline-danger btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Đăng nhập bằng <strong>Google</strong>
                                         </a>
-                                        <a href="{{URL::to('/facebook')}}" style="text-decoration: none; "  class="btn btn-outline-primary btn-user btn-block">
+                                        <a href="{{--URL::to('/facebook')--}}" style="text-decoration: none; "  class="btn btn-outline-primary btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Đăng nhập bằng <strong>Facebook</strong>
                               </a>
               </div>

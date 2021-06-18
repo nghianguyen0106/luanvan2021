@@ -99,8 +99,9 @@
                         <a class="collapse-item" href="{{URL::to('adNhacungcap')}}">Quản lý nhà cung cấp</a>
                         <a class="collapse-item" href="{{URL::to('/adLoai')}}">Quản lý loại</a>
                         <a class="collapse-item" href="{{URL::to('/adNhucau')}}">Quản lý nhu cầu</a>
-                        <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
                         <a class="collapse-item" href="{{URL::to('/adBanner')}}">Quản lý Banner</a>
+                        <a class="collapse-item" href="{{URL::to('/adKhuyenmai')}}">Quản lý khuyến mãi</a>
+                        <a class="collapse-item" href="{{URL::to('adVoucher')}}">Quản lý voucher</a>
                         
                     </div>
                 </div>

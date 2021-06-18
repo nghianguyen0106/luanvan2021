@@ -689,13 +689,18 @@ class homeController extends Controller
     }
     public function sendcode()
     {
-
-        $date=getdate();
-          $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
-          //dd($details);
-          DB::table('khachhang')->where('khMa',Session::get('khMa'))->update(['khXtemail'=>$details]);
-        Mail::to(Session::get('khEmail'))->send(new \App\Mail\verifyemail($details));
-        return redirect()->back();
+        if(Session::has('khMa'))
+        {
+            $date=getdate();
+            $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
+              //dd($details);
+            $kh=khachhang::where('khMa',Session::has('khMa'))->first();
+        $kh->khXtemail=$details;
+        $kh->update();
+            Mail::to(Session::get('khEmail'))->send(new \App\Mail\verifyemail($details));
+            return redirect()->back();
+        }
+        
     }
 
     public function verifycode(Request $re)
@@ -716,7 +721,9 @@ class homeController extends Controller
 
     public function changeEmail($id)
     {
-        DB::table("khachhang")->where('khMa',$id)->update(['khXtemail'=>null]);
+        $kh=khachhang::where('khMa',$id)->first();
+        $kh->khXtemail=null;
+        $kh->update();
         return redirect()->back();
     }
 

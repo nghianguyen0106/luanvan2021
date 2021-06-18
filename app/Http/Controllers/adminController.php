@@ -15,6 +15,7 @@ use App\Models\admin_log;
 use App\Models\donhang;
 use App\Models\khuyenmai;
 use App\Models\sanpham;
+use App\Models\voucher;
 
 
 session_start();
@@ -2317,6 +2318,57 @@ public function adCheckAddKhuyenmai(Request $re)
                     ->join('sanpham','sanpham.spMa','=','chitietdonhang.spMa')
                     ->get();
         return view('admin.chi-tiet-phieu-thu')->with('data',$data)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+    }
+// VOUCHER
+    public function viewVoucher()
+    {
+        if(Session::has('adTaikhoan'))
+        {   
+            $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = donhang::where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $vc=voucher::all();
+
+            return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        }
+        else 
+        {
+            return view('admin.voucher');    
+        }
+    }
+
+    public function addVoucherpage()
+    {
+        if(Session::has('adTaikhoan'))
+        {   
+            $checksanpham=sanpham::join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->join('hinh','sanpham.spMa','hinh.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->get();
+            $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = donhang::where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $a=array();
+            $sanpham=array();
+            foreach($checksanpham as $i)
+            {
+              
+                if(in_array($i->spMa, $a)==null)
+                {
+                    array_push($a, $i->spMa);
+                    array_push($sanpham, $i);
+                }
+            }
+            
+            return view('admin.themvoucher',compact('sanpham','noteDanhgia','noteDonhang','noteDonhang1'));
+        }
+        else 
+        {
+            return view('admin.voucher');    
+        }
     }
 }
 

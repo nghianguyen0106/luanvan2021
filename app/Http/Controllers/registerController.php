@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 use DB;
+
+//Models
+use App\Models\khachhang;
 class registerController extends Controller
 {
     public function index()
@@ -14,8 +17,8 @@ class registerController extends Controller
     }
     public function getregister(Request $re)
     {
-   
-	    	$data['khTen']=$re->name;
+   			$kh= new khachhang();
+	    	$kh->khTen=$re->name;
 	    	$result=DB::table('khachhang')->where('khEmail',$re->email)->first();
 	    	if(strlen($re->password)<=8)
 	    	{
@@ -29,11 +32,11 @@ class registerController extends Controller
 	    	}
 	    	else
 	    	{
-	    		$data['khEmail']=$re->email;
+	    		$kh->khEmail=$re->email;
 	    	}
 	    	if($re->password==$re->repassword)
 	    	{
-	    		$data['khMatkhau']=md5($re->password);	
+	    		$kh->khMatkhau=md5($re->password);	
 	    	}
 	    	else
 	    	{
@@ -59,16 +62,16 @@ class registerController extends Controller
 	    	}
 
 
-	    	$data['khNgaysinh']=$re->date;
-	    	$data['khDiachi']=$re->address;
+	    	$kh->khNgaysinh=$re->date;
+	    	$kh->khDiachi=$re->address;
 	    	if(strlen($re->address)<15)
 	    	{
 	    		Session::flash('error',' Địa chỉ không hợp lệ!');
 	    		return Redirect()->back();
 	    	}
-	    	$data['khQuyen']=0;
-	    	$data['khGioitinh']=$re->sex;
-	    	$data['khNgaythamgia']=date_create();
+	    	$kh->khQuyen=0;
+	    	$kh->khGioitinh=$re->sex;
+	    	$kh->khNgaythamgia=date_create();
 	    	//dd($data);
 	    	if($re->sdt>10000000000||$re->sdt<100000000)
                     {
@@ -77,7 +80,7 @@ class registerController extends Controller
                     }
                     else
                     {
-                        $data['khSdt']=$re->sdt;
+                        $kh->khSdt=$re->sdt;
                     }
 	    	
 	    	$result2=DB::table('khachhang')->where('khTaikhoan',$re->username)->first();
@@ -89,13 +92,13 @@ class registerController extends Controller
 	    	}
 	    	else
 	    	{
-	    			$data['khTaikhoan']=$re->username;
+	    			$kh->khTaikhoan=$re->username;
 	    	}
-	    	$data['khMa']="".strlen($re->name).strlen($re->address).strlen($re->username).strlen($re->password);
+	    	$kh->khMa="".strlen($re->name).strlen($re->address).strlen($re->username).strlen($re->password);
+	    	$khMa=$kh->khMa;
 	    	//dd($decrease);
-	    	DB::table('khachhang')->insert($data);
-	    	Session::flash('registerSuccess',' Please login :D ');
-	    	return Redirect::to('login');	
+	    	$kh->save();
+	    	Session::flash('success',' Đăng ký thành công vui lòng xác thực Email! ');
+	    	return Redirect::to('verify-email/'.$khMa);	
     }
-
 }

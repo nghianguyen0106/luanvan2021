@@ -1,28 +1,47 @@
-@extends('Userpage.layout')
+@extends('Userpage.layout_dn_dk')
 @section('title')
 Xác thực Email
 @endsection
 @section('content')
 	<div class="container">
 		<div class="row">
-			<div id="form" class="col-12">
-				<h3>Một mã xác thực sẽ được gửi đến email {{substr($userEmail->khEmail,0,5)}}.......... </h3>
-				<a href="{{URL::to('sendcode')}}" onclick="hide()" class="btn btn-primary">Gửi mã xác thực</a>
+			<div class="col-1"></div>
+			<div class="col-10">
+					<h3>Một mã xác thực sẽ được gửi đến email {{$userEmail->khEmail}} </h3>
 			</div>
-			<div id="code"class="col-4">
-				<form action="{{URL::to('verifycode')}}" method="post" accept-charset="utf-8">
-				{{csrf_field()}}
-				<div class="input-group-prepend">
-				    <span class="input-group-text" id="basic-addon1"><input type="text" class="form-control" placeholder="Nhập mã tại đây" aria-label="Username" name="code" aria-describedby="basic-addon1"></span>
-				  </div>
-				  <span><button type="submit" class="btn btn-primary">Gửi</button></span>
-				</form>
-				<div class="input-group-prepend">
-
-			</div>
-			
 		</div>
+		<div class="row">
+			<div class="mb-4 col-2"></div>
+			<div class="mb-4 col-6">
+				<div class="row">
+					<form action="{{URL::to('verifycode')}}" method="post" accept-charset="utf-8">
+					{{csrf_field()}}
+						<div class="form-control-success col-2">
+						    <input type="text" class="form-control" placeholder="Nhập mã tại đây" aria-label="Username" name="code" aria-describedby="basic-addon1">
+						</div>
+						<div class="mb-4 col-2">
+								<a href="{{URL::to('sendcode')}}" onclick="hide()" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Gửi mã xác thực</a>
+						</div>
+						<div class="mb-4 col-2">
+								<button style="" type="submit" class="btn btn-primary"><i class="far fa-check-square"></i> Xác nhận</button>
+						</div>
+					</form>
+				</div>
+					
+			</div>
+			<div class="mb-4 col-4"></div>
 	</div>
+</div>
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Thông báo: ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
 
 @if(Session::has('verifySuccess'))
  <script type="text/javascript" >
