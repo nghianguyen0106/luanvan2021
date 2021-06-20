@@ -204,9 +204,11 @@ table
 }
 #content__2 .content__2--item .item__info
 {
+	width: 96%;
 	border: 1px solid #ADB0B8;
 	border-radius: 10px;
 	margin-top: 13px;
+	margin-left: 1%;
 	box-shadow: 1px 1px 3px 3px #ADB0B8;
 }
 #content__2 .content__2--item .item__info span

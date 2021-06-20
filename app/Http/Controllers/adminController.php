@@ -9,13 +9,26 @@ use Session;
 use Carbon\Carbon;
 
 //Models
+use App\Models\admin;
+use App\Models\khachhang;
+use App\Models\sanpham;
+use App\Models\kho;
+use App\Models\hinh;
+use App\Models\mota;
+use App\Models\phieunhap;
 use App\Models\danhgia;
+use App\Models\thuonghieu;
+use App\Models\loai;
+use App\Models\nhucau;
 use App\Models\nhacungcap;
+use App\Models\slide;
 use App\Models\admin_log;
 use App\Models\donhang;
 use App\Models\khuyenmai;
-use App\Models\sanpham;
 use App\Models\voucher;
+use App\Models\chitietphieunhap;
+use App\Models\chitietdonhang;
+
 
 
 session_start();
@@ -36,7 +49,11 @@ class adminController extends Controller
                 ->join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->join('kho','kho.spMa','=','sanpham.spMa')
                 ->get();
-            return view('admin.index')->with('nv',$nv)->with('sp',$sp)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+            $dh = DB::table('donhang')->where('hdTinhtrang',2)->count();
+            $total_price = DB::table('donhang')->where('hdTinhtrang',2)->sum('hdTongtien');
+            $total_sp = DB::table('sanpham')->where('spTinhtrang',1)->count();
+            $total_pay = DB::table('phieunhap')->sum('pnTongtien');
+            return view('admin.index',compact('nv','sp','dh','total_price','total_sp','total_pay','noteDonhang','noteDonhang1','noteDanhgia'));
         }
         else 
         { return Redirect('/adLogin'); }
@@ -60,13 +77,23 @@ class adminController extends Controller
                 Session::put('adTen',$result->adTen);
                 Session::put('adHinh',$result->adHinh);
                 Session::put('adQuyen',$result->adQuyen);
+               
                 $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
-            Session::put('dgTrangthai',$noteDanhgia);
-            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
-            Session::put('hdTinhtrang',$noteDonhang);
-            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
-            Session::put('hdTinhtrang1',$noteDonhang1);
-                return view('admin.index')->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+                Session::put('dgTrangthai',$noteDanhgia);
+                $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+                Session::put('hdTinhtrang',$noteDonhang);
+                $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+                Session::put('hdTinhtrang1',$noteDonhang1);
+                $nv = DB::table('admin')->get();
+                $sp = DB::table('sanpham')
+                    ->join('hinh','hinh.spMa','=','sanpham.spMa')
+                    ->join('kho','kho.spMa','=','sanpham.spMa')
+                    ->get();
+                $total_sp = DB::table('sanpham')->where('spTinhtrang',1)->count();
+                $dh = DB::table('donhang')->where('hdTinhtrang',2)->count();
+                $total_price = DB::table('donhang')->where('hdTinhtrang',2)->sum('hdTongtien');
+                $total_pay = DB::table('phieunhap')->sum('pnTongtien');
+            return view('admin.index',compact('nv','sp','dh','total_price','total_sp','total_pay','noteDonhang','noteDonhang1','noteDanhgia'));
             }
             else
             {

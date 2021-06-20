@@ -12,24 +12,36 @@
                <div class="content__1--item">
                    <label>Tổng đơn hàng</label>
                    <div>
-                       10,000 đơn
+                       @if($dh != null)
+                       {{$dh}}&nbsp;đơn 
+                       @endif
                    </div>
                </div>
                <div class="content__1--item">
                 <label>Tổng doanh thu</label>
                 <div>
-                    20&nbsp;VND
+                    @if($total_price != null)
+                       {{number_format($total_price)}}&nbsp;VND
+                       @endif
+                       
                 </div>
                </div>
                <div class="content__1--item">
                     <label>Đang bán</label>
                     <div>
-                        30 sản phẩm
+                        @if($total_sp != null)
+                       {{$total_sp}}&nbsp;sản phẩm
+                       @endif
+                         
                     </div>
                </div>
                <div class="content__1--item">
-                    <label>Khách hàng đã mua</label>
-                    <div>40 khách</div>
+                    <label>Tổng chi tiêu</label>
+                    <div>
+                         @if($total_pay != null)
+                       {{number_format($total_pay)}}&nbsp;VND
+                       @endif
+                    </div>
                </div>
            </div>
        </section>
@@ -42,24 +54,23 @@
                     <a id="btnShow" onclick="showViewNV()">Xem tất cả</a>
                     <a id="btnClose" onclick="closeViewNV()">Thu gọn</a>
                    </div>
-                    @foreach($nv as $nv)
+                    @foreach($nv as $v)
                       <div class="item__info">
                           <span>
-                            <img src="{{{"public/images/nhanvien/".$nv->adHinh}}}">
+                            <img src="{{{"public/images/nhanvien/".$v->adHinh}}}">
                            </span>
                            <span>
-                           {{$nv->adTen}}
+                           {{$v->adTen}}
                           </span>
                           <span>
-                            @if($nv->adQuyen ==1)
+                            @if($v->adQuyen ==1)
                                 Chủ cửa hàng
-                            @elseif($nv->adQuyen ==2)
+                            @elseif($v->adQuyen ==2)
                                 Giao hàng
                             @endif
                            </span>
                       </div>
                        @endforeach
-                   </table>
                </div>
                <div id="item__right" class="content__2--item item__right">
                 <div class="title__content--2">
@@ -79,13 +90,14 @@
                            {{number_format($sp->spGia)}}&nbsp;VND
                        </span>
                        <span>
-                           Hiện còn&nbsp;{{$sp->khoSoluong}}
+                           Hiện còn:&nbsp;{{$sp->khoSoluong}}
                        </span>
                        </div>
                        @endforeach
                </div>
            </div>
        </section>
+       <br/>
    </div>
 
    <script>
@@ -94,15 +106,18 @@
         var btnShow = document.getElementById("btnShow");
         var btnClose = document.getElementById("btnClose");
         var view_nv = document.getElementById("item__left");
+        view_nv.style.height = 'auto';
         view_nv.style.overflowY = 'visible';
         btnShow.style.display = 'none';
         btnClose.style.display = 'block';
+        
        }
        function closeViewNV()
        {
         var btnShow = document.getElementById("btnShow");
         var btnClose = document.getElementById("btnClose");
         var view_nv = document.getElementById("item__left");
+        view_nv.style.height = '200px';
         view_nv.style.overflowY = 'hidden';
         btnShow.style.display = 'block';
         btnClose.style.display = 'none';
@@ -113,6 +128,7 @@
         var btnShow = document.getElementById("btnShow2");
         var btnClose = document.getElementById("btnClose2");
         var view_sp = document.getElementById("item__right");
+        view_sp.style.height = 'auto';
         view_sp.style.overflowY = 'visible';
         btnShow.style.display = 'none';
         btnClose.style.display = 'block';
@@ -122,6 +138,7 @@
         var btnShow = document.getElementById("btnShow2");
         var btnClose = document.getElementById("btnClose2");
         var view_sp = document.getElementById("item__right");
+        view_sp.style.height = '200px';
         view_sp.style.overflowY = 'hidden';
         btnShow.style.display = 'block';
         btnClose.style.display = 'none';
