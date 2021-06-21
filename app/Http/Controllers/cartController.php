@@ -226,9 +226,7 @@ class cartController extends Controller
                 return Redirect::to('login');
             }
         }
-  
-            return Redirect::to('product');
-        
+        return Redirect::to('product');
     }
 
     public function sendmail($hdMa)

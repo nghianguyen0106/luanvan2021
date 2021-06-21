@@ -23,7 +23,9 @@ class CreateVoucherTable extends Migration
             $table->timestamp('vcNgaykt');
             $table->integer('vcLoaigiamgia');
             $table->integer('vcMucgiam');
-            $table->integer('vcGiatritoithieu')->nullable(true);
+            $table->integer('vcGiatritoida')->nullable(true);
+            $table->integer('vcDkapdung')->nullable(true);
+            $table->integer('vcGtcandat')->nullable(true);
             $table->integer('spMa')->nullable(true);
 
             $table->engine = "InnoDB";
