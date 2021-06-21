@@ -3,288 +3,318 @@
 Thông tin sản phẩm
 @endsection
 @section('content')
-<div class="single">
-	<div class="container">
-		<div class="col-md-6 single-right-left animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
-			<div class="grid images_3_of_2">
-				<div class="flexslider">
-					<!-- FlexSlider -->
-						<script>
-						// Can also be used with $(document).ready()
-							$(window).load(function() {
-								$('.flexslider').flexslider({
-								animation: "slide",
-								controlNav: "thumbnails"
-								});
-							});
-						</script>
-					<!-- //FlexSlider-->
-					<ul class="slides">
+<br/>
+<section class="product__info">
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-1_5"></div>
+		<div class="col-lg-9">
+			<h3>THÔNG TIN SẢN PHẨM</h3>
+			<!------------Thông tin khái quát------------->
+			<div class="row product__top">
+				<div class="col-lg-6 col-sm-12 info__left">
+					<div class="row img justify-content-between">
+						<div id="img__default">
 						@foreach($imgs as $v)
-						<li style="list-style-type: none;" data-thumb="{{URL::asset('public/images/products/'.$v->spHinh)}}">
-							<div class="thumb-image col-6"> <img class="col-6" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" data-imagezoom="true"> </div>
-						</li>
+						<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
 						@endforeach
-					</ul>
-					<div class="clearfix"></div>
-				</div>	
-			</div>
-		</div>
-		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-		
-
-			<form action="{{URL::to('save-cart2/'.$proinfo->spMa)}}" method="post" accept-charset="utf-8">
+						</div>
+					</div>
+					<br/>
+					<div class="row pos__img justify-content-center">
+						<div id="pos__1" onclick="changeImg1()" class="col-lg-2"></div>&emsp;
+						<div id="pos__2" onclick="changeImg2()" class="col-lg-2"></div>&emsp;
+						<div id="pos__3" onclick="changeImg3()" class="col-lg-2"></div>&emsp;
+						<div id="pos__4" onclick="changeImg4()" class="col-lg-2"></div>&emsp;
+					</div>
+					<br/>
+					<div class="row multi__img justify-content-around">
+						<div id="img__1" onclick="changeImg1()" class="col-lg-2 col-sm-5" />
+						@foreach($imgs as $v)
+						<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
+						@endforeach
+					</div>
+						<div id="img__2" onclick="changeImg2()" class="col-lg-2 col-sm-5" />
+							<img src="{{URL::asset('public/images/products/anh1.png')}}" />
+						</div>
+						<div id="img__3" onclick="changeImg3()" class="col-lg-2 col-sm-5" />
+							<img src="{{URL::asset('public/images/products/anh2.png')}}" />
+						</div>
+						<div id="img__4" onclick="changeImg4()" class="col-lg-2 col-sm-5" />
+							<img src="{{URL::asset('public/images/products/anh3.png')}}" />
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-12 info__right">
+					<form action="{{URL::to('save-cart2/'.$proinfo->spMa)}}" method="post" accept-charset="utf-8">
 				{{ csrf_field() }}
-					<div class="row">
-						<div class="mb-3 col-6">
-							<h3>{{$proinfo->spTen}}</h3>
-					<p><span style="color: red;" class="item_price">{{number_format($proinfo->spGia)}} VND</span> </p>
-					<p>Thương hiệu:<span> {{$proinfo->thTen}}</span></p>
-					<p>Tình trạng:
-						<span> 
-						<?php $x= 0;?>
-						@if($proinfo->khoSoluong>0)
-							Còn hàng. &nbsp;<br>
-							Số lượng: {{$x=$proinfo->khoSoluong}} sản phẩm.
+					<span class="proName">{{$proinfo->spTen}}</span><br/>
+					<span class="proNSX">Thương hiệu:&nbsp; {{$proinfo->thTen}}</span><br/>
+					<span>Xuất xứ: Chính hãng</span><br/>
+					<span class="proHbh">Hạn bảo hành:&nbsp;
+						@if($proinfo->spHanbh == 0)
+						6 tháng
+						@elseif($proinfo->spHanbh == 0)
+						12 tháng
 						@else
-							Hết hàng
+						24 tháng
 						@endif
-						</span>
-					</p>
-
+					</span><br/>
+					<span>Tình trạng: mới 100%</span><br/>
+					<span>Số lượng: {{$proinfo->khoSoluong>0?$proinfo->khoSoluong:"Hết hàng"}}</span><br/>
+					<span class="proPrice">{{number_format($proinfo->spGia)}}&nbsp;VND</span><br/>
 					@if($proinfo->khoSoluong>0)
 					<p>Chọn số lượng: 
 						<span>
 							<div class="counter">
-							  <button  class="btn btn-outline-danger" type="button" onClick='decreaseCount(event, this)'>-</button>
-							  <input style="width:50px " class="form-control-success" min="1" max="{{$proinfo->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
-							  <button class="btn btn-outline-success"  type="button"  onClick='increaseCount(event, this)'>+</button>
+							  <button type="button" onClick='decreaseCount(event, this)'>
+							  	-
+							  </button>
+							  <input style="width:50px;text-align: center;" class="form-control-success" min="1" max="{{$proinfo->khoSoluong}}" type="number" id="qty" name="quanty" value="1">
+							  <button type="button"  onClick='increaseCount(event, this)'>+</button>
 							</div>
 						</span>
 					</p>
 					@endif
-						</div>
-
-						@if($availPromo->count() != 0 && $proinfo->khoSoluong>0)
-						<div class="mb-3 col-12">
-							<i class="far fa-star promoTitle"> Chương trình khuyến mãi khả dụng:</i>
-							@foreach($availPromo as $v)
-							<div class="row">
-								<div class="mb-3 col-12 promotionItem">
-									<span class="promoName"><i>{{$v->kmTen}}</i></span>
-
-									<ul class="promoDescription">
-										<li>{{$v->kmMota}}</li>
-										<li>Bắt đầu từ ngày <strong>{{date_format(date_create($v->kmNgaybd),"d/m/Y H:i:s")}}</strong> Đến ngày <strong>{{date_format(date_create($v->kmNgaykt),"d/m/Y H:i:s")}}</strong></li>
-									</ul>
-								</div>
-							</div>
-							@endforeach
-						</div>
-						@endif
+					<span class="proKm">Chương trình khuyến mãi khả dụng:</span><br/>
+					<div class="proKm__content">
+						Khuyến mãi khai trương
+						Tặng balo
+						CHuột
+						Lap
 					</div>
-					
+					<br/>
 					@if($proinfo->khoSoluong>0)
 					<div class="occasion-cart">
-						<button class="btn btn-warning" type="submit">Thêm vào giỏ hàng </button><span></span>
-						<a href="{{URL::to('addtowishlist/'.$v->spMa)}}" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+						<button class="btn__addCart" type="submit"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&nbsp;Thêm vào giỏ hàng </button>&emsp;
+						<button class="btn__heart" type="button">
+							<a href="{{URL::to('addtowishlist/'.$v->spMa)}}"><i class="far fa-heart"></i></a>
+						</button>
 					</div>
 					@endif
-			</form>
-			
-		</div>
-				<div class="clearfix"> </div>
-
-				<div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
-					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-
-
-		<ul class="nav nav-tabs">
-		    <li class="nav-item">
-		      <a class="nav-link active" data-toggle="tab" href="#home">Thông tin chi tiết</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" data-toggle="tab" href="#menu1">Bình luận</a>
-		    </li>
-		  </ul>
-
-  				<!-- Tab panes -->
-			  <div class="tab-content">
-    			<div id="home" class="container tab-pane active"><br>
-					
-					<ul class=" list-group-item-light">
-					@foreach($details as  $i)
+					</form>
+				</div>
+			</div>
+			<!------------End------------->
+			<br/><br/>
+			<!------------Mô tả/ Bình luận------------->
+			<div class="row product__bot">
+				<div id="show__mota" class="col-lg-2 text-center" onclick="showMota()">
+					Mô tả
+				</div>
+				<div id="show__danhgia" class="col-lg-2 text-center" onclick="showDanhgia()">
+					Bình luận
+				</div>
+				<div id="content__mota" class="col-lg-12">
+					<table>
+						@foreach($details as  $i)
 						
 						@if($i->ram!=null)
-						<li class="list-group-item"><label for="list-group-item">RAM: </label> {{$i->ram}}</li>
+						<tr>
+							<td class="mota__left">RAM</td>
+							<td class="mota__right">{{$i->ram}}</td>
+						</tr>
 						@endif
 						@if($i->cpu!=null)
-						<li class="list-group-item"><label for="list-group-item">CPU: </label> {{$i->cpu}}</li>
+						<tr>
+							<td class="mota__left">CPU</td>
+							<td class="mota__right">{{$i->CPU}}</td>
+						</tr>
+					
 						@endif
 						@if($i->ocung!=null)
-						<li class="list-group-item"><label for="list-group-item">Ổ Cứng:</label> {{$i->ocung}}</li>
+						<tr>
+							<td class="mota__left">Ổ cứng</td>
+							<td class="mota__right">{{$i->ocung}}</td>
+						</tr>
 						@endif
 						@if($i->psu!=null)
-						<li class="list-group-item"><label for="list-group-item">PSU: </label> {{$i->psu}}</li>
+							<tr>
+							<td class="mota__left">PSU</td>
+							<td class="mota__right">{{$i->psu}}</td>
+						</tr>
 						@endif
 						@if($i->vga!=null)
-						<li class="list-group-item"><label for="list-group-item">VGA: </label> {{$i->vga}}</li>
+							<tr>
+							<td class="mota__left">VGA</td>
+							<td class="mota__right">{{$i->vga}}</td>
+						</tr>
 						@endif
 						@if($i->mainboard!=null)
-						<li class="list-group-item"><label for="list-group-item">Mainboard: </label> {{$i->mainboard}}</li>
+						<tr>
+							<td class="mota__left">Mainboard</td>
+							<td class="mota__right">{{$i->mainboard}}</td>
+						</tr>
 						@endif
 						@if($i->manhinh!=null)
-						<li class="list-group-item"><label for="list-group-item">Màn hình:</label> {{$i->manhinh}}</li>
+							<tr>
+							<td class="mota__left">Màn hình</td>
+							<td class="mota__right">{{$i->manhinh}}</td>
+						</tr>
 						@endif
 						@if($i->chuot!=null)
-						<li class="list-group-item"><label for="list-group-item">Chuột: </label> {{$i->chuot}}</li>
+						<tr>
+							<td class="mota__left">Chuột</td>
+							<td class="mota__right">{{$i->chuot}}</td>
+						</tr>
 						@endif
 						@if($i->banphim!=null)
-						<li class="list-group-item"><label for="list-group-item">Bàn phím:</label> {{$i->banphim}}</li>
+						<tr>
+							<td class="mota__left">Bàn phím</td>
+							<td class="mota__right">{{$i->banphim}}</td>
+						</tr>
 						@endif
 						@if($i->vocase!=null)
-						<li class="list-group-item"><label for="list-group-item">Vỏ Case: </label> {{$i->vocase}}</li>
+						<tr>
+							<td class="mota__left">Case</td>
+							<td class="mota__right">{{$i->vocase}}</td>
+						</tr>
 						@endif
 						@if($i->pin!=null)
-						<li class="list-group-item"><label for="list-group-item">Pin: </label> {{$i->pin}}</li>
+						<tr>
+							<td class="mota__left">Pin</td>
+							<td class="mota__right">{{$i->pin}}</td>
+						</tr>
 						@endif
 						@if($i->tannhiet!=null)
-						<li class="list-group-item"><label for="list-group-item">Tản nhiệt: </label> {{$i->tannhiet}}</li>		 
+						<tr>
+							<td class="mota__left">Tản nhiệt</td>
+							<td class="mota__right">{{$i->tannhiet}}</td>
+						</tr>
 						@endif
 						@if($i->loa!=null)
-						<li class="list-group-item"><label for="list-group-item">Loa: </label> {{$i->loa}}</li>
+						<tr>
+							<td class="mota__left">Loa</td>
+							<td class="mota__right">{{$i->loa}}</td>
+						</tr>
 						@endif
 
 						@if($i->mau!=null)
-						<li class="list-group-item"><label for="list-group-item">Màu: </label> {{$i->mau}}</li>
+						<tr>
+							<td class="mota__left">Màu</td>
+							<td class="mota__right">{{$i->mau}}</td>
+						</tr>
 						@endif
 						@if($i->trongluong!=null)
-						<li class="list-group-item"><label for="list-group-item">Trọng lượng: </label> {{$i->trongluong}}</li>		 
+						<tr>
+							<td class="mota__left">Trọng lượng</td>
+							<td class="mota__right">{{$i->trongluong}}</td>
+						</tr>	 
 						@endif
 						@if($i->conggiaotiep!=null)
-						<li class="list-group-item"><label for="list-group-item">Cổng giao tiếp: </label> {{$i->conggiaotiep}}</li>
+						<tr>
+							<td class="mota__left">Cổng giao tiếp</td>
+							<td class="mota__right">{{$i->conggiaotiep}}</td>
+						</tr>
 						@endif
 						@if($i->webcam!=null)
-						<li class="list-group-item"><label for="list-group-item">Webcam: </label> {{$i->webcam}}</li>
+						<tr>
+							<td class="mota__left">Webcam</td>
+							<td class="mota__right">{{$i->webcam}}</td>
+						</tr>
 						@endif
 						@if($i->chuanlan!=null)
-						<li class="list-group-item"><label for="list-group-item">Chuẩn LAN: </label> {{$i->chuanlan}}</li>		 
+						<tr>
+							<td class="mota__left">Chuẩn LAN</td>
+							<td class="mota__right">{{$i->chuanlan}}</td>
+						</tr>
 						@endif
-						@if($i->chuawifi!=null)
-						<li class="list-group-item"><label for="list-group-item">Chuẩn Wifi: </label> {{$i->chuawifi}}</li>
+						@if($i->chuanwifi!=null)
+						<tr>
+							<td class="mota__left">Chuẩn WIFI</td>
+							<td class="mota__right">{{$i->chuanwifi}}</td>
+						</tr>
 						@endif
 						@if($i->hedieuhanh!=null)
-						<li class="list-group-item"><label for="list-group-item">Hệ điều hành: </label> {{$i->hedieuhanh}}</li>
+						<tr>
+							<td class="mota__left">Hệ điều hành</td>
+							<td class="mota__right">{{$i->hedieuhanh}}</td>
+						</tr>
 						@endif
-						
-
-						
-						
-						
-						
-						
-						
+						</table>
 						
 					@endforeach
-					</ul>    
 				</div>
-
-			    <div id="menu1" class="container tab-pane "><br>
-			   		
-			   		<div class="row">
-			   			@if(count($comment)>0)
+				<div id="content__danhgia" class="col-lg-12">
+					@if(count($comment)>0)
 			   			@foreach($comment as $i)
 			   				@if($i->khTaikhoan == Session::get('khTaikhoan'))
-					   			<div class=" mb-3 p-4 row">
-					   				<div class="col-11">
-					   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong> <span class="date">{{$i->dgNgay}}</span></div>
-					   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
-					   					
-					   				</div>
-					   				<div class="col-1"><a class="btn btn-outline-danger" href="{{URL::to('deletecomment/'.$i->dgMa)}}">X</a></div>
-					   				<hr>
+					   				<div class="cmt__title col-lg-12">
+					   					@if(Session::get('khHinh')!=null)
+					   					<img class="cmt__avt" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+					   					@else
+					   					<i class="fas fa-user-circle" style="font-size: 45px;color: lightgrey;position: relative;top:5px"></i> 
+					   					@endif
+					   					<span class="cmt__name">{{$i->khTen}}</span> &emsp;
+					   					<span class="cmt__date">{{$i->dgNgay}}</span>
+					   					<a class="btn btn-outline-danger btn__del" href="{{URL::to('deletecomment/'.$i->dgMa)}}">Gỡ</a>
+					   					<br/>
+					   					<div class="cmt__content">{{$i->dgNoidung}}</div>
 					   			</div>
+					   			<br/><br/>
 				   			@else
-					   			<div class="list-group-item mb-3">
-					   				<div class=" list-group-item username"><strong><i class="far fa-user"></i> &nbsp;{{$i->khTen}}</strong>  <span class="date">{{$i->dgNgay}}</span></div>
-					   				<div class=" list-group-item usercomment">{{$i->dgNoidung}}</div>
-					   				<hr>
-					   			</div>
+					   			<div class="cmt__title col-lg-12">
+					   				@if($i->khHinh!=null)
+					   					<img class="cmt__avt" src="{{URL::asset('public/images/khachhang/'.$i->khHinh)}}" />
+					   					@else
+					   					<i class="fas fa-user-circle" style="font-size: 45px;color: lightgrey;position: relative;top:5px"></i> 
+					   				@endif
+					   					<span class="cmt__name">{{$i->khTen}}</span> &emsp;
+					   					<span class="cmt__date">{{$i->dgNgay}}</span><br/>
+					   					<div class="cmt__content">{{$i->dgNoidung}}</div>
+					   			</div><br/><br/>
 				   			@endif
 			   			@endforeach
 			   			@else
-			   			<div class="col-12"> <p class="bg-info">Chưa có bình nào về sản phẩm này.</p></div>
+			   			<div>Chưa có bình nào về sản phẩm này.</div>
 			   			@endif
-			   			
-			   			@if($checkordered!=null)
-			   			<form action="{{URL::to('addcomment/'.$i->spMa)}}" method="post" accept-charset="utf-8">
+			   			<br/>
+			   				@if($checkordered!=null)
+			   				<br/><br/>
+			   				<div class="col-lg-1 send_cmt--avt">
+			   					@if(Session::get('khHinh')!=null)
+					   					<img src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+					   					@else
+					   					<i class="fas fa-user-circle" style="font-size: 45px;color: lightgrey;position: relative;top:5px"></i> 
+					   					@endif
+			   				</div>
+			   			<form class="col-lg-10" action="{{URL::to('addcomment/'.$i->spMa)}}" method="post" accept-charset="utf-8">
 			   				{{ csrf_field() }}
-			   				<div class="form-floating mb-3">
+			   				<div class="form-floating">
 							  <input type="textarea" style="height: 100px;" class="form-control" id="comment" name="content" >
 							  <label for="comment">Bình luận của bạn</label>
 							  @foreach($errors->all() as $i)
 			   				<p class="alert-danger">{{$i}}</p>
 			   				@endforeach
-							  <input type="submit" class="btn btn-outline-success my-1" name="btnSubmit" value="Gửi bình luận">
+			   				<div class="row justify-content-end" style="padding-right: 0.8rem;padding-top: 5px;">
+							  <button type="submit" class="btn btn-outline-success" name="btnSubmit" style="width:10%">Đăng</button>
+							  <br/>
+								</div>
 							</div>
+							<br/>
 			   			</form>
+			   			
 			   			@else
-			   			<p class="alert-light">Bạn cần mua hàng để được bình luận sản phẩm này</p>
+			   			 <div class="row justify-content-center" style="padding-top: 30px;">
+			   			 <div class="col-lg-5" style="text-align: center;font-weight: bold;background: lightgrey;border:1px solid black;padding: 5px 3px 5px 3px;">Bạn cần mua hàng để được bình luận sản phẩm này</div>
+			   			</div>
 			   			@endif
-			   			{{--  --}}
-			   		</div>
-			    </div>
-			    
-			  </div>
-			</div>
-			</div>
-
-
-		<div class=" row single-pro">
-			<div class="css-treeview">
-				<h4>SẢN PHẨM TƯƠNG TỰ</h4>
-			
-			</div>
-				@foreach($related_prod as $i)
-				<div class="col-md-3 product-men p-4" style="height: 350px">
-					<div class="men-pro-item simpleCart_shelfItem">
-						<div class="men-thumb-item">
-								
-								<img style="height: 200px" src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-front">
-								<img style="height: 200px"  src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="" class="pro-image-back">							
-							
-
-										<div class="men-cart-pro">
-											<div class="inner-men-cart-pro">
-
-												<a href="{{URL::to('proinfo/'.$i->spMa)}}" class="link-product-add-cart">Xem sản phẩm</a>
-								
-											</div>
-										</div>
-										{{-- <span class="product-new-top">New</span> --}}
-										
-						</div>
-						<div class="item-info-product ">
-									<h4><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></h4>
-									<div class="info-product-price">
-										<span class="item_price">{{number_format($i->spGia)}} VND</span>
-									</div>
-									<a href="#" class="item_add single-item hvr-outline-out button2">Thêm vào giỏ hàng</a>									
-						</div>
-					</div>
+					<br/><br/>
 				</div>
-				@endforeach
-						<div class="col-4"></div>
-			<div class="clearfix"></div>
+			</div>
+			<!------------End------------->
 		</div>
-							
-							
-						</div>
-					</div>
-				</div>
+		<div class="col-1_5"></div>
+		</div>
 	</div>
-</div>
-<!-- //single -->
+</section>
+<br/>
+
+<script src="{{URL::asset("public/fe/js/productInfo.js")}}"></script>
+
+
+
+
 
 @if(Session::has('comment'))
  <script type="text/javascript" >

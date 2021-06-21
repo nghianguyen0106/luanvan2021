@@ -6,7 +6,7 @@
   Đăng nhập
 @endsection
 @section("content")
-<br/>
+<div style="height: 157px;"></div>
 <section class="container content__register">
     <div class="row">
       <div class="col-lg-2"></div>

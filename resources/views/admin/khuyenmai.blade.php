@@ -28,13 +28,13 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                   <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
+                                   <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); font-size: 13px;color: white;">
                                         <tr>
-                                            <th>Mã khuyến mãi</th>
+                                            <th>Mã</th>
                                             <th>Tên </th>
                                             <th>Mô tả</th>
                                             <th>Số lượng khuyến mãi</th>
-                                            <th>Giới hạn số lần mỗi khách hàng</th>
+                                            <th>Lần sử dụng</th>
                                             <th>Ngày bắt đầu</th>
                                             <th>Ngày kết thúc</th>
                                             <th>Trị giá </th>

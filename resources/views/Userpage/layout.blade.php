@@ -63,7 +63,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								@if(Session::get('khHinh')!=null)
 								<img style="width: 40px;height: 40px;border-radius: 360px;" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
 								@else
-								<span></span>
+								
+					   			<i class="fas fa-user-circle" style="font-size: 28px;color: lightgrey;position: relative;top:3px"></i>
 								@endif 
 								&nbsp;{{Session::get('khTen')}}
 							</a>
@@ -98,16 +99,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-lg-12">
 				 <ul class="list__menu">
 				    		<li class="list__menu--item">
-				    			<a href="{{URL::to('/')}}"><i class="fas fa-home" style="font-size: 18px;color: red"></i>&nbsp;Trang chủ</a>
+				    			<a href="{{URL::to('/')}}"><i class="fas fa-home" style="font-size: 15px;color: red"></i>&nbsp;Trang chủ</a>
 				    		</li>
 				    		<li class="list__menu--item">
-				    		<a href="{{URL::to('product')}}"><i class="fas fa-tv" style="font-size: 18px;color: red"></i>&nbsp;Sản phẩm</a>
+				    		<a href="{{URL::to('product')}}"><i class="fas fa-tv" style="font-size: 15px;color: red"></i>&nbsp;Sản phẩm</a>
 				    		</li>	
 				    		<li class="list__menu--item">
-				    		<a href="#"><i class="fab fa-youtube" style="font-size: 18px;color: red"></i>&nbsp;Video</a>
+				    		<a href="#"><i class="fab fa-youtube" style="font-size: 15px;color: red"></i>&nbsp;Video</a>
 				    		</li>
 				    		<li class="list__menu--item">
-				    		<a href="#"><i class="fas fa-user-plus" style="font-size: 18px;transform: rotateY(180deg);color: red"></i>&nbsp;Tuyển dụng</a>
+				    		<a href="#"><i class="fas fa-user-plus" style="font-size: 15px;transform: rotateY(180deg);color: red"></i>&nbsp;Tuyển dụng</a>
 				    		</li>		
 						</ul>
 				 </div>

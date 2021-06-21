@@ -6,7 +6,8 @@
   Đăng ký
 @endsection
 @section("content")
-<br/>
+<div style="height: 157px;"></div>
+
   <section class="container content__login">
     <div class="row">
       <div class="col-lg-3"></div>
