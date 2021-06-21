@@ -2365,12 +2365,12 @@ public function adCheckAddKhuyenmai(Request $re)
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             $vc=voucher::all();
-
+            
             return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
         {
-            return view('admin.voucher');    
+            return view('admin.login');    
         }
     }
 
@@ -2403,6 +2403,11 @@ public function adCheckAddKhuyenmai(Request $re)
         {
             return view('admin.voucher');    
         }
+    }
+
+    public function checkAddVoucher(Request $re)
+    {
+        
     }
 }
 

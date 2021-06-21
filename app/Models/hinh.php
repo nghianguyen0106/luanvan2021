@@ -10,5 +10,5 @@ class hinh extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table='hinh';
-    protected $fillable=['spMa','spHinh'];
+    protected $fillable=['spMa','spHinh','thutu'];
 }

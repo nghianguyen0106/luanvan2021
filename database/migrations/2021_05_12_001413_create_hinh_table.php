@@ -16,7 +16,7 @@ class CreateHinhTable extends Migration
         Schema::create('hinh', function (Blueprint $table) {
             $table->integer('spMa');
             $table->char('spHinh',50);
-            
+            $table->integer('thutu');
             $table->engine = "InnoDB";
             //foreign key
             
