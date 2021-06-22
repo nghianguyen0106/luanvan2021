@@ -4,155 +4,135 @@ Giỏ hàng
 @endsection
 @section('content')
 
-<!-- check out -->
-<div class="checkout">
-	<div class="container">
-		<div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
-			<br/>
-			<h3><strong>Giỏ hàng</strong></h3>
-			<table class="timetable_sub">
-				<thead>
-					<tr>
-						<th style="width: 250px;">Tên sản phẩm</th>
-						<th style="width: 200px;">Hình</th>
-						<th>Đơn giá</th>
-						<th>Số lượng</th>
-						<th>Thành tiền</th>
-						<th>Xóa</th>
-					</tr>
-				</thead>
-				<tbody>
-					@if(Cart::count() !=0)
 
+<section class="content__cart">
+	<div class="container-fluid">
+	<div class="row">
+	<div class="col-1_5"></div>
+	<div class="col-lg-9">
+			{{-- <a class="text-white btn btn-dark" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a> --}}
+		<br/>
+		<div class="row">
+			<table class="cart__list--item">
+				<tr class="table__title">
+					<td colspan="6">Giỏ hàng </td>
+				</tr>
+				<tbody>
+					<tr class="thead">
+						<td>Tên sản phẩm</td>
+						<td>Hình</td>
+						<td>Đơn giá</td>
+						<td>Số lượng</td>
+						<td>Thành tiền</td>
+						<td></td>
+					</tr>
+					@if(Cart::count() !=0)
 					@foreach($cart as $k=> $i)
-					<tr class="rem1">
-						<td class="invert"><a href="{{URL::to('proinfo/'.$i->id)}}">{{$i->name}}</a></td>
-						<td class="invert-image"><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">{{number_format($i->price)}} VND</td>
-						<td class="invert"><div class="counter">
+					<tr>
+						<td><a href="{{URL::to('proinfo/'.$i->id)}}">{{$i->name}}</a></td>
+						<td><a href="{{URL::to('proinfo/'.$i->id)}}"><img src="{{URL::asset('public/images/products/'.$i->options->spHinh)}}" alt=" " class="img-responsive" /></a></td>
+						<td>{{number_format($i->price)}} VND</td>
+						<td><div class="counter">
 				
-						  <a class="btn btn-outline-danger" href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a>
+						  <button type="button"><a href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a></button>
 						  <input style="width:50px;border: 0;text-align: center;" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
 						 
-						   <a class="btn btn-outline-success" href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a>
+						   <button type="button"><a href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a></button>
 						</div></td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
 						<td class="invert"><a class="btn btn-outline-danger"
-						onclick="func{{$k}}()">X</a></td>
+						onclick="func{{$k}}()">Xóa</a></td>
 					</tr>
 					@endforeach
 				@else
 				<tr>
-					<td colspan="7"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
+					<td colspan="6"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
 				</tr>
 				@endif
-				</tbody>
-				
-				<tfoot>
-					<tr>
-												<td colspan="3" style="text-align:left;">
-						<a class="text-white btn btn-dark" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a>
-						</td>
-						<td colspan="4" style="text-align:right;">
-								<a class="btn btn-outline-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+				<tr>
+					<td colspan="6" style="text-align:center;background:linear-gradient(to left bottom, #939299,#B4B4B7,#B7B8C0);padding: 3px 0 3px 0;">
+								<a class="btn btn-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
 							</td>
-					</tr>
-				</tfoot>
+				</tr>
+				</tbody>
 			</table>
 		</div>
 		<br/>
-		<!---->
-		<div class="row">
-			<div  class="col-lg-6 checkout-right">	
-					<div class="checkout-left-basket col-sm-12 col-12 animated wow slideInRight" data-wow-delay=".5s">
-						<h4> Đơn hàng tạm tính</h4>
-						<ul>
-							@foreach($cart as $k=> $i)
-								
-							<li> <i class="far fa-check-square" style="color: green;"></i>  <strong>{{$i->name}}</strong><span style="color: orange;"><i class="fas fa-money-check-alt" style="color: green;"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span></li>
+		<!------->
+		<div class="row justify-content-between cart__bot">
+			<div class="col-lg-6">
+				<div class="cart__bot--left">
+					<table>
+							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
+					</table>
+					<div class="left__content">
+							@foreach($cart as $k=> $i)	
+							<div class="content__pro">
+								<span class="pro__name">
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen;position: relative;left:15px"></i>
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen"></i>&nbsp;{{$i->name}}</span>
+								<span class="pro__price"><i class="fas fa-dollar-sign" style="font-size: 16px;color: lightgreen;border: 2px solid lightgreen;padding: 3px 3px 3px 3px"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span>
+							</div>
 								
 							@endforeach
 							<hr>
-							<li><b>Tổng tiền</b> <i></i> <span ><b style="color: red;">{{number_format($total)}}</b> VND</span></li>
-						</ul>
-							
-				</div>
+							<div class="content__total">
+								<span class="total__title">Tổng tiền:</span>
+								<span class="total__price">{{number_format($total)}}</b> VND</span>
+							</div>
+
+					</div>
+					<div>
+											
+					</div>
 				</div>
 
-				<div  class="col-lg-6 checkout-left">	
-					<div class="col-sm-12 col-12 checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-
+			</div>
+			<div class="col-lg-6">
+				<div class="cart__bot--right">
+					<table>
+							<tr><td>KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
+					</table>
+					<div class="right__content">
 						<form action="{{URL::to('order')}}" method="get">
-							<h4 class="promoTitle"><b> Ưu đãi có thể áp dụng (Chọn 1)</b></h4>
-						<ul>
-							<li style="color:black;" class="promoItem"><input type="radio" checked="" name="promo" class="form-check-input" value="0"> Không chọn</li><li><hr></li>
-						@foreach($promotion as $v)
-			
-						@if( $v->spSlkmtoida!=0 )
-							<li style="color:black;" class="promoItem">
+							<input type="radio" checked name="promo" value="0">&nbsp;Không chọn
+							<hr/>
+								@foreach($promotion as $v)
+								@if( $v->spSlkmtoida!=0 )
 								@if($b)
 									@foreach($b as $k=> $i)
 										@if($i['kmMa']==$v->kmMa && $i['kmSolan'] <= $v->kmGioihanmoikh)
 											
-											<ul>
-												<li class="promotitleItem" style="color:black;"><input type="radio" name="promo" class=" form-inline form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;{{$v->kmTen}}</li>
-												<li style="color:black;">{{$v->kmMota}}</li>
-												<li style="color:black;">
-													Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND
-												</li>
-											</ul> 
+											<input type="radio" name="promo" class=" form-inline form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;{{$v->kmTen}}
+												<p>{{$v->kmMota}}</p>
+												<span>	Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</span>
 										@endif
 									@endforeach
 								@endif
-										
-								 
-
-								
-							</li>
 						@endif
 						@endforeach
-						</ul>
-					<button type="submit" class="btn btn-success col-12" href="">Tiến hành đặt hàng</button>
-						</form>		
+						
 					</div>
-				
 				</div>
-		</div>
-		
-	</div>
-</div>	
-<br/>
-<!-- //check out -->
-<!-- //product-nav -->
-<div class="coupons">
-	<div class="container">
-		<div class="coupons-grids text-center">
-			<div class="col-md-3 coupons-gd">
-				<h3>Buy your product in a simple way</h3>
+				
 			</div>
-			<div class="col-md-3 coupons-gd">
-				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<h4>LOGIN TO YOUR ACCOUNT</h4>
-				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor
-			sit amet, consectetur.</p>
+
+			<div class="row justify-content-center" style="margin-top: 1rem;">
+				<button type="submit" class="btn btn-success col-3" href="">Tiến hành đặt hàng</button>
+				</form>
 			</div>
-			<div class="col-md-3 coupons-gd">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-				<h4>SELECT YOUR ITEM</h4>
-				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor
-			sit amet, consectetur.</p>
-			</div>
-			<div class="col-md-3 coupons-gd">
-				<span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
-				<h4>MAKE PAYMENT</h4>
-				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor
-			sit amet, consectetur.</p>
-			</div>
-			<div class="clearfix"> </div>
 		</div>
 	</div>
+	<div class="col-1_5"></div>
 </div>
+</div>
+</section>
+
+
+
+<br/>
+
 
 
 @if(Session::has('err'))
