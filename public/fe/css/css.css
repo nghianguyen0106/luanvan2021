@@ -664,20 +664,75 @@ background:  #192A69;
 	padding: 0;
 	display: flex;
 	justify-content: space-around;
-} 
-.products-right .item__product .btn__action a:nth-child(1)
+}
+.btn__action .btn__addCart
 {
+	padding: 0;
+	margin: 0;
+	width: 75%;
+	background-color: transparent;
+	outline: none;
+	border: 1px solid black;
+	box-shadow: grey 0px 1px 3px inset,
+				grey 0px 1px 3px,
+				grey 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+} 
+.btn__action .btn__addCart:hover
+{
+	background-color: #3EC334;
+	border: 1px solid #3EC334;
+	box-shadow: #3EC334 0px 1px 3px inset,
+				#3EC334 0px 1px 3px,
+				#3EC334 0px 1px 3px;
+	transition: 0.2s;
+}
+.btn__action .btn__addCart a
+{
+	color: black;
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	width: 75%;
 }
-.products-right .item__product .btn__action a:nth-child(2)
+.btn__action .btn__addCart:hover a
+{
+	color: white;
+	transition: 0.2s;
+}
+.btn__action .btn__heart
 {
 	width: 15%;
 	text-align: center;
 	margin: 0;
 	padding: 0;
+	background-color: transparent;
+	outline: none;
+	border: 1px solid black;
+	box-shadow: grey 0px 1px 3px inset,
+				grey 0px 1px 3px,
+				grey 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+}
+.btn__action .btn__heart a
+{
+	color: black;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+.btn__action .btn__heart:hover
+{
+	background-color: #F54646;
+	border: 1px solid #F54646;
+	box-shadow: #F54646 0px 1px 3px inset,
+				#F54646 0px 1px 3px,
+				#F54646 0px 1px 3px;
+	transition: 0.2s;
+}
+.btn__action .btn__heart:hover a
+{
+	color: white;
+	transition: 0.2s;
 }
 .products-right .item__product .item_info
 {

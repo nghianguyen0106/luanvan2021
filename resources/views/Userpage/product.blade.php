@@ -238,10 +238,11 @@ Danh sách sản phẩm
 									<label class="item_name"><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></label>
 									<br/>
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
-									<div class="btn__action">
-									<a href="{{URL::to('save-cart/'.$i->spMa)}}" class="item_add single-item hvr-outline-out button2"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
+									<div class="row btn__action">
+									<button class="btn__addCart" type="button"><a href="{{URL::to('save-cart/'.$i->spMa)}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a></button>
 									@if(Session::has('khMa'))
-											<a href="{{URL::to('addtowishlist/'.$i->spMa)}}" class="btn btn-outline-danger"><i class="fas fa-heart" style="margin-top:0.3rem ;"></i></a>
+											<button class="btn__heart" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
+											</button>
 									@endif
 								</div>
 						</div>
