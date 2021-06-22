@@ -169,11 +169,13 @@ border-bottom: 1px solid grey;
 .list__menu .list__menu--item:hover a
 {
 	color: white;
+	font-weight: bold;
 	transition: 0.1s;
 }
+
 .list__menu--item:hover
 {
-	background-color: #BEBCF0;
+	background-color: #FC3C3C;
 }
 
 /*--------------FOOTERR-----------------*/
@@ -680,11 +682,11 @@ background:  #192A69;
 } 
 .btn__action .btn__addCart:hover
 {
-	background-color: #3EC334;
-	border: 1px solid #3EC334;
-	box-shadow: #3EC334 0px 1px 3px inset,
-				#3EC334 0px 1px 3px,
-				#3EC334 0px 1px 3px;
+	background-color: #FF3636;
+	border: 1px solid #FF3636;
+	box-shadow: #FF3636 0px 1px 3px inset,
+				#FF3636 0px 1px 3px,
+				#FF3636 0px 1px 3px;
 	transition: 0.2s;
 }
 .btn__action .btn__addCart a
@@ -738,7 +740,8 @@ background:  #192A69;
 {
 	width: 95%;
 	text-align: center;
-	background-color: orange;
+	background-color: #B9B8B6;
+	opacity: 80;
 	position: absolute;
 	top: 1px;
 	left: 2.5%;
