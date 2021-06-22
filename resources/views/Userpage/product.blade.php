@@ -170,16 +170,16 @@ Danh sách sản phẩm
 					</div>
 					<div class="row-1">
 						<div>
-							 <span>Giá từ</span><br/>
-							  <input  type="range" class="form-range" id="priceFrom" value="0" min=0 max=100000000 name="priceFrom" ><span id="pf"></span>
+							 <span>Giá từ: </span><span id="pf" s></span><br/>
+							  <input  type="range" class="form-range" id="priceFrom" value="0" min=0 max=100000000 name="priceFrom" >
 							  
 						</div>
 					</div>
 					<br/>
 					<div class="row-1">
 						<div>
-							  <span>Giá đến</span><br/>
-							  <input type="range" class="form-range" id="priceTo" value="100000000" min=0 max=100000000 name="priceTo" ><span id="pt"></span>
+							  <span>Giá đến: </span><span id="pt" s></span><br/>
+							  <input type="range" class="form-range" id="priceTo" value="100000000" min=0 max=100000000 name="priceTo" >
 							  
 						</div>
 					</div>

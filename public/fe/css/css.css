@@ -667,14 +667,17 @@ background:  #192A69;
 	display: flex;
 	justify-content: space-around;
 }
-.btn__action .btn__addCart
+.btn__action .btn__addCart,
+.btn__action .btn__heart
 {
 	padding: 0;
 	margin: 0;
 	width: 75%;
+	text-align: center;
 	background-color: transparent;
 	outline: none;
 	border: 1px solid black;
+	border-radius: 5px;
 	box-shadow: grey 0px 1px 3px inset,
 				grey 0px 1px 3px,
 				grey 0px 1px 3px;
@@ -704,16 +707,6 @@ background:  #192A69;
 .btn__action .btn__heart
 {
 	width: 15%;
-	text-align: center;
-	margin: 0;
-	padding: 0;
-	background-color: transparent;
-	outline: none;
-	border: 1px solid black;
-	box-shadow: grey 0px 1px 3px inset,
-				grey 0px 1px 3px,
-				grey 0px 1px 3px;
-	padding: 3px 2px 3px 2px;
 }
 .btn__action .btn__heart a
 {
@@ -878,7 +871,8 @@ background:  #192A69;
 	padding: 0.5rem 1rem 0.5rem 1rem;
 	box-shadow: black 0px 1px 3px,black 0px 1px 3px;
 }
-.info__right .occasion-cart .btn__addCart,.info__right .occasion-cart .btn__heart
+.info__right .occasion-cart .btn__addCart,
+.info__right .occasion-cart .btn__heart
 {
 	font-size: 18px;
 	font-weight: 500;
@@ -1029,9 +1023,173 @@ background:  #192A69;
 
 
 
+/*---------------------GIỎ HÀNG-----------------------*/
+.content__cart table
+{
+	width: 100%;
+}
+.content__cart .table__title
+{
+	background-color: #EA6773;
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+}
+.content__cart .cart__list--item
+{
+	margin-left: 1%;
+	width: 98%;
+}
+.content__cart table tbody .thead
+{
+	border: 2px solid #757390;
+	color: white;
+	background: linear-gradient(to bottom,#FB1D71,#F62A64,#F74F7E,#F3779A);
+}
+.content__cart table tbody .thead tr td
+{
+	text-align: center;
+	border: 2px solid #757390;
+}
+.content__cart table tbody tr td
+{
+	text-align: center;
+	border: 2px solid #757390;
+	padding-top: 3px 0 3px 0;
+}
+.content__cart table tbody tr td img
+{
+	margin-left: 20%;
+	width: 90px;
+	height: 90px;
+}
+.content__cart table tbody tr td .counter button
+{
+	height: 30px;
+	font-size: 18px;
+	width: 30px;
+	margin-top: -6px;
+	text-align: center;
+	outline: none;
+	border-radius: 5px;
+	background-color: transparent;
+}
+.content__cart table tbody tr td .counter button:nth-child(1)
+{
+	border: 1px solid red;
+}
+.content__cart table tbody tr td .counter button:nth-child(1) a
+{
+	color: red;
+}
+.content__cart table tbody tr td .counter button:nth-child(1):hover
+{
+	background-color: red;
+	color: white;
+	transition: 0.5s;
+}
+.content__cart table tbody tr td .counter button:nth-child(3)
+{
+	border: 1px solid green;
+}
+.content__cart table tbody tr td .counter button:nth-child(3) a
+{
+	color: green;
+}
+.content__cart table tbody tr td .counter button:nth-child(3):hover
+{
+	background-color:green;
+	color: white;
+	transition: 0.5s;
+}
+.cart__bot .cart__bot--left table tr,
+.cart__bot .cart__bot--right table tr
+{
+	color: white;
+	background: linear-gradient(to bottom,#FB1D71,#F62A64,#F74F7E,#F3779A);
+	font-weight: 500;
+	padding: 3px 0 3px 0;
+}
+.left__content, .right__content
+{
+	padding: 5px 10px 5px 10px;
+	border: 2px solid #757390;
+}
+.left__content .content__pro
+{
+	margin-top: 5px;
+	font-size: 18px;
+	font-weight: 500;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+} 
+.left__content .content__pro .pro__price
+{
+	color: #F8BE0E;
+}
+.left__content .content__total
+{
+	font-size: 20px;
+	font-weight: 500;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0 5px 5px 10px;
+}
+.left__content .content__total .total__price
+{
+	color: red;
+}
+.content__cart .address__info table
+{
+	width: 100%;
+}
+.content__cart .address__info table thead tr td 
+{
+	font-size: 18px;
+	background-color: #EA6773;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	border: 2px solid #757390;
+}
 
+.content__cart .address__info table tbody .thead td
+{
+	background: linear-gradient(to bottom,#FB1D71,#F62A64,#F74F7E,#F3779A);
+	border: 2px solid #757390;
+	width: 50%;
+}
+.content__cart .address__info table tbody tr td input
+{
+	width: 100%;
+	outline: none;
+	border: 0;
+	padding-left: 1rem;
+}
+.content__cart tfoot
+{
 
-
+}
+.content__cart tfoot tr td
+{
+	text-align: right;
+	border: 2px solid #757390;
+}
+.content__cart tfoot tr td h5,
+.content__cart tfoot tr td span
+{
+	font-weight: bold;
+}
+.content__cart tfoot tr td span
+{
+	color: #EA6773;
+}
+.content__cart tfoot tr td input 
+{
+	display: none;
+}
 
 
 @media only screen and (max-width: 736px)
