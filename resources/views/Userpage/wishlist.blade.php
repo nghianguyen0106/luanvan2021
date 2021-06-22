@@ -3,26 +3,40 @@
 Danh mục yêu thích
 @endsection
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="mb-4 col-12 ">
-			<table class="table table-hover  ">
-				<thead>
-					<th>STT</th>
-					<th>Tên sản phẩm</th>
-					<th></th>
-					<th>Loại</th>
-					<th>Thương hiệu</th>
-					<th>Giá</th>
-					<th>Tình trạng</th>	
-					<th></th>
-				</thead>
-				<tbody>
+
+<br/>
+<section class="list__wish">
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-1_5"></div>
+		<div class="col-lg-9">
+		<div class="row">
+			<div class="col-lg-12">
+				<table class="order__table">
+					<thead>
+						<tr>
+							<td colspan="8">
+								SẢN PHẨM YÊU THÍCH
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="thead">
+							<td>STT</td>
+							<td>Tên sản phẩm</td>
+							<td>Hình</td>
+							<td>Loại</td>
+							<td>Thương hiệu</td>
+							<td>Giá</td>
+							<td>Tình trạng</td>	
+							<td></td>	
+						</tr>
+
 					@foreach($wl as $k=> $i)
 					<tr>
 						<td>{{$k+1}}</td>
 						<td><a  href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></td>
-						<td><a  href="{{URL::to('proinfo/'.$i->spMa)}}"><img style="height: 150px;" src="{{URL::asset('public/images/products/'.$i->spHinh)}}"></a></td>
+						<td><a  href="{{URL::to('proinfo/'.$i->spMa)}}"><img src="{{URL::asset('public/images/products/'.$i->spHinh)}}"></a></td>
 						<td>{{$i->loaiTen}}</td>
 						<td>{{$i->thTen}}</td>
 						<td>{{number_format($i->spGia)}} VND</td>
@@ -33,14 +47,22 @@ Danh mục yêu thích
 							Hết hàng
 							@endif
 						</td>
-						<td><a href="{{URL::to('addtowishlist/'.$i->spMa)}}" class="btn btn-outline-danger"><i class="fas fa-heart-broken"></i></a></td>
+						<td><a href="{{URL::to('addtowishlist/'.$i->spMa)}}" class="btn btn-outline-danger">Xóa</a></td>
 					</tr>
 					@endforeach
-				</tbody>
-			</table>
+
+					</tbody>
+				</table>
+			</div>
 		</div>
+		</div>
+		<div class="col-1_5"></div>
 	</div>
 </div>
+</section>
+
+<br/><br/>
+
 
 
 @if(Session::has('success'))

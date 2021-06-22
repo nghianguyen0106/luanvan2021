@@ -237,9 +237,15 @@ border-bottom: 1px solid grey;
 
 
 /* ---------------------infomation -----------------------*/
-h2
+.infomation h2
 {
+	color: #F4335C;
+	font-size: 40px;
+	font-weight: bold;
 	text-align: center;
+	text-shadow: 0px 4px 3px #061A5C,
+             0px 8px 13px rgba(0,0,0,0.1),
+             0px 18px 23px rgba(0,0,0,0.1);
 }
 .box__info .flex__info
 {
@@ -249,14 +255,65 @@ h2
 .flex__info .info__item
 {
 	display: block;
-	width: 12rem;
+	width: 11rem;
+}
+.flex__info .info__item:nth-child(1)
+{
+	font-size: 20px;
+	font-weight: 500;
 }
 .flex__info .ip
 {
-	border: 0;
-	border-bottom: 1px solid black;
+	border: 1px solid black;
+	font-size: 18px;
+	border-radius: 20px;
 	width: 20rem;
+	padding:0.3rem 1rem 0.3rem 1rem;
+	outline: none;
 }
+.information__img img,.information__img #box__img
+{
+	width: 300px;
+	height: 300px;
+	border-radius: 360px
+}
+.information__img #box__img
+{
+	border: 1px dashed black;
+	background-color: lightgrey;
+}
+.information__img #box__img span
+{
+	font-size: 28px;
+	padding: 3px 0 3px 0;
+	border-radius: 3px;
+	text-align: center;
+	color:grey;
+	font-weight: bold;
+}
+.information__img #box__img span i
+{
+	font-size: 65px;
+	color: #AF8282;
+}
+.information__img #file__name
+{
+	font-size: 16px;
+	text-align: center;
+	border: 1px dashed white;
+	color: black;
+	padding: 5px 0 5px 0;
+}
+.information__img #btnImg__cancel
+{
+	display: none;
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	cursor: pointer;
+}
+
+
 .btn_editInfo
 {
 	position: relative;
@@ -332,6 +389,7 @@ h2
 	border-radius: 30px;
 	background-color: #859BEC;
 	font-family: "Montserrat",san-serif;
+	cursor: pointer;
 }
 .flex__btnPass
 {
@@ -350,6 +408,8 @@ h2
 	z-index: 100;
 	cursor: pointer;
 }
+
+
 
 
 /* //////////////////BANNERS//////////////////// */
@@ -1052,7 +1112,7 @@ background:  #192A69;
 {
 	text-align: center;
 	border: 2px solid #757390;
-	padding-top: 3px 0 3px 0;
+	padding: 3px 0 3px 0;
 }
 .content__cart table tbody tr td img
 {
@@ -1187,6 +1247,58 @@ background:  #192A69;
 {
 	display: none;
 }
+
+/*---------------------DANH SÁCH ĐƠN HÀNG/ ĐƠN HÀNG YÊU THÍCH---------------*/
+.list__order .order__table,
+.list__wish .order__table
+{
+	width: 100%;
+}
+.modal .modal-content .order__table
+{
+	margin-top: 2%;
+	background-color: white;
+} 
+.list__order .order__table thead tr td,
+.list__wish .order__table thead tr td
+{
+	font-size: 22px;
+	background-color: #EA6773;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	border: 2px solid #757390;
+}
+
+.list__order .order__table tbody .thead td,
+.modal .modal-content .order__table tbody .thead td,
+.list__wish .order__table tbody .thead td
+{
+	background: linear-gradient(to bottom,#FB1D71,#F62A64,#F74F7E,#F3779A);
+	border: 2px solid #757390;
+	text-align: center;
+	color: white;
+	padding: 3px 0 3px 0;
+}
+.list__order .order__table tbody tr td,
+.list__wish .order__table tbody tr td
+{
+	text-align: center;
+	border: 2px solid #757390;
+	padding: 3px 0 3px 0;
+}
+.modal .modal-content .order__table tbody tr td img
+{
+	width: 100px;
+	height: 100px;
+}
+.list__wish .order__table tbody tr td img
+{
+	width: 100px;
+	height: 100px;
+}
+
+
 
 
 @media only screen and (max-width: 736px)

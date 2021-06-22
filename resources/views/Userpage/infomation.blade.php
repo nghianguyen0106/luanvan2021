@@ -7,17 +7,18 @@ Thông tin cá nhân
 <!-- banner -->
 <br/>
 <!---Content--->
- <div class="container">
+<section class="infomation">
+ <div class="container-fluid">
 	<div class="row">
-			<h2 style="color:orange;">Thông tin của bạn</h2>
+		<div class="col-1_5"></div>
+		<div class="col-lg-9">
+			<h2>Thông tin của bạn</h2>
 				<hr/>
-		<div class="col-lg-12">
-			<br/>
 			@foreach($data as $v)
 				<form class="col-lg-12 box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST" enctype="multipart/form-data">
 					  {{csrf_field()}}
 					  <div class="row">
-				<div class="col-lg-7">
+				<div class="col-lg-8">
 				<div class="flex__info">
 					<span class="info__item">Tên:</span>
 					<span class="info__item">
@@ -103,25 +104,30 @@ Thông tin cá nhân
 				<div class="flex__info">
 					<span class="info__item">Giới tính:</span>
 					<span class="info__item">
-						<input value="0" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/>Nam &emsp;
-					 	<input value="1" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/>Nữ
+						<input value="0" type="radio" {{$v->khGioitinh==0?"checked":"unchecked"}} name="khGioitinh"/><span style="font-size: 18px">Nam</span> &emsp;
+					 	<input value="1" type="radio" {{$v->khGioitinh==1?"checked":"unchecked"}} name="khGioitinh"/><span style="font-size: 18px">Nữ</span>
 					 </span>
 				 </div>
 				 <br/>
 				<br/>
 				</div>
-				<div class="col-lg-5">
-				
+				<div class="col-lg-4 information__img">
+					<span id="btnImg__cancel"><i class="fas fa-times" style="font-size: 30px;color: red;"></i></span>
 					@if($v->khHinh!=null)
-					
-					 <img style="width: 300px;height: 300px;border-radius: 360px" src="{{{'../public/images/khachhang/'.$v->khHinh}}}" />
+					 <img id="img__default" src="{{{'../public/images/khachhang/'.$v->khHinh}}}" />
+					 @else
+					 <div id="box__img" style="display: flex;justify-content: space-around;align-items: center;">
+					 	<span>Chưa có ảnh đại diện <br/> <i class="fas fa-portrait"></i></span>
+					 </div>
 					 @endif
-					 <br/><br/>
-					 <input id="khHinh" name="khHinh" type="file" />
-					 <label for="khHinh" class="lb__khHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn ảnh khác</i></label>
-					 <br/>
-					 <br/>
+
+					 <img id="img__change" src="" alt=""/>
+					 <div id="file__name" class="row"></div>
 					
+					 <br/>
+					 <input id="khHinh" name="khHinh" type="file" />
+					 &nbsp;<label onclick="defaultAction()" id="lb__khHinh" class="lb__khHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn ảnh khác</i></label>
+					<br/><br/>
 				</div>
 			</div>
 			 <a class="btn_editPass" href="{{url('updatePass/'.$v->khMa)}}">Đổi mật khẩu</a>
@@ -133,8 +139,23 @@ Thông tin cá nhân
 		</div>
 	
 		@endforeach
+		<div class="col-1_5"></div>
 	</div>
 </div>
+</section><br>
+@if(Session::get("khHinh")!=null)
+	<script src="{{url('public/fe/js/previewImgInputFile2.js')}}"></script>
+@else
+<script src="{{url('public/fe/js/previewImgInputFile1.js')}}"></script>
+@endif
+<script src="{{url('public/fe/js/js-validate/validate-register.js')}}"></script>
+
+
+
+
+
+
+
 
 @if(Session::has('err'))
  <script type="text/javascript" >
@@ -168,7 +189,8 @@ Swal.fire({
 
 @endif
 @endsection
-<script src="{{url('public/fe/js/js-validate/validate-register.js')}}"></script>
+
+
 
 
 

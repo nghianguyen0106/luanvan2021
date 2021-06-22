@@ -4,8 +4,107 @@ Danh sách đơn hàng
 @endsection
 @section('content')
 <br>
-<div class="container">
-	<div class="row">
+<section class="list__order">
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-1_5"></div>
+		<div class="col-lg-9">
+		<div class="row">
+			<div class="col-lg-12">
+				<table class="order__table">
+					<thead>
+						<tr>
+							<td colspan="8">
+								DANH SÁCH ĐƠN HÀNG
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="thead">
+							<td>Mã đơn hàng</td>
+							<td>Ngày đặt</td>
+							<td>Số lượng</td>
+							<td>Địa chỉ giao hàng</td>
+							<td>Số điện thoại nhận</td>
+							<td>Tình trạng</td>
+							<td></td>
+							<td></td>
+						</tr>
+
+						@foreach($list as $i)
+					@if($i->hdTinhtrang!=3)
+						<tr>
+							<td>{{$i->hdMa}}</td>
+							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
+							<td>{{$i->hdSoluongsp}}</td>
+							<td>{{$i->hdDiachi}}</td>
+							<td>{{$i->hdSdtnguoinhan}}</td>
+							<td>
+								@if($i->hdTinhtrang==0)
+									<span style="color:red;">Đang chờ xác nhận</span>
+								@elseif($i->hdTinhtrang==1)
+										<span style="color:blue;">Đang giao hàng</span>
+								@elseif($i->hdTinhtrang==2)
+										<span style="color:green;">Đã thanh toán</span>
+								@endif
+							</td>
+							<td>
+								<a class="btn btn-dark text-white" id="myBtn" onclick="view{{$i->hdMa}}()">Xem</a>
+									<!-- The Modal -->
+								<div id="myModal{{$i->hdMa}}" class="modal">
+
+								  <!-- Modal content -->
+								  <div class="modal-content">
+								    <div class="close">Chi tiết đơn hàng</div>
+
+								    <table class="order__table">
+								    	<tbody>
+								    		<tr class="thead">
+								    			<td>Tên sản phẩm</td>
+								    			<td>Hình</td>
+								    			<td>Số lượng</td>
+								    			<td>Đơn giá</td>
+								    		</tr>
+								    		@foreach($details as $v)
+								    			@if($v->hdMa==$i->hdMa)
+										    		<tr>
+										    			<td>{{$v->spTen}}</td>
+										    			<td class="invert-image"><a href="{{URL::to('proinfo/'.$v->spMa)}}"><img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt=" " class="img-responsive" /></a></td>
+										    			<td>{{$v->cthdSoluong}}</td>
+										    			<td>{{number_format($v->cthdGia)}} VND</td>
+										    		</tr>
+								    			@endif
+								    		@endforeach
+								    	</tbody>
+								    </table>
+								  </div>
+								</div>
+
+							</td>
+							<td>
+								@if($i->hdTinhtrang==0)
+									<a class="btn btn-danger" href="{{url('huy-don/'.$i->hdMa)}}">Hủy đơn</a>
+								@endif
+							</td>
+						</tr>
+						@endif						
+					@endforeach	
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+		<div class="col-1_5"></div>
+	</div>
+</div>
+</section>
+
+<br/>
+
+
+
+{{-- 
 		<table style="text-align: center;" class="table-hover table table-inverse table-responsive">
 			<thead>
 				<tr>
@@ -41,39 +140,7 @@ Danh sách đơn hàng
 								@endif
 							</td>
 							<td>
-								<a class="btn btn-outline-warning" id="myBtn" onclick="view{{$i->hdMa}}()">Xem</a>
-									<!-- The Modal -->
-								<div id="myModal{{$i->hdMa}}" class="modal">
-
-								  <!-- Modal content -->
-								  <div class="modal-content">
-								    <div class="close">Chi tiết đơn hàng</div>
-
-								    <table class="table-hover table table-inverse table-responsive">
-								    	<thead style="font-size: 20px;">
-								    		<tr>
-								    			<th>Tên sản phẩm</th>
-								    			<th></th>
-								    			<th>Số lượng</th>
-								    			<th>Đơn giá</th>
-								    		</tr>
-								    	</thead>
-								    	<tbody style="font-size: 20px;">
-								    		@foreach($details as $v)
-								    			@if($v->hdMa==$i->hdMa)
-										    		<tr>
-										    			<td>{{$v->spTen}}</td>
-										    			<td class="invert-image"><a href="{{URL::to('proinfo/'.$v->spMa)}}"><img style="width: 100px;height: 100px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt=" " class="img-responsive" /></a></td>
-										    			<td>{{$v->cthdSoluong}}</td>
-										    			<td>{{number_format($v->cthdGia)}} VND</td>
-										    		</tr>
-								    			@endif
-								    		@endforeach
-								    	</tbody>
-								    </table>
-								  </div>
-								</div>
-
+								
 							</td>
 							
 							
@@ -85,9 +152,8 @@ Danh sách đơn hàng
 					@endforeach					
 			</tbody>
 		</table>
-	</div>
-</div>
 
+ --}}
 @foreach($list as $i)
 <script>
 	function view{{$i->hdMa}}()
