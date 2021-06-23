@@ -15,7 +15,7 @@ Giỏ hàng
 		<div class="row">
 			<table class="cart__list--item">
 				<tr class="table__title">
-					<td colspan="6">Giỏ hàng </td>
+					<td colspan="6">GIỎ HÀNG</td>
 				</tr>
 				<tbody>
 					<tr class="thead">
