@@ -11,5 +11,5 @@ class voucher extends Model
     public $timestamps = false;
     protected $table='voucher';
     protected $primaryKey='vcMa';
-    protected $fillable=['vcMa','vcTen','vcTinhtrang','vcSoluot','vcLoai','vcNgaybt','vcNgaykt','vcLoaiGiamgia','vcMucgiam','vcGiatritoithieu','vcDkapdung','vcGtcandat','spMa'];
+    protected $fillable=['vcMa','vcTen','vcTinhtrang','vcSoluot','vcLoai','vcNgaybt','vcNgaykt','vcLoaiGiamgia','vcMucgiam','vcGiatritoida','vcDkapdung','vcGtcandat','spMa'];
 }

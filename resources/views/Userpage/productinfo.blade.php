@@ -231,7 +231,7 @@ Thông tin sản phẩm
 							<td class="mota__right">{{$i->hedieuhanh}}</td>
 						</tr>
 						@endif
-						</table>
+				</table>
 						
 					@endforeach
 				</div>

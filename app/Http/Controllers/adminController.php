@@ -1900,21 +1900,21 @@ public function adCheckAddKhuyenmai(Request $re)
                 $sp=sanpham::where('kmMa',$re->id)->get();
                 $removelist="Sản phẩm đã xóa khỏi khuyến mãi: ";
                 $addlist="";
-                
+                // dd($sp);
 
                 //add promotion code to products
                 //dd($re->checkboxsp);
-                if($re->checkboxsp!=null)
-                {
-                    foreach ($sp as $v) 
+                foreach ($sp as $v) 
                     {
                         
                         $v->kmMa=null;
-                        $removelist.=', '.$v->spMa;
+                        //$removelist.=', '.$v->spMa;
                         $v->save();
                         $checkFixed++; 
                     }
-
+                if($re->checkboxsp!=null)
+                {
+                    
                     foreach($re->checkboxsp as $v)
                     {
                         $sp=sanpham::where('spMa',$v)->first();
@@ -1934,7 +1934,7 @@ public function adCheckAddKhuyenmai(Request $re)
                     $ad_log=new admin_log();
                     $ad_log->adMa=Session::get('adMa');
 
-                    $ad_log->alChitiet="Sửa khuyến mãi: ".$re->kmTen.'; Sản phẩm được áp dụng: '.$addlist.'; '.$removelist.'; '.$kmTenOld.$kmMotaOld.$kmTrigiaOld.$kmNgaybdOld.$kmNgayktOld.$kmSoluongOld.$kmGioihanmoikhOld.$kmGiatritoidaOld;
+                    $ad_log->alChitiet="Sửa khuyến mãi: ".$re->kmTen.'; './*$removelist.*/'; '.'Sản phẩm được áp dụng: '.$addlist.'; '.$kmTenOld.$kmMotaOld.$kmTrigiaOld.$kmNgaybdOld.$kmNgayktOld.$kmSoluongOld.$kmGioihanmoikhOld.$kmGiatritoidaOld;
                     $ad_log->alNgaygio=now();
                     $ad_log->save();
                 }
@@ -2407,7 +2407,42 @@ public function adCheckAddKhuyenmai(Request $re)
 
     public function checkAddVoucher(Request $re)
     {
-        
+        //Validate
+       $messages =[
+                'vcMa.required'=>'Mã không được để trống !',
+                'vcTen.required'=>'Tên không được để trống !',
+                'vcSoluot.required'=>'Số lượt không được để trống!',
+                'vcNgaybd.required'=>'Nhập ngày bắt đầu !',
+                'vcNgaykt.required'=>'Nhập ngày kết thúc !',
+                'vcMucgiam.required'=>'Nhập mức giảm!',
+                'vcGiatritoida.required'=>'Nhập giá trị tối đa!',
+            ];
+            $this->validate($re,[
+                'vcMa'=>'required',
+                'vcTen'=>'required',
+                'vcSoluot'=>'required',
+                'vcNgaybd'=>'required',
+                'vcNgaykt'=>'required',
+                 'vcMucgiam'=>'required',
+                 'vcGiatritoida'=>'required'
+            ],$messages);
+        $vc=new voucher();
+        $vc->vcMa=$re->vcMa;
+        $vc->vcTen=$re->vcTen;
+        $vc->vcSoluot=$re->vcSoluot;
+        $vc->vcNgaybd=$re->vcNgaybd;
+        $vc->vcNgaykt=$re->vcNgaykt;
+        $vc->vcLoaigiamgia=$re->vcLoaigiamgia;
+        $vc->vcMucgiam=$re->vcMucgiam;
+        $vc->vcGiatritoida=$re->vcGiatritoida;
+        $vc->vcLoai=$re->vcLoai;
+        $vc->vcDkapdung=$re->vcDkapdung;
+        $vc->vcGtcandat=$re->vcGtcandat;
+        if($re->vcTinhtrang!=null)
+        {
+            $vc->vcTinhtrang=$re->vcTinhtrang;
+        }
+        dd($vc);
     }
 }
 

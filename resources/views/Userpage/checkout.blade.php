@@ -92,21 +92,29 @@ Giỏ hàng
 			<div class="col-lg-6">
 				<div class="cart__bot--right">
 					<table>
-							<tr><td>KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
+							<tr><td class="promoTitle">KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
 					</table>
 					<div class="right__content">
 						<form action="{{URL::to('order')}}" method="get">
-							<input type="radio" checked name="promo" value="0">&nbsp;Không chọn
+							<input type="radio" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
 							<hr/>
 								@foreach($promotion as $v)
 								@if( $v->spSlkmtoida!=0 )
 								@if($b)
+								@php
+								$check=array();
+								@endphp	
 									@foreach($b as $k=> $i)
 										@if($i['kmMa']==$v->kmMa && $i['kmSolan'] <= $v->kmGioihanmoikh)
-											
-											<input type="radio" name="promo" class=" form-inline form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;{{$v->kmTen}}
+											@if(in_array($v->spMa, $check)==null)
+											@php
+											array_push($check, $v->spMa)
+											@endphp
+											<input type="radio" name="promo" class=" form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;<span class="promotitleItem">{{$v->kmTen}}</span>
 												<p>{{$v->kmMota}}</p>
-												<span>	Giảm:{{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{$v->kmGiatritoida}} VND</span>
+												<span>	Giảm: {{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{number_format($v->kmGiatritoida)}} VND</span><br>
+												<span>Được áp dụng {{$v->kmGioihanmoikh}} lần cho mỗi khách hàng.</span><br><hr>
+											@endif
 										@endif
 									@endforeach
 								@endif
