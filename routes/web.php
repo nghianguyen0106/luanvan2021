@@ -121,6 +121,7 @@ Route::get('/deleteSanpham/{id}','adminController@adDeleteSanpham');
 Route::get('/updateSanpham/{id}','adminController@adUpdateSanpham');
 Route::post('/editSanpham/{id}','adminController@editSanpham');
 Route::post('/themhinh','adminController@addHinhSanpham');
+Route::get('/editHinhStt/{tenhinh}/{id}','adminController@editStatusHinh');
 Route::get('/xoahinh/{tenhinh}/{id}','adminController@deleteHinhSanpham');
 Route::post('/editMota/{id}','adminController@editMota');
 Route::get('/loiThemHinhSP','adminController@viewLoiThemHinhSP');

@@ -2,7 +2,6 @@
 	const btnFile = document.getElementById("khHinh");
 	const cusBtn = document.getElementById("lb__khHinh");
 	const imgChange = document.getElementById("img__change");
-	const boxImg =document.getElementById("box__img");
 	const fileName = document.getElementById("file__name");
 	const btnCancel = document.getElementById("btnImg__cancel");
 	imgChange.style.display = 'none';
@@ -19,14 +18,12 @@
 			reader.onload =  function(){
 			const result = reader.result;
 			imgChange.src = result;
-			boxImg.style.display = 'none';
 			imgChange.style.display = 'block';
 			fileName.style.display = 'block';
 			btnCancel.style.display = 'block';
 		}
 		btnCancel.addEventListener("click", function(){
 			imgChange.src = "";
-			boxImg.style.display = 'block';
 			imgChange.style.display = 'none';
 			fileName.style.display = 'none';
 			btnCancel.style.display = 'none';

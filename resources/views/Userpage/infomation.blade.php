@@ -120,10 +120,8 @@ Thông tin cá nhân
 					 	<span>Chưa có ảnh đại diện <br/> <i class="fas fa-portrait"></i></span>
 					 </div>
 					 @endif
-
 					 <img id="img__change" src="" alt=""/>
 					 <div id="file__name" class="row"></div>
-					
 					 <br/>
 					 <input id="khHinh" name="khHinh" type="file" />
 					 &nbsp;<label onclick="defaultAction()" id="lb__khHinh" class="lb__khHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn ảnh khác</i></label>

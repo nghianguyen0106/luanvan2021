@@ -1,0 +1,32 @@
+//quyen
+function onQuyen()
+{
+	var ip_quyen = document.getElementById("ip__quyen");
+	var ip_quyen_val = document.getElementById("ip__quyen").value;
+	var quyen_err_update = document.getElementById("quyen__err--update");
+	quyen_err_update.style.display = 'none';
+	var btnOk = document.getElementById("btn__ok")
+	 if(ip_quyen_val>=5)
+	 {
+	 	ip_quyen.style.border = '2px solid red';
+	 	quyen_err_update.style.display = 'block';
+	 	quyen_err_update.innerHTML = "Quyền không được quá 5";
+	 	quyen_err_update.style.color = 'red';
+	 	btnOk.setAttribute("type", "button");
+	 }
+	 else if(ip_quyen_val == "")
+	 {
+	 ip_quyen.style.border = '2px solid red';
+	 	quyen_err_update.style.display = 'block';
+	 	quyen_err_update.innerHTML = "Quyền không được rỗng";
+	 	quyen_err_update.style.color = 'red';
+	 	btnOk.setAttribute("type", "button");
+	 }
+	 else {
+	 	ip_quyen.style.border = '2px solid green';
+	 	quyen_err_update.style.display = 'none';
+	 	quyen_err_update.innerHTML = "";
+	 	
+	 	btnOk.setAttribute("type", "submit");
+	 }
+}

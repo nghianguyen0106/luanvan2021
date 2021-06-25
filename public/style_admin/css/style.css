@@ -13,11 +13,11 @@ table
 	text-align: center;
 }
 
-#adHinh, #upAdHinh, #khHinh, #upKhHinh, #upSpHinh
+#inputImg, #upAdHinh, #khHinh, #upKhHinh, #upSpHinh,#inputImg2,#inputImg3, #inputImg4
 {
 	display: none;
 }
-.lb__adHinh, .lb__upAdHinh, .lb__khHinh ,.lb__upKhHinh, .lb__upSpHinh
+.lb__adHinh, .lb__upAdHinh, .lb__khHinh ,.lb__upKhHinh, .lb__upSpHinh,.lb__spHinh
 {
 	font-size: 12px;
 	position: relative;
@@ -33,7 +33,12 @@ table
 	background-color: #859BEC;
 	font-family: "Montserrat",san-serif;
 }
-
+.lb__spHinh
+{
+	height: 40px;
+	width: 200px;
+	font-size: 16px;
+}
 
 #click__pass
 {
@@ -259,6 +264,137 @@ table
 	width: 45px;
 	height: 45px;
 }
+
+.box__img
+{
+	position:relative;
+	width: 130px;
+	height: 130px;
+	left: 22%;
+	font-weight: bold;
+	color: #74757B;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	z-index: 1;
+	border:2px solid black;
+}
+#imgDefault
+{
+	width: 130px;
+	height: 130px;
+	position: absolute;
+}
+#img, #img2, #img3, #img4
+{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	height: 130px;
+	display: none;
+	object-fit: cover;
+	
+}
+
+
+/*-----PAGE SUA SAN PHAM-------*/
+.box__list--img
+{
+	display: flex;
+	flex-direction: row; 
+	flex-wrap: wrap;
+	padding: 10px 10px; 
+}
+.box__list--img .item__img
+{
+	margin-top: 1rem;
+}
+.box__list--img table
+{
+	width: 100%;
+	text-align: center;
+	border: 2px solid black;
+}
+.box__list--img table .btn__chose
+{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: center;
+	background-color: transparent;
+	outline: none;
+	border: 1px solid black;
+	box-shadow: grey 0px 1px 3px inset,
+				grey 0px 1px 3px,
+				grey 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+}
+.box__list--img table .btn__chose a
+{
+	text-decoration: none;
+}
+.box__list--img table .btn__delete
+{
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	background-color: transparent;
+	outline: none;
+	border: 1px solid black;
+	box-shadow: grey 0px 1px 3px inset,
+				grey 0px 1px 3px,
+				grey 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+}
+.box__list--img table .btn__delete a i
+{
+	color: red;
+}
+
+.box__list--img table .btn__chose:hover
+{
+	background-color: #3EC334;
+	border: 1px solid #3EC334;
+	box-shadow: #3EC334 0px 1px 3px inset,
+				#3EC334 0px 1px 3px,
+				#3EC334 0px 1px 3px;
+	transition: 0.2s;
+}
+.box__list--img table .btn__chose:hover a
+{
+	color: white;
+}
+.box__list--img table .btn__delete:hover
+{
+	background-color: #F54646;
+	border: 1px solid #F54646;
+	box-shadow: #F54646 0px 1px 3px inset,
+				#F54646 0px 1px 3px,
+				#F54646 0px 1px 3px;
+	transition: 0.2s;
+}
+.box__list--img table .btn__delete:hover a i
+{
+	color: white;
+}
+
+
+
+#btnCancel,#btnCancel2, #btnCancel3, #btnCancel4
+{
+	position: relative;
+	left: 52%;
+	top: 10%;
+	color: red;
+	display: none;
+	z-index: 5;
+	cursor: pointer;
+}
+#btnImg__editSP
+{
+	display: none;
+}
+
 
 
 

@@ -47,6 +47,7 @@ class adminController extends Controller
             $nv = DB::table('admin')->get();
             $sp = DB::table('sanpham')
                 ->join('hinh','hinh.spMa','=','sanpham.spMa')
+                ->where('hinh.thutu','=','1')
                 ->join('kho','kho.spMa','=','sanpham.spMa')
                 ->get();
             $dh = DB::table('donhang')->where('hdTinhtrang',2)->count();
@@ -87,6 +88,7 @@ class adminController extends Controller
                 $nv = DB::table('admin')->get();
                 $sp = DB::table('sanpham')
                     ->join('hinh','hinh.spMa','=','sanpham.spMa')
+                    ->where('hinh.thutu','=','1')
                     ->join('kho','kho.spMa','=','sanpham.spMa')
                     ->get();
                 $total_sp = DB::table('sanpham')->where('spTinhtrang',1)->count();
@@ -900,7 +902,7 @@ class adminController extends Controller
                         $imgextention=$re->file('img')->extension();
                         $file=$re->file('img');
                         $file->move('public/images/products',$data3['spHinh']);
-
+                 $data3['thutu'] = 1;
                 DB::table('hinh')->insert($data3);
                
 
@@ -913,7 +915,7 @@ class adminController extends Controller
                             $imgextention=$re->file('img2')->extension();
                             $file=$re->file('img2');
                             $file->move('public/images/products',$dataImg2['spHinh']);
-
+                    $dataImg2['thutu'] = 0;
                     DB::table('hinh')->insert($dataImg2);
                 }
                  //Anh 3
@@ -925,7 +927,7 @@ class adminController extends Controller
                             $imgextention=$re->file('img3')->extension();
                             $file=$re->file('img3');
                             $file->move('public/images/products',$dataImg3['spHinh']);
-
+                    $dataImg3['thutu'] = 0;
                     DB::table('hinh')->insert($dataImg3);
                 }
                  //Anh 4
@@ -937,6 +939,7 @@ class adminController extends Controller
                             $imgextention=$re->file('img4')->extension();
                             $file=$re->file('img4');
                             $file->move('public/images/products',$dataImg4['spHinh']);
+                    $dataImg4['thutu'] = 0;
                     DB::table('hinh')->insert($dataImg4);
                 }
                 $dataPN = array();
@@ -1118,7 +1121,30 @@ class adminController extends Controller
 
         
     }
+    public function editStatusHinh($tenhinh, $id)
+    {
+        $count = DB::table('hinh')->select("spHinh")->where('spMa',$id)->where("thutu","1")->count();
+        $oldDB = DB::table('hinh')->where('spMa',$id)->where("thutu","1")->first();
+        if($count == 0)
+        {
+            $data = array();
+            $data["thutu"] = 1;
+            DB::table('hinh')->where('spHinh',$tenhinh)->update($data);
+            return redirect('/updateSanpham/'.$id);
+        }
+        elseif($count>=1)
+        {
+           
+            $data1 = array();
+            $data1["thutu"] = 0;
+            DB::table('hinh')->where('spHinh',$oldDB->spHinh)->update($data1);
 
+              $data = array();
+                $data["thutu"] = 1;
+                DB::table('hinh')->where('spHinh',$tenhinh)->update($data);
+                return redirect('/updateSanpham/'.$id);
+        }
+    }
     public function addHinhSanpham(Request $re)
     {
        
@@ -1130,6 +1156,7 @@ class adminController extends Controller
                 $imgextention = $re->file('img')->extension();
                 $file = $re->file('img');
                 $file->move('public/images/products',$data['sphinh']);
+             $data['thutu']=0;
                  DB::table('hinh')->insert($data);
                 Session::forget('img_err','Chưa chọn ảnh!');
                 return redirect('/updateSanpham/'.$re->spMa);
@@ -1149,48 +1176,8 @@ class adminController extends Controller
 
     }
     //End sản phẩm
-    //Kho 
-    public function editKho(Request $re,$id)
-    {
-       
-            if($re->khoSoluong<0)
-            {
-               Session::flash("note_err","Số lượng sản phẩm trong kho không được ít hơn 0");
-                return redirect('updateKho/'.$id);  
-            }
-            else if($re->khoSoluong==null)
-            {
-               Session::flash("note_err","Số lượng sản phẩm trong kho không được rỗng");
-                return redirect('adKho');  
-            }
-            else
-            {
-                $dbKho = DB::table('kho')->where('spMa',$id)->get();
-                $dbSP = DB::table('sanpham')->where('spMa',$id)->get();
-                $a = array($dbKho);
-                $b = array($dbSP);
-                $spTen = str_replace('"','',json_encode($b[0][0]->spTen));
-                $khoSoluong = str_replace('"','',json_encode($a[0][0]->khoSoluong));
-                    
-                $data1 = array();
-                $data1['adMa'] = Session::get('adMa');
-                $data1['alChitiet'] = "Cập nhật kho, sản phẩm có mã: ".$spTen." số lượng ".$khoSoluong."->".$re->khoSoluong;
-                $data1['alNgaygio']= now();
-                DB::table('admin_log')->insert($data1);
+   
 
-                $data = array();
-                $data['spMa'] = $id;
-                $data['khoSoluong']=$re->khoSoluong;
-                $data['khoNgaynhap']=now();
-                DB::table('kho')->where('spMa',$id)->update($data);
-                return redirect('adKho');
-            }
-        
-    }
-
-
-
-    //End kho
     //Loai
     public function adCheckAddLoai(Request $re)
     {

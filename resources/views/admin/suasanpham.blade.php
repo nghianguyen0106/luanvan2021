@@ -7,7 +7,7 @@
              <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary">Xem chi tiết và cập nhật sản phẩm</h2>
                             <hr/>
-                             <button class="btn btn-info" type="button" onclick="back()">Trở về</button>     
+                             <a href="{{URL::asset("adSanpham")}}" class="btn btn-info" type="button">Trở về</a>   
                         </div>
             <div id="content" class="col-12">
              <form action="{{URL::to('/editSanpham/'.$value->spMa)}}" method="POST"  enctype="multipart/form-data">
@@ -237,41 +237,94 @@
                 <!--end mota__pc-->
                     <br/>           
                     <!---end foreach mo ta--->  
+                    <div class="row justify-content-around">
                        <button class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                   </div>
              </form>
              <hr/>
-
-             
-                            <h4>Hình ảnh sản phẩm</h4>
-                            <br/>
-                              <div style="display: flex;flex-direction: row; flex-wrap: wrap;padding: 10px 10px; height: 350px;overflow-y: scroll;">
+                            <div class="row">
+                                <div class="box__list--img col-lg-8">
+                                     <div class="col-lg-12">
+                                        <h4>Hình ảnh sản phẩm</h4>
+                                        <span id="note__check"></span>
+                                    </div>
+                                    <br/>
+                            @if($hinh != null)
+                              
                              @foreach($hinh as $hinh)
-                                 <div style="width: 160px;margin-top: 1rem;margin-left: 2rem ">
+                                <div class="item__img">
                                     <img src="{{{'../public/images/products/'.$hinh->spHinh}}}" width="180" height="180" alt="loading">
-                                   <a style="padding: 5px 20px 5px 20px" href="{{url('xoahinh/'.$hinh->spHinh."/".$hinh->spMa)}}" class="btn-danger">Xóa</a>
+                                    <br/>
+                                    <table border="1">
+                                        <tr>
+                                            @if($hinh->thutu == 1)
+                                            <td class="text-light btn-dark">
+                                                Đang là ảnh mặc định
+                                            </td>
+                                            @else
+                                            <td class="btn__chose">
+                                             <a  href="{{URL::asset('editHinhStt/'.$hinh->spHinh."/".$hinh->spMa)}}">Chọn ảnh mặc định</a>
+                                            </td>
+                                            <td class="btn__delete">
+                                               <a href="{{URL::asset('xoahinh/'.$hinh->spHinh."/".$hinh->spMa)}}">
+                                                    <i class="fa far fa-trash"></i>
+                                               </a>
+                                            </td>
+                                            @endif
+                                            
+                                        </tr>
+                                    </table>
+                                    <button id="btn__statusSP" type="submit" hidden>Đổi trạng thái</button>
+                                   
                                   </div>
+                                  &emsp;&emsp;
                              @endforeach
                             </div>
-                          
-                             <form action="{{url('/themhinh')}}" method="post" enctype="multipart/form-data">
+                            @else
+                            <span></span>
+                            @endif
+                            <div class="col-lg-4" style="border-left: 1px solid black;">
+                                   <h4>Ảnh mới</h4>
+                            <br/>
+                            <form action="{{URL::asset('/themhinh')}}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                <input hidden name="spMa" value="{{$value->spMa}}" />
-                                <input id="upSpHinh" type="file" name="img" />
-                                <div class="form-inline">
-                                 <label for="upSpHinh" class="lb__upSpHinh"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Chọn hình mới</i></label>
-                                 &emsp; &emsp;&emsp; &emsp;&emsp; 
-                                 <button class="btn_ok" type="submit" class="btn-link" name="btnTH">Thêm hình</button>
+                                <input name="spMa" type="text" hidden value="{{$value->spMa}}" />
+                               
+                                <span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
+                                <div id="box__img" class="box__img">
+                                    <span class="text">Chưa có ảnh</span>
+                                    <img id="img" src="" alt="" />
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                <input id="inputImg" name="img" type="file" class="form-control" accept="image/x-png,image/gif,image/jpeg,image/png,image/jpg">
+                               
+                                <label for="exampleInputPassword1" class="form-label"></label>
+                                <label id="btnImg" class="lb__spHinh" onclick="defaultAction()"><i class="fas fa-file-upload" >&nbsp;Chọn ảnh</i></label>
+                                <div class="row justify-content-around">
+                                    <button id="btnImg__editSP" class="btn btn-success" type="submit">Xác nhận</button>
+                                 </div>
+                            </div>
+                                </div>
                                 @if(Session::has('img_err'))
                                 {{Session::get('img_err')}}
                                 @endif
                                 </div>
                             </form>
+                            </div>
+                        </div>
                           
-                    <br/>
-                               
+                    <br/>            
         </div> 
 @endforeach
     </div>
-    
+    <script src="{{URL::asset('public/style_admin/js/previewImgInputFile4.js')}}"></script>
 @endsection
- 
+
+
+    
+
+
+ <br/>
+
+
+

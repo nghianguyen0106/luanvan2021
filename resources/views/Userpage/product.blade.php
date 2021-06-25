@@ -220,14 +220,13 @@ Danh sách sản phẩm
 			<div class="clearfix"></div>
 		</div>
 		<div class="col-lg-7 products-right">
-						{{-- Item --}}	
-					<?php $check = array();?>
+					{{-- <?php $check = array();?> --}}
 			
 					@foreach($db as $k => $i)	
 
-					@if (in_array($i->spMa, $check)==null && $i->spTinhtrang==1) 
+					{{-- @if (in_array($i->spMa, $check)==null && $i->spTinhtrang==1) 
 					
-					<?php array_push($check, $i->spMa); ?>
+					<?php array_push($check, $i->spMa); ?> --}}
 				<div class="col-3_5 col-sm-8 item__product">
 					<div class="item_info">
 												<a href="{{URL::to('proinfo/'.$i->spMa)}}">Xem sản phẩm</a>
@@ -247,7 +246,7 @@ Danh sách sản phẩm
 								</div>
 						</div>
 				</div>
-				@endif
+			{{-- 	@endif --}}
 				@endforeach
 
 

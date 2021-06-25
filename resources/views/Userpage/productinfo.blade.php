@@ -15,21 +15,24 @@ Thông tin sản phẩm
 				<div class="col-lg-6 col-sm-12 info__left">
 					<div class="row img justify-content-between">
 						<div id="img__default">
-						@foreach($imgs as $v)
-						<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
-						@endforeach
+						<img src="{{URL::asset('public/images/products/'.$imgDefault->spHinh)}}" />
 						</div>
 					</div>
 					<br/>
 					<div class="row pos__img justify-content-center">
-						<div id="pos__1" onclick="changeImg1()" class="col-lg-2"></div>&emsp;
+						{{-- <div id="pos__1" onclick="changeImg1()" class="col-lg-2"></div>&emsp;
 						<div id="pos__2" onclick="changeImg2()" class="col-lg-2"></div>&emsp;
 						<div id="pos__3" onclick="changeImg3()" class="col-lg-2"></div>&emsp;
-						<div id="pos__4" onclick="changeImg4()" class="col-lg-2"></div>&emsp;
+						<div id="pos__4" onclick="changeImg4()" class="col-lg-2"></div>&emsp; --}}
 					</div>
 					<br/>
 					<div class="row multi__img justify-content-around">
-						<div id="img__1" onclick="changeImg1()" class="col-lg-2 col-sm-5" />
+						@foreach($imgs as $key => $v)
+						<div class="col-lg-2 col-sm-5 img__item">
+							<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
+						</div>
+						@endforeach
+					{{-- 	<div id="img__1" onclick="changeImg1()" class="col-lg-2 col-sm-5" />
 						@foreach($imgs as $v)
 						<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
 						@endforeach
@@ -42,7 +45,7 @@ Thông tin sản phẩm
 						</div>
 						<div id="img__4" onclick="changeImg4()" class="col-lg-2 col-sm-5" />
 							<img src="{{URL::asset('public/images/products/anh3.png')}}" />
-						</div>
+						</div> --}}
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12 info__right">

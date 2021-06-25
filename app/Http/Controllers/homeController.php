@@ -91,11 +91,11 @@ class homeController extends Controller
 
         if(Session::has('khMa'))
         {
-            $db=sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+            $db=sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('hinh.thutu','=','1')->get();
         }
         else
         {
-            $db = sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->get();
+            $db = sanpham::leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('hinh.thutu','=','1')->get();
         }
        // dd($db);
         
@@ -131,7 +131,8 @@ class homeController extends Controller
         }
         $cate=loai::all();
 
-        $imgs=hinh::where('spMa',$re->id)->get();
+        $imgDefault=hinh::where('spMa',$re->id)->where("thutu",'=','1')->first('spHinh');
+        $imgs=hinh::where('spMa',$re->id)->limit(3)->get();
         $details=mota::where('spMa',$re->id)->get(); 
         $proinfo=sanpham::join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->first();
 
@@ -141,7 +142,7 @@ class homeController extends Controller
 
         $related_prod=sanpham::join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$proinfo->loaiMa)->where('thuonghieu.thMa',$proinfo->thMa)->get();
 
-        return view('Userpage.productinfo',compact('proinfo','imgs','details','related_prod','total','comment','checkordered','availPromo'));
+        return view('Userpage.productinfo',compact('proinfo','imgDefault','imgs','details','related_prod','total','comment','checkordered','availPromo'));
     }
      //---Find product
     public function findpro(Request $re)

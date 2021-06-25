@@ -271,11 +271,20 @@ border-bottom: 1px solid grey;
 	padding:0.3rem 1rem 0.3rem 1rem;
 	outline: none;
 }
+.information__img #box__img
+{
+	position: relative;
+}
 .information__img img,.information__img #box__img
 {
 	width: 300px;
 	height: 300px;
 	border-radius: 360px
+}
+.information__img img
+{
+	position: absolute;
+	top: 0;
 }
 .information__img #box__img
 {
@@ -848,7 +857,7 @@ background:  #192A69;
 	background-color: transparent;
 	border: 2px solid lightgrey;
 }
-.info__left .multi__img div
+.info__left .multi__img .img__item
 {
 	margin: 0;
 	padding: 3px;

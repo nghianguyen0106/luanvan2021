@@ -244,4 +244,5 @@
                 <!-- /.container-fluid -->
 
   @endsection
+  <script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
 

@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Quản lý nhân viên</h2>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý nhân viên</h2>
                         </div>
                          <a  href="{{url('/themnhanvien')}}" class="btn btn-primary" style="width: 20%;">
                                         <span class="icon text-white-50">

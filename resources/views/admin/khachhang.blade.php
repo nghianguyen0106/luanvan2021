@@ -1,20 +1,15 @@
 @extends('admin.layout')
 @section('content')
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
-          
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                
                     <!-- DataTales Example -->
                     <div class="card shkhow mb-4">
                         <div class="card-hekher py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quản lý khách hàng</h6>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý khách hàng</h2>
+                            <hr/>
                         </div>
                          <a  href="{{url('/themkhachhang')}}" class="btn btn-primary" style="width: 20%;">
                                         <span class="icon text-white-50">
@@ -28,7 +23,7 @@
                                     <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Hình</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Tên</th>
                                             <th>Email</th>
                                             <th>Tài khoản</th>
                                             <th>Ngày sinh</th>  
