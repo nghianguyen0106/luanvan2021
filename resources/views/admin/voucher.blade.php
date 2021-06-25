@@ -45,43 +45,55 @@
                                     </thead>
                                     
                                     <tbody>
+                                      
                                         @foreach($vc as $value)
                                         <tr>
-                                            <td>{{$value->kmMa}}</td>
-                                            <td>{{$value->kmTen}}</td>
-                                            <td>{{$value->kmMota}}</td>
-                                            <td>
-                                                @if($value->kmSoluong==0)
+                                            <td>{{$value->vcMa}}</td>
+                                            <td>{{$value->vcTen}}</td>
+                                            <td>@if($value->vcSoluot==0)
                                                     Không giới hạn số lượng
                                                 @else
-                                                    {{$value->kmSoluong}}
-                                                @endif
-                                            </td>
-                                            <td>@if($value->kmGioihanmoikh==null)
-                                                    Không giới hạn
+                                                    {{$value->vcSoluot}}
+                                                @endif</td>
+                                            <td>
+                                                @if($value->vcLoai==0)
+                                                    Cho sản phẩm
                                                 @else
-                                                    {{$value->kmGioihanmoikh}}
+                                                    Cho đơn hàng
                                                 @endif
                                             </td>
-                                            <td>{{$value->kmNgaybd}}</td>
-                                            <td>{{$value->kmNgaykt}}</td>
-
-                                            <td>{{$value->kmTrigia}} %</td>
+                                            <td>{{date_format(date_create($value->vcNgaybd),"d/m/Y H:i:s")}}</td>
+                                            <td>{{date_format(date_create($value->vcNgaykt),"d/m/Y H:i:s")}}</td>
+                                            <td>
+                                                @if($value->vcLoaigiamgia==0)
+                                                    Theo giá
+                                                @else
+                                                    Theo % giá
+                                                @endif
+                                            </td>
+                                            
+                                            <td>{{$value->vcMucgiam}}  
+                                                @if($value->vcLoaigiamgia==0)
+                                                    VND
+                                                @else
+                                                    %
+                                                @endif</td>
+                                                <td>{{$value->vcGiatritoida}}</td>
                                             <td>
                                                 <label class="switch">
-                                                <a href="{{URL::to('switchStatus/'.$value->kmMa)}}">
+                                                <a href="{{URL::to('switchStatusVc/'.$value->vcMa)}}">
                                                   <input type="checkbox" name="kmTinhtrang" value="1" 
-                                                  @if($value->kmTinhtrang!=0) checked="" @endif>
+                                                  @if($value->vcTinhtrang!=0) checked="" @endif>
                                                   <span class="slider round"></span>
                                                 </a>
                                                 </label>
 
                                             </td>
                                             <td>
-                                                <a  href="{{URL::to('suaKhuyenmaipage/'.$value->kmMa)}}">
+                                                <a  href="{{URL::to('suaVoucherpage/'.$value->vcMa)}}">
                                                     <i class="fa fas fa-edit" style="color: blue;"></i>
                                                 </a>
-                                                <a  href="{{URL::to('deleteKhuyenmai/'.$value->kmMa)}}">
+                                                <a  href="{{URL::to('deleteVoucher/'.$value->vcMa)}}">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
                                                 </a>
                                             </td>

@@ -1,49 +1,76 @@
 @extends('admin.layout')
 @section('content')
+
   	<div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
         <div id="content" class="container">
         	<br/>
-			<form action="{{URL::to('checkAddVoucher')}}" method="POST"  >
+
+			<form action="{{URL::to('checkSuaVoucher/'.$vc->vcMa)}}" method="POST"  >
 				 {{ csrf_field() }}
-				 <legend>Thêm voucher</legend>
+				 <legend>Sửa voucher {{$vc->vcTen}}</legend>
 				 <div class="row">
 				 	<div class="mb-4 col-4">
-						<label for="mota">Mã: <input type="text" minlength="5" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
+						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa" value="{{$vc->vcMa}}"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
 					</div>
 				 	<div class="mb-4 col-4">
-						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
+						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen" value="{{$vc->vcTen}}"><span style="color: red;">{{$errors->first('vcTen')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
-						<label for="mota">Số lượt: <input type="text" minlength="5" class="form-control" name="vcSoluot"><span style="color: red;">{{$errors->first('kmTen')}}</span></label>
+						<label for="mota">Số lượt: <input type="number" min=1 class="form-control" name="vcSoluot" value="{{$vc->vcSoluot}}"><span style="color: red;">{{$errors->first('vcSoluot')}}</span></label>
 					</div>
 					
 					<div class="mb-4 col-4">
 						<label for="mota">Ngày bắt đầu
-						<input type="date" class="form-control" min="1" name="vcNgaybd" ><span style="color: red;">{{$errors->first('kmNgaybd')}}</span></label>
+						<input type="date" class="form-control" min="1" name="vcNgaybd" value="{{date_format(date_create($vc->vcNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaybd')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
 						<label for="mota">Ngày kết thúc
-						<input type="date" class="form-control" min="1" name="vcNgaykt" ><span style="color: red;">{{$errors->first('kmNgaykt')}}</span></label>
+						<input type="date" class="form-control" min="1" name="vcNgaykt" value="{{date_format(date_create($vc->vcNgaykt),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaykt')}}</span></label>
 					</div>
 					
 					<div class="mb-4 col-4">
-						<label for="mota">Loại giảm giá
-						<input type="number" class="form-control" min="1000" style="width: 190px;"  name="vcLoaigiamgia" ><span style="color: red;">{{$errors->first('kmTrigia')}}</span></label>
+						<label for="mota">Loại giảm giá:<br>
+						<span>
+							<input class="form-check-input" type="radio" checked name="vcLoaigiamgia" value="0"
+							@if($vc->vcLoaigiamgia==0)
+							checked="" 
+							@endif
+							> Theo giá
+						</span><br>
+						<span>
+							<input class="form-check-input" type="radio" name="vcLoaigiamgia" value="1"
+							@if($vc->vcLoaigiamgia!=0)
+							checked="" 
+							@endif
+							> Theo % giá
+						</span></span></label>
 					</div>
 
 					<div class="mb-3 col-4">
-						<label for="mota">Mức giảm
-						<input type="number" class="form-control" style="width: 190px;"  name="vcMucgiam" ><span style="color: red;"></span></label>
+						<label for="mota">Mức giảm:
+						<input type="number" class="form-control" style="width: 190px;" min="1"  name="vcMucgiam" value="{{$vc->vcMucgiam}}"><span style="color: red;">{{$errors->first('vcMucgiam')}}</span></label>
 					</div>
 					<div class="mb-3 col-4">
-						<label for="mota">Giá trị tối đa
-						<input type="number" class="form-control" min="1" name="vcGiatritoida" style="width: 190px;" ></label>
+						<label for="mota">Giá trị được giảm tối đa:
+						<input type="number" class="form-control" min="1" name="vcGiatritoida" style="width: 190px;" value="{{$vc->vcGiatritoida}}"><span style="color: red;">{{$errors->first('vcGiatritoida')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
 						<label for="mota">Loại voucher:<br>
-							<span><input id="radioSanpham" onclick="radioSanphamfunc()" class="custom-radio" type="radio" checked name="vcLoai" value="0"> Cho sản phẩm</span><br>
-							<span><input id="radioDonhang" onclick="radioDonhangfunc()" class="custom-radio" type="radio" name="vcLoai" value="1"> Cho đơn hàng</span>
+							<span>
+								<input id="radioSanpham" onclick="radioSanphamfunc()" class="form-check-input" type="radio" checked name="vcLoai" value="0"
+							@if($vc->vcLoai==0)
+							checked="" 
+							@endif
+								> Cho sản phẩm
+							</span><br>
+							<span>
+								<input id="radioDonhang" onclick="radioDonhangfunc()" class="form-check-input" type="radio" name="vcLoai" value="1"
+								@if($vc->vcLoai!=0)
+							checked="" 
+							@endif
+								> Cho đơn hàng
+							</span>
 
 						</label>
 					</div>
@@ -51,19 +78,36 @@
 					<div class="mb-4 col-4">
 						<label for="mota">Tình trạng
 							<span><label class="switch">
-						  <input type="checkbox" id="cbx" name="vcTinhtrang" value="1" checked="" onclick="myfunc()">
+						  <input type="checkbox" id="cbx" name="vcTinhtrang" value="1" checked="" onclick="myfunc()"
+						   @if($vc->vcTinhtrang==1)
+							checked="" 
+							@endif>
 						  <span class="slider round"></span>
-						</label></span><br><span class="btn btn-outline-info" id="textTinhtrang" style="color:green;">Hiện</span>
+						</label></span>&nbsp;<span class="btn btn-outline-info" id="textTinhtrang" style="color:green;">Hiện</span>
 						</label>
 					</div>
-<div class="mb-4 col-4">
-</div>
+					<div class="mb-4 col-4">
+					</div>
 					<div class="mb-4 col-4" id="dk" style="display: none;">
 						<label for="mota">Điều kiện áp dụng<br>
-							<span><input id="rdotheogia" onclick="rdotheogiafunc()" class="custom-radio" type="radio" checked="" name="vcDkapdung" value="0">Theo giá ( VND )</span><br>
-							<span id="theogia"><input class="form-control" type="number" name="vcGtcandat"></span><br>
-							<span><input id="rdosp" onclick="rdospfunc()" class="custom-radio" type="radio" name="vcDkapdung" value="1"> Theo số lượng sản phẩm</span>
-							<span id="theoslsp"  style="display: none;" ><input class="form-control" type="number" name="vcGtcandat"></span><br>
+							<span>
+								<input id="rdotheogia" onclick="rdotheogiafunc()" class="form-check-input"  type="radio" checked="" name="vcDkapdung" value="0"
+								@if($vc->vcDkapdung==0)
+								checked="" 
+								@endif
+								>Theo giá ( VND )
+							</span><br>
+							
+							<span>
+								<input id="rdosp" onclick="rdospfunc()" class="form-check-input" type="radio" name="vcDkapdung" value="1"
+								@if($vc->vcDkapdung!=0)
+								checked="" 
+								@endif
+								> Theo số lượng sản phẩm
+							</span>
+							<span>
+								<input class="form-control" type="number" name="vcGtcandat" value="{{$vc->vcGiatritoida}}">
+							</span><br>
 						</label>
 					</div>
 
@@ -95,7 +139,7 @@
                                           <td>
                                           	<a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
                                                {{$v->spTen}}
-                                               @if($v->kmMa!=null)
+                                               @if($v->vcMa!=null)
                                                	({{$v->kmTen}})
                                                @endif
 												<span class="tooltiptexts">
@@ -137,25 +181,36 @@ Swal.fire({
   icon: 'error',
   title: 'Opss... ',
   text: '{{Session::get('err')}}',
+
  
 })
 </script> 
 @endif
 
 <script type="text/javascript">
+	var cbx= document.getElementById("cbx");
+	if(cbx.checked == true)
+		{
+			document.getElementById('textTinhtrang').style.color = 'green';
+			document.getElementById('textTinhtrang').innerHTML="Hiện";
+		}
+		else
+		{
+			document.getElementById('textTinhtrang').style.color = 'red';
+			document.getElementById('textTinhtrang').innerHTML="Ẩn";	
+		}
 	function myfunc()
 	{
-		var cbx= document.getElementById("cbx");
-	if(cbx.checked == true)
-	{
-		document.getElementById('textTinhtrang').style.color = 'green';
-		document.getElementById('textTinhtrang').innerHTML="Hiện";
-	}
-	else
-	{
-		document.getElementById('textTinhtrang').style.color = 'red';
-		document.getElementById('textTinhtrang').innerHTML="Ẩn";	
-	}
+		if(cbx.checked == true)
+		{
+			document.getElementById('textTinhtrang').style.color = 'green';
+			document.getElementById('textTinhtrang').innerHTML="Hiện";
+		}
+		else
+		{
+			document.getElementById('textTinhtrang').style.color = 'red';
+			document.getElementById('textTinhtrang').innerHTML="Ẩn";	
+		}
 
 	}
 	
@@ -201,5 +256,9 @@ Swal.fire({
 		
 	
 </script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 @endsection
 

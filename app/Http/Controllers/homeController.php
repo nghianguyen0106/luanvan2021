@@ -466,6 +466,7 @@ class homeController extends Controller
                 $kmcheck['kmSolan']=$checkordered;
                 array_push($b,$kmcheck);
             }
+            // dd($b);
         }
         
        
