@@ -1590,18 +1590,18 @@ public function adCheckAddKhuyenmai(Request $re)
                 // if($checkExistKhuyenmai)
                 // {
                 //     Session::flash('err','Khuyến mãi này đã tồn tại');
-                //     return redirect()->back();
+                //     return "<script>window.history.back();</script>";
                 // }
                 $km->kmTen=$re->kmTen;
                 if($re->kmTrigia<1)
                 {
                     Session::flash('err',"Giá trị khuyến mãi phải lớn hơn 1 ");
-                    return redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 elseif($re->kmTrigia>100)
                 {
                     Session::flash('err',"Giá trị khuyến mãi phải nhỏ hơn 100 !");
-                    return redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 $km->kmTrigia=$re->kmTrigia;
                 $km->kmMota=$re->kmMota;
@@ -1616,7 +1616,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 else
                 {
                 Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
-                        return redirect()->back();
+                        return "<script>window.history.back();</script>";
                 }
 
                 if($re->kmSoluong!=null)
@@ -1681,7 +1681,7 @@ public function adCheckAddKhuyenmai(Request $re)
         if(!$promoInfo)
         {
             Session::flash('err',"Khuyến mãi không tồn tại !");
-            return redirect()->back();
+            return "<script>window.history.back();</script>";
         }
         //check product of this promotion
         $checkExistProduct=sanpham::where('kmMa',$re->id)->get();
@@ -1798,12 +1798,12 @@ public function adCheckAddKhuyenmai(Request $re)
                 if($re->kmTrigia<1)
                 {
                     Session::flash('err',"Giá trị khuyến mãi phải lớn hơn 1 ");
-                    return redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 elseif($re->kmTrigia>100)
                 {
                     Session::flash('err',"Giá trị khuyến mãi phải nhỏ hơn 100 !");
-                    return redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 if($km->kmTrigia!=$re->kmTrigia)
                 {
@@ -1840,7 +1840,7 @@ public function adCheckAddKhuyenmai(Request $re)
                     else
                     {
                         Session::flash('err',"Ngày kết thúc phải sau ngày bắt đầu !");
-                        return redirect()->back();
+                        return "<script>window.history.back();</script>";
                     }
                
                 if($km->kmSoluong!=$re->kmSoluong)
@@ -2017,12 +2017,12 @@ public function adCheckAddKhuyenmai(Request $re)
     $data = array();
     $data["hdTinhtrang"]=2;
     DB::table('donhang')->where('hdMa',$id)->update($data);
-    return redirect()->back();
+    return "<script>window.history.back();</script>";
   }
  public function xoadon($id)
  {
     DB::table('donhang')->where('hdMa',$id)->delete();
-    return redirect()->back();
+    return "<script>window.history.back();</script>";
  }
   //báo cáo
    public function updateBaocao(Request $re)
@@ -2139,7 +2139,7 @@ public function adCheckAddKhuyenmai(Request $re)
             if($checkExistNhacungcap)
             {
                 Session::flash('err','Nhà cung cấp đã tồn tại !');
-                return redirect()->back();
+                return "<script>window.history.back();</script>";
             }
             else
             {
@@ -2148,13 +2148,13 @@ public function adCheckAddKhuyenmai(Request $re)
                 if(strlen($re->nccDiachi)<10)
                 {
                     Session::flash('err','Địa chỉ không hợp lệ !');
-                    return Redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 $ncc->nccDiachi=$re->nccDiachi;
                 if($re->nccSdt<99999999 || $re->nccSdt>=10000000000)
                 {
                     Session::flash('err','Số điện thoại không hợp lệ !');
-                    return Redirect()->back();
+                    return "<script>window.history.back();</script>";
                 }
                 $ncc->nccSdt=$re->nccSdt;
                 Session::flash('success','Thêm thành công !');
@@ -2177,7 +2177,7 @@ public function adCheckAddKhuyenmai(Request $re)
         if(!$checkExistNhacungcap)
         {
             Session::flash('err','Nhà cung cấp không tồn tại!');
-            return redirect()->back();
+            return "<script>window.history.back();</script>";
         }        
         $oldNccName=$checkExistNhacungcap->nccTen;
 
@@ -2190,21 +2190,23 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::flash('success','Đã xóa nhà cung cấp: '.$oldNccName);
         $checkExistNhacungcap->delete();
         
-        return redirect()->back();
+        return "<script>window.history.back();</script>";
     }
 
     public function suaNhacungcappage(Request $re)
     {
         $checkExistNhacungcap=nhacungcap::where('nccMa',$re->id)->first();
-       
-        if($checkExistNhacungcap)
-        {
-            return view('admin.suanhacungcap')->with('data',$checkExistNhacungcap);
-        }
-        else
-        {
-            Session::flash('err','Nhà cung cấp không tồn tại!');
-            return redirect()->back();
+       if(Session::has('adMa'))
+       {
+            if($checkExistNhacungcap)
+            {
+                return view('admin.suanhacungcap')->with('data',$checkExistNhacungcap);
+            }
+            else
+            {
+                Session::flash('err','Nhà cung cấp không tồn tại!');
+                return "<script>window.history.back();</script>";
+            }
         }
         return Redirect('/adLogin'); 
     }
@@ -2216,7 +2218,7 @@ public function adCheckAddKhuyenmai(Request $re)
         if($checkExistNhacungcap)
         {
             Session::flash('err','Nhà cung cấp này đã tồn tại !');
-            return redirect()->back();
+            return "<script>window.history.back();</script>";
         }
         else
         {
@@ -2364,7 +2366,7 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $vc=voucher::all();
+            $vc= DB::table('voucher')->get();;
             
             return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -2426,23 +2428,283 @@ public function adCheckAddKhuyenmai(Request $re)
                  'vcMucgiam'=>'required',
                  'vcGiatritoida'=>'required'
             ],$messages);
+        $checkExistVoucher= voucher::find($re->vcMa);
+        if($checkExistVoucher)
+        {
+            Session::flash('err','Mã voucher đã tồn tại !');
+            return "<script>window.history.back();</script>";
+        }
         $vc=new voucher();
+        //Kiểm tra mã hợp lệ
+        $flag='';
+        for($i=0;$i < strlen($re->vcMa);$i++)
+        {
+            
+            for($j=65;$j<=91;$j++)
+            {
+                if(chr($j)==$re->vcMa[$i])
+                {
+                    $flag.=$re->vcMa[$i];
+                }
+            }
+            for($j=48;$j<=57;$j++)
+            {
+                if(chr($j)==$re->vcMa[$i])
+                {
+                    $flag.=$re->vcMa[$i];
+                }
+            }
+            for($j=97;$j<=122;$j++)
+            {
+                if(chr($j)==$re->vcMa[$i])
+                {
+                    $flag.=$re->vcMa[$i];
+                }
+            }
+            if(chr(32)==$re->vcMa[$i])
+            {
+                $flag.=$re->vcMa[$i];
+            }
+        }
+        if(strlen($flag)==strlen($re->vcMa))
+        {
+            $vc->vcMa=$re->vcMa;
+        }
+        else
+        {
+            Session::flash('err','Mã không chứa ký tự đặc biệt !');
+            return "<script>window.history.back();</script>";
+        }
+    
         $vc->vcMa=$re->vcMa;
-        $vc->vcTen=$re->vcTen;
+        $checkExistVoucherName=voucher::where('vcTen'   ,$re->vcTen)->first();
+        if($checkExistVoucherName)
+        {
+            Session::flash('err','Voucher này đã tồn tại !');
+            return "<script>window.history.back();</script>";
+        }
+        else
+        {
+            $vc->vcTen=$re->vcTen;    
+        }
+        
+        if($re->vcSoluot<1)
+        {
+            Session::flash('err','Số lượt phải lớn hơn 0 !');
+            return "<script>window.history.back();</script>";
+        }
         $vc->vcSoluot=$re->vcSoluot;
+
         $vc->vcNgaybd=$re->vcNgaybd;
+
+        if($re->vcNgaybd > $re->vcNgaykt)
+        {
+            Session::flash('err','Ngày kết thúc phải sau ngày bất đầu !');
+            return "<script>window.history.back();</script>";
+        }
         $vc->vcNgaykt=$re->vcNgaykt;
         $vc->vcLoaigiamgia=$re->vcLoaigiamgia;
-        $vc->vcMucgiam=$re->vcMucgiam;
+        if($re->vcLoaigiamgia==0)//Theo gia
+        {
+            if($re->vcMucgiam<1000)// < 1000VND dong bao loi
+            {
+                Session::flash('err','Mức giảm giá phải lớn hơn 1000đ !');
+                return "<script>window.history.back();</script>";
+            }
+            else
+            {
+                $vc->vcMucgiam=$re->vcMucgiam;        
+            }
+        }
+        else
+        {
+            if($re->vcMucgiam<0)
+            {
+                Session::flash('err','Mức giảm phải lớn hơn 0!');
+                return "<script>window.history.back();</script>";
+            }
+            if($re->vcMucgiam > 100)// < 1000VND dong bao loi
+            {
+                Session::flash('err','Phần trăm giảm giá phải nhỏ hơn hoặc bằng 100 %');
+                return "<script>window.history.back();</script>";
+            }
+            else
+            {
+                $vc->vcMucgiam=$re->vcMucgiam;        
+            }
+        }
+        if($re->vcGiatritoida<0)
+        {
+            Session::flash('err','Giá trị tối đa phải lớn hơn 0!');
+            return "<script>window.history.back();</script>";
+        }
         $vc->vcGiatritoida=$re->vcGiatritoida;
         $vc->vcLoai=$re->vcLoai;
+        if($re->vcLoai==0)
+        {
+            if($re->checkboxsp==null)
+            {
+                Session::flash('err','Vui lòng chọn 1 sản phẩm !');
+                return "<script>window.history.back();</script>";
+            }
+            else
+            {
+                $vc->spMa=$re->checkboxsp;
+            }
+        }
         $vc->vcDkapdung=$re->vcDkapdung;
-        $vc->vcGtcandat=$re->vcGtcandat;
+        //dd($re->vcDkapdung);
+        if($re->vcDkapdung==0)
+        {
+            if($re->vcGtcandat>=1000)
+            {
+                $vc->vcGtcandat=$re->vcGtcandat;
+            }
+            else
+            {
+                Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
+                return "<script>window.history.back();</script>";
+            }
+        }
+        else
+        {
+            if($re->vcGtcandat>0)
+            {
+                $vc->vcGtcandat=$re->vcGtcandat;
+            }
+            else
+            {
+                Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
+                return "<script>window.history.back();</script>";
+            }
+        }
         if($re->vcTinhtrang!=null)
         {
             $vc->vcTinhtrang=$re->vcTinhtrang;
         }
-        dd($vc);
+        else
+        {
+               $vc->vcTinhtrang=0;
+        }
+        $vc->save();
+
+        //save log
+        $log = new admin_log();
+        $log->adMa=Session::get('adMa');
+        $log->alChitiet="Thêm voucher: ".$re->vcTen;
+        $log->alNgaygio=now();
+        $log->save();
+
+        Session::flash('success',"Thêm voucher: ".$re->vcTen." thành công!");
+        return Redirect::to('adVoucher');
+
+    }
+
+    public function suaVoucherpage(Request $re)
+    {
+        $vc=DB::table('voucher')->where('vcMa',$re->id)->first();
+        //dd($checkExistKhuyenmai);
+        if(!$vc)
+        {
+           
+            Session::flash("err","Chương trình khuyến mãi không tồn tại !");
+            return redirect::to('adKhuyenmai');
+        }
+       
+        if(Session::has('adTaikhoan'))
+        {   
+            $checksanpham=sanpham::leftjoin('voucher','voucher.spMa','sanpham.spMa')->join('nhacungcap','nhacungcap.nccMa','sanpham.nccMa')->join('hinh','sanpham.spMa','hinh.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->get();
+            $noteDanhgia = danhgia::where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = donhang::where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $a=array();
+            $sanpham=array();
+            foreach($checksanpham as $i)
+            {
+              
+                if(in_array($i->spMa, $a)==null)
+                {
+                    array_push($a, $i->spMa);
+                    array_push($sanpham, $i);
+                }
+            }
+            
+           
+            return view('admin.suaVoucher',compact('vc','sanpham','noteDanhgia','noteDonhang','noteDonhang1'));
+        }
+        else
+        {
+            return Redirect('/adLogin');
+        }
+    }
+
+    public function checkSuaVoucher(Request $re)
+    {
+        $messages =[
+                'vcMa.required'=>'Mã không được để trống !',
+                'vcTen.required'=>'Tên không được để trống !',
+                'vcSoluot.required'=>'Số lượt không được để trống!',
+                'vcNgaybd.required'=>'Nhập ngày bắt đầu !',
+                'vcNgaykt.required'=>'Nhập ngày kết thúc !',
+                'vcMucgiam.required'=>'Nhập mức giảm!',
+                'vcGiatritoida.required'=>'Nhập giá trị tối đa!',
+            ];
+            $this->validate($re,[
+                'vcMa'=>'required',
+                'vcTen'=>'required',
+                'vcSoluot'=>'required',
+                'vcNgaybd'=>'required',
+                'vcNgaykt'=>'required',
+                 'vcMucgiam'=>'required',
+                 'vcGiatritoida'=>'required'
+            ],$messages);
+        $checkExistVoucher= voucher::find($re->vcMa);
+        if($checkExistVoucher)
+        {
+            Session::flash('err','Mã voucher đã tồn tại !');
+            return "<script>window.history.back();</script>";
+        }
+    }
+
+    public function switchStatusVc(Request $re)
+    {
+        if(Session::has('adMa'))
+        {
+            $adInfo=admin::where('adMa',Session::get('adMa'))->first();
+            if($adInfo && $adInfo->adQuyen==1)
+            {
+                $checkExistVoucher=voucher::Where('vcMa',$re->id)->first();
+                if($checkExistVoucher)
+                {
+                    if($checkExistVoucher->vcTinhtrang!=0)
+                    {
+                        $checkExistVoucher->vcTinhtrang=0;
+                        $checkExistVoucher->update();
+                        Session::flash('success','Đã đổi tình trạng voucher: '.$checkExistVoucher->vcTen." thành Ẩn.");
+                    }
+                    else
+                    {
+                        $checkExistVoucher->vcTinhtrang=1;
+                        $checkExistVoucher->update();
+                        Session::flash('success','Đã đổi tình trạng voucher: '.$checkExistVoucher->vcTen." thành Hiện.");
+                    }
+                }
+                else
+                {
+                    Session::flash('err','Voucher không tồn tại !');
+                }
+                return redirect::to('adVoucher');
+            }
+            else
+            {
+                Session::flash('err','Bạn không có quyền này !');
+                return "<script>window.history.back();</script>";
+            }
+        }
+        
     }
 }
 

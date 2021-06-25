@@ -10,13 +10,13 @@
 				 <legend>Thêm voucher</legend>
 				 <div class="row">
 				 	<div class="mb-4 col-4">
-						<label for="mota">Mã: <input type="text" minlength="5" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
+						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
 					</div>
 				 	<div class="mb-4 col-4">
 						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen"><span style="color: red;">{{$errors->first('vcTen')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
-						<label for="mota">Số lượt: <input type="text" class="form-control" name="vcSoluot"><span style="color: red;">{{$errors->first('vcSoluot')}}</span></label>
+						<label for="mota">Số lượt: <input type="number" min=1 class="form-control" name="vcSoluot"><span style="color: red;">{{$errors->first('vcSoluot')}}</span></label>
 					</div>
 					
 					<div class="mb-4 col-4">
@@ -29,17 +29,17 @@
 					</div>
 					
 					<div class="mb-4 col-4">
-						<label for="mota">Loại giảm giá<br>
+						<label for="mota">Loại giảm giá:<br>
 						<span><input class="form-check-input" type="radio" checked name="vcLoaigiamgia" value="0"> Theo giá</span><br>
 							<span><input class="form-check-input" type="radio" name="vcLoaigiamgia" value="1"> Theo % giá</span></span></label>
 					</div>
 
 					<div class="mb-3 col-4">
-						<label for="mota">Mức giảm
-						<input type="number" class="form-control" style="width: 190px;"  name="vcMucgiam" ><span style="color: red;">{{$errors->first('vcMucgiam')}}</span></label>
+						<label for="mota">Mức giảm:
+						<input type="number" class="form-control" style="width: 190px;" min="1"  name="vcMucgiam" ><span style="color: red;">{{$errors->first('vcMucgiam')}}</span></label>
 					</div>
 					<div class="mb-3 col-4">
-						<label for="mota">Giá trị tối đa
+						<label for="mota">Giá trị được giảm tối đa:
 						<input type="number" class="form-control" min="1" name="vcGiatritoida" style="width: 190px;" ><span style="color: red;">{{$errors->first('vcGiatritoida')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
@@ -55,7 +55,7 @@
 							<span><label class="switch">
 						  <input type="checkbox" id="cbx" name="vcTinhtrang" value="1" checked="" onclick="myfunc()">
 						  <span class="slider round"></span>
-						</label></span><span class="btn btn-outline-info" id="textTinhtrang" style="color:green;">Hiện</span>
+						</label></span>&nbsp;<span class="btn btn-outline-info" id="textTinhtrang" style="color:green;">Hiện</span>
 						</label>
 					</div>
 					<div class="mb-4 col-4">
@@ -139,25 +139,36 @@ Swal.fire({
   icon: 'error',
   title: 'Opss... ',
   text: '{{Session::get('err')}}',
+
  
 })
 </script> 
 @endif
 
 <script type="text/javascript">
+	var cbx= document.getElementById("cbx");
+	if(cbx.checked == true)
+		{
+			document.getElementById('textTinhtrang').style.color = 'green';
+			document.getElementById('textTinhtrang').innerHTML="Hiện";
+		}
+		else
+		{
+			document.getElementById('textTinhtrang').style.color = 'red';
+			document.getElementById('textTinhtrang').innerHTML="Ẩn";	
+		}
 	function myfunc()
 	{
-		var cbx= document.getElementById("cbx");
-	if(cbx.checked == true)
-	{
-		document.getElementById('textTinhtrang').style.color = 'green';
-		document.getElementById('textTinhtrang').innerHTML="Hiện";
-	}
-	else
-	{
-		document.getElementById('textTinhtrang').style.color = 'red';
-		document.getElementById('textTinhtrang').innerHTML="Ẩn";	
-	}
+		if(cbx.checked == true)
+		{
+			document.getElementById('textTinhtrang').style.color = 'green';
+			document.getElementById('textTinhtrang').innerHTML="Hiện";
+		}
+		else
+		{
+			document.getElementById('textTinhtrang').style.color = 'red';
+			document.getElementById('textTinhtrang').innerHTML="Ẩn";	
+		}
 
 	}
 	
