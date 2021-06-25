@@ -20,6 +20,7 @@
 			const result = reader.result;
 			imgChange.src = result;
 			imgChange.style.display = 'block';
+			imgChange.style.position = 'relative';
 			imgDefault.style.display = 'none';
 			fileName.style.display = 'block';
 			btnCancel.style.display = 'block';
