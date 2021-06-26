@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Quản lý loại</h2>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý loại</h2>
                             <hr/>
                             	<form class="form-inline" action="{{URL::to('checkAddLoai')}}" method="GET">
 

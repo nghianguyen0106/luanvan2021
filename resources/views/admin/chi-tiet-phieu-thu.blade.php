@@ -55,15 +55,15 @@
                             </label><br/>
                                 </td>
                             </tr>
-                            @if($data->adMa!=null)
+                            @foreach($data3 as $v)
+                            @if($v->adMa!=0)
                             <tr>
                                 <td colspan="3" style="text-align:left;">
-                                    <label>Nhân viên giao:&nbsp;{{$data->adTen}}</label><br/>
+                                    <label>Nhân viên giao:&nbsp;{{$v->adTen}}</label><br/>
                                 </td>
                             </tr>
-                            
                             @endif
-                            
+                            @endforeach
                                     <tr>
                                         <td>Sản phẩm</td>
                                         <td>Số lượng</td>
@@ -76,7 +76,7 @@
                                     <tr>
                                         <td>{{$data2->spTen}}</td>
                                         <td>{{$data2->cthdSoluong}}</td>
-                                        <td>{{$data2->cthdGia}}</td>
+                                        <td>{{number_format($data2->cthdGia)}}&nbsp;VND</td>
                                         
                                     </tr>
                                     @endforeach
@@ -84,7 +84,7 @@
                                         <td colspan="3" style="text-align: right;">Tổng số lượng:&nbsp;{{$data->hdSoluongsp}}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" style="text-align: right;">Tổng tiền:&nbsp;{{$data->hdTongtien}}</td>
+                                        <td colspan="3" style="text-align: right;">Tổng tiền:&nbsp;{{number_format($data->hdTongtien)}}&nbsp;VND</td>
                                     </tr>
                                 </tbody>
                                  @endforeach

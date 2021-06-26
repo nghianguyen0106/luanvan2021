@@ -195,6 +195,7 @@ Route::post('checkSuaNhacungcap/{id}','adminController@suaNhacungcap');
 //--Lịch sử hoạt động --//
 Route::get('lich-su-hoat-dong','adminController@viewLShoatdong');
 Route::get('tim-kiem-lshd','adminController@timLSHD');
+Route::get('lich-su-giao-hang','adminController@viewLSgiaohang');
 //--Quản lý phiếu nhập--//
 Route::get('quan-ly-phieu-nhap','adminController@viewQlPhieunhap');
 Route::get('lap-phieu-nhap','adminController@viewLapPhieuNhap');

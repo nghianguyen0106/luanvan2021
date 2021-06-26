@@ -289,8 +289,29 @@ class adminController extends Controller
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
             $alNgaygio = DB::table('admin_log')->distinct()->get('alNgaygio');
-            $data = DB::table('admin_log')->leftjoin('admin','admin.adMa','=','admin_log.adMa')->get();
+            $data = DB::table('admin_log')->leftjoin('admin','admin.adMa','=','admin_log.adMa')->orderBy('alNgaygio','desc')->get();
             return view('admin.lich-su-hoat-dong')->with('data',$data)->with('ngaygio',$alNgaygio)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        }
+        else 
+        { return Redirect('/adLogin'); }
+       
+    }
+      public function viewLSgiaohang()
+    {
+        if(Session::has('adTaikhoan'))
+        {
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+            $alNgaygio = DB::table('admin_log')->distinct()->get('alNgaygio');
+            $data = DB::table('admin_log')
+                            ->leftjoin('admin','admin.adMa','=','admin_log.adMa')
+                            ->where('alChitiet','like','%'.'Giao hàng:'.'%')
+                            ->orderBy('alNgaygio','desc')->get();
+            return view('admin.lich-su-giao-hang')->with('data',$data)->with('ngaygio',$alNgaygio)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -1221,6 +1242,14 @@ class adminController extends Controller
 
     public function adDeleteLoai($id)
     {
+        $exist = DB::table('sanpham')->where('loaiMa',$id)->count();
+        if($exist >= 1)
+        {
+             Session::flash('note_err','Đã có sản phẩm thuộc loại này, không được xóa!');
+            return redirect('adLoai');
+        }
+        else
+        {
         $db = DB::table('loai')->where('loaiMa',$id)->get();
                 $a = array($db);
                 $loaiTen = str_replace('"','',json_encode($a[0][0]->loaiTen));
@@ -1232,6 +1261,7 @@ class adminController extends Controller
        
         DB::table('loai')->where('loaiMa',$id)->delete();
         return redirect('adLoai');
+        }
     }
     public function editLoai(Request $re, $id)
     {  
@@ -1301,6 +1331,15 @@ class adminController extends Controller
     }
     public function adDeleteNhucau($id)
     {
+
+        $exist = DB::table('sanpham')->where('ncMa',$id)->count();
+        if($exist >= 1)
+        {
+             Session::flash('note_err','Đã có sản phẩm thuộc nhu cầu này, không được xóa!');
+            return redirect('adNhucau');
+        }
+        else
+        {
          $db = DB::table('nhucau')->where('ncMa',$id)->get();
                 $a = array($db);
                 $ncTen = str_replace('"','',json_encode($a[0][0]->ncTen));
@@ -1311,6 +1350,7 @@ class adminController extends Controller
                 DB::table('admin_log')->insert($data1);
         DB::table('nhucau')->where('ncMa',$id)->delete();
         return redirect('adNhucau');
+        }
 
     }
     public function editNhucau(Request $re, $id)
@@ -1383,7 +1423,15 @@ class adminController extends Controller
     }
     public function adDeleteThuonghieu($id)
     {
-         $db = DB::table('thuonghieu')->where('thMa',$id)->first();
+        $exist = DB::table('sanpham')->where('thMa',$id)->count();
+        if($exist >= 1)
+        {
+             Session::flash('note_err','Đã có sản phẩm thuộc thương hiệu này, không được xóa!');
+            return redirect('adThuonghieu');
+        }
+        else
+        {
+             $db = DB::table('thuonghieu')->where('thMa',$id)->first();
          $a = array($db);
          $thTen = $db->thTen;
           $data1 = array();
@@ -1394,11 +1442,12 @@ class adminController extends Controller
                 DB::table('admin_log')->insert($data1);
        DB::table('thuonghieu')->where('thMa',$id)->delete();
         return redirect('adThuonghieu');
+        }
        
     }
     public function editThuonghieu(Request $re, $id)
     {
-          if($re->thTen==null)
+        if($re->thTen==null)
         {
             Session::flash('note_err','Không được để rỗng!');
             return redirect('adThuonghieu');
@@ -1983,9 +2032,9 @@ public function adCheckAddKhuyenmai(Request $re)
   //Hóa đơn
   public function themNVgiao($id)
   {
-      $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+    $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
             Session::put('hdTinhtrang',$noteDonhang);
-        $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+    $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
     $dataNV = DB::table('admin')->where('adQuyen',2)->get();
     $data = DB::table('donhang')->where('hdMa',$id)->get();
@@ -1997,6 +2046,15 @@ public function adCheckAddKhuyenmai(Request $re)
     $data["hdTinhtrang"]=1;
     $data["adMa"]=$re->hdNhanvien;
     DB::table('donhang')->where('hdMa',$id)->update($data);
+
+    $nv = DB::table('admin')->where('adMa',$re->hdNhanvien)->first();
+  
+    $data1 = array();
+    $data1['adMa'] = Session::get('adMa');
+    $data1['alChitiet'] = "Giao hàng: nhân viên ".$nv->adTen." nhận đơn hàng có mã ".$id;
+    $data1['alNgaygio']= now();
+    DB::table('admin_log')->insert($data1);
+    
     return redirect('don-hang');
   }
   public function thanhtoan($id)
@@ -2160,24 +2218,26 @@ public function adCheckAddKhuyenmai(Request $re)
 
     public function deleteNhacungcap(Request $re)
     {
-        $checkExistNhacungcap =nhacungcap::where('nccMa',$re->id)->first();
-        if(!$checkExistNhacungcap)
+        $exist =nhacungcap::where('nccMa',$re->id)->first();
+        if($exist)
         {
-            Session::flash('err','Nhà cung cấp không tồn tại!');
-            return "<script>window.history.back();</script>";
-        }        
-        $oldNccName=$checkExistNhacungcap->nccTen;
-
-        $ad_log=new admin_log();
-        $ad_log->adMa=Session::get('adMa');
-        $ad_log->alChitiet="Xóa nhà cung cấp: ".$oldNccName;
-        $ad_log->alNgaygio=now();        
-        $ad_log->save();               
-        
-        Session::flash('success','Đã xóa nhà cung cấp: '.$oldNccName);
-        $checkExistNhacungcap->delete();
-        
-        return "<script>window.history.back();</script>";
+            Session::flash('err','Đã có sản phẩm thuộc nhà cung cấp này, không được xóa!');
+            return redirect('adNhacungcap');
+        }      
+        else
+        { 
+            $ad_log=new admin_log();
+            $ad_log->adMa=Session::get('adMa');
+            $ad_log->alChitiet="Xóa nhà cung cấp: ".$exist->nccTen;
+            $ad_log->alNgaygio=now();        
+            $ad_log->save();               
+            
+            Session::flash('success','Đã xóa nhà cung cấp: '.$exist->nccTen);
+            $exist->delete();
+            
+            return redirect('adNhacungcap');
+        }  
+       
     }
 
     public function suaNhacungcappage(Request $re)
@@ -2336,11 +2396,16 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::put('hdTinhtrang',$noteDonhang);
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         Session::put('hdTinhtrang1',$noteDonhang1);
-        $data = DB::table('donhang')->where('hdMa',$id)->join('khachhang','khachhang.khMa','=','donhang.khMa')->join('admin','admin.adMa','=','donhang.adMa')->get();
+        $data = DB::table('donhang')->where('hdMa',$id)
+                    ->join('khachhang','khachhang.khMa','=','donhang.khMa')->get();
         $data2 = DB::table('chitietdonhang')->where("hdMa",$id)
                     ->join('sanpham','sanpham.spMa','=','chitietdonhang.spMa')
                     ->get();
-        return view('admin.chi-tiet-phieu-thu')->with('data',$data)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+        $data3 = DB::table('admin')
+                    ->leftjoin("donhang","donhang.adMa","=","admin.adMa")
+                    ->where("donhang.hdMa","=",$id)
+                    ->get();
+        return view('admin.chi-tiet-phieu-thu',compact('data','data2','data3','noteDanhgia','noteDonhang','noteDonhang1'));
     }
 // VOUCHER
     public function viewVoucher()
@@ -2693,5 +2758,6 @@ public function adCheckAddKhuyenmai(Request $re)
         }
         
     }
+
 }
 

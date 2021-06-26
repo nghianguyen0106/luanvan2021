@@ -8,7 +8,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h2>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Danh sách đơn hàng</h2>
                             <hr/>
                             <ul class="menu__donhang">
                                 <li onclick="show_xong()" id="btn__xong">Đơn hàng hoàn thành</li>
@@ -35,9 +35,9 @@
                                         <tr>
                                             <th>Mã hóa đơn</th>
                                             
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -49,9 +49,9 @@
                                         <tr>
                                            <th>Mã hóa đơn</th>
                                          
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -67,7 +67,7 @@
                                             <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>
-                                            <td>{{$value->hdTongtien}}</td>
+                                            <td>{{number_format($value->hdTongtien)}}&nbsp;VND</td>
                                             <td style="color:red">{{$value->hdTinhtrang==3?"Khách hàng đã hủy":""}}</td>
             
                                             <td>
@@ -93,9 +93,9 @@
                                      <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã hóa đơn</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -105,9 +105,9 @@
                                      <tfoot style="display:none;">
                                         <tr>
                                            <th>Mã hóa đơn</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -116,21 +116,21 @@
                                     </tfoot>
                                     <tbody>
 
-                                    @foreach($data1 as $value)
+                                    @foreach($data1 as $donmoi)
                                         <tr>
-                                            <td>{{$value->hdMa}}</td>
-                                            <td>{{$value->khTen}}</td>
-                                            <td>{{$value->hdNgaytao}}</td>
-                                            <td>{{$value->hdSoluongsp}}</td>
-                                            <td>{{$value->hdTongtien}}</td>
-                                            <td style="color:red">{{$value->hdTinhtrang==0?"Đơn hàng mới":""}}</td>
+                                            <td>{{$donmoi->hdMa}}</td>
+                                            <td>{{$donmoi->khTen}}</td>
+                                            <td>{{$donmoi->hdNgaytao}}</td>
+                                            <td>{{$donmoi->hdSoluongsp}}</td>
+                                            <td>{{$donmoi->hdTongtien}}</td>
+                                            <td style="color:red">{{$donmoi->hdTinhtrang==0?"Đơn hàng mới":""}}</td>
                                             <td>
-                                                <a href="{{url('them-nv-giao-hang/'.$value->hdMa)}}">
+                                                <a href="{{url('them-nv-giao-hang/'.$donmoi->hdMa)}}">
                                                 Bắt đầu giao hàng
                                                 </a>
                                             </td>
-                                            <td>
-                                            <a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$value->hdMa)}}">Chi tiết</a></td>
+                                            <td><a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$donmoi->hdMa)}}">Chi tiết</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                        
@@ -148,9 +148,9 @@
                                         <tr>
                                             <th>Mã hóa đơn</th>
                                             <th>Nhân viên giao</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -160,9 +160,9 @@
                                         <tr>
                                            <th>Mã hóa đơn</th>
                                            <th>Nhân viên giao</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -177,7 +177,7 @@
                                             <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
                                             <td>{{$value->hdSoluongsp}}</td>
-                                            <td>{{$value->hdTongtien}}</td>
+                                            <td>{{number_format($value->hdTongtien)}}&nbsp;VND</td>
 
                                             <td><a href="{{url('thanhtoan/'.$value->hdMa)}}">{{$value->hdTinhtrang==1?"Xác nhận đã giao":""}}</a></td>
                                             <td><a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$value->hdMa)}}">Chi tiết</a>
@@ -196,10 +196,10 @@
                                      <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Mã hóa đơn</th>
-                                              <th>Nhân viên giao</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Nhân viên giao</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -209,9 +209,9 @@
                                         <tr>
                                            <th>Mã hóa đơn</th>
                                            <th>Nhân viên giao</th>
-                                            <th>Tên khách hàng</th>
+                                            <th>Người đặt</th>
                                             <th>Ngày tạo</th>
-                                            <th>Số lượng sản phẩm</th>
+                                            <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
@@ -225,8 +225,8 @@
                                             <td>{{$value->adTen}}</td>
                                             <td>{{$value->khTen}}</td>
                                             <td>{{$value->hdNgaytao}}</td>
-                                            <td>{{$value->hdSoluongsp}}</td>
-                                            <td>{{$value->hdTongtien}}</td>
+                                            <td>{{$value->hdSoluongsp}}&nbsp;sản phẩm</td>
+                                            <td>{{number_format($value->hdTongtien)}}&nbsp;VDN</td>
                                             <td style="color:green">{{$value->hdTinhtrang==2?"Đã thanh toán":""}}</td>
                                             <td>
                                                 <a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$value->hdMa)}}">Chi tiết</a>

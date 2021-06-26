@@ -143,7 +143,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                         <a class="collapse-item"  href="{{URL::to('lich-su-hoat-dong')}}">lịch sử hoạt động</a>
-                        <a class="collapse-item"  href="{{URL::to('lich-su-hoat-dong')}}">lịch sử giao hàng</a>
+                        <a class="collapse-item"  href="{{URL::to('lich-su-giao-hang')}}">lịch sử giao hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
                     </div>

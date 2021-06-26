@@ -9,7 +9,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Quản lý nhà cung cấp</h2>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý nhà cung cấp</h2>
                             <hr/>
                             	<a href="{{URL::to('adthemncc')}}" class="btn btn-primary"><i class="fas fa-plus"> Thêm nhà cung cấp</i></a>
                         </div>
@@ -24,7 +24,7 @@
                                             <th>Địa chỉ</th>
                                             <th>Số điện thoại</th>
                                             <th></th>
-                                             
+                                            <th></th>
                                         </tr>
                                     </thead>
                                    
@@ -35,7 +35,7 @@
                                             <th>Địa chỉ</th>
                                             <th>Số điện thoại</th>
                                             <th></th>
-                                             
+                                            <th></th>  
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -46,12 +46,12 @@
                                             <td>{{$value->nccTen}}</td>
                                             <td>{{$value->nccDiachi}}</td>
                                             <td>{{$value->nccSdt}}</td>
+                                             <td>
+                                               <a class="btn btn-primary" href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}">Cập nhật </button>
+                                           </td>
                                            <td>
-                                                <a  href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}">
-                                                    <i class="fa fas fa-edit" style="color: blue;"></i>
-                                                </a>
-                                                <a  href="{{URL::to('deleteNhacungcap/'.$value->nccMa)}}">
-                                                    <i class="fa fas fa-trash" style="color: red;"></i>
+                                                <a class="btn btn-danger" href="{{URL::to('deleteNhacungcap/'.$value->nccMa)}}">
+                                                   Xóa
                                                 </a>
                                             </td>
 

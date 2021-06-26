@@ -5,7 +5,7 @@
 @foreach($spMaCu as $key => $value)
             <!-- Main Content -->
              <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Xem chi tiết và cập nhật sản phẩm</h2>
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Xem chi tiết và cập nhật sản phẩm</h2>
                             <hr/>
                              <a href="{{URL::asset("adSanpham")}}" class="btn btn-info" type="button">Trở về</a>   
                         </div>

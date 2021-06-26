@@ -1,7 +1,8 @@
 @extends('admin.layout')
 @section('content')
   	<div id="content-wrapper" class="d-flex flex-column">
-
+  		 <h2 class="m-0 font-weight-bold text-primary text-center">Chọn nhân viên giao hàng</h2>
+                            <hr/>
             <!-- Main Content -->
         <div id="content" class="container">
         	@foreach($data as $value)
