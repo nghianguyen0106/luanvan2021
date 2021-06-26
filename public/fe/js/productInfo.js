@@ -125,33 +125,33 @@ function show()
 
 
 
-// ////////SHOW HIDE MOTA danhgia/////////////
-// function showMota()
-// {
-// 	var title_mt = document.getElementById("show__mota");
-// 	var title_bl =document.getElementById("show__danhgia");
-// 	var box_mt = document.getElementById("content__mota");
-// 	var box_bl = document.getElementById("content__danhgia");
-// 	title_mt.style.border = '2px solid black';
-// 	title_mt.style.borderBottom = '1px solid white';
-// 	title_bl.style.border = '1px solid black';
-// 	title_bl.style.borderBottom = '1px solid black';
-// 	box_mt.style.display = 'block';
-// 	box_bl.style.display = 'none';
-// }
+////////SHOW HIDE MOTA danhgia/////////////
+function showMota()
+{
+	var title_mt = document.getElementById("show__mota");
+	var title_bl =document.getElementById("show__danhgia");
+	var box_mt = document.getElementById("content__mota");
+	var box_bl = document.getElementById("content__danhgia");
+	title_mt.style.border = '2px solid black';
+	title_mt.style.borderBottom = '1px solid white';
+	title_bl.style.border = '1px solid black';
+	title_bl.style.borderBottom = '1px solid black';
+	box_mt.style.display = 'block';
+	box_bl.style.display = 'none';
+}
 
-// function showDanhgia()
-// {
-// 	var title_bl =document.getElementById("show__danhgia");
-// 	var title_mt = document.getElementById("show__mota");
-// 	var box_bl = document.getElementById("content__danhgia");
-// 	var box_mt = document.getElementById("content__mota");
-// 	title_bl.style.border = '2px solid black';
-// 	title_bl.style.borderBottom = '1px solid white';
-// 	title_mt.style.border = '1px solid black';
-// 	title_mt.style.borderBottom = '1px solid black';
-// 	box_mt.style.display = 'none';
-// 	box_bl.style.display = 'block';
-// }
+function showDanhgia()
+{
+	var title_bl =document.getElementById("show__danhgia");
+	var title_mt = document.getElementById("show__mota");
+	var box_bl = document.getElementById("content__danhgia");
+	var box_mt = document.getElementById("content__mota");
+	title_bl.style.border = '2px solid black';
+	title_bl.style.borderBottom = '1px solid white';
+	title_mt.style.border = '1px solid black';
+	title_mt.style.borderBottom = '1px solid black';
+	box_mt.style.display = 'none';
+	box_bl.style.display = 'block';
+}
 
 
