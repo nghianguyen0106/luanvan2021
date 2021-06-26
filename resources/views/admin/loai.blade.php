@@ -16,15 +16,16 @@
 									 {{ csrf_field() }}
 								    <label for="exampleInputPassword1" class="form-label">Tên loại</label>
 								    &emsp;
-								    <input name="loaiTen" type="text" class="form-control" id="loaiTen">
+								    <input  name="loaiTen" type="text" class="form-control check">
 								      <span style="color:red">
 								     	@if(Session::has('loai_err')!=null)
 								     		{{Session::get('loai_err')}}
 								     	@endif
 								     </span>
 								 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
+                                    <span class="err__empty"></span>
 								 	 &emsp;
-								  <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+								  <button style="outline: none;" class="btn_ok btn__update" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 								</form>
                         </div>
                     	<br/>
@@ -55,9 +56,11 @@
 
                                         <form action="{{URL::to('/editLoai/'.$value->loaiMa)}}" method="POST">
                                              {{ csrf_field() }}
-                                            <td><input name="loaiTen" value="{{$value->loaiTen}}"/></td>
+                                            <td><input  class="check"  name="loaiTen" value="{{$value->loaiTen}}"/><br/>
+                                                <span class="err__empty"></span>
+                                            </td>
                                             <td>
-                                                <button class="btn btn-primary" type="submit" class="active" ui-toggle-class="">
+                                                <button class="btn btn-primary btn__update" type="submit" class="active" ui-toggle-class="">
                                                    Cập nhật
                                                 </button>
                                             </td>
@@ -77,5 +80,5 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+<script src="{{URL::asset('public/fe/js/js-validate/validate-empty.js')}}"></script>
   @endsection

@@ -3,9 +3,7 @@ var bigImg = document.getElementById("img__default");
 var boxParent = document.querySelectorAll(".img__item");
 for(var i = 0;i<boxParent.length;i++)
 {
-	console.log(boxParent[i].innerHTML);
 	boxParent[i].addEventListener('click', show);
-
 }
 
 function show()
