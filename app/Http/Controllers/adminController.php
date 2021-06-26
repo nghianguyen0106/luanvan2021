@@ -2530,8 +2530,8 @@ public function adCheckAddKhuyenmai(Request $re)
         if($re->vcLoai==0)
         {
             if($re->checkboxsp==null)
-            {
-                Session::flash('err','Vui lòng chọn 1 sản phẩm !');
+                {
+                    Session::flash('err','Vui lòng chọn 1 sản phẩm !');
                 return "<script>window.history.back();</script>";
             }
             else
