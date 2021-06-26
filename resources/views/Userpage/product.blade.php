@@ -10,7 +10,7 @@ Danh sách sản phẩm
 <div class="container-fluid">
 	<div class="row">
 <div class="col-1_5"></div>
-<div class="quang__cao" style="width: 12.3%;"></div>
+<div class="quang__cao" style="width: 12.3%;background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx1.png?v=20498);background-size: cover;"></div>
 <div class="col-lg-9">
 <div class="row">
 <div class="col-lg-8" style="margin:0;padding:0;">
@@ -144,7 +144,7 @@ Danh sách sản phẩm
 </div>
 </div>
 <div class="col-1_5"></div>
-<div class="quang__cao2" style="width: 12.3%;"></div>
+<div class="quang__cao2" style="width: 12.3%;background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx2.png?v=20498);background-size: cover"></div>
 <!--END-->
 </div>
 </div>

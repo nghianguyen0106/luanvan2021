@@ -36,8 +36,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <section class="container-fluid header">
 	<!--screen large-->
 	<div class="row">
-		<div class="col-lg-12 banner__header">
-			banner bìa
+		<div class="col-lg-12 banner__header" style="background-image: url(//theme.hstatic.net/1000026716/1000440777/14/bn-top1.jpg?v=20498);background-size: cover;height: 60px">
+			
 		</div>
 	</div>
 	<div class="menu__lg">
@@ -185,7 +185,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 
 <!--------CONTENT--------->
-<div style="height: 157px;"></div>
+<div style="height: 187px;"></div>
 
 	
 @yield('content')
