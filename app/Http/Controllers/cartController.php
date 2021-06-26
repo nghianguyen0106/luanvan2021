@@ -248,13 +248,13 @@ class cartController extends Controller
             $wl->spMa=$re->id;
             $wl->khMa=Session::get('khMa');   
             $wl->save(); 
-            Session::flash('success','Đã thêm vào danh mục yêu thích.');
+            Session::flash('success','Đã thêm vào wishlist.');
             
         }
         else
         {
             $wl=wishlist::where('spMa',$checkExistProduct->spMa)->delete();
-            Session::flash('success','Đã xóa khỏi danh mục yêu thích.');
+            Session::flash('success','Đã xóa khỏi wishlist.');
         }
         return Redirect()->back();
     }

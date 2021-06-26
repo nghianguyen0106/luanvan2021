@@ -127,6 +127,7 @@
                             </div>
 					</div>
 					 	<div class="mb-3 col-6">
+					 		<a class="btn btn-secondary" href="{{url('adVoucher')}}">Trở về</a>
 						  <button class="btn btn-primary" type="submit" name="btn_add">Thực hiện</button>
 						</div>
 					 </div>

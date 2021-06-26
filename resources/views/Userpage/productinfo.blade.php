@@ -111,7 +111,6 @@ Thông tin sản phẩm
 				<div id="content__mota" class="col-lg-12">
 					<table>
 						@foreach($details as  $i)
-						
 						@if($i->ram!=null)
 						<tr>
 							<td class="mota__left">RAM</td>

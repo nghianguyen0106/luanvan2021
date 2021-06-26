@@ -713,10 +713,27 @@ background:  #192A69;
 				red 1px 1px 1px 1px;
 }
 
+.btn_search{
+	background-color: white;
 
+	border: 1px solid grey;
+	border-radius: 20px;
+	box-shadow: grey 0px 1px 3px inset,
+				grey 0px 1px 3px,
+				grey 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+}
+.btn_search:hover{
+	color: white;
+	background-color: #ff3636;
+	border: 1px solid #ff3636;
+	border-radius: 20px;
+	box-shadow: #ff3636 0px 1px 3px inset,
+				#ff3636 0px 1px 3px,
+				#ff3636 0px 1px 3px;
+}
 .products-right .item__product
 {
-	
 	margin-top: 1rem;
 	margin-left: 3%;
 	padding-bottom: 1rem;
@@ -756,7 +773,7 @@ background:  #192A69;
 	background-color: transparent;
 	outline: none;
 	border: 1px solid black;
-	border-radius: 5px;
+	
 	box-shadow: grey 0px 1px 3px inset,
 				grey 0px 1px 3px,
 				grey 0px 1px 3px;
@@ -769,6 +786,7 @@ background:  #192A69;
 	box-shadow: #FF3636 0px 1px 3px inset,
 				#FF3636 0px 1px 3px,
 				#FF3636 0px 1px 3px;
+				border-radius: 5px;
 	transition: 0.2s;
 }
 .btn__action .btn__addCart a
@@ -806,6 +824,51 @@ background:  #192A69;
 .btn__action .btn__heart:hover a
 {
 	color: white;
+	transition: 0.2s;
+}
+.btn__action .btn__heart_checked
+{
+	padding: 0;
+	margin: 0;
+	width: 75%;
+	text-align: center;
+	background-color: #F54646;
+	border: 1px solid #F54646;
+	box-shadow: #F54646 0px 1px 3px inset,
+				#F54646 0px 1px 3px,
+				#F54646 0px 1px 3px;
+	padding: 3px 2px 3px 2px;
+} 
+.btn__action .btn__heart_checked
+{
+	width: 15%;
+}
+.btn__action .btn__heart_checked a
+{
+	color: white;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+.btn__action .btn__heart_checked:hover
+{
+	background-color: transparent;
+	border: 1px solid black;
+	box-shadow: black 0px 1px 3px inset,
+				black 0px 1px 3px,
+				black 0px 1px 3px;
+	transition: 0.2s;
+}
+.btn__action .btn__heart_checked:hover a
+{
+	padding: 0;
+	margin: 0;
+	width: 75%;
+	text-align: center;
+	background-color: transparent;
+	outline: none;
+	color: black;
+	padding: 3px 2px 3px 2px;
 	transition: 0.2s;
 }
 .products-right .item__product .item_info

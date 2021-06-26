@@ -189,11 +189,11 @@ Danh sách sản phẩm
 						<div class="col my-3">
 							<label>Thương hiệu:</label><br>
 							@foreach($brand as $i)
-								<div class="row-1">
-								  <label class="form-check-label"><input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">&nbsp;
+								
+								  <label class="form-check-label"> &nbsp;<input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault"> 
 								    {{$i->thTen}}
 								  </label>
-								</div>
+								
 							@endforeach
 						</div>
 						<hr>
@@ -213,7 +213,7 @@ Danh sách sản phẩm
 					</div>
 				</div>
 				
-				<button class="btn btn-outline-warning col-12" type="submit"><i class="fas fa-search"></i></button>
+				<button class="btn_search col-12" type="submit"><i class="fas fa-search"></i></button>
 			</form>
 			{{--  --}}
 	<hr>
@@ -240,8 +240,13 @@ Danh sách sản phẩm
 									<div class="row btn__action">
 									<button class="btn__addCart" type="button"><a href="{{URL::to('save-cart/'.$i->spMa)}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a></button>
 									@if(Session::has('khMa'))
-											<button class="btn__heart" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
+										@if($i->khMa)
+											<button class="btn__heart_checked" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
 											</button>
+											@else
+									<button class="btn__heart" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
+											</button>
+											@endif
 									@endif
 								</div>
 						</div>

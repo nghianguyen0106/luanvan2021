@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 					<li class="menu__top--item" style="text-align: center;"><a href="#"><i class="fas fa-tags" style="font-size: 18px;transform:rotateY(180deg);"></i>&nbsp;Khuyến mãi</a></li>
 					@if(Session::has('khTen'))
-				    		  		<li class="menu__top--item" style="text-align: center;"><a href="{{URL::to('wishlist')}}"><i class="far fa-heart" style="font-size: 18px;"></i>&nbsp;Bạn đã thích</a></li>
+				    		  		<li class="menu__top--item" style="text-align: center;"><a href="{{URL::to('wishlist')}}"><i class="far fa-heart" style="font-size: 18px;"></i>&nbsp;Wishlist</a></li>
 				    		@endif
 					@if(Session::has('khTen'))
 					
@@ -205,7 +205,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="col-lg-5 footerr__top--right">
 							<form>
 								<input type="email" name="email" placeholder="email của bạn..." />
-								<button type="submit" class="btn btn-danger btn-outline-dark text-white">Đăng ký</button>
+								<button type="submit" class="btn btn-danger btn--outlinedark text-white">Đăng ký</button>
 							</form>
 						</div>
 					</div>
