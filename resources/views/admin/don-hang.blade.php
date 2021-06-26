@@ -242,7 +242,7 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+<script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
   @endsection
-  <script src="{{URL::asset("public/style_admin/js/js3.js")}}"></script>
+  
 

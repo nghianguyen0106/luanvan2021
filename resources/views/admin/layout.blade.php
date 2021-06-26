@@ -63,7 +63,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-user-cog" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
                     <span>Quản lý người dùng</span>
                 </a>
                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
@@ -77,8 +77,8 @@
             <li class="nav-item">
                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quản lý dữ liệu cửa hàng</span>
+                    <i class="fas fa-laptop" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
+                    <span>Quản lý sản phẩm</span>
                 </a>
                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -94,7 +94,7 @@
             <li class="nav-item">
                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
                     aria-expanded="true" aria-controls="collapseFive">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-warehouse" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
                     <span>Quản lý kho</span>
                 </a>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
@@ -108,7 +108,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-wrench"></i>
+                   <i class="fas fa-dollar-sign" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
                     <span>Quản lý doanh thu</span>
                 </a>
                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
@@ -121,7 +121,7 @@
              <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-tags" style="font-size: 18px;color:rgba(255,255,255,.8);transform: rotateY(180deg);"></i>
                     <span>Quản lý khuyến mãi</span>
                 </a>
                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
@@ -135,7 +135,7 @@
              <li class="nav-item">
                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                   <i class="fas fa-tasks" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
                     <span>Quản lý hoạt động</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
