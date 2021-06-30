@@ -6,10 +6,11 @@
             <!-- Main Content -->
              <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary text-center">Xem chi tiết và cập nhật sản phẩm</h2>
-                            <hr/>
-                             <a href="{{URL::asset("adSanpham")}}" class="btn btn-info" type="button">Trở về</a>   
+                           
+                               
                         </div>
             <div id="content" class="col-12">
+                 <a href="{{URL::asset("adSanpham")}}" class="btn btn-info" type="button">Trở về</a>
              <form action="{{URL::to('/editSanpham/'.$value->spMa)}}" method="POST"  enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <br/>

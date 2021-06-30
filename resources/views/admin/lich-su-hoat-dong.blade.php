@@ -9,8 +9,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h2 class="m-0 font-weight-bold text-primary">Hoạt động gần đây</h2>
-                            <hr/>	
+                            <h2 class="m-0 font-weight-bold text-primary text-center">Hoạt động gần đây</h2>
+                           {{--  <hr/>	
                             <form action="{{url('tim-kiem-lshd')}}" method="GET">
                                 <select name="alNgaygio">
                                     @foreach($ngaygio as $value)
@@ -18,7 +18,7 @@
                                     @endforeach
                                 </select>
                                 <button class="btn btn-info" type="submit">Tìm</button>
-                            </form>
+                            </form> --}}
                         </div>
                     	<br/>
                         <div class="card-body">

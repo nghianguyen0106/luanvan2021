@@ -10,7 +10,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý sản phẩm</h2>
-                            <hr/>
+                          
                         </div>
                         <a  href="{{url('/themsanpham')}}" class="btn btn-primary " style="width: 20%;">
                                         <span class="icon text-white-50">

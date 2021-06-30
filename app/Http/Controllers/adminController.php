@@ -815,6 +815,7 @@ class adminController extends Controller
         }
           else
         {
+        
             if($re->hasFile('img')==true)
             {
                 $dataBefore = DB::table('sanpham')->where('spTen',$re->spTen)->first();

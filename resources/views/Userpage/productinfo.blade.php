@@ -7,9 +7,12 @@ Thông tin sản phẩm
 <section class="product__info">
 	<div class="container-fluid">
 		<div class="row">
-		<div class="col-1_5"></div>
+		<div class="col-1_5">
+			<div class="quang__cao" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx1.png?v=20498);background-size: cover;"></div>
+		</div>
 		<div class="col-lg-9">
 			<h3>THÔNG TIN SẢN PHẨM</h3>
+			<hr/>
 			<!------------Thông tin khái quát------------->
 			<div class="row product__top">
 				<div class="col-lg-6 col-sm-12 info__left">
@@ -89,10 +92,10 @@ Thông tin sản phẩm
 					<br/>
 					@if($proinfo->khoSoluong>0)
 					<div class="occasion-cart">
-						<button class="btn__addCart" type="submit"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&nbsp;Thêm vào giỏ hàng </button>&emsp;
-						<button class="btn__heart" type="button">
-							<a href="{{URL::to('addtowishlist/'.$v->spMa)}}"><i class="far fa-heart"></i></a>
-						</button>
+						<a class="btn__addCart"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&nbsp;Thêm vào giỏ hàng </a>&emsp;
+						
+							<a class="btn__heart" href="{{URL::to('addtowishlist/'.$v->spMa)}}"><i class="far fa-heart"></i></a>
+						
 					</div>
 					@endif
 					</form>
@@ -306,7 +309,9 @@ Thông tin sản phẩm
 			</div>
 			<!------------End------------->
 		</div>
-		<div class="col-1_5"></div>
+		<div class="col-1_5">
+			<div class="quang__cao2" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx2.png?v=20498);background-size: cover"></div>
+		</div>
 		</div>
 	</div>
 </section>

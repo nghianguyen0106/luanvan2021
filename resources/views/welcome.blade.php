@@ -1,594 +1,229 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
--->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Welcome to Tech1</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="utf-8">
-<meta name="keywords" content="Gaming Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- bootstrap-css -->
-<link href="{{URL::asset('public/fe2/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-<!--// bootstrap-css -->
-<!-- css -->
-<link rel="stylesheet" href="{{URL::asset('public/fe2/css/style.css')}}" type="text/css" media="all" />
-<!--// css -->
-<!-- font-awesome icons -->
-<link href="{{URL::asset('public/fe2/css/font-awesome.css')}}" rel="stylesheet"> 
-<!-- //font-awesome icons -->
-<!-- portfolio -->  
-<link rel="stylesheet" href="{{URL::asset('public/fe2/css/chocolat.css')}}" type="text/css" media="all">
-<!-- //portfolio -->    
-<!-- font -->
-<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
-<!-- //font -->
-<script src="{{URL::asset('public/fe2/js/jquery-1.11.1.min.js')}}"></script>
-<script src="{{URL::asset('public/fe2/js/bootstrap.js')}}"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $(".scroll").click(function(event){     
-            event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-        });
-    });
-</script> 
+  <head>
+    <meta charset="utf-8">
+    <title>Html5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
-</head>
-<body>
-    <!-- banner -->
-    <div class="banner">
-        <div class="agileinfo-dot">
-            <div class="agileits-logo">
-               <h1><a href="{{URL::to('/')}}"><img src="{{{'public/images/banners/logo/logo.png'}}}" width="250" height="130"></a></h1>
-            </div>
-            <div class="header-top">
-                <div class="container">
-                    <div class="header-top-info">
-                        <nav class="navbar navbar-default">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
+    <!-- Le styles -->
+ 	<link href="{{URL::asset("public/fe/css/bootstrap.css")}}" rel="stylesheet" type="text/css" media="all" />
+ 	<link href="{{URL::asset("public/welcome/style.css")}}" rel="stylesheet" type="text/css" media="all" /> 
+	<link rel="stylesheet" type="text/css" href="{{URL::asset("public/fe/css/jquery-ui.css")}}">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-                                <nav>
-                                    <ul class="nav navbar-nav">
-                                        <li class="active"><a href="index.html">Home</a></li>
-                                        <li><a href="#about" class="scroll">About</a></li>
-                                        <li><a href="{{URL::to('/product')}}">Product</a></li>
-                                         <li><a href="#gallery">Gallery</a></li>
-                                        <li><a href="#team" class="scroll">Team</a>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- /.navbar-collapse -->
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="w3layouts-banner-info">
-                <div class="container">
-                    <div class="w3layouts-banner-slider">
-                        <div class="w3layouts-banner-top-slider">
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //banner -->
-    <!-- about -->
-  <div class="row">
-      <<div class="col-lg-12">
-          <div class="row">
-              <div class="col-lg-3">
-                  
-              </div>
-          </div>
-      </div>
-  </div>
-    <!-- //about --> 
-    <!-- markets -->
-    <div class="markets" id="markets">
-        <div class="container">
-            <div class="agileits-title"> 
-                <h3>Our Services</h3>
-            </div>
-            <div class="markets-grids">
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-gamepad" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Suspendisse</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-trophy" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Aliquam</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Consectetur</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Bibendum</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-comments" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Vestibulum</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="col-md-4 w3ls-markets-grid">
-                    <div class="agileits-icon-grid">
-                        <div class="icon-left">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </div>
-                        <div class="icon-right">
-                            <h5>Fermentum</h5>
-                            <p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat at lectus ullamcorper, nec interdum neque hendrerit.</p>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!-- //markets -->
-    <!-- portfolio -->
-    <div class="portfolio" id="gallery">
-        <div class="container">
-            <div class="agileits-title"> 
-                <h3>MỘT SỐ SẢN PHẨM CỦA CHÚNG TÔI</h3> 
-            </div>
-            <ul class="simplefilter w3layouts agileits">
-                <li class="active w3layouts agileits" data-filter="all">All</li>
-                <li class="w3layouts agileits" data-filter="1">LAPTOP</li>
-                <li class="w3layouts agileits" data-filter="2">PC</li>
-            </ul>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-            <div class="filtr-container w3layouts agileits">
-                @foreach($dblap as $i)
-                <div class="filtr-item w3layouts agileits portfolio-t" data-category="1" data-sort="Busy streets">
-                    <a href="{{URL::asset('public/images/products/'.$i->spHinh)}}" class="b-link-stripe w3layouts agileits b-animate-go thickbox">
-                        <figure>
-                            <img src="{{URL::asset('public/images/products/'.$i->spHinh)}}" class="img-responsive w3layouts agileits" alt="W3layouts Agileits">
-                            <figcaption>
-                                <h3>{{$i->spTen}}</h3>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                @endforeach
-                 @foreach($dbpc as $i)
-                <div class="filtr-item w3layouts agileits portfolio-t" data-category="2" data-sort="Busy streets">
-                    <a href="{{URL::asset('public/images/products/'.$i->spHinh)}}" class="b-link-stripe w3layouts agileits b-animate-go thickbox">
-                        <figure>
-                            <img src="{{URL::asset('public/images/products/'.$i->spHinh)}}" class="img-responsive w3layouts agileits" alt="W3layouts Agileits">
-                            <figcaption>
-                                <h3>{{$i->spTen}}</h3>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                @endforeach
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
 
-                <div class="clearfix"></div>
+  <body>
+  	<section class="container-fluid header__top">
+  
+		<div class="col-lg-12 banner__header" style="background-image: url(//theme.hstatic.net/1000026716/1000440777/14/bn-top1.jpg?v=20498);background-size: cover;height: 60px;width: 100%;">
+		</div>
+	
+  		<div class="row">
+  			<div class="col-lg-6">
+  				<div class="header__top--left">
+  					<img alt="WP Compu Care" src="http://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/themes/wp-compu-care/assets/images/logo.png">
+  				</div>
+  			</div>
+  			<div class="col-lg-6 header__top--right">
+  					<ul class="top__right--menu">
+  						<li class="menu__item">
+  							<a href="{{URL::to('/')}}">
+  								<i class="fas fa-home" ></i>&nbsp;Trang chủ
+  							</a>
+  						</li>
+  						<li class="menu__item">
+  							<a href="{{URL::to('product')}}">
+  							<i class="fas fa-tv" ></i>&nbsp;Sản phẩm
+  							</a>
+  						</li>
+  						<!--php-->
+  						@if(Session::has('khTen'))
+  						<li class="menu__item">
+	  						<a  href="{{url("/infomation/".Session::get('khMa'))}}">
+	  							@if(Session::get('khHinh')!=null)
+									<img style="width: 30px;height: 30px;border-radius: 360px;" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+									@else
+						   			<i class="fas fa-user-circle" style="font-size: 28px;color: lightgrey;position: relative;top:3px"></i>
+									@endif 
+									&nbsp;{{Session::get('khTen')}}
+	  						</a>
+	  						<ul class="item__menu--child">
+	  							<li class="item__triangle"></li>
+	  							<li class="menu__child--item">
+	  								<a href="{{url("/infomation/".Session::get('khMa'))}}">
+					 				<i class="fas fa-info-circle" ></i>&nbsp;Thông tin cá nhân
+					 				</a>
+	  							</li>
+	  							<li class="menu__child--item">
+	  								<a href="{{URL::to('wishlist')}}"><i class="far fa-heart" ></i>&nbsp;Sản phẩm yêu thích
+	  								</a>
+	  							</li>
+	  							<li class="menu__child--item">
+	  								<a href="{{URL::to('listorder')}}"><i class="far fa-file-alt" ></i>&nbsp;Đơn hàng
+	  								</a>
+	  							</li>
+	  							<li class="menu__child--item">
+	  								<a href="{{URL::to('logout')}}">
+					 						<i class="fas fa-power-off" ></i>&nbsp;Đăng xuất
+					 				</a>
+	  							</li>
+	  						</ul>
+	  					</li>
+  						@else
+  						<li class="menu__item">
+  							<a href="{{URL::to('login')}}">
+  								<i class="fas fa-user-circle" ></i>&nbsp;Đăng nhập
+  							</a>
+  						</li>
+  						@endif
+  						<!--endphp-->
+  						<li class="menu__item--border"></li>
+  						<li class="menu__item">
+  							<a href="{{URL::to('/checkout')}}">
+  								<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+								({{Cart::count()}})
+							</a>
+  						</li>
+  						
+  						
+  					</ul>
+  			</div>
+  		</div>
+  	</section>
 
-            </div>
-        </div>
-    </div>
-    <!-- //portfolio -->
-    <!-- modal -->
-    <div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header"> 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                        
-                    <h4 class="modal-title">Gaming <span>Store</span></h4>
-                </div> 
-                <div class="modal-body">
-                    <div class="agileits-w3layouts-info">
-                        <img src="{{URL::asset('public/fe2/images/1.jpg')}}" alt="" />
-                        <p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. Suspendisse ultrices hendrerit massa. Nam id metus id tellus ultrices ullamcorper.  Cras tempor massa luctus, varius lacus sit amet, blandit lorem. Duis auctor in tortor sed tristique. Proin sed finibus sem</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //modal -->
-    <!-- testimonial -->
-    <div class="jarallax testimonial" id="testimonial">
-        <div class="testimonial-dot">
-            <div class="container">
-                <div class="agileits-title testimonial-heading"> 
-                    <h3>Testimonial</h3> 
-                </div>
-                <div class="w3-agile-testimonial">
-                    <div class="slider">
-                        <div class="callbacks_container">
-                            <ul class="rslides callbacks callbacks1" id="slider3">
-                                <li>
-                                    <div class="testimonial-img-grid">
-                                        <div class="testimonial-img t-img1">
-                                            <img src="{{URL::asset('public/fe2/images/ts1.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img">
-                                            <img src="{{URL::asset('public/fe2/images/ts2.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img t-img2">
-                                            <img src="{{URL::asset('public/fe2/images/ts3.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                    <div class="testimonial-img-info">
-                                        <p>Nunc interdum elit nec sapien vehicula, ut blandit nulla ultrices. Sed ullamcorper metus eget efficitur rutrum. Aliquam a nunc odio. Aenean fermentum finibus efficitur.</p>
-                                        <h5>Peter Guptill</h5>
-                                        <h6>Proin blandit</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="testimonial-img-grid">
-                                        <div class="testimonial-img t-img1">
-                                            <img src="{{URL::asset('public/fe2/images/ts2.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img">
-                                            <img src="{{URL::asset('public/fe2/images/ts3.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img t-img2">
-                                            <img src="{{URL::asset('public/fe2/images/ts1.jpg')}}" alt="" />
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                    <div class="testimonial-img-info">
-                                        <p>Morbi est est, mollis id diam a, pellentesque dignissim lorem. Sed malesuada sed lacus sit amet vestibulum. Sed nibh purus, egestas eu orci vel, mollis interdum orci.</p>
-                                        <h5>Mary Jane</h5>
-                                        <h6>Lorem ipsum</h6>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="testimonial-img-grid">
-                                        <div class="testimonial-img t-img1">
-                                            <img src="{{{'public/fe2/images/ts3.jpg'}}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img">
-                                            <img src="{{{'public/fe2/images/ts1.jpg'}}}" alt="" />
-                                        </div>
-                                        <div class="testimonial-img t-img2">
-                                            <img src="{{{'public/fe2/images/ts2.jpg'}}}" alt="" />
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                    <div class="testimonial-img-info">
-                                        <p>Proin blandit rhoncus metus porta tristique. Praesent suscipit in erat a tempor. Nullam tempor lectus ex, a auctor orci ultricies ac. Mauris sapien neque, condimentum sit</p>
-                                        <h5>Steven Wilson</h5>
-                                        <h6>Proin blandit</h6>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"> </div>
-                        <script>
-                                    // You can also use "$(window).load(function() {"
-                                    $(function () {
-                                      // Slideshow 4
-                                      $("#slider3").responsiveSlides({
-                                        auto: true,
-                                        pager:false,
-                                        nav:false,
-                                        speed: 500,
-                                        namespace: "callbacks",
-                                        before: function () {
-                                          $('.events').append("<li>before event fired.</li>");
-                                        },
-                                        after: function () {
-                                          $('.events').append("<li>after event fired.</li>");
-                                        }
-                                      });
-                                
-                                    });
-                        </script>
-                        <!--banner Slider starts Here-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //testimonial -->
-    <!-- team -->
-    <div class="team" id="team">
-        <div class="container">
-            <div class="agileits-title"> 
-                <h3>Thành viên</h3> 
-            </div>
-            <div class="agileits-team-grids">
-                <div class="col-md-3 agileits-team-grid">
-                    <div class="team-info">
-                        
-                   
-                    </div>
-                </div>
-                <div class="col-md-3 agileits-team-grid">
-                    <div class="team-info">
-                        <img src="{{URL::asset('public/tv_image/119924581_752408281992880_1050379176225078592_n.jpg')}}" alt="">
-                        <div class="team-caption"> 
-                            <h4><code>Nguyễn Chí Nghĩa</code></h4>
-                            <p>-----</>-----</p>
-                            <ul>
-                                <li><a href="https://www.facebook.com/profile.php?id=100016711454312"><i class="fa fa-facebook"></i></a></li>
-                                
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 agileits-team-grid">
-                    <div class="team-info">
-                        <img src="{{URL::asset('public/tv_image//83674270_1273734419482533_2342260852960264192_n.jpg')}}" alt="">
-                        <div class="team-caption"> 
-                            <h4><code>Lê Trung Nhân</code></h4>
-                            <p>-----</>-----</p>
-                            <ul>
-                                <li><a href="https://www.facebook.com/le.trungnhan.9"><i class="fa fa-facebook"></i></a></li>
-                             
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 agileits-team-grid">
-                    <div class="team-info">
-                        
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!-- //team -->
+  	<!---------------------------->
+   	<section class="container-fluid wel__bg">
+   			<div class="col-lg-12 bg__video">
+   				<video muted loop autoplay>
+   					<source src="{{URL::asset('public/videos/bg-laptop.mp4')}}" type="video/mp4">
+   				</video>
+   			</div>
+   			<div class="col-lg-6 bg__content">
+   				<h2> Tiềm năng của bạn. niềm đam mê của bên chúng tôi. <br/>Đạt kết quả tốt lan toả sự tin tưởng.</h2>
+   			</div>
+   	</section>
 
-    <!-- mail -->
+   	<section class="container-fluid wel__content">
+   		<div class="row">
+   			<div class="col-lg-6" style="margin: 0;padding: 0;">
+	   			<div class="wel__content--left">
+	   				<img src="{{URL::asset('public/images/bg-button/bg1.png')}}" alt="">
+	   				<div class="left__content">
+	   					<div class="content__icon">
+	   						<i class="fas fa-laptop" style="font-size: 60px;"></i>
+	   					</div>
+	   					
+	   					<div class="content__text">
+	   						<div>LAPTOP</div>
+	   						<div>Is your handheld deivce running slowly or did you drop it and now it’s smashed? Bring it to us and have it fixed like new.</div>
+	   						<div>
+	   							<a>Xem thêm &emsp;<i class="fas fa-angle-right"></i></a>
+	   						</div>
+	   					</div>
+	   				</div>
+	   			</div>
+   			</div>
+   			<div  class="col-lg-6" style="margin: 0;padding: 0;">
+	   			<div class="wel__content--right">
+	   				<img src="{{URL::asset('public/images/bg-button/bg2.png')}}" alt="">
+	   				<div class="right__content">
+	   					<div class="content__icon">
+	   						<i class="fas fa-server" style="font-size: 60px;"></i>
+	   					</div>
 
-    <script src="js/classie.js"></script>
-    <script>
-            (function() {
-                // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-                if (!String.prototype.trim) {
-                    (function() {
-                        // Make sure we trim BOM and NBSP
-                        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-                        String.prototype.trim = function() {
-                            return this.replace(rtrim, '');
-                        };
-                    })();
-                }
+	   					<div class="content__text">
+	   						<div>PC</div>
+	   						<div>From full rebuilds to system repairs, we have all the tools to build the perfect PC or to get yours back up to speed again.</div>
+	   						<div>
+	   							<a>Xem thêm &emsp;<i class="fas fa-angle-right"></i></a>
+	   						</div>
+	   					</div>
+	   				</div>
+	   			</div>
+   			</div>
+   		</div>
 
-                [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
-                    // in case the input is already filled..
-                    if( inputEl.value.trim() !== '' ) {
-                        classie.add( inputEl.parentNode, 'input--filled' );
-                    }
+   		<!--------------------->
+   		<div class="row">
+   			<div class="col-lg-2"></div>
+   			<div class="col-lg-8 col-sm-12 welcome__text">
+   				<h2>
+   					<span>Chào mừng bạn đến với</span>
+   					<span>Compu-Care</span>
+   				</h2>
+   				<div class="border__short"></div>
+   				<div class="text">
+   					Nunc feugiat augue non arcu iaculis dignissim. Curabitur laoreet elit non vestibulum ullamcorper. Ut fringilla pulvinar nibh, non suscipit justo lacinia vel. Aenean at dui pharetra est vulputate porttitor. In placerat sit amet ipsum a ullamcorper.
+   				</div>
+   			</div>
+   			<div class="col-lg-2"></div>
+   			</div><br/><br/>
 
-                    // events:
-                    inputEl.addEventListener( 'focus', onInputFocus );
-                    inputEl.addEventListener( 'blur', onInputBlur );
-                } );
+   			<div class="col-lg-12 mid__content">
+   				<div class="row content__pro">
+   					<div class="col-lg-6 content__pro--img">
+   						<img src="https://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/uploads/2016/10/bg-computer.png" class="vc_single_image-img attachment-full"/>
+   					</div>
+			   		<div class="col-lg-1 content__pro--border">
+			   			<div></div>
+			   		</div>
+   					<div class="col-lg-5 content__pro--text">
+   						<h2>Đội ngũ nhân viên</h2>
+   						<br/>
+   						<div>
+   							Đội ngũ nhân viên được đào tạo nhằm chăm sóc tốt đối với khách hàng
+   						</div>
+   						<br/>
+   						<a href="#">Xem thêm</a>
+   					</div>
+   				</div>
+   				
+   				<div class="row content__pro">
+   					<div class="col-lg-5 content__pro--text">
+   						<h2>Chương trình khuyến mãi hấp dẫn</h2>
+   						<br/>
+   						<div>
+   							Các chương trình khuyến mãi hấp dẫn với một số sản phẩm.... 
+   						</div>
+   						<br/>
+   						<a href="#">Xem thêm</a>
+   					</div>
+   					<div class="col-lg-1 content__pro--border">
+   						<div></div>
+   					</div>
+   					<div class="col-lg-6 content__pro--img">
+   						<img src="https://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/uploads/2016/10/bg-computer.png" class="vc_single_image-img attachment-full"/>
+   					</div>
+   				</div>
+   			</div>
+   		<!--------------------->
+   	</section>
+   	
 
-                function onInputFocus( ev ) {
-                    classie.add( ev.target.parentNode, 'input--filled' );
-                }
+ 
 
-                function onInputBlur( ev ) {
-                    if( ev.target.value.trim() === '' ) {
-                        classie.remove( ev.target.parentNode, 'input--filled' );
-                    }
-                }
-            })();
-        </script>
-    <!-- //mail -->
-    <!-- contact -->
-    <div id="contact" class="contact">
-        <div class="contact-row agileits-w3layouts">  
-            <div class="col-md-5 contact-w3lsleft map">
-               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.9541638747783!2d106.67568031506207!3d10.738016192347587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752fad0158a09f%3A0xfd0a6159277a3508!2zMTgwIMSQxrDhu51uZyBDYW8gTOG7lywgUGjGsOG7nW5nIDQsIFF14bqtbiA4LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1618467743407!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <div class="col-md-7 contact-w3lsright">
-                <h6>Sed interdum interdum accumsan nec purus ac orci finibus facilisis sapien Sed interdum . </h6>
-                <div class="col-xs-6 address-row">
-                    <div class="col-xs-2 address-left">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-xs-10 address-right">
-                        <h5>Visit Us</h5>
-                        <p>Broome St, Canada, <br>NY 10002, New York </p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="col-xs-6 address-row w3-agileits">
-                    <div class="col-xs-2 address-left">
-                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-xs-10 address-right">
-                        <h5>Mail Us</h5>
-                        <p><a href="mailto:info@example.com"> mail@example1.com </a></p>
-                        <p><a href="mailto:info@example.com"> mail@example2.com</a></p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="col-xs-6 address-row">
-                    <div class="col-xs-2 address-left">
-                        <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-xs-10 address-right">
-                        <h5>Call Us</h5>
-                        <p>+01 222 333 4444<br></p>
-                        <p>+01 222 333 5555</p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div> 
-                <div class="col-xs-6 address-row">
-                    <div class="col-xs-2 address-left">
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                    </div>
-                    <div class="col-xs-10 address-right">
-                        <h5>Working Hours</h5>
-                        <p>Mon - Fri : 8:00 am to 10:30 pm<br>
-                        Sat - Sun : 9:00 am to 11:30 pm</p>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="clearfix"> </div>   
-            </div>
-            <div class="clearfix"> </div>
-        </div>  
-    </div>
-    <!-- //contact -->  
-    <!-- footer -->
-    <div class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="col-md-4 amet-sed"> 
-                    <div class="footer-title">
-                        <h3>About Us</h3>
-                    </div> 
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-                </div>
-                <div class="col-md-4 amet-sed amet-medium">
-                    <div class="footer-title">
-                        <h3>Twitter Feed</h3>
-                    </div> 
-                    <p><a href="#">http://example.com</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt lorem sed velit fermentum eget placerat. </p>
-                    <p><a href="#">http://mail.com</a> Sed tincidunt lorem sed velit fermentum eget placerat. Lorem ipsum dolor sit, consectetur adipiscing elit. </p>
-                </div>
-                <div class="col-md-4 amet-sed ">
-                    <div class="footer-title">
-                        <h3>Follow Us</h3>
-                    </div> 
-                    <div class="agileinfo-social-grids">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                            <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="support">
-                        <form action="#" method="post">
-                            <input type="email" placeholder="Enter email...." required=""> 
-                            <input type="submit" value="Subscribe" class="botton">
-                        </form> 
-                    </div>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!-- //footer --> 
-    <!-- copyright -->
-    <div class="copyright">
-        <div class="container">
-            <p class="footer-class">© 2020 Gaming Store . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-        </div>
-    </div>
-    <!-- //copyright -->
-    <script src="js/jarallax.js"></script>
-    <!-- <script src="js/SmoothScroll.min.js"></script> -->
-    <script type="text/javascript">
-        /* init Jarallax */
-        $('.jarallax').jarallax({
-            speed: 0.5,
-            imgWidth: 1366,
-            imgHeight: 768
-        })
-    </script>
-    <script src="{{URL::asset('public/fe2/js/responsiveslides.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('public/fe2/js/move-top.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('public/fe2/js/easing.js')}}"></script>
-    <!-- here stars scrolling icon -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            /*
-                var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear' 
-                };
-            */
-                                
-            $().UItoTop({ easingType: 'easeOutQuart' });
-                                
-            });
-    </script>
-    <!-- //here ends scrolling icon -->
-    <!-- Tabs-JavaScript -->
-    <script src="{{URL::asset('public/fe2/js/jquery.filterizr.js')}}"></script>
-        <script src="{{URL::asset('public/fe2/js/controls.js')}}"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('.filtr-container').filterizr();
-            });
-        </script>
-    <!-- //Tabs-JavaScript -->
-    <!-- PopUp-Box-JavaScript -->
-        <script src="{{URL::asset('public/fe2/js/jquery.chocolat.js')}}"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('.filtr-item a').Chocolat();
-            });
-        </script>
-    <!-- //PopUp-Box-JavaScript -->
-</body> 
+
+
+
+
+
+
+
+	<!-- js -->
+	<script type="text/javascript" src="{{URL::asset("public/fe/js/jquery-2.1.4.min.js")}}"></script>
+	<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>

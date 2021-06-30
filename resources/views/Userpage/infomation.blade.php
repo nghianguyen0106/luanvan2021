@@ -10,9 +10,11 @@ Thông tin cá nhân
 <section class="infomation">
  <div class="container-fluid">
 	<div class="row">
-		<div class="col-1_5"></div>
+			<div class="col-1_5">
+			<div class="quang__cao" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx1.png?v=20498);background-size: cover;"></div>
+		</div>
 		<div class="col-lg-9">
-			<h2>Thông tin của bạn</h2>
+			<h3>THÔNG TIN CỦA BẠN</h3>
 				<hr/>
 			@foreach($data as $v)
 				<form class="col-lg-12 box__info" action="{{url("edit_infomation/".$v->khMa)}}" method="POST" enctype="multipart/form-data">
@@ -137,7 +139,9 @@ Thông tin cá nhân
 		</div>
 	
 		@endforeach
-		<div class="col-1_5"></div>
+		<div class="col-1_5">
+			<div class="quang__cao2" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx2.png?v=20498);background-size: cover"></div>
+		</div>
 	</div>
 </div>
 </section><br>
