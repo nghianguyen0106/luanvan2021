@@ -9,7 +9,6 @@ Danh sách sản phẩm
 <!--Slide-->
 <div class="container-fluid">
 	<div class="row">
-<div class="col-1_5"></div>
 <div class="quang__cao" style="width: 12.3%;background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx1.png?v=20498);background-size: cover;"></div>
 <div class="col-lg-9">
 <div class="row">
@@ -143,7 +142,7 @@ Danh sách sản phẩm
 	@endif	 
 </div>
 </div>
-<div class="col-1_5"></div>
+
 <div class="quang__cao2" style="width: 12.3%;background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx2.png?v=20498);background-size: cover"></div>
 <!--END-->
 </div>
@@ -154,11 +153,11 @@ Danh sách sản phẩm
 
 <div class="men-wear">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-1_5"></div>
+		<div class="row justify-content-around">
+			
 		<div class="col-lg-2 col-sm-8 products-left box__search">
 			{{-- SEARCH --}}
-			<div class="title__search"><i class="fas fa-filter" style="font-size: 18px;"></i>LỌC SẢN PHẨM</div>
+			<div class="title__search">TÌM SẢN PHẨM</div>
 			<br/>
 			<form class="form" action="{{URL::to('findpro')}}"  method="get" accept-charset="utf-8">
 		
@@ -186,80 +185,85 @@ Danh sách sản phẩm
 					
 					<hr>
 					<div class="row-2">
-						<div class="col my-3">
+						
 							<label>Thương hiệu:</label><br>
+							<div class="row">
 							@foreach($brand as $i)
-								
-								  <label class="form-check-label"> &nbsp;<input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault"> 
-								    {{$i->thTen}}
-								  </label>
+								<div class="col-lg-6" style="font-size: 14px;">
+								<input class="form-check-input" type="checkbox" name="brand[]" value="{{$i->thMa}}" id="flexCheckDefault">  {{$i->thTen}}
+								</div>
+								 
 								
 							@endforeach
 						</div>
 						<hr>
-						<div class="col my-3">
+					
 							<label>Nhu cầu:</label><br>
+							<div class="row">
 							@foreach($needs as $i)
-							<label ><input type="checkbox" name="needs[]" class="row-1 form-check-input ms-1" value="{{$i->ncMa}}">&nbsp;{{$i->ncTen}}</label>&nbsp;&nbsp;
+							<div class="col-lg-8" style="font-size: 14px;">
+							<input type="checkbox" name="needs[]" class="row-1 form-check-input ms-1" value="{{$i->ncMa}}">&nbsp;{{$i->ncTen}}
+						</div>
 							@endforeach
 						</div>
 						<hr>
-						<div class="col my-3">
+
 							<label>Loại:</label><br>
+							<div class="row">
+							
 							@foreach($cate as $i)
-							<label ><input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}">&nbsp;{{$i->loaiTen}}</label>&nbsp;&nbsp;
+							<div class="col-lg-6" style="font-size: 14px;">
+							<input type="checkbox" name="category[]" class="row-1 form-check-input ms-1" value="{{$i->loaiMa}}">&nbsp;{{$i->loaiTen}}
+						</div>
 							@endforeach
 						</div>
 					</div>
 				</div>
-				
+				<br/>
 				<button class="btn_search col-12" type="submit"><i class="fas fa-search"></i></button>
 			</form>
 			{{--  --}}
 	<hr>
-			<div class="clearfix"></div>
 		</div>
-		<div class="col-lg-7 products-right">
-					{{-- <?php $check = array();?> --}}
-			
-					@foreach($db as $k => $i)	
-
-					{{-- @if (in_array($i->spMa, $check)==null && $i->spTinhtrang==1) 
-					
-					<?php array_push($check, $i->spMa); ?> --}}
-				<div class="col-3_5 col-sm-8 item__product">
+		<!--------product----->
+		<div class="col-lg-9 products-right">
+				
+			<div class="row justify-content-around">
+				
+				@foreach($db as $k => $i)	
+				<div class="col-lg-3 col-sm-8 item__product">
 					<div class="item_info">
 												<a href="{{URL::to('proinfo/'.$i->spMa)}}">Xem sản phẩm</a>
 											</div>
 								<img src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="">
-										{{-- <span class="product-new-top">New</span> --}}
-								<div class="item-info-product" style="padding: 0;margin: 0;">
+										
+								<div class="item-info-product">
 									<label class="item_name"><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></label>
 									<br/>
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
 									<div class="row btn__action">
-									<button class="btn__addCart" type="button"><a href="{{URL::to('save-cart/'.$i->spMa)}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a></button>
+									<a class="btn__addCart" href="{{URL::to('save-cart/'.$i->spMa)}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
 									@if(Session::has('khMa'))
 										@if($i->khMa)
-											<button class="btn__heart_checked" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
-											</button>
+											<a class="btn__heart btn__heart--checked" href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
 											@else
-									<button class="btn__heart" type="button"><a href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
-											</button>
+									<a class="btn__heart" href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
+										
 											@endif
 									@endif
 								</div>
 						</div>
 				</div>
-			{{-- 	@endif --}}
 				@endforeach
-
-
-						{{--  --}}
-				<div class="clearfix"></div>
+			
+				
 		</div>
-		<div class="clearfix"></div>
-		<div class="col-1_5"></div>
+
+	</div>
+		
+
+	{{-- 	<div class="col-1_5"></div> --}}
+
 		</div>
 	</div>
 </div>	

@@ -1,0 +1,459 @@
+:root {
+    --woocommerce: #a46497;
+    --wc-green: #7ad03a;
+    --wc-red: #a00;
+    --wc-orange: #ffba00;
+    --wc-blue: #2ea2cc;
+    --wc-skyblue:rgba(0,163,186,0.93);
+    --wc-primary: #a46497;
+    --wc-primary-text: white;
+    --wc-secondary: #ebe9eb;
+    --wc-secondary-text: #515151;
+    --wc-highlight: #77a464;
+    --wc-highligh-text: white;
+    --wc-content-bg: #fff;
+    --wc-subtext: #767676;
+    --wc-dark: #393D54;
+    --wc-grey: rgba(55,71,79,0.93);
+}
+*.row
+{
+   margin: 0;
+   padding: 0;
+}
+.header__top
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--wc-dark);
+}
+.header__top--left
+{
+    padding: 15px 0 15px 0;
+    width: 70%;
+    text-align: center;
+}
+.header__top--right
+{
+    margin-top: 20px;
+    
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.header__top--right .top__right--menu
+{
+    list-style: none;
+}
+.header__top--right .top__right--menu .menu__item,
+.header__top--right .top__right--menu .menu__item--border
+{
+    display: inline-block;
+}
+.menu__item
+{
+    padding: 0 10px 0 10px;
+    position: relative;
+}
+.menu__item--border
+{
+    border: 1px solid var(--wc-secondary);
+    width: 1px;
+    height: 15px;
+}
+.menu__item a
+{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--wc-secondary);
+}
+.menu__item a i
+{
+    text-decoration: none;
+    font-size: 17px;
+    color: var(--wc-secondary);
+}
+.menu__item:hover a, a i
+{
+    color: var(--wc-content-bg);
+}
+
+.menu__item .item__menu--child
+{
+    height: 0;
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+    opacity: 0;
+    margin-top: 10px;
+    padding: 0 0 0 2%;
+    width: 220px;
+    position: absolute;
+    list-style: none;
+    z-index: 10;
+    border-radius: 3px;
+    border: 1px solid var(--wc-secondary-text);
+    background-color: var(--wc-highligh-text);
+}
+.item__menu--child .item__triangle
+{
+  width: 0;
+  height: 0;
+  position: relative;
+  top: -10px;
+  margin-left: 40%;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--wc-highligh-text);
+}
+.item__menu--child .menu__child--item
+{
+    width: 96%;
+    text-align: left;
+    padding:10px 0 10px 20px;
+    border-bottom: 1px solid  rgba(0, 0, 0, 0.15);
+}
+.item__menu--child .menu__child--item:last-child
+{
+    border: 0;
+}
+.item__menu--child .menu__child--item a,
+.item__menu--child .menu__child--item a i
+{
+    font-size: 15px;
+    color: black;
+}
+.menu__child--item:hover a
+{
+     color: var(--wc-blue);
+}
+.menu__child--item:hover a i
+{
+     color: var(--wc-blue);
+}
+.menu__item:hover .item__menu--child
+{
+    opacity: 100%;
+    height: auto;
+    transform: scaleY(1);
+    transition: 0.5s;
+}
+
+
+
+/* video background */
+.wel__bg
+{
+    position: relative;
+    margin: 0;
+    padding: 0;
+   box-sizing: border-box;
+}
+.wel__bg .bg__video
+{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 1;
+    width: 100%;
+    height: 400px;
+}
+.wel__bg .bg__video video
+{
+    position: relative;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+}
+
+
+.wel__bg .bg__content
+{
+    height: 500px;
+    width: 50%;
+    color: white;
+    position: absolute;
+    background-color: transparent;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.wel__bg .bg__content h2
+{
+    text-align: center;
+}
+
+
+
+/* CONTENT */
+.wel__content
+{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 650px;
+    z-index: 8;
+}
+
+.wel__content--left,
+.wel__content--right
+{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 260px;
+}
+.wel__content--left::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    background: var(--wc-grey);
+    opacity: 65%;
+    z-index: 20;
+}
+.wel__content--left::after
+{
+    content: "";
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    background: var(--wc-grey);
+    opacity: 65%;
+    z-index: 20;
+    mix-blend-mode: color;
+}
+.wel__content--right::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    background: var(--wc-skyblue);
+    opacity: 65%;
+    z-index: 20;
+}
+.wel__content--right::after
+{
+    content: "";
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    background:var(--wc-skyblue);
+    opacity: 65%;
+    z-index: 20;
+    mix-blend-mode: color;
+}
+.wel__content--left img,
+.wel__content--right img 
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+}
+.wel__content--left .left__content,
+.wel__content--right .right__content 
+{
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 30%;
+    left: 20%;
+    z-index: 22;
+    background: transparent;
+    display: flex;
+    flex: row;
+    justify-content: space-around;
+}
+.wel__content--left .left__content i,
+.wel__content--right .right__content i,
+.wel__content--left .left__content div,
+.wel__content--right .right__content div
+{
+    color: white;
+}
+.content__icon
+{
+   width: 15%;
+   padding:5px 0 5px 15px;
+}
+.content__text
+{
+   width: 75%;
+}
+.content__text div
+{
+    padding:5px 0 5px 15px;
+}
+.content__text div a
+{
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+.content__text div a i
+{
+    font-weight: 19px;
+    color: white;
+   opacity: 0;
+    transition: 0.5s;
+}
+.content__text div a:hover i
+{
+    opacity: 100%;
+    transition: 0.5s;
+}
+.content__text div:nth-child(1)
+{
+    font-size: 20px;
+    font-weight: bold;
+}
+.content__text div:nth-child(2)
+{
+   color: var(--wc-secondary);
+}
+/*-----------*/
+
+.welcome__text
+{
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+.welcome__text h2
+{
+      padding: 20px 0 10px 0;
+    font-weight: bold;
+}
+.welcome__text h2 span:nth-child(2)
+{
+    color: var(--wc-blue);
+}
+.welcome__text .border__short
+{
+    position: relative;
+    left: 40%;
+    width: 20%;
+    height: 1px;
+    border: 2px solid var(--wc-blue);
+}
+.text
+{
+     padding: 20px 0 20px 0;
+}
+/*--------*/
+.mid__content
+{
+     margin: 0;
+    padding: 0;
+}
+.mid__content .content__pro:nth-child(even)
+{
+    background-color: lightgrey;
+    border-top: 1px solid var(--wc-subtext);
+}
+
+.content__pro
+{
+    padding: 50px 0 50px 0;
+}
+
+.content__pro .content__pro--img
+{
+   padding: 0 5% 0 5%;
+}
+.content__pro .content__pro--img img
+{
+    position: relative;
+    width: 100%;
+}
+.content__pro .content__pro--border
+{
+    height: auto;
+}
+.content__pro .content__pro--border div
+{
+    width: 2px;
+    height: 120px;
+    border: 2px solid  var(--wc-blue);
+}
+.content__pro .content__pro--text
+{
+    text-align: center;
+}
+.content__pro .content__pro--text h2
+{
+    color: var(--wc-dark);
+    font-weight: bold;
+}
+.mid__content .content__pro:nth-child(odd) .content__pro--text,
+.mid__content .content__pro:nth-child(odd) .content__pro--text h2
+{
+    text-align: left;
+}
+.mid__content .content__pro:nth-child(even) .content__pro--text,
+.mid__content .content__pro:nth-child(even) .content__pro--text h2
+{
+    text-align: right;
+}
+.content__pro--text
+{
+    font-size: 16px;
+}
+.content__pro .content__pro--text a
+{
+    position: relative;
+    background-color: var(--wc-blue);
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.content__pro .content__pro--text a::before
+{
+    content: "Xem thêm";
+    position: absolute;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    top: 0;
+    left: 0;
+    border: 0;
+    right: 0;
+    height: 100%;
+    background-color: var(--wc-dark);
+    transform: scaleX(0);
+    transform-origin:50%;
+    transition: 0.5s;
+}
+.content__pro .content__pro--text a:hover:before
+{
+     transform: scaleX(1);
+     transition: 0.5s;
+}
+@media only screen and (max-width: 736px)
+{
+    .wel__content
+    {
+        top:250px;
+    }
+}

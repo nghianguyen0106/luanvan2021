@@ -3,7 +3,7 @@
   	<div id="content-wrapper" class="d-flex flex-column justify-content-center">
 						<div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary text-center">Thêm sản phẩm</h2>
-                            <hr/>
+                          
                         </div>
                         <br/>
             <!-- Main Content -->

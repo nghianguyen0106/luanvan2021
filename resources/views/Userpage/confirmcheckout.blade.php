@@ -8,7 +8,9 @@ Xác nhận hóa đơn
 <section class="content__cart">
 	<div class="container-fluid">
 	<div class="row">
-	<div class="col-1_5"></div>
+<div class="col-1_5">
+			<div class="quang__cao" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx1.png?v=20498);background-size: cover;"></div>
+		</div>
 	<div class="col-lg-9">
 			{{-- <a class="text-white btn btn-dark" href="{{URL::to('product')}}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a> --}}
 		<br/>
@@ -103,6 +105,7 @@ Xác nhận hóa đơn
 		<!------->
 		<div class="row justify-content-between">
 			<div class="col-lg-6 address__info">
+				<form  action="{{URL::to('order')}}" method="get">
 				<table>
 					<thead>
 						<tr>
@@ -152,14 +155,17 @@ Xác nhận hóa đơn
 			</div>
 		</div>
 		
-
 			<div class="row justify-content-center" style="margin-top: 1rem;">
-				<button type="submit" class="btn btn-success col-3" href="">Xác nhận đơn hàng</button>
+				<button type="submit" class="btn btn-success col-3">Xác nhận đơn hàng</button>
 				</form>
 			</div>
+
+		</div>
+		<div class="col-1_5">
+			<div class="quang__cao2" style="background-image: url(https://theme.hstatic.net/1000026716/1000440777/14/xxxbannerxxx2.png?v=20498);background-size: cover"></div>
 		</div>
 	</div>
-	<div class="col-1_5"></div>
+
 </div>
 </div>
 </section>

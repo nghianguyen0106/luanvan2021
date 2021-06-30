@@ -211,7 +211,7 @@ class cartController extends Controller
 
                     //clear cart
                     Cart::destroy();
-                    $this->sendmail($hdMa);
+                   // $this->sendmail($hdMa);
                     
                 }
                 else
