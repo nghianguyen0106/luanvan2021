@@ -169,6 +169,7 @@ Route::post('checkAddVoucher','adminController@checkAddVoucher');
 Route::get('suaVoucherpage/{id}','adminController@suaVoucherpage');
 Route::post('checkSuaVoucher/{id}','adminController@checkSuaVoucher');
 Route::get('switchStatusVc/{id}','adminController@switchStatusVc');
+Route::get('adDeleteVoucher/{id}','adminController@adDeleteVoucher');
 ////--Bình luận--//
 Route::get('viewBLSP/{id}','adminController@viewBLSP');
 Route::get('chitietBLSP/{id}','adminController@chitietBLSP');

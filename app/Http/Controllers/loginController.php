@@ -20,7 +20,7 @@ class loginController extends Controller
         
     	$username=$re->username;
     	$password=md5($re->password);
-    	$result=khachhang::where('khTaikhoan',$username)->where('khMatkhau',$password)->first();
+    	$result=khachhang::where('khTaikhoan',$username)->orwhere('khSdt',$username)->orwhere('khEmail',$username)->where('khMatkhau',$password)->first();
     	if($result)
     	{
             session::put("khMa",$result->khMa);

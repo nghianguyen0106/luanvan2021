@@ -23,12 +23,11 @@ class registerController extends Controller
 	    	if(strlen($re->password)<=8)
 	    	{
 	    		Session::flash('error',' Mật khẩu quá ngắn vui lòng chọn mật khẩu an toàn hơn!');
-	    		return Redirect()->back();
-	    	}
+				return "<script>window.history.back();</script>";	    	}
 	    	if($result)
 	    	{
 	    		Session::flash('error','Email này đã dùng cho tài khoản khác!');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 	    	else
 	    	{
@@ -41,7 +40,7 @@ class registerController extends Controller
 	    	else
 	    	{
 	    		Session::flash('error',' Mật khẩu xác nhận chưa trùng khớp !');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 	    	$check18=date_create($re->date);
 	    	$check18=date_format($check18,'Y');
@@ -53,12 +52,12 @@ class registerController extends Controller
 	    	if($decrease <= 18)
 	    	{
 	    		Session::flash('error',' Tuổi chưa đủ 18 !');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 	    	if($decrease <=0)
 	    	{
 	    		Session::flash('error',' Ngày sinh không hợp lệ!');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 
 
@@ -67,7 +66,7 @@ class registerController extends Controller
 	    	if(strlen($re->address)<15)
 	    	{
 	    		Session::flash('error',' Địa chỉ không hợp lệ!');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 	    	$kh->khQuyen=0;
 	    	$kh->khGioitinh=$re->sex;
@@ -76,7 +75,7 @@ class registerController extends Controller
 	    	if($re->sdt>10000000000||$re->sdt<100000000)
                     {
                         session::flash('error','Số điện thoại không hợp lệ !');
-                        return redirect()->back();
+                        return "<script>window.history.back();</script>";
                     }
                     else
                     {
@@ -88,7 +87,7 @@ class registerController extends Controller
 	    	if($result2)
 	    	{
 			 	Session::flash('error','Username đã tồn tại vui lòng chọn username khác!');
-	    		return Redirect()->back();
+	    		return "<script>window.history.back();</script>";
 	    	}
 	    	else
 	    	{

@@ -10,7 +10,7 @@
 				 <legend>Thêm voucher</legend>
 				 <div class="row">
 				 	<div class="mb-4 col-4">
-						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
+						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{4,12}" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
 					</div>
 				 	<div class="mb-4 col-4">
 						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen"><span style="color: red;">{{$errors->first('vcTen')}}</span></label>

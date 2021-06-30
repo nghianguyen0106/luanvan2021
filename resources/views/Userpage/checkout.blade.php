@@ -35,7 +35,7 @@ Giỏ hàng
 						<td><div class="counter">
 				
 						  <button type="button"><a href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a></button>
-						  <input style="width:50px;border: 0;text-align: center;" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
+						  <input style="width:50px;border: 0;text-align: center;" readonly="" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
 						 
 						   <button type="button"><a href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a></button>
 						</div></td>
@@ -174,7 +174,7 @@ function decreaseCount(a, b) {
 }
 
 @foreach($cart as $k=> $i)
-	function func{{$k}}()
+function func{{$k}}()
 {
 	Swal.fire({
   title: 'Bạn có muốn xóa',
