@@ -101,7 +101,7 @@
   		</div>
   	</section>
 
-  	<!---------------------------->
+  	<!--------------CONTENT-------------->
    	<section class="container-fluid wel__bg">
    			<div class="col-lg-12 bg__video">
    				<video muted loop autoplay>
@@ -154,6 +154,7 @@
    		</div>
 
    		<!--------------------->
+
    		<div class="row">
    			<div class="col-lg-2"></div>
    			<div class="col-lg-8 col-sm-12 welcome__text">
@@ -169,7 +170,38 @@
    			<div class="col-lg-2"></div>
    			</div><br/><br/>
 
+   			<!---------PRODUCT---------->
+   			<div class="row box__product">
+   				<div class="container"><h3>SẢN PHẨM NỐI BẬT</h3></div>
+   				<hr/>
+   				<div id="left__arr"  class="col-lg-1 product__arrow">
+   					<i class="fas fa-chevron-left" style="font-size: 48px;"></i>
+   				</div>
+   				<div class="col-lg-10">
+   					<div class="row list__product">
+   						@foreach($db as $v)
+   						<div class="product">
+   							<div class="link__proInfo">
+   								<a href="{{url('proinfo/'.$v->spMa)}}">Xem chi tiết</a>
+   							</div>
+   							<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" /><br/>
+   							<h3>{{$v->spTen}}</h3>
+   							<h4 class="text-danger">{{number_format($v->spGia)}}VND</h4>
+   							<a class="btn btn-primary" href="{{URL::to('save-cart/'.$v->spMa)}}"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&emsp;Thêm vào giỏ hàng</a>
+   						</div>
+   						@endforeach
+   					</div>
+   				</div>
+   				<div id="right__arr" class="col-lg-1 product__arrow">
+   					<i class="fas fa-chevron-right" style="font-size: 48px;"></i>
+   				</div>
+   			</div>
+   		
+
+   			<br/><br/>
+   			<!-----------------CONTENT AND FOOTER----------------->
    			<div class="col-lg-12 mid__content">
+   				<!-----------CONTENT------------->
    				<div class="row content__pro">
    					<div class="col-lg-6 content__pro--img">
    						<img src="https://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/uploads/2016/10/bg-computer.png" class="vc_single_image-img attachment-full"/>
@@ -205,10 +237,104 @@
    						<img src="https://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/uploads/2016/10/bg-computer.png" class="vc_single_image-img attachment-full"/>
    					</div>
    				</div>
+
+   				<div class="row content__pro">
+   					<div class="col-lg-6 content__pro--img">
+   						<img src="https://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/uploads/2016/10/bg-computer.png" class="vc_single_image-img attachment-full"/>
+   					</div>
+			   		<div class="col-lg-1 content__pro--border">
+			   			<div></div>
+			   		</div>
+   					<div class="col-lg-5 content__pro--text">
+   						<h2>Đội ngũ nhân viên</h2>
+   						<br/>
+   						<div>
+   							Đội ngũ nhân viên được đào tạo nhằm chăm sóc tốt đối với khách hàng
+   						</div>
+   						<br/>
+   						<a href="#">Xem thêm</a>
+   					</div>
+   				</div>
+
+   				<!------------END CONTENT------------>
+   				<!-----------FOOTER------------->
+   				<div class="container-fluid box__footer">
+   					<div class="container">
+   						<div class="row footer">
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Hỗ trợ khách hàng</h5>
+   									<div class="border__span"></div>
+   									<li>Hotline chăm sóc khách hàng:<br/>
+   										19000091
+   									</li>
+   									<li>Email liên hệ:</li>
+   									<li>Hướng dẫn trả góp</li>
+   								</ul>
+   							</div>
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Về Compu-Care</h5>
+   									<div class="border__span"></div>
+   									<li>Giới thiệu Compu-Care</li>
+   									<li>Tuyển dụng</li>
+   									<li>Chính sách đổi trả</li>
+   									<li>Phương thức vận chuyển</li>
+   								</ul>
+   							</div>
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Sản phẩm được quan tâm</h5>
+   									<div class="border__span"></div>
+   									<li>
+   										@foreach($dbrand as $v)
+   										<a class="col-lg-6" href="{{url('proinfo/'.$v->spMa)}}">
+   											<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" /><br/>
+   											<span>{{$v->spTen}}</span>
+   										</a>
+
+   										@endforeach
+   									
+   									</li>
+   								</ul>
+   							</div>
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Kết nối với chúng tối</h5>
+   									<div class="border__span"></div>
+   									<li>
+   										<a><i class="fab fa-facebook-square" style="font-size: 28px;color: #34A5F4"></i></a>&emsp;
+   										<a><i class="fab fa-twitter-square" style="font-size: 28px;color: #34A5F4"></i></a>
+   									</li>
+   									
+   								</ul>
+   							</div>
+   						</div>
+   						<hr/>
+   						<div class="row">
+   							<div class="col-lg-6 footer">
+   								<p>Địa chỉ cửa hàng: 180 Cao Lỗ, phường 10, Quận 8, thành phố Hồ Chí Minh</p>
+
+                  <p>Compu-Care nhận đặt hàng trực tuyến và giao hàng tận nơi, và đội ngũ nhân viên hướng dẫn khách hàng mua hàng tận tình tại cửa hàng</p>
+   							</div>
+   						</div>
+   						<hr/>
+   						<div class="row">
+   								<div class="col-lg-6 footer">
+   								<p>© 2021 - Bản quyền của Công Ty Cổ Phần Compu-Care - compucare.com</p>
+								<p>Giấy chứng nhận Đăng ký Kinh doanh số 0908712023 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 06/01/2021
+								</p>
+   							</div>
+   							<div class="col-lg-6 footer" style="text-align: right;">
+   								<img width="40" height="40" src="{{URL::asset('public/images/footer/bo-cong-thuong-2.png')}}" />
+   								<img src="{{URL::asset('public/images/footer/bo-cong-thuong.svg')}}"/>
+   							</div>
+   						</div>
+   					</div>
+   				</div>
+   				<!------------END FOOTER------------->
    			</div>
-   		<!--------------------->
+   		<!------------------>
    	</section>
-   	
+
+
+
 
  
 
@@ -222,6 +348,7 @@
 	<!-- js -->
 	<script type="text/javascript" src="{{URL::asset("public/fe/js/jquery-2.1.4.min.js")}}"></script>
 	<script type="text/javascript" src="{{URL::asset('public/fe/js/bootstrap-3.1.1.min.js')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('public/welcome/js.js')}}"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

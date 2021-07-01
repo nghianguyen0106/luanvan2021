@@ -87,7 +87,7 @@ Xác nhận hóa đơn
 			</tfoot>
 			@else
 				<tfoot>
-						<tr style="text-align: right;border: 2px solid #757390;">
+						<tr style="text-align: right;">
 								<td colspan="4" style="padding-right: 4px;"><span><strong>TỔNG TIỀN:</strong></span></td>
 								<td colspan="1" style="padding-right: 4px;">
 										<span style="color: red;font-weight: bold; font-size: 20px;">{{number_format($total)}} VND</span>
@@ -130,12 +130,10 @@ Xác nhận hóa đơn
 				</table>
 			</div>
 			<div class="col-lg-6 address__info">
+				<button id="show__boxAddress" type="button" class="show__boxAddress">Gửi đến địa chỉ khác</button>
+				<button id="hide__boxAddress" type="button" class="hide__boxAddress">Đóng</button>
+				<div id="update__address">
 				<table>
-					<thead>
-						<tr>
-							<td colspan="2">ĐẾN ĐỊA CHỈ KHÁC</td>
-						</tr>
-					</thead>
 					<tbody>
 						<tr class="thead">
 							<td>Địa chỉ</td>
@@ -152,6 +150,9 @@ Xác nhận hóa đơn
 						</tr>
 					</tbody>
 				</table>
+
+								
+			</div>
 			</div>
 		</div>
 		
@@ -170,7 +171,7 @@ Xác nhận hóa đơn
 </div>
 </section>
 
-
+<script src="{{URL::asset("public/fe/js/js2.js")}}"></script>
 
 <br/>
 

@@ -14,17 +14,6 @@ function show()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /////////KIỂU CỐ ĐỊNH/////////////
 // ////////IMAGES PRODUCT/////////////
 // 	let pos = document.getElementById("pos__1");
@@ -130,10 +119,12 @@ function showMota()
 	var title_bl =document.getElementById("show__danhgia");
 	var box_mt = document.getElementById("content__mota");
 	var box_bl = document.getElementById("content__danhgia");
-	title_mt.style.border = '2px solid black';
+	title_mt.style.border = '1px solid #ddd';
 	title_mt.style.borderBottom = '1px solid white';
-	title_bl.style.border = '1px solid black';
-	title_bl.style.borderBottom = '1px solid black';
+	title_mt.style.color = 'darkblue';
+	title_bl.style.border = '0';
+	title_bl.style.borderBottom = '1px solid #ddd';
+	title_bl.style.color = 'blue';
 	box_mt.style.display = 'block';
 	box_bl.style.display = 'none';
 }
@@ -144,10 +135,12 @@ function showDanhgia()
 	var title_mt = document.getElementById("show__mota");
 	var box_bl = document.getElementById("content__danhgia");
 	var box_mt = document.getElementById("content__mota");
-	title_bl.style.border = '2px solid black';
+	title_bl.style.border = '1px solid #ddd';
 	title_bl.style.borderBottom = '1px solid white';
-	title_mt.style.border = '1px solid black';
-	title_mt.style.borderBottom = '1px solid black';
+	title_bl.style.color = 'darkblue';
+	title_mt.style.border = '0';
+	title_mt.style.borderBottom = '1px solid #ddd';
+	title_mt.style.color = 'blue';
 	box_mt.style.display = 'none';
 	box_bl.style.display = 'block';
 }

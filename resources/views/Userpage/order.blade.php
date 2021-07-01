@@ -55,7 +55,7 @@ Danh sách đơn hàng
 
 								  <!-- Modal content -->
 								  <div class="modal-content">
-								    <div class="close">Chi tiết đơn hàng</div>
+								    <div class="close text-dark">Chi tiết đơn hàng</div>
 
 								    <table class="order__table">
 								    	<tbody>

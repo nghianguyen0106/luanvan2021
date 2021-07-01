@@ -52,12 +52,14 @@ Giỏ hàng
 					<td colspan="6"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
 				</tr>
 				@endif
-				<tr>
-					<td colspan="6" style="text-align:center;background:linear-gradient(to left bottom, #939299,#B4B4B7,#B7B8C0);padding: 3px 0 3px 0;">
-								<a class="btn btn-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+				</tbody>
+				<tfoot>
+					<tr>
+					<td colspan="6" class="text-center">
+								<a style="color:red;" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash" style="color: red;"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
 							</td>
 				</tr>
-				</tbody>
+				</tfoot>
 			</table>
 		</div>
 		<br/>
@@ -97,7 +99,7 @@ Giỏ hàng
 							<tr><td class="promoTitle">KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
 					</table>
 					<div class="right__content">
-						<form action="" method="get">
+						<form action="{{URL::to('order')}}" method="get">
 							<input type="radio" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
 							<hr/>
 								@foreach($promotion as $v)
