@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//---------------------------------------------USER----------------------------------------------------//
-Route::get('/', 'homeController@welcome' );
+//---------------------------------------------USER---------------------------------------------------//Welcome page
+Route::get('/', 'homeController@welcome' )->name('abc');
 
 // user info
 Route::get('/infomation/{id}','homeController@viewInfomation');
@@ -30,40 +30,64 @@ Route::get('forgotPassword','homeController@forgotPassword');
 Route::get('sendCodeGetAcc','loginController@sendCodeGetAcc');
 Route::get('changepassword/{id?}','loginController@changepassword');
 Route::post('newpass/{id}','loginController@newpass');
+//---
+
 // verify-email
 Route::get('verify-email/{id}','homeController@verifyemail');
 Route::get('sendcode','homeController@sendcode');
 Route::post('verifycode','homeController@verifycode');
+//---
 
 // Login gg & facebook api
 Route::get('google','loginController@loginGoogle');
 Route::get('googleredirect','loginController@googleredirect');
 Route::get('facebook','loginController@loginFacebook');
 Route::get('facebookredirect','loginController@facebookredirect');
-// -------Product -----------//
+//---
+
+// -------Product page-----------//
 Route::get('/product','homeController@product' );
 Route::get('proinfo/{id}','homeController@proinfo');
 Route::get('findpro','homeController@findpro');
-	//--comment
+//---
+
+//--comment
 Route::post('addcomment/{id}','homeController@addcomment');
 Route::get('deletecomment/{id}','homeController@deletecomment');
+//---
 
+//
 //--------User cart------//
+//
+//cart
 Route::get('/checkout','homeController@checkout' );
+//
+//add to cart
 Route::get('save-cart/{id}','cartController@savecart');
 Route::post('save-cart2/{id}','cartController@savecart2');
-Route::get('destroy-cart','cartController@destroy');
-Route::get('remove-item/{id}','cartController@removeitem');
-Route::post('gocheckout/{id}','cartController@gocheckout');
-Route::get('order','homeController@order');
-Route::get('sendmail','cartController@sendmail');
-
 Route::get('changeQuanty/increase/{id}','cartController@changeQuantyIncrease');
 Route::get('changeQuanty/decrease/{id}','cartController@changeQuantyDecrease');
+//
+//
+//remove item
+Route::get('destroy-cart','cartController@destroy');
+Route::get('remove-item/{id}','cartController@removeitem');
+//
+//
+//create order 
+Route::get('order','homeController@order');
+Route::post('gocheckout/{id}','cartController@gocheckout');
+Route::get('sendmail','cartController@sendmail');
+// 
+// ----
+
+//------ Check exist voucher---------//
+Route::post('checkvoucher','homeController@checkvoucher');
+//---
 
 //Wishlist
 Route::get('wishlist','homeController@wishlist');
-Route::get('addtowishlist/{id}','cartController@addtowishlist');
+Route::get('addtowishlist/{id}','homeController@addtowishlist');
 //--Đơn hàng--//
 Route::get('huy-don/{id}','homeController@huyDon');
 //---------------------------------------------END USER--------------------------------------------//

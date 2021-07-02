@@ -65,7 +65,7 @@
 							<span><input id="rdotheogia" onclick="rdotheogiafunc()" class="form-check-input"  type="radio" checked="" name="vcDkapdung" value="0">Theo giá ( VND )</span><br>
 							
 							<span><input id="rdosp" onclick="rdospfunc()" class="form-check-input" type="radio" name="vcDkapdung" value="1"> Theo số lượng sản phẩm</span>
-							<span><input class="form-control" type="number" name="vcGtcandat"></span><br>
+							<span><input class="form-control" type="number" min="0" name="vcGtcandat"></span><br>
 						</label>
 					</div>
 

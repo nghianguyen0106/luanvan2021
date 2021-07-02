@@ -23,6 +23,7 @@ use App\Models\mota;
 use App\Models\slide;
 use App\Models\wishlist;
 use App\Models\donhang;
+use App\Models\voucher;
 //
 
 class homeController extends Controller
@@ -499,16 +500,25 @@ class homeController extends Controller
                 {
                     if($i->id==$spMa)
                     {
-                        $pricePromo=$i->price*$i->qty*($promoInfo->kmTrigia/100);
-                        $total+=$i->price*$i->qty-($i->price*$i->qty*($promoInfo->kmTrigia/100));
+                        if($promoInfo->kmGiatritoida!=null)
+                        {
+                            $discountPercent=$promoInfo->kmTrigia/100;
 
+                            $pricePromo=($i->price*$i->qty*$discountPercent)*$i->qty;
+                            if($pricePromo>$promoInfo->kmGiatritoida)
+                            {
+                                $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
+                            }
+                  
+                        }
+                        $total+=$i->price*$i->qty-$pricePromo;
+                        // return $pricePromo;
                     }
                     else
                     {
                         $total+=$i->price*$i->qty;
                     }
                 }
-                //return $total;
                 
                 return view('Userpage.confirmcheckout',compact('pricePromo','promoInfo','proinfo','cate','cart','total'));
             }
@@ -777,6 +787,8 @@ class homeController extends Controller
         return redirect()->back();
     }
 
+
+    // Wish List
     public function wishlist()
     {
         $getwishlist=wishlist::join('sanpham','sanpham.spMa','wishlist.spMa')->join('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->join('loai','loai.loaiMa','sanpham.loaiMa')->join('kho','sanpham.spMa','kho.spMa')->join('thuonghieu','thuonghieu.thMa','sanpham.thMa')->get();
@@ -793,5 +805,59 @@ class homeController extends Controller
         //dd($wl);
         return view('Userpage.wishlist',compact('wl'));
     }
+
+    public function addtowishlist(Request $re)
+    {
+        $checkExistProduct=sanpham::join('wishlist','wishlist.spMa','sanpham.spMa')->where('sanpham.spMa',$re->id)->first();
+        if(!$checkExistProduct)
+        {
+            $wl=new wishlist();
+            $wl->spMa=$re->id;
+            $wl->khMa=Session::get('khMa');   
+            $wl->save(); 
+            Session::flash('success','Đã thêm vào wishlist.');
+            
+        }
+        else
+        {
+            $wl=wishlist::where('spMa',$checkExistProduct->spMa)->delete();
+            Session::flash('success','Đã xóa khỏi wishlist.');
+        }
+        return redirect()->back();
+    }
+    // 
+
+
+    public function checkvoucher(Request $re)
+    {
+        if($re->vcMa==null)
+        {
+            Session::flash('err','Mã voucher không được để trống !');
+            return redirect()->back();
+        }
+        $checkExistVoucher=voucher::where('vcMa',$re->vcMa)->where('vcTinhtrang',1)->first();
+        $countOrderusedVoucher=donhang::where('khMa',Session::get('khMa'))->where('vcMa',$re->vcMa)->count();
+        //dd($checkExistVoucher);
+        if($checkExistVoucher)
+        {
+           if($countOrderusedVoucher!=0)
+           {
+                Session::flash('err','Bạn đã dùng voucher này rồi!');
+                return redirect()->back();
+           } 
+           else
+           {
+                Session::put('vcMa',$re->vcMa);
+                return redirect()->back();
+           }
+        }
+        else
+        {
+            Session::forget('vcMa');
+            Session::flash('err','Mã voucher không hợp lệ !');
+            return redirect()->back();
+        }
+    }
+        
 }
 

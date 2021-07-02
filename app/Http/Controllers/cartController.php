@@ -183,22 +183,21 @@ class cartController extends Controller
                     $dh->save();
                     
                     //create order details
-                    foreach (Cart::content() as $k => $i) 
+                    foreach (Cart::content() as $k => $i)
                     {
                         //update Quanty of Kho table
                         $productInfo=kho::where('spMa',$i->id)->first();
                         $updateKho['khoSoluong']=$productInfo->khoSoluong-$i->qty;
                         //DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
 
-                        //
-                        
+             
                         $ct=new chitietdonhang();
                         $ct->hdMa=$hdMa;
                         $ct->spMa= $i->id;
                         $ct->cthdSoluong=$i->qty;
                         $ct->cthdGia=$i->price * $i->qty;  
                         $proinfo=sanpham::where('spMa',$re->spMa)->first();
-                        if($productInfo->spMa==$re->spMa && $proinfo->spSlkmtoida > 0 )
+                        if($productInfo->spMa==$re->spMa && $proinfo->spSlkmtoida != 0 )
                         {
                             $proinfo->spSlkmtoida-=$i->qty;
                             //dd($proinfo);
@@ -239,23 +238,5 @@ class cartController extends Controller
     
 
 
-    public function addtowishlist(Request $re)
-    {
-        $checkExistProduct=sanpham::join('wishlist','wishlist.spMa','sanpham.spMa')->where('sanpham.spMa',$re->id)->first();
-        if(!$checkExistProduct)
-        {
-            $wl=new wishlist();
-            $wl->spMa=$re->id;
-            $wl->khMa=Session::get('khMa');   
-            $wl->save(); 
-            Session::flash('success','Đã thêm vào wishlist.');
-            
-        }
-        else
-        {
-            $wl=wishlist::where('spMa',$checkExistProduct->spMa)->delete();
-            Session::flash('success','Đã xóa khỏi wishlist.');
-        }
-        return Redirect()->back();
-    }
+    
 }

@@ -106,7 +106,7 @@
 								> Theo số lượng sản phẩm
 							</span>
 							<span>
-								<input class="form-control" type="number" name="vcGtcandat" value="{{$vc->vcGtcandat}}">
+								<input class="form-control" type="number" min="0" name="vcGtcandat" value="{{$vc->vcGtcandat}}">
 							</span><br>
 						</label>
 					</div>

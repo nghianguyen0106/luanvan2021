@@ -105,7 +105,6 @@ Xác nhận hóa đơn
 		<!------->
 		<div class="row justify-content-between">
 			<div class="col-lg-6 address__info">
-				<form  action="{{URL::to('order')}}" method="get">
 				<table>
 					<thead>
 						<tr>
@@ -153,12 +152,12 @@ Xác nhận hóa đơn
 					</tbody>
 				</table>
 			</div>
-		</div>
 		
 			<div class="row justify-content-center" style="margin-top: 1rem;">
 				<button type="submit" class="btn btn-success col-3">Xác nhận đơn hàng</button>
 				</form>
 			</div>
+		</div>
 
 		</div>
 		<div class="col-1_5">

@@ -63,41 +63,33 @@ Giỏ hàng
 		<br/>
 		<!------->
 		<div class="row justify-content-between cart__bot">
-			<div class="col-lg-6">
-				<div class="cart__bot--left">
-					<table>
-							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
-					</table>
-					<div class="left__content">
-							@foreach($cart as $k=> $i)	
-							<div class="content__pro">
-								<span class="pro__name">
-									<i class="fas fa-check" style="font-size: 16px;color: lightgreen;position: relative;left:15px"></i>
-									<i class="fas fa-check" style="font-size: 16px;color: lightgreen"></i>&nbsp;{{$i->name}}</span>
-								<span class="pro__price"><i class="fas fa-dollar-sign" style="font-size: 16px;color: lightgreen;border: 2px solid lightgreen;padding: 3px 3px 3px 3px"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span>
-							</div>
-								
-							@endforeach
-							<hr>
-							<div class="content__total">
-								<span class="total__title">Tổng tiền:</span>
-								<span class="total__price">{{number_format($total)}}</b> VND</span>
-							</div>
-
-					</div>
-					<div>
-											
-					</div>
-				</div>
-
+			<div>
+				<input type="radio" name="vc_promo">
+				<input type="radio" name="vc_promo">
 			</div>
-			<div class="col-lg-6">
+
+			<div id="voucher" class="col-lg-6">
+				<form action="{{URL::to('checkvoucher')}}" method="post" accept-charset="utf-8">
+					{{csrf_field()}}
+				<label>Nhập voucher giảm giá:</label><input type="text" class="form-control" name="vcMa" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{4,12}" placeholder="Nhập mã voucher vào đây"
+				@if(Session::has('vcMa'))
+				value="{{Session::get('vcMa')}}" 
+				@endif
+				>
+				<button type="submit" class="btn btn-outline-info"><i class="fas fa-info-circle"></i> Kiểm tra</button>
+				@if(Session::has('vcMa'))
+				<span class="alert-success">Đã áp dụng voucher!</span>
+				@endif
+				</form>
+			</div>
+
+			<div id="promotion" class="col-lg-6">
 				<div class="cart__bot--right">
 					<table>
 							<tr><td class="promoTitle">KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
 					</table>
 					<div class="right__content">
-						<form action="" method="get">
+						<form action="{{URL::to('order')}}" method="get">
 							<input type="radio" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
 							<hr/>
 								@foreach($promotion as $v)
@@ -122,10 +114,32 @@ Giỏ hàng
 								@endif
 						@endif
 						@endforeach
-						
 					</div>
 				</div>
-				
+			</div>
+
+			<div class="col-lg-12">
+				<div class="cart__bot--left">
+					<table>
+							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
+					</table>
+					<div class="left__content">
+							@foreach($cart as $k=> $i)	
+							<div class="content__pro">
+								<span class="pro__name">
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen;position: relative;left:15px"></i>
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen"></i>&nbsp;{{$i->name}}</span>
+								<span class="pro__price"><i class="fas fa-dollar-sign" style="font-size: 16px;color: lightgreen;border: 2px solid lightgreen;padding: 3px 3px 3px 3px"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span>
+							</div>
+								
+							@endforeach
+							<hr>
+							<div class="content__total">
+								<span class="total__title">Tổng tiền:</span>
+								<span class="total__price">{{number_format($total)}}</b> VND</span>
+							</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="row justify-content-center" style="margin-top: 1rem;">
@@ -143,8 +157,10 @@ Giỏ hàng
 
 
 
-<br/>
-
+<br>
+<script type="text/javascript">
+	
+</script>
 
 
 @if(Session::has('err'))
@@ -158,38 +174,34 @@ Swal.fire({
 </script> 
 @endif
 
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Thông báo: ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
 <script>
-  function increaseCount(a, b) {
-  var input = document.getElementById('qty');
-  var value = parseInt(input.value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  input.value = value;
-}
 
-function decreaseCount(a, b) {
-  var input = document.getElementById('qty');
-  var value = parseInt(input.value, 10);
-  if (value > 1) {
-    value = isNaN(value) ? 0 : value;
-    value--;
-    input.value = value;
-  }
-}
 
 @foreach($cart as $k=> $i)
 function func{{$k}}()
 {
-	Swal.fire({
-  title: 'Bạn có muốn xóa',
-  text: "{{$i->name}} khỏi giỏ hàng ?",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'OK !'
-}).then((result) => {
-  if (result.isConfirmed) {
+	Swal.fire(
+	{
+	  title: 'Bạn có muốn xóa',
+	  text: "{{$i->name}} khỏi giỏ hàng ?",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#EC2546',
+	  cancelButtonColor: '#B5B5B5',
+	  confirmButtonText: 'OK'
+	}).then((result) => {
+  if (result.isConfirmed) 
+  {
     Swal.fire(
       'Deleted!',
       'Đã xóa sản phẩm khỏi giỏ hàng !',
