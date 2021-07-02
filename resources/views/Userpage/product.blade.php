@@ -231,6 +231,7 @@ Danh sách sản phẩm
 			<div class="row justify-content-around">
 				
 				@foreach($db as $k => $i)	
+				<div class="col-lg-1"></div>
 				<div class="col-lg-3 col-sm-8 item__product">
 					<div class="item_info">
 												<a href="{{URL::to('proinfo/'.$i->spMa)}}">Xem sản phẩm</a>
@@ -255,14 +256,8 @@ Danh sách sản phẩm
 						</div>
 				</div>
 				@endforeach
-			
-				
 		</div>
-
 	</div>
-		
-
-	{{-- 	<div class="col-1_5"></div> --}}
 
 		</div>
 	</div>
@@ -271,24 +266,6 @@ Danh sách sản phẩm
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- //mens -->
-<!-- //product-nav -->
-
-
-</body>
-</html>
 {{-- Notification --}}
 
 @if(Session::has('loginmess'))

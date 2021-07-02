@@ -15,8 +15,9 @@ class CreateBaohanhLogsTable extends Migration
     {
         Schema::create('baohanh_logs', function (Blueprint $table) {
             $table->char('imeisp',30);
-            $table->timestamps('bhNgay');
+            $table->timestamp('bhNgay');
             $table->integer('khMa');
+            $table->engine = "InnoDB";
             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
         });
     }

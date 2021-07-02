@@ -36,10 +36,10 @@ Giỏ hàng
 						<td>{{number_format($i->price)}} VND</td>
 						<td><div class="counter">
 				
-						  <button type="button"><a href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a></button>
+						  <a class="btn btn-outline-danger" href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a>
 						  <input style="width:50px;border: 0;text-align: center;" readonly="" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
 						 
-						   <button type="button"><a href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a></button>
+					<a class="btn btn-outline-success" href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a>
 						</div></td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
@@ -52,23 +52,26 @@ Giỏ hàng
 					<td colspan="6"><strong><i class="fas fa-info-circle alert-info"></i> Giỏ hàng trống</strong></td>
 				</tr>
 				@endif
-				<tr>
-					<td colspan="6" style="text-align:center;background:linear-gradient(to left bottom, #939299,#B4B4B7,#B7B8C0);padding: 3px 0 3px 0;">
-								<a class="btn btn-danger" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
+				</tbody>
+				<tfoot>
+					<tr>
+					<td colspan="6" class="text-center">
+								<a style="color:red;" href="{{URL::to('destroy-cart')}}"><i class="fas fa-trash" style="color: red;"></i> Xóa toàn bộ sản phẩm trong giỏ hàng</a>
 							</td>
 				</tr>
-				</tbody>
+				</tfoot>
 			</table>
 		</div>
 		<br/>
 		<!------->
 		<div class="row justify-content-between cart__bot">
 			<div>
-				<input type="radio" name="vc_promo">
-				<input type="radio" name="vc_promo">
+			<h4>Chọn 1 ưu đãi</h4>
+				<input id="vc" onclick="funcVc()" type="radio" class="form-check-input" name="vc_promo" checked=""> Nhập voucher giảm giá &nbsp;&nbsp;&nbsp;
+				<input id="pr" onclick="funcPr()" type="radio" class="form-check-input" name="vc_promo"> Chọn chương trình khuyến mãi
 			</div>
 
-			<div id="voucher" class="col-lg-6">
+			<div id="voucher" style="display: none;" class="col-lg-6">
 				<form action="{{URL::to('checkvoucher')}}" method="post" accept-charset="utf-8">
 					{{csrf_field()}}
 				<label>Nhập voucher giảm giá:</label><input type="text" class="form-control" name="vcMa" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{4,12}" placeholder="Nhập mã voucher vào đây"
@@ -83,14 +86,14 @@ Giỏ hàng
 				</form>
 			</div>
 
-			<div id="promotion" class="col-lg-6">
+			<div id="promotion" style="display: none;" class="col-lg-6">
 				<div class="cart__bot--right">
 					<table>
 							<tr><td class="promoTitle">KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
 					</table>
 					<div class="right__content">
 						<form action="{{URL::to('order')}}" method="get">
-							<input type="radio" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
+							<input type="radio" id="noPromo" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
 							<hr/>
 								@foreach($promotion as $v)
 								@if( $v->spSlkmtoida!=0 )
@@ -118,7 +121,7 @@ Giỏ hàng
 				</div>
 			</div>
 
-			<div class="col-lg-12">
+			<div class="col-lg-6">
 				<div class="cart__bot--left">
 					<table>
 							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
@@ -159,7 +162,38 @@ Giỏ hàng
 
 <br>
 <script type="text/javascript">
-	
+	var promo=document.getElementById("pr");
+	if(promo.checked ==true)
+	{
+		document.getElementById("promotion").style.display = 'block';
+	}
+
+	var vc=document.getElementById("vc");
+	if(vc.checked ==true)
+	{
+		document.getElementById("voucher").style.display = 'block';
+	}
+
+	function funcVc()
+	{
+		var vc=document.getElementById("vc");
+		if(vc.checked ==true)
+		{
+			document.getElementById("voucher").style.display = 'block';
+			document.getElementById("promotion").style.display = 'none';
+			document.getElementById("noPromo").checked="true";
+		}
+	}
+
+	function funcPr()
+	{
+		var promo=document.getElementById("pr");
+		if(promo.checked ==true)
+		{
+			document.getElementById("promotion").style.display = 'block';
+			document.getElementById("voucher").style.display = 'none';
+		}
+	}
 </script>
 
 

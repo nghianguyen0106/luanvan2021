@@ -34,7 +34,7 @@
 
 					<div class="mb-3 col-4">
 						<label for="mota">Giới hạn số lần khuyến mãi
-						<input type="number" class="form-control" style="width: 190px;" value="{{$km->kmGioihanmoikh}}"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
+						<input type="number" title="Số lần được dùng khuyến mãi này của mỗi khách hàng" class="form-control" style="width: 190px;" value="{{$km->kmGioihanmoikh}}"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
 					</div>
 					<div class="mb-3 col-4">
 						<label for="mota">Số lượng sản phẩm được khuyến mãi 

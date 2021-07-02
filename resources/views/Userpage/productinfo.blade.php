@@ -121,6 +121,8 @@ Thông tin sản phẩm
 					Bình luận
 				</div>
 				<div id="content__mota" class="col-lg-12">
+					<br/>
+					<h4>Thông số kỹ thuật:</h4>
 					<table>
 						@foreach($details as  $i)
 						@if($i->ram!=null)
@@ -246,9 +248,9 @@ Thông tin sản phẩm
 						</tr>
 						@endif
 				</table>
-						
 					@endforeach
 				</div>
+				<!------------------------->
 				<div id="content__danhgia" class="col-lg-12">
 					@if(count($comment)>0)
 			   			@foreach($comment as $i)
@@ -280,7 +282,7 @@ Thông tin sản phẩm
 				   			@endif
 			   			@endforeach
 			   			@else
-			   			<div>Chưa có bình nào về sản phẩm này.</div>
+			   			<div class="row justify-content-around"><br/>Chưa có bình nào về sản phẩm này.</div>
 			   			@endif
 			   			<br/>
 			   				@if($checkordered!=null)

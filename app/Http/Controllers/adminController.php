@@ -2214,6 +2214,7 @@ public function adCheckAddKhuyenmai(Request $re)
                     return "<script>window.history.back();</script>";
                 }
                 $ncc->nccSdt=$re->nccSdt;
+                $ncc->nccTinhtrang=1;
                 Session::flash('success','Thêm thành công !');
                 $ncc->save();
                 
@@ -2245,7 +2246,8 @@ public function adCheckAddKhuyenmai(Request $re)
             $ad_log->save();               
             
             Session::flash('success','Đã xóa nhà cung cấp: '.$exist->nccTen);
-            $exist->delete();
+            $exist->nccTinhtrang=99;
+            $exist->update();
             
             return redirect('adNhacungcap');
         }  
