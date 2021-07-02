@@ -25,7 +25,7 @@
 								 	<span style="color:red">{{$errors->first('loaiTen')}}</span>
                                     <span class="err__empty"></span>
 								 	 &emsp;
-								  <button style="outline: none;" class="btn_ok btn__update" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+								  <button type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
 								</form>
                         </div>
                     	<br/>
