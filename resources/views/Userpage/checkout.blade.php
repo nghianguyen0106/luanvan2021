@@ -36,10 +36,10 @@ Giỏ hàng
 						<td>{{number_format($i->price)}} VND</td>
 						<td><div class="counter">
 				
-						  <button type="button"><a href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a></button>
-						  <input style="width:50px;border: 0;text-align: center;" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
+						  <a class="btn btn-outline-danger" href="{{URL::to('changeQuanty/decrease/'.$k)}}" title="">-</a>
+						  <input style="width:50px;border: 0;text-align: center;" readonly="" class="form-control-success" min="1" max="{{$i->qty}}" type="number" id="qty" name="quanty" value="{{$i->qty}}">
 						 
-						   <button type="button"><a href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a></button>
+					<a class="btn btn-outline-success" href="{{URL::to('changeQuanty/increase/'.$k)}}" title="">+</a>
 						</div></td>
 						<td>{{number_format($i->price * Cart::get($k)->qty)}} VND</td>
 						
@@ -65,42 +65,35 @@ Giỏ hàng
 		<br/>
 		<!------->
 		<div class="row justify-content-between cart__bot">
-			<div class="col-lg-6">
-				<div class="cart__bot--left">
-					<table>
-							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
-					</table>
-					<div class="left__content">
-							@foreach($cart as $k=> $i)	
-							<div class="content__pro">
-								<span class="pro__name">
-									<i class="fas fa-check" style="font-size: 16px;color: lightgreen;position: relative;left:15px"></i>
-									<i class="fas fa-check" style="font-size: 16px;color: lightgreen"></i>&nbsp;{{$i->name}}</span>
-								<span class="pro__price"><i class="fas fa-dollar-sign" style="font-size: 16px;color: lightgreen;border: 2px solid lightgreen;padding: 3px 3px 3px 3px"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span>
-							</div>
-								
-							@endforeach
-							<hr>
-							<div class="content__total">
-								<span class="total__title">Tổng tiền:</span>
-								<span class="total__price">{{number_format($total)}}</b> VND</span>
-							</div>
-
-					</div>
-					<div>
-											
-					</div>
-				</div>
-
+			<div>
+			<h4>Chọn 1 ưu đãi</h4>
+				<input id="vc" onclick="funcVc()" type="radio" class="form-check-input" name="vc_promo" checked=""> Nhập voucher giảm giá &nbsp;&nbsp;&nbsp;
+				<input id="pr" onclick="funcPr()" type="radio" class="form-check-input" name="vc_promo"> Chọn chương trình khuyến mãi
 			</div>
-			<div class="col-lg-6">
+
+			<div id="voucher" style="display: none;" class="col-lg-6">
+				<form action="{{URL::to('checkvoucher')}}" method="post" accept-charset="utf-8">
+					{{csrf_field()}}
+				<label>Nhập voucher giảm giá:</label><input type="text" class="form-control" name="vcMa" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{4,12}" placeholder="Nhập mã voucher vào đây"
+				@if(Session::has('vcMa'))
+				value="{{Session::get('vcMa')}}" 
+				@endif
+				>
+				<button type="submit" class="btn btn-outline-info"><i class="fas fa-info-circle"></i> Kiểm tra</button>
+				@if(Session::has('vcMa'))
+				<span class="alert-success">Đã áp dụng voucher!</span>
+				@endif
+				</form>
+			</div>
+
+			<div id="promotion" style="display: none;" class="col-lg-6">
 				<div class="cart__bot--right">
 					<table>
 							<tr><td class="promoTitle">KHUYẾN MÃI CÓ THỂ ÁP DỤNG( CHỌN 1 )</td></tr>
 					</table>
 					<div class="right__content">
 						<form action="{{URL::to('order')}}" method="get">
-							<input type="radio" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
+							<input type="radio" id="noPromo" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
 							<hr/>
 								@foreach($promotion as $v)
 								@if( $v->spSlkmtoida!=0 )
@@ -124,10 +117,32 @@ Giỏ hàng
 								@endif
 						@endif
 						@endforeach
-						
 					</div>
 				</div>
-				
+			</div>
+
+			<div class="col-lg-6">
+				<div class="cart__bot--left">
+					<table>
+							<tr><td>ĐƠN HÀNG TẠM TÍNH</td></tr>
+					</table>
+					<div class="left__content">
+							@foreach($cart as $k=> $i)	
+							<div class="content__pro">
+								<span class="pro__name">
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen;position: relative;left:15px"></i>
+									<i class="fas fa-check" style="font-size: 16px;color: lightgreen"></i>&nbsp;{{$i->name}}</span>
+								<span class="pro__price"><i class="fas fa-dollar-sign" style="font-size: 16px;color: lightgreen;border: 2px solid lightgreen;padding: 3px 3px 3px 3px"></i>&nbsp;{{number_format($i->price * Cart::get($k)->qty)}} VND</span>
+							</div>
+								
+							@endforeach
+							<hr>
+							<div class="content__total">
+								<span class="total__title">Tổng tiền:</span>
+								<span class="total__price">{{number_format($total)}}</b> VND</span>
+							</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="row justify-content-center" style="margin-top: 1rem;">
@@ -145,8 +160,41 @@ Giỏ hàng
 
 
 
-<br/>
+<br>
+<script type="text/javascript">
+	var promo=document.getElementById("pr");
+	if(promo.checked ==true)
+	{
+		document.getElementById("promotion").style.display = 'block';
+	}
 
+	var vc=document.getElementById("vc");
+	if(vc.checked ==true)
+	{
+		document.getElementById("voucher").style.display = 'block';
+	}
+
+	function funcVc()
+	{
+		var vc=document.getElementById("vc");
+		if(vc.checked ==true)
+		{
+			document.getElementById("voucher").style.display = 'block';
+			document.getElementById("promotion").style.display = 'none';
+			document.getElementById("noPromo").checked="true";
+		}
+	}
+
+	function funcPr()
+	{
+		var promo=document.getElementById("pr");
+		if(promo.checked ==true)
+		{
+			document.getElementById("promotion").style.display = 'block';
+			document.getElementById("voucher").style.display = 'none';
+		}
+	}
+</script>
 
 
 @if(Session::has('err'))
@@ -160,38 +208,34 @@ Swal.fire({
 </script> 
 @endif
 
+@if(Session::has('success'))
+ <script type="text/javascript" >
+Swal.fire({
+  icon: 'success',
+  title: 'Thông báo: ',
+  text: '{{Session::get('success')}}',
+ 
+})
+</script> 
+@endif
 <script>
-  function increaseCount(a, b) {
-  var input = document.getElementById('qty');
-  var value = parseInt(input.value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  input.value = value;
-}
 
-function decreaseCount(a, b) {
-  var input = document.getElementById('qty');
-  var value = parseInt(input.value, 10);
-  if (value > 1) {
-    value = isNaN(value) ? 0 : value;
-    value--;
-    input.value = value;
-  }
-}
 
 @foreach($cart as $k=> $i)
-	function func{{$k}}()
+function func{{$k}}()
 {
-	Swal.fire({
-  title: 'Bạn có muốn xóa',
-  text: "{{$i->name}} khỏi giỏ hàng ?",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'OK !'
-}).then((result) => {
-  if (result.isConfirmed) {
+	Swal.fire(
+	{
+	  title: 'Bạn có muốn xóa',
+	  text: "{{$i->name}} khỏi giỏ hàng ?",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#EC2546',
+	  cancelButtonColor: '#B5B5B5',
+	  confirmButtonText: 'OK'
+	}).then((result) => {
+  if (result.isConfirmed) 
+  {
     Swal.fire(
       'Deleted!',
       'Đã xóa sản phẩm khỏi giỏ hàng !',

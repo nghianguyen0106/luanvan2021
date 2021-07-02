@@ -78,7 +78,7 @@
                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-laptop" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
-                    <span>Quản lý sản phẩm</span>
+                    <span>Quản lý dữ liệu</span>
                 </a>
                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -122,7 +122,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
                     <i class="fas fa-tags" style="font-size: 18px;color:rgba(255,255,255,.8);transform: rotateY(180deg);"></i>
-                    <span>Quản lý khuyến mãi</span>
+                    <span>Quản lý ưu đãi</span>
                 </a>
                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">

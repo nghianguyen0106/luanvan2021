@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNhacungcapTable extends Migration
+class CreateBaohanhLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateNhacungcapTable extends Migration
      */
     public function up()
     {
-        Schema::create('nhacungcap', function (Blueprint $table) {
-            $table->integer('nccMa')->autoIncrement();
-            $table->string('nccTen',50)->unique();
-            $table->string('nccSdt',50);
-            $table->string('nccDiachi',50);
-            $table->integer('nccTinhtrang');
+        Schema::create('baohanh_logs', function (Blueprint $table) {
+            $table->char('imeisp',30);
+            $table->timestamp('bhNgay');
+            $table->integer('khMa');
             $table->engine = "InnoDB";
+            $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateNhacungcapTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhacungcap');
+        Schema::dropIfExists('baohanh_logs');
     }
 }

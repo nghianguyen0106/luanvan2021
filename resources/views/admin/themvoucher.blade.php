@@ -10,7 +10,7 @@
 				 <legend>Thêm voucher</legend>
 				 <div class="row">
 				 	<div class="mb-4 col-4">
-						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
+						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{4,12}" class="form-control" name="vcMa"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
 					</div>
 				 	<div class="mb-4 col-4">
 						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen"><span style="color: red;">{{$errors->first('vcTen')}}</span></label>
@@ -65,7 +65,7 @@
 							<span><input id="rdotheogia" onclick="rdotheogiafunc()" class="form-check-input"  type="radio" checked="" name="vcDkapdung" value="0">Theo giá ( VND )</span><br>
 							
 							<span><input id="rdosp" onclick="rdospfunc()" class="form-check-input" type="radio" name="vcDkapdung" value="1"> Theo số lượng sản phẩm</span>
-							<span><input class="form-control" type="number" name="vcGtcandat"></span><br>
+							<span><input class="form-control" type="number" min="0" name="vcGtcandat"></span><br>
 						</label>
 					</div>
 

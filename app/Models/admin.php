@@ -10,5 +10,6 @@ class admin extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table='admin';
-    protected $fillable=['adMa','adTen','adTaikhoan','adMatkhau','adSdt','adEmail','adQuyen','adHinh'];
+    protected $primaryKey='adMa';
+    protected $fillable=['adMa','adTen','adTaikhoan','adMatkhau','adSdt','adEmail','adQuyen','adHinh','adDiachi','adHinhcmnd'];
 }

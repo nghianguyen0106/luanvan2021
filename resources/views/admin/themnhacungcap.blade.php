@@ -18,10 +18,10 @@
 					<div class="mb-3 col-12">
 						<label>Địa chỉ<input  class="form-control"  type="text" name="nccDiachi"></label><br><span class="alert-danger">{{$errors->first('nccDiachi')}}</span>
 					</div>
-					
-					 	<div class="mb-3 col-6">
+
+					<div class="mb-3 col-6">
 						  <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>
-						</div>
+					</div>
 
 					 	<div class="mb-3 col-6">
 						  <button class="btn btn-primary" type="submit">Thực hiện</button>

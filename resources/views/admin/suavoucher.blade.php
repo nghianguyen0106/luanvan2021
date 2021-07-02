@@ -106,7 +106,7 @@
 								> Theo số lượng sản phẩm
 							</span>
 							<span>
-								<input class="form-control" type="number" name="vcGtcandat" value="{{$vc->vcGiatritoida}}">
+								<input class="form-control" type="number" min="0" name="vcGtcandat" value="{{$vc->vcGtcandat}}">
 							</span><br>
 						</label>
 					</div>
@@ -132,7 +132,11 @@
                                         <tr>
                                         	<td>
                                         		<div >
-													<input type="radio" name="checkboxsp"  value="{{$v->spMa}}">
+													<input class="form-check-input" type="radio" name="checkboxsp"  value="{{$v->spMa}}"
+													@if($v->spMa ==$vc->spMa)
+														checked="" 
+													@endif
+													>
 												</div>
 											</td>
                                           <td>{{$v->spMa}}</td>
@@ -140,7 +144,7 @@
                                           	<a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class="">
                                                {{$v->spTen}}
                                                @if($v->vcMa!=null)
-                                               	({{$v->kmTen}})
+                                               	({{$v->vcTen}})
                                                @endif
 												<span class="tooltiptexts">
 													<img style="height:100px;width: 200px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt="" class="pro-image-front">
@@ -199,6 +203,12 @@ Swal.fire({
 		{
 			document.getElementById('textTinhtrang').style.color = 'red';
 			document.getElementById('textTinhtrang').innerHTML="Ẩn";	
+		}
+	var a =document.getElementById("radioDonhang");
+		if(a.checked==true)
+		{
+			document.getElementById("dk").style.display = 'block';
+			document.getElementById("tableSp").style.display = 'none';
 		}
 	function myfunc()
 	{

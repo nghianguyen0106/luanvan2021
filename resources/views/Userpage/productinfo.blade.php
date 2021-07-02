@@ -82,20 +82,29 @@ Thông tin sản phẩm
 						</span>
 					</p>
 					@endif
+					@if(count($availPromo)!=0)
 					<span class="proKm">Chương trình khuyến mãi khả dụng:</span><br/>
 					<div class="proKm__content">
-						Khuyến mãi khai trương
-						Tặng balo
-						CHuột
-						Lap
+						@foreach($availPromo as $v)
+							<div class="row">
+								<div class="mb-3 col-12 promotionItem">
+									<span class="promoName"><i>{{$v->kmTen}}</i></span>
+									<ul class="promoDescription">
+										<li>{{$v->kmMota}}</li>
+										<li>Bắt đầu từ ngày <strong>{{date_format(date_create($v->kmNgaybd),"d/m/Y H:i:s")}}</strong> Đến ngày <strong>{{date_format(date_create($v->kmNgaykt),"d/m/Y H:i:s")}}</strong></li>
+									</ul>
+								</div>
+							</div>
+							@endforeach
 					</div>
-					<br/>
+					@endif
+					<br>
 					@if($proinfo->khoSoluong>0)
 					<div class="occasion-cart">
-						<a class="btn__addCart"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&nbsp;Thêm vào giỏ hàng </a>&emsp;
-						
+						<button type="submit" class="btn__addCart"><i class="far fa-cart-arrow-down" style="font-size: 18px;"></i>&nbsp;Thêm vào giỏ hàng </button>&emsp;
+					@if(Session::has('khMa'))
 							<a class="btn__heart" href="{{URL::to('addtowishlist/'.$v->spMa)}}"><i class="far fa-heart"></i></a>
-						
+						@endif
 					</div>
 					@endif
 					</form>
@@ -125,7 +134,7 @@ Thông tin sản phẩm
 						@if($i->cpu!=null)
 						<tr>
 							<td class="mota__left">CPU</td>
-							<td class="mota__right">{{$i->CPU}}</td>
+							<td class="mota__right">{{$i->cpu}}</td>
 						</tr>
 					
 						@endif

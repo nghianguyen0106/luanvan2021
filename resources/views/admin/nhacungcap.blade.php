@@ -24,7 +24,6 @@
                                             <th>Địa chỉ</th>
                                             <th>Số điện thoại</th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                    
@@ -34,7 +33,6 @@
                                             <th>Tên nhà cung cấp</th>
                                             <th>Địa chỉ</th>
                                             <th>Số điện thoại</th>
-                                            <th></th>
                                             <th></th>  
                                         </tr>
                                     </tfoot>
@@ -46,12 +44,10 @@
                                             <td>{{$value->nccTen}}</td>
                                             <td>{{$value->nccDiachi}}</td>
                                             <td>{{$value->nccSdt}}</td>
-                                             <td>
-                                               <a class="btn btn-primary" href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}">Cập nhật </button>
-                                           </td>
                                            <td>
+                                            <a class="btn btn-primary" href="{{URL::to('suaNhacungcappage/'.$value->nccMa)}}"><i class="fas fa-edit"></i> </a>
                                                 <a class="btn btn-danger" href="{{URL::to('deleteNhacungcap/'.$value->nccMa)}}">
-                                                   Xóa
+                                                   <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>
 

@@ -38,8 +38,10 @@
                                             <th>Ngày kết thúc</th>
                                             <th>Loại giảm giá</th>
                                             <th>Mức giảm</th>
-                                            <th>Giá trị tối đa</th>
-                                            <th>Tình trạng (ẩn/hiện)</th>
+                                            <th>Giá trị giảm tối đa</th>
+                                            <th>Điều kiện áp dụng</th>
+                                            <th>Giá trị áp dụng</th>
+                                            <th>Ẩn/hiện</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -78,7 +80,22 @@
                                                 @else
                                                     %
                                                 @endif</td>
-                                                <td>{{$value->vcGiatritoida}}</td>
+                                                <td>{{number_format($value->vcGiatritoida)}} VND</td>
+                                           
+                                            <td>
+                                                @if($value->vcDkapdung==0)
+                                                    Theo giá
+                                                @else
+                                                    Theo số lượng sản phẩm
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($value->vcDkapdung==0)
+                                                    {{$value->vcGtcandat}} VND
+                                                @else
+                                                    {{$value->vcGtcandat}} Sản phẩm
+                                                @endif
+                                            </td>
                                             <td>
                                                 <label class="switch">
                                                 <a href="{{URL::to('switchStatusVc/'.$value->vcMa)}}">
@@ -87,13 +104,12 @@
                                                   <span class="slider round"></span>
                                                 </a>
                                                 </label>
-
                                             </td>
                                             <td>
                                                 <a  href="{{URL::to('suaVoucherpage/'.$value->vcMa)}}">
                                                     <i class="fa fas fa-edit" style="color: blue;"></i>
                                                 </a>
-                                                <a  href="{{URL::to('deleteVoucher/'.$value->vcMa)}}">
+                                                <a href="#" onclick="func{{$value->vcMa}}()">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
                                                 </a>
                                             </td>
@@ -130,4 +146,31 @@ Swal.fire({
 })
 </script> 
 @endif
+
+@foreach($vc as $i)
+<script type="text/javascript">
+    function func{{$i->vcMa}}()
+    {
+        Swal.fire({
+      title: 'Bạn có muốn xóa voucher',
+      text: "{{$i->vcTen}} ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'OK !'
+        }).then((result) => {
+      if (result.isConfirmed) 
+      {
+        Swal.fire(
+          'Deleted!',
+          'Đã xóa sản phẩm khỏi giỏ hàng !',
+          'success'
+        )
+        document.location.href="{{URL::to('adDeleteVoucher/'.$i->vcMa)}}";
+      }
+    })
+    }
+</script>
+@endforeach
   @endsection
