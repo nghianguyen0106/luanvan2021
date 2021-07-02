@@ -38,14 +38,11 @@
 			    <input name="spGia" type="number" class="form-control" id="spGia">
 			     <span style="color:red">{{$errors->first('spGia')}}</span>
 			  </div>
-			  <div class="mb-3">
-					 <label for="exampleInputPassword1" class="form-label">Nhà cung cấp</label>
-		                <select style="width: 205px" class="form-control m-bot15" name="nccMa">
-		                            @foreach($nccMa as $v)
-		                                <option value="{{$v->nccMa}}" >{{$v->nccTen}}</option>
-		                            @endforeach
-		               </select>
-		           </div>
+			   <div class="mb-3">
+			    <label for="exampleInputPassword1" class="form-label">Giá thuế %:</label>
+			    <input name="giaThue" type="number" class="form-control">
+			  </div>
+			 
 				
 			</div>
 				<!--field flex form-->
@@ -91,6 +88,14 @@
 		       </div>
 		       <div class="flex__form">
 		       	 <div class="mb-3">
+					 <label for="exampleInputPassword1" class="form-label">Nhà cung cấp</label>
+		                <select style="width: 205px" class="form-control m-bot15" name="nccMa">
+		                            @foreach($nccMa as $v)
+		                                <option value="{{$v->nccMa}}" >{{$v->nccTen}}</option>
+		                            @endforeach
+		               </select>
+		          </div>
+		       	 <div class="mb-3">
 				    <label for="exampleInputPassword1" class="form-label">Hạn bảo hành:</label><br/>
 				    <input name="spHanbh" type="radio" value="0"  id="spHanbh"/> 6 tháng &emsp;
 				    <input name="spHanbh" type="radio" value="1"id="spHanbh"/> 12 tháng &emsp;
@@ -98,7 +103,7 @@
 				    <br/>
 				    <span style="color:red">{{$errors->first('spHanbh')}}</span>
 				 </div>
-				  <div class="mb-3"> <input readonly style="border:0;outline: none;background-color: transparent;" class="form-control"></div>
+				 
            		</div>
            	
            		<!--end field flex form-->

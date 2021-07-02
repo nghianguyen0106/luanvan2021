@@ -80,7 +80,7 @@ function onSdt()
 	var sdt_err_update = document.getElementById("sdt__err--update");
 	sdt_err_update.style.display = 'none';
 	var btnOk = document.getElementById("btn__ok")
-	 if(ip_sdt_val.trim().length<=9 || ip_sdt_val.trim().length>11)
+	 if(ip_sdt_val.trim().length<=9 || ip_sdt_val.trim().length>11||ip_sdt_val < 0)
 	 {
 	 	ip_sdt.style.border = '2px solid red';
 	 	sdt_err_update.style.display = 'block';

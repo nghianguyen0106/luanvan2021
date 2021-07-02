@@ -82,7 +82,7 @@
 			  	<br/><br/>
 			  	<div class="row justify-content-around">
 			    <button class="btn btn-dark" type="button" onclick="back()">Trở về</button>	
-			  <button id="btn__ok" class="btn_ok" type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
+			  <button id="btn__ok" class="btn_ok" type="submit" name="btn_add">Thực hiện</button>
 			</div>
 			</div>
 			</form>

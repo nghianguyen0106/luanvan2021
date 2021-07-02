@@ -424,6 +424,11 @@ class adminController extends Controller
 
             $errors=$validate->errors();
         }
+        if($re->adSdt<0)
+        {
+             Session::flash('note_err','Số điện thoại sai! Vui lòng nhập lại!');
+             return "<script>window.history.back();</script>"; 
+        }
         else
          {
             $dataBefore1 = DB::table('admin')->where('adTaikhoan',$re->adTaikhoan)->first();
@@ -432,18 +437,18 @@ class adminController extends Controller
             if($dataBefore1)
             {
                 Session::flash('note_err','Tài khoản đã tồn tại, vui lòng nhập tài khoản khác!');
-              // return Redirect('themnhanvien'); 
-             return back()->withInput(Input::all());
+              return "<script>window.history.back();</script>";
+            
             }
             else if( $dataBefore2)
             {
                 Session::flash('note_err','Email đã tồn tại, vui lòng nhập email khác!');
-               return Redirect('themnhanvien'); 
+               return "<script>window.history.back();</script>";
             }
             else if( $dataBefore3)
             {
                 Session::flash('note_err','Số điện thoại đã tồn tại, vui lòng nhập số khác!');
-               return Redirect('themnhanvien'); 
+              return "<script>window.history.back();</script>";
             }
            else
            {
@@ -476,7 +481,7 @@ class adminController extends Controller
                     else
                     {
                     Session::flash("note_err","Hình của nhân viên không được trống!");
-                    return Redirect('themnhanvien');  
+                   return "<script>window.history.back();</script>"; 
                     }
             }
         }
@@ -526,9 +531,13 @@ class adminController extends Controller
 
             $errors=$validate->errors();
         }
+         if($re->adSdt<0)
+        {
+             Session::flash('note_err','Số điện thoại sai! Vui lòng nhập lại!');
+             return "<script>window.history.back();</script>"; 
+        }
         else
         {
-
             if($re->hasFile('adHinh')==true)
             {
                 $db = DB::table('admin')->where('adMa',$id)->get();
@@ -612,6 +621,7 @@ class adminController extends Controller
                 'khGioitinh'=>'required',
             ],$messages);
             $errors=$validate->errors();
+            return "<script>window.history.back();</script>"; 
         }
         else
         {
@@ -624,22 +634,22 @@ class adminController extends Controller
                 if($yearNow - $yearKhNgaysinh<=10)
                 {
                    Session::flash('note_err','Khách hàng phải trên 10 tuổi');
-                   return Redirect('themkhachhang'); 
+                   return "<script>window.history.back();</script>"; 
                 }
                 if($dataBefore1)
                 {
                     Session::flash('note_err','Tài khoản đã tồn tại, vui lòng nhập tài khoản khác!');
-                   return Redirect('themkhachhang'); 
+                   return "<script>window.history.back();</script>"; 
                 }
                 else if( $dataBefore2)
                 {
                     Session::flash('note_err','Email đã tồn tại, vui lòng nhập email khác!');
-                   return Redirect('themkhachhang'); 
+                  return "<script>window.history.back();</script>"; 
                 }
                 else if( $dataBefore3)
                 {
                     Session::flash('note_err','Số điện thoại đã tồn tại, vui lòng nhập số khác!');
-                   return Redirect('themkhachhang'); 
+                  return "<script>window.history.back();</script>";
                 }
                 if($re->hasFile('khHinh'))
                 {
@@ -738,7 +748,7 @@ class adminController extends Controller
             if($yearNow - $yearKhNgaysinh<=10)
             {
                 Session::flash('note_err','Khách hàng phải trên 10 tuổi');
-                return Redirect('updateKhachhang/'.$id); 
+               return "<script>window.history.back();</script>"; 
             }
             if($re->hasFile('khHinh')==true)
             {
@@ -813,9 +823,23 @@ class adminController extends Controller
             ],$messages);
             $errors=$validate->errors();
         }
-          else
+        if($re->spGia<0)
         {
-        
+            Session::flash('note_err','Giá không được ít hơn 0!');
+            return "<script>window.history.back();</script>";
+        }
+        if($re->khoSoluong<0)
+        {
+            Session::flash('note_err','Số lượng sản phẩm không được ít hơn 0!');
+           return "<script>window.history.back();</script>";
+        }
+        if($re->giaThue < 0)
+        {
+            Session::flash('note_err','Giá thuế sản phẩm không được ít hơn 0!');
+            return "<script>window.history.back();</script>";
+        }
+        else
+        {  
             if($re->hasFile('img')==true)
             {
                 $dataBefore = DB::table('sanpham')->where('spTen',$re->spTen)->first();
@@ -830,7 +854,7 @@ class adminController extends Controller
                 $data = array();
                 $data['spMa']=$spMa;
                 $data['spTen']=$re->spTen;
-                $data['spGia']=$re->spGia+$re->spGia*0.1;
+                $data['spGia']=$re->spGia+($re->spGia*($re->giaThue*0.01));
                 $data['spHanbh']=$re->spHanbh;
                 if($re->khoSoluong>0)
                 {
@@ -2370,9 +2394,8 @@ public function adCheckAddKhuyenmai(Request $re)
             DB::table('kho')->where('spMa', $v)->update($data3);
 
             $data4 = array();
-            $phantram = $re->gia[$key]*0.1;
              $data4['spTinhtrang'] =1;
-            $data4['spGia'] =$re->gia[$key]+$phantram;
+            $data4['spGia'] =$re->gia[$key];
             //0.1 là 10%
             $data4["nccMa"] =$re->nccMa[$key];
             DB::table('sanpham')->where('spMa', $v)->update($data4);
