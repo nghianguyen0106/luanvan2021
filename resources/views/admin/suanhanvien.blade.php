@@ -56,8 +56,16 @@
 				    <label for="exampleInputPassword1" class="form-label">Email</label>
 				    <input name="adEmail" type="email" class="form-control" value="{{$value->adEmail}}"  id="adEmail">
 				     <span style="color:red">{{$errors->first('adEmail')}}</span>
-				 
+				 <br/>
+			  <label for="exampleInputPassword1" class="form-label">Số cmnd</label>
+			    <input name="cmnd" type="number" class="form-control" value="{{$value->adHinhcmnd}}" >
+
+			     <br/>
+			  <label for="exampleInputPassword1" class="form-label">Dịa chỉ</label>
+			    <input name="adDiachi" type="text" class="form-control" value="{{$value->adDiachi}}" >
+
 				     <br/>
+
 
 				    <label for="exampleInputPassword1" class="form-label">Quyền</label>
 				    <input id="ip__quyen" name="adQuyen" onBlur="onQuyen()" type="number" value="{{$value->adQuyen}}"  class="form-control">

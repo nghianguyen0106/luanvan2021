@@ -50,18 +50,40 @@
                                             <td><img width="100" height="100" src="{{{'public/images/nhanvien/'.$value->adHinh}}}" alt="Not image"/></td>
                                              <td>{{$value->adTen}}</td>
                                             <td>{{$value->adTaikhoan}}</td>
-                                            <td>{{$value->adMatkhau}}</td>
                                             <td>{{$value->adSdt}}</td>
                                             <td>{{$value->adEmail}}</td>
-                                            <td>{{$value->adQuyen==1?"Quản lý":"Vận chuyển"}}</td>   
-                                           
+                                            <td>
+                                                @if($value->adQuyen==1)
+                                                    Chủ cửa hàng
+                                                @elseif($value->adQuyen==2)
+                                                    Quản lý
+                                                @elseif($value->adQuyen==3)
+                                                    Thu ngân
+                                                @elseif($value->adQuyen==4)
+                                                    Nhân viên
+                                                @endif
+                                            </td>   
+                                           <td>@if($value->adTinhtrang==1)
+                                                Hoạt động
+                                                <br/>
+                                                @if($value->adQuyen!=1)
+                                                <a href="{{URL::to('khoa-nv/'.$value->adMa)}}" class="text-danger">Khóa tài khoản</a>
+                                                @endif
+                                                @elseif($value->adTinhtrang==0)
+                                                Đã khóa
+                                                <br/>
+                                                <a href="{{URL::to('mokhoa-nv/'.$value->adMa)}}" class="text-success">Mở khóa</a>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a> <a href="{{url('updateAdmin/'.$value->adMa)}}" class="active" ui-toggle-class="">
                                                     <i class="fa far fa-edit"></i>
-                                                </a>&nbsp;|
-                                                <a  href="{{url('deleteAdmin/'.$value->adMa)}}">
+                                                </a>
+                                                 @if($value->adQuyen!=1)
+                                                &nbsp;|<a  href="{{url('deleteAdmin/'.$value->adMa)}}">
                                                     <i class="fa fas fa-trash" style="color: red;"></i>
-                                                </a></a>
+                                                </a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

@@ -460,6 +460,8 @@ class adminController extends Controller
                     $data['adTaikhoan']=$re->adTaikhoan;
                     $data['adMatkhau']=$re->adMatkhau;
                     $data['adSdt']=$re->adSdt;
+                    $data['adHinhcmnd']=$re->cmnd;
+                     $data['adDiachi']=$re->adDiachi;
                     $data['adEmail']=$re->adEmail;
                     $data['adHinh'] = $re->file('adHinh')->getClientOriginalName();;
                     $imgextention=$re->file('adHinh')->extension();
@@ -555,6 +557,8 @@ class adminController extends Controller
                 $data['adTaikhoan']=$re->adTaikhoan;
                 $data['adMatkhau']=$re->adMatkhau;
                 $data['adSdt']=$re->adSdt;
+                $data['adHinhcmnd']=$re->cmnd;
+                $data['adDiachi']=$re->adDiachi;
                 $data['adEmail']=$re->adEmail;
                 $data['adHinh'] = $re->file('adHinh')->getClientOriginalName();;
                 $imgextention=$re->file('adHinh')->extension();
@@ -581,6 +585,8 @@ class adminController extends Controller
                 $data['adTaikhoan']=$re->adTaikhoan;
                 $data['adMatkhau']=$re->adMatkhau;
                 $data['adSdt']=$re->adSdt;
+                $data['adHinhcmnd']=$re->cmnd;
+                $data['adDiachi']=$re->adDiachi;
                 $data['adEmail']=$re->adEmail;
                 $data['adQuyen']=$re->adQuyen;
                 DB::table('admin')->where('adMa',$id)->update($data);
@@ -780,7 +786,6 @@ class adminController extends Controller
                 $data['khGioitinh']=$re->khGioitinh;
                 $data['khTaikhoan']=$re->khTaikhoan;
                 $data['khSdt']=$re->khSdt;
-                $data['khHinh'] = "";
                 $data['khQuyen']=$re->khQuyen;
                 DB::table('khachhang')->where('khMa',$id)->update($data);
                 return redirect('adKhachhang');
@@ -2033,7 +2038,7 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang',$noteDonhang);
     $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-    $dataNV = DB::table('admin')->where('adQuyen',2)->get();
+    $dataNV = DB::table('admin')->where('adQuyen',4)->get();
     $data = DB::table('donhang')->where('hdMa',$id)->get();
     return view('admin.them-nv-giao-hang')->with('dataNV',$dataNV)->with('data',$data)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
   }
@@ -2893,6 +2898,42 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::flash('success',"Đã xóa voucher: ".$vcInfo->vcTen);
         $vcInfo->update();
         return redirect('adVoucher');
+    }
+
+
+    public function khoaNhanvien($id)
+    {
+         $db = DB::table('admin')->where('adMa',$id)->get();
+                $a = array($db);
+                $adTen = str_replace('"','',json_encode($a[0][0]->adTen));
+          $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Khóa nhân viên:".$adTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+        
+
+        $data = array();
+        $data['adTinhtrang']=0;
+        DB::table('admin')->where('adMa',$id)->update($data);
+         return redirect('adNhanvien');
+    }
+     public function moKhoaNhanvien($id)
+    {
+         $db = DB::table('admin')->where('adMa',$id)->get();
+                $a = array($db);
+                $adTen = str_replace('"','',json_encode($a[0][0]->adTen));
+          $data1 = array();
+                $data1['adMa'] = Session::get('adMa');
+                $data1['alChitiet'] = "Mở khóa nhân viên:".$adTen;
+                $data1['alNgaygio']= now();
+                DB::table('admin_log')->insert($data1);
+        
+
+        $data = array();
+        $data['adTinhtrang']=1;
+        DB::table('admin')->where('adMa',$id)->update($data);
+         return redirect('adNhanvien');
     }
 }
 

@@ -227,3 +227,7 @@ Route::get('lap-phieu-nhap','adminController@viewLapPhieuNhap');
 Route::post('addPhieuNhap','adminController@addPhieuNhap');
 Route::get('chi-tiet-phieu-nhap/{id}','adminController@viewCTPhieunhap');
 Route::get('chi-tiet-phieu-thu/{id}','adminController@viewCTDonhang');
+
+//-----Khóa tài khoản----->
+Route::get('khoa-nv/{id}','adminController@khoaNhanvien');
+Route::get('mokhoa-nv/{id}','adminController@moKhoaNhanvien');

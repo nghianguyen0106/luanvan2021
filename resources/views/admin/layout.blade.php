@@ -146,6 +146,7 @@
                         <a class="collapse-item"  href="{{URL::to('lich-su-giao-hang')}}">lịch sử giao hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
+                        <a class="collapse-item"  href="{{URL::to('adBanner')}}">Banner</a>
                     </div>
                 </div>
             </li>
