@@ -46,7 +46,7 @@ Xác nhận hóa đơn
 						<form action="{{URL::to('gocheckout/'.$total)}}" method="post">
 												{{ csrf_field()}}
 
-						@if($promoInfo)
+					@if($promoInfo)
 					<tfoot>
 					<tr>
 					<td colspan="5">
@@ -85,8 +85,62 @@ Xác nhận hóa đơn
 					</td>
 				</tr>
 			</tfoot>
-			@else
+			@elseif(Session::has('vcMa'))
 				<tfoot>
+					<tr>
+					<td colspan="5">
+						<br/>
+						<div class="row justify-content-around">
+							@if($vcInfo->vcLoai==0)
+							<div class="col-lg-5">
+								<h5>Sản phẩm được giảm giá:&nbsp;{{$proinfo->spTen}}</h5>
+								<input type="text" hidden name="spMa" value="{{$proinfo->spMa}}">
+								<input type="text"  hidden  name="kmMa" value="{{$vcInfo->vcMa}}">
+							</div>
+							@else
+							<div class="col-lg-5"></div>
+							@endif
+
+							<div class="col-lg-5">
+							
+								@if($vcInfo->vcLoaigiamgia==0)
+								<span style="color:#FF4242;font-weight: bold;">Giảm giá trực tiếp:&nbsp;
+									{{$vcInfo->vcMucgiam}} VND</span>
+									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
+								@elseif($vcInfo->vcLoai==1)
+								<span style="color:#FF4242;font-weight: bold;">Giảm giá:&nbsp;
+									{{$vcInfo->vcMucgiam}} % </span>
+									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
+								@endif
+
+								</div>
+						</div>
+						@if($vcInfo->vcLoaigiamgia==1)
+						<div class="row justify-content-around">
+							<div class="col-lg-5">
+								<h5>Số tiền được giảm:</h5>
+							</div>
+							<div class="col-lg-5">
+								<span>{{number_format($pricePromo)}}&nbsp;VND</span>
+								<input readonly type="number" name="price" value="{{$pricePromo}}">
+							</div>
+						</div>
+						@endif
+						<hr>
+						<div class="row justify-content-around">
+							<div class="col-lg-5">
+								<h5>Tổng tiền:</h5>
+							</div>
+							<div class="col-lg-5">
+								<span>{{number_format($total)}}&nbsp;VND</span>
+								<input readonly type="number" value="{{$total}}" name="total">  
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tfoot>
+			@else
+			<tfoot>
 						<tr style="text-align: right;">
 								<td colspan="4" style="padding-right: 4px;"><span><strong>TỔNG TIỀN:</strong></span></td>
 								<td colspan="1" style="padding-right: 4px;">

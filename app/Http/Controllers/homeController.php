@@ -509,42 +509,75 @@ class homeController extends Controller
             if(session::has('khTaikhoan'))
             {
                 $cart=Cart::content();
+                $cate=loai::get();
                 $leng=strlen($re->promo);
                 $str=strpos($re->promo,",");
 
                 $kmMa=substr($re->promo,0,$str);
                 $spMa=substr($re->promo,$str+1,$leng);
-                $proinfo=sanpham::where('spMa',$spMa)->first();
+                
                 //dd($proinfo);
                 $promoInfo=khuyenmai::where('khuyenmai.kmMa',$kmMa)->join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->first();
-
-                $cate=loai::get();
-                $pricePromo=0;
-                $total=0;
-                foreach ($cart as  $i) 
+                if($promoInfo)
                 {
-                    if($i->id==$spMa)
+                    $proinfo=sanpham::where('spMa',$spMa)->first();
+                    $pricePromo=0;
+                    $total=0;
+                    foreach ($cart as  $i) 
                     {
-                        if($promoInfo->kmGiatritoida!=null)
+                        if($i->id==$spMa)
                         {
-                            $discountPercent=$promoInfo->kmTrigia/100;
-
-                            $pricePromo=($i->price*$i->qty*$discountPercent)*$i->qty;
-                            if($pricePromo>$promoInfo->kmGiatritoida)
+                            if($promoInfo->kmGiatritoida!=null)
                             {
-                                $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
+                                $discountPercent=$promoInfo->kmTrigia/100;
+
+                                $pricePromo=($i->price*$i->qty*$discountPercent)*$i->qty;
+                                if($pricePromo>$promoInfo->kmGiatritoida)
+                                {
+                                    $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
+                                }
+                      
                             }
-                  
+                            $total+=$i->price*$i->qty-$pricePromo;
+                            // return $pricePromo;
                         }
-                        $total+=$i->price*$i->qty-$pricePromo;
-                        // return $pricePromo;
-                    }
-                    else
-                    {
-                        $total+=$i->price*$i->qty;
+                        else
+                        {
+                            $total+=$i->price*$i->qty;
+                        }
                     }
                 }
+                $vcInfo=voucher::where('vcMa',Session::get('vcMa'))->first();
+                
+                if($vcInfo!=null)
+                {
+                    $proinfo=sanpham::where('spMa',$vcInfo->spMa)->first();
 
+                    $pricePromo=0;
+                    $total=0;
+                    foreach ($cart as  $i) 
+                    {
+                        if($i->id==$spMa)
+                        {
+                            if($promoInfo->kmGiatritoida!=null)
+                            {
+                               $discountPercent=$promoInfo->kmTrigia/100;
+
+                               $pricePromo=($i->price*$i->qty*$discountPercent)*$i->qty;
+                                if($pricePromo>$promoInfo->kmGiatritoida)
+                               {
+                                   $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
+                               }
+                            }
+                            $total+=$i->price*$i->qty-$pricePromo;
+                            // return $pricePromo;
+                        }
+                        else
+                        {
+                            $total+=$i->price*$i->qty;
+                        }
+                    }
+                }
 
                 //return $total;
                  $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
@@ -552,7 +585,7 @@ class homeController extends Controller
                 ->inRandomOrder()
                 ->limit(4)->get();  
                 //dd($dbrand);
-                return view('Userpage.confirmcheckout',compact('pricePromo','promoInfo','proinfo','cate','cart','total','dbrand'));
+                return view('Userpage.confirmcheckout',compact('vcInfo','pricePromo','promoInfo','proinfo','cate','cart','total','dbrand'));
 
             }
             else
@@ -908,11 +941,16 @@ class homeController extends Controller
                         }
                     }
                     if($flag!=0)
-                    {   $proName=sanpham::find($checkExistVoucher->spMa);
-
+                    {   
+                        $proName=sanpham::find($checkExistVoucher->spMa);
                         Session::flash('success','Đã áp dụng voucher cho sản phẩm: '.$proName->spTen.' ');
                         Session::put('vcMa',$re->vcMa);
                         return redirect()->back();    
+                    }
+                    else
+                    {
+                        Session::flash('err','Không thể sử dụng voucher này vì không có sản phẩm được áp dụng trong giỏ hàng !');
+                        return redirect()->back();
                     }
                     
                 }

@@ -60,6 +60,7 @@ class cartController extends Controller
     public function destroy()
     {
         Cart::destroy();
+        Session::forget('vcMa');
         return redirect()->back();
     }
 
@@ -219,6 +220,7 @@ class cartController extends Controller
                     //clear cart
                     Cart::destroy();
                    // $this->sendmail($hdMa);
+                   Session::forget('vcMa');
                     
                 }
                 else
