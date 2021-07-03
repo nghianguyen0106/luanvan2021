@@ -59,6 +59,7 @@
 	  						</a>
 	  						<ul class="item__menu--child">
 	  							<li class="item__triangle"></li>
+	  							<div class="box__list--item">
 	  							<li class="menu__child--item">
 	  								<a href="{{url("/infomation/".Session::get('khMa'))}}">
 					 				<i class="fas fa-info-circle" ></i>&nbsp;Thông tin cá nhân
@@ -77,6 +78,7 @@
 					 						<i class="fas fa-power-off" ></i>&nbsp;Đăng xuất
 					 				</a>
 	  							</li>
+	  							</div>
 	  						</ul>
 	  					</li>
   						@else
