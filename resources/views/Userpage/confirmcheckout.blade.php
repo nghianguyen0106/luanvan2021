@@ -130,7 +130,7 @@ Xác nhận hóa đơn
 			</div>
 			<div class="col-lg-6 address__info">
 				<button id="show__boxAddress" type="button" class="show__boxAddress">Gửi đến địa chỉ khác</button>
-				<button id="hide__boxAddress" type="button" class="hide__boxAddress">Đóng</button>
+		{{-- 		<button id="hide__boxAddress" type="button" class="hide__boxAddress">Đóng</button> --}}
 				<div id="update__address">
 				<table>
 					<tbody>

@@ -86,26 +86,31 @@
     transform: scaleY(0);
     transform-origin: 50% 0;
     opacity: 0;
-    margin-top: 10px;
-    padding: 0 0 0 2%;
+    padding: 0;
     width: 220px;
     position: absolute;
     list-style: none;
     z-index: 10;
     border-radius: 3px;
-    border: 1px solid var(--wc-secondary-text);
+   
+}
+.menu__item .item__menu--child .box__list--item
+{
+    padding: 0 0 0 2%;
+     border: 1px solid var(--wc-secondary-text);
     background-color: var(--wc-highligh-text);
 }
 .item__menu--child .item__triangle
 {
   width: 0;
   height: 0;
+  top: 1px;
   position: relative;
-  top: -10px;
   margin-left: 40%;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid var(--wc-highligh-text);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--wc-highligh-text);
+  z-index: 50;
 }
 .item__menu--child .menu__child--item
 {
