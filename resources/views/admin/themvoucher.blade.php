@@ -20,6 +20,12 @@
 					</div>
 					
 					<div class="mb-4 col-4">
+						<label for="mota">Loại giảm giá:<br>
+						<span><input class="form-check-input" type="radio" checked name="vcLoaigiamgia" value="0"> Theo giá</span><br>
+							<span><input class="form-check-input" type="radio" name="vcLoaigiamgia" value="1"> Theo % giá</span></span></label>
+					</div>
+
+					<div class="mb-4 col-4">
 						<label for="mota">Ngày bắt đầu
 						<input type="date" class="form-control" min="1" name="vcNgaybd" ><span style="color: red;">{{$errors->first('vcNgaybd')}}</span></label>
 					</div>
@@ -28,11 +34,7 @@
 						<input type="date" class="form-control" min="1" name="vcNgaykt" ><span style="color: red;">{{$errors->first('vcNgaykt')}}</span></label>
 					</div>
 					
-					<div class="mb-4 col-4">
-						<label for="mota">Loại giảm giá:<br>
-						<span><input class="form-check-input" type="radio" checked name="vcLoaigiamgia" value="0"> Theo giá</span><br>
-							<span><input class="form-check-input" type="radio" name="vcLoaigiamgia" value="1"> Theo % giá</span></span></label>
-					</div>
+					
 
 					<div class="mb-3 col-4">
 						<label for="mota">Mức giảm:

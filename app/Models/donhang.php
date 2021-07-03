@@ -11,5 +11,5 @@ class donhang extends Model
     public $timestamps = false;
     protected $table='donhang';
     protected $primaryKey='hdMa';
-    protected $fillable=['hdMa','khMa','adMa','vcMa','hdSoluongsp','hdTongtien','hdTinhtrang','hdSdtnguoinhan','hdDiachi','hdGhichu'];
+    protected $fillable=['hdMa','khMa','adMa','vcMa','hdSoluongsp','hdTongtien','hdTinhtrang','hdSdtnguoinhan','hdDiachi','hdGhichu','kmMa'];
 }

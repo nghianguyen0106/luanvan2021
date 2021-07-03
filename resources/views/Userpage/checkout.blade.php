@@ -94,29 +94,20 @@ Giỏ hàng
 					<div class="right__content">
 						<form action="{{URL::to('order')}}" method="get">
 							<input type="radio" id="noPromo" checked name="promo" class=" form-check-input"  value="0">&nbsp;Không chọn
-							<hr/>
-								@foreach($promotion as $v)
-								@if( $v->spSlkmtoida!=0 )
-								@if($b)
-								@php
-								$check=array();
-								@endphp	
-									@foreach($b as $k=> $i)
-										@if($i['kmMa']==$v->kmMa && $i['kmSolan'] <= $v->kmGioihanmoikh)
-											@if(in_array($v->spMa, $check)==null)
-											@php
-											array_push($check, $v->spMa)
-											@endphp
+							
+								@foreach($use as $v)
+									<HR>
 											<input type="radio" name="promo" class=" form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;<span class="promotitleItem">{{$v->kmTen}}</span>
 												<p>{{$v->kmMota}}</p>
 												<span>	Giảm: {{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{number_format($v->kmGiatritoida)}} VND</span><br>
-												<span>Được áp dụng {{$v->kmGioihanmoikh}} lần cho mỗi khách hàng.</span><br><hr>
-											@endif
-										@endif
-									@endforeach
-								@endif
-						@endif
-						@endforeach
+								@endforeach
+								@foreach($unuse as $v)
+									<HR>
+											<input type="radio" disabled="" name="promo" class=" form-check-input" value="{{$v->kmMa}},{{$v->spMa}}">&nbsp;<span class="promotitleItem">{{$v->kmTen}}</span>(Bạn đã dùng tối đa số lần khuyến mãi)
+												<p>{{$v->kmMota}}</p>
+												<span>	Giảm: {{$v->kmTrigia}}% cho sản phẩm: {{$v->spTen}}; Tối đa: {{number_format($v->kmGiatritoida)}} VND</span><br>
+								@endforeach
+
 					</div>
 				</div>
 			</div>

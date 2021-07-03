@@ -157,7 +157,7 @@ class homeController extends Controller
                 ->where('hinh.thutu','=','1')
                 ->inRandomOrder()
                 ->limit(4)->get();
-
+        //dd($availPromo);
         return view('Userpage.productinfo',compact('proinfo','imgDefault','imgs','details','related_prod','total','comment','checkordered','availPromo','dbrand'));
     }
      //---Find product
@@ -471,19 +471,26 @@ class homeController extends Controller
         }   
         $today=date_create();
      
-        $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->get();
-        $b=array();
+        $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->where('kmTinhtrang','!=',99)->get();
+        $use=array();
+        $unuse=array();
         if(Session::has('khMa'))
         {
-            foreach($checkexistKhuyenmai as $k => $i)
+            foreach($checkexistKhuyenmai as $i)
             {
-                $checkordered=donhang::leftjoin('chitietdonhang','chitietdonhang.hdMa','donhang.hdMa')->join('sanpham','sanpham.spMa','chitietdonhang.spMa')->where('sanpham.kmMa',$i->kmMa)->groupby('donhang.khMa')->count();
-                $kmcheck['kmMa']=$i->kmMa;
-                $kmcheck['kmSolan']=$checkordered;
-                array_push($b,$kmcheck);
+                $checkordered=donhang::where('khMa',Session::get('khMa'))->where('kmMa',$i->kmMa)->count();
+                if($i->kmGioihanmoikh > $checkordered)
+                {
+                    array_push($use,$i);
+                }
+                else
+                {
+                    array_push($unuse,$i);
+                }
             }
-            // dd($b);
+
         }
+      //  dd($use,$unuse);
         
         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->where('hinh.thutu','=','1')
@@ -491,7 +498,7 @@ class homeController extends Controller
                 ->limit(4)->get();
         
             
-        return view('Userpage.checkout',compact('b','cate','cart','total','dbrand'))->with('promotion',$checkexistKhuyenmai);
+        return view('Userpage.checkout',compact('cate','cart','total','dbrand','use','unuse'))->with('promotion',$checkexistKhuyenmai);
     }
 
     public function order(Request $re)
@@ -889,10 +896,33 @@ class homeController extends Controller
                 return redirect()->back();
            } 
            else
-           {
-                Session::flash('success','Đã áp dụng voucher cho sản phẩm');
-                Session::put('vcMa',$re->vcMa);
-                return redirect()->back();
+           {    
+                if($checkExistVoucher->vcLoai==0)
+                {
+                    $flag=0;
+                    foreach(Cart::content() as $i)
+                    {
+                        if($checkExistVoucher->spMa== $i->id)
+                        {
+                            $flag+=1;
+                        }
+                    }
+                    if($flag!=0)
+                    {   $proName=sanpham::find($checkExistVoucher->spMa);
+
+                        Session::flash('success','Đã áp dụng voucher cho sản phẩm: '.$proName->spTen.' ');
+                        Session::put('vcMa',$re->vcMa);
+                        return redirect()->back();    
+                    }
+                    
+                }
+                else
+                {
+                    Session::flash('success','Đã áp dụng voucher cho đơn hàng này !');
+                    Session::put('vcMa',$re->vcMa);
+                    return redirect()->back();
+                }
+                
            }
         }
         else

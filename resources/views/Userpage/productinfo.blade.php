@@ -82,7 +82,7 @@ Thông tin sản phẩm
 						</span>
 					</p>
 					@endif
-					@if(count($availPromo)!=0)
+					@if($availPromo)
 					<span class="proKm">Chương trình khuyến mãi khả dụng:</span><br/>
 					<div class="proKm__content">
 						@foreach($availPromo as $v)

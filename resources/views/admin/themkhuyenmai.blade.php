@@ -34,11 +34,11 @@
 
 					<div class="mb-3 col-4">
 						<label for="mota">Giới hạn số lần khuyến mãi
-						<input type="number" title="Số lần được dùng khuyến mãi này của mỗi khách hàng" class="form-control" style="width: 190px;"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
+						<input type="number" title="Số lần được dùng khuyến mãi này của mỗi khách hàng ( để trống là không giới hạn)" class="form-control" style="width: 190px;"  name="kmGioihanmoikh" ><span style="color: red;"></span></label>
 					</div>
 					<div class="mb-3 col-4">
 						<label for="mota">Số lượng sản phẩm được khuyến mãi 
-						<input type="number" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
+						<input type="number" title="( Để trống là không giới hạn)" class="form-control" min="1" name="kmSoluong" style="width: 190px;" ></label>
 					</div>
 					<div class="mb-4 col-4">
 						<label for="mota">Tình trạng
@@ -58,6 +58,7 @@
                                         		<th></th>
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Ảnh</th>
                                             <th>Loại sản phẩm</th>
                                             <th>Nhà cung cấp</th>
                                     
@@ -85,7 +86,8 @@
 												
                                                 </a>
                                             </td>
-                                                <td>{{$v->loaiTen}}</td>
+                                            <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class=""><img style="width: auto;height: 100px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt=""></td>
+                                                <td>{{$v->loaiTen}}</a></td>
                                           <td>
                                           	 <div class="tooltips">
                                           	 	<a style="text-decoration: none;" href="{{URL::to('suaNhacungcappage/'.$v->nccMa)}}">{{$v->nccTen}}

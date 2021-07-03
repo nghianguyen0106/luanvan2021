@@ -117,7 +117,7 @@ class cartController extends Controller
                 if($v->qty>$checkQty->khoSoluong)
                 {
                     session::flash('err','Sản phẩm '.$v->name.' còn: '.$checkQty->khoSoluong.', vui lòng liên hệ Hotline để biết thêm thông tin!');
-                    return Redirect::to('checkout');
+                    return Redirect::to('checkout');    
                 }
             }
             if(session::has('khTaikhoan'))
@@ -133,7 +133,15 @@ class cartController extends Controller
                     $dh->hdNgaytao=date_create();
                     $dh->hdTinhtrang=0;
                     $dh->adMa=0;
-                 
+                    if($re->kmMa!=null)
+                    {
+                        $dh->kmMa=$re->kmMa;
+                    }
+                    else
+                    {
+                        $dh->kmMa==null; 
+                    }
+                    
                     if($re->discount!=null && $re->price!=null)
                     {
                         $dh->hdGiamgia=$re->discount;

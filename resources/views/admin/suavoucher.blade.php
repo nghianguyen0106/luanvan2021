@@ -21,15 +21,6 @@
 					</div>
 					
 					<div class="mb-4 col-4">
-						<label for="mota">Ngày bắt đầu
-						<input type="date" class="form-control" min="1" name="vcNgaybd" value="{{date_format(date_create($vc->vcNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaybd')}}</span></label>
-					</div>
-					<div class="mb-4 col-4">
-						<label for="mota">Ngày kết thúc
-						<input type="date" class="form-control" min="1" name="vcNgaykt" value="{{date_format(date_create($vc->vcNgaykt),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaykt')}}</span></label>
-					</div>
-					
-					<div class="mb-4 col-4">
 						<label for="mota">Loại giảm giá:<br>
 						<span>
 							<input class="form-check-input" type="radio" checked name="vcLoaigiamgia" value="0"
@@ -46,6 +37,17 @@
 							> Theo % giá
 						</span></span></label>
 					</div>
+
+					<div class="mb-4 col-4">
+						<label for="mota">Ngày bắt đầu
+						<input type="date" class="form-control" min="1" name="vcNgaybd" value="{{date_format(date_create($vc->vcNgaybd),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaybd')}}</span></label>
+					</div>
+					<div class="mb-4 col-4">
+						<label for="mota">Ngày kết thúc
+						<input type="date" class="form-control" min="1" name="vcNgaykt" value="{{date_format(date_create($vc->vcNgaykt),"Y-m-d")}}" ><span style="color: red;">{{$errors->first('vcNgaykt')}}</span></label>
+					</div>
+					
+					
 
 					<div class="mb-3 col-4">
 						<label for="mota">Mức giảm:
