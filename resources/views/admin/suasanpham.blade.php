@@ -1,12 +1,11 @@
 @extends('admin.layout')
 @section('content')
-
     <div id="content-wrapper" class="d-flex flex-column">
 @foreach($spMaCu as $key => $value)
             <!-- Main Content -->
              <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary text-center">Xem chi tiết và cập nhật sản phẩm</h2>  
-                        </div>
+            </div>
             <div id="content" class="col-12">
                  <a href="{{URL::asset("adSanpham")}}" class="btn btn-info" type="button">Trở về</a>
                  <br/><br/>

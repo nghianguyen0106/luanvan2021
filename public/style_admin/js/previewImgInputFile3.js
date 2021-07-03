@@ -1,4 +1,4 @@
-//Preview Image 1 Input file
+//Preview Image Input file
 const img = document.getElementById("img");
 const inputImg = document.getElementById("inputImg");
 const btnCancel = document.getElementById("btnCancel");
@@ -11,9 +11,9 @@ inputImg.addEventListener("change", function(){
 	const file = this.files[0];
 	if(file)
 	{
-		var reader = new FileReader();
+		const reader = new FileReader();
 		reader.onload = function(){
-			var result = reader.result;
+			const result = reader.result;
 			img.src = result;
 			img.style.display = 'block';
 			btnCancel.style.display = 'block';
@@ -26,4 +26,5 @@ inputImg.addEventListener("change", function(){
 		reader.readAsDataURL(file);
 	}
 }); 
+
 

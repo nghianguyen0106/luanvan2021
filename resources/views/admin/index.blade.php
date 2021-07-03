@@ -66,7 +66,11 @@
                             @if($v->adQuyen ==1)
                                 Chủ cửa hàng
                             @elseif($v->adQuyen ==2)
-                                Giao hàng
+                                Quản lý
+                            @elseif($v->adQuyen ==3)
+                                Thu ngân
+                            @elseif($v->adQuyen ==4)
+                                Nhân viên
                             @endif
                            </span>
                       </div>

@@ -55,13 +55,22 @@
 			    <label for="exampleInputPassword1" class="form-label">Email</label>
 			    <input name="adEmail" type="email" class="form-control" id="adEmail">
 			     <span style="color:red">{{$errors->first('adEmail')}}</span>
+			     <br/>
+			      <label for="exampleInputPassword1" class="form-label">Địa chỉ</label>
+			    <input name="adDiachi" type="text" class="form-control">
+			    
 			 
 			 <br/>
-
+			  <label for="exampleInputPassword1" class="form-label">Số cmnd</label>
+			    <input name="cmnd" type="number" class="form-control" >
+			       
+			 <br/>
 			    <label for="exampleInputPassword1" class="form-label">Quyền</label>
-			    <input id="ip__quyen" name="adQuyen" onBlur="onQuyen()" type="number" class="form-control">
-			     <span style="color:red">{{$errors->first('adQuyen')}}</span>
-			     <span id="quyen__err--update"></span>
+			    <select name="adQuyen">
+			    	<option value="2">Quản lý</option>
+			    	<option value="3">Thu ngân</option>
+			    	<option value="4">Nhân viên</option>
+			    </select>
 			 
 			 	<br/><br/>
 			  	<div class="row justify-content-around">

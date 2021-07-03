@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,142 +34,125 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 
-<section class="container-fluid header">
-	<!--screen large-->
-	<div class="menu__lg">
-		<div class="row header__top">
-			<div class="col-lg-12">
-				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
-			</div>
-			
+<section class="container-fluid header__top">
+  		<div class="row">
+		<div class="col-lg-12 banner__header" style="background-image: url(//theme.hstatic.net/1000026716/1000440777/14/bn-top1.jpg?v=20498);background-size: cover;height: 60px;width: 100%;">
 		</div>
-		<div class="row header__bot">
-			<div class="col-lg-12">
-				 <ul class="list__menu">
-				    		<li class="list__menu--item">
-				    			<a href="{{URL::to('/')}}"><i class="fas fa-home" style="font-size: 15px;"></i>&nbsp;Trang chủ</a>
-				    		</li>
-				    		&emsp;
-					    	@if(View::hasSection('login'))
-					    	<li class="list__menu--item"><a href="{{URL::to('login')}}"><i class="fas fa-user-circle" style="font-size: 18px;"></i>&nbsp;@yield('login')</a></li>
+		</div>
+	
+  		<div class="row">
+  			<div class="col-lg-6">
+  				<div class="header__top--left">
+  					<img alt="WP Compu Care" src="http://demo.cmssuperheroes.com/themeforest/wp-compu-care/wp-content/themes/wp-compu-care/assets/images/logo.png">
+  				</div>
+  			</div>
+  			<div class="col-lg-6 header__top--right">
+  					<ul class="top__right--menu">
+  						<li class="menu__item">
+  							<a href="{{URL::to('/')}}">
+  								<i class="fas fa-home" ></i>&nbsp;Trang chủ
+  							</a>
+  						</li>
+  						<li class="menu__item">
+  							<a href="{{URL::to('product')}}">
+  							<i class="fas fa-tv" ></i>&nbsp;Sản phẩm
+  							</a>
+  						</li>
+  						<!--php-->
+  						@if(View::hasSection('login'))
+					    	<li class="menu__item"><a href="{{URL::to('login')}}"><i class="fas fa-user-circle" ></i>&nbsp;@yield('login')</a></li>
 					    	@endif
 					    	@if(View::hasSection('register'))
-					    	<li class="list__menu--item"><a href="{{URL::to('register')}}"><i class="fas fa-user-plus" style="font-size: 18px;"></i>&nbsp;@yield('register')</a></li>
+					    	<li class="menu__item"><a href="{{URL::to('register')}}"><i class="fas fa-user-plus"></i>&nbsp;@yield('register')</a></li>
 					    	@endif
-						</ul>
-				 </div>
-			</div>
-		</div>
-	</div>
-	<!--end-->
-</section>
-	<!--Mobile-->
-	<div class="col-md-12 menu__sm">
-		<div class="row">
-			<!----menu con --->
-			<input id="show" type="checkbox" hidden/>
-			<div class="col-sm-12 col-12 box__menu">
-				<h3><span>Menu</span> 
-					<label for="show" class="exit__menu">
-					<i class="fas fa-sign-out-alt" style="font-size: 28px;background-color: #9597B2;border: 0;background-color: transparent;"></i>
-					</label>
-				</h3>
-				<hr/>
-				<ul class="menu__sm--child">
-						@if(Session::has('khTaikhoan'))
-						<li>	
-						<a href="{{url('infomation/'.Session::get('khMa'))}}">
-						@if(Session::get('khHinh')!=null)
-							<img style="width: 50px;height: 50px;border-radius: 360px" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
-							&nbsp;{{Session::get('khTaikhoan')}}
-						</a>
-						@endif
-						</li>
-						@else	
-						<li>	
-							<a href="{{URL::to('login')}}">
-								Đăng nhập&nbsp;<i class="fas fa-sign-in-alt"></i>
-							</a>
-						</li>
-						@endif
-					<li>
-						<a style="color: white;font-size: 20px;" href="{{URL::to('/checkout')}}">
-						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								({{Cart::count()}})&nbsp; Giỏ hàng
-						</a>
-					</li>
-					<li><a href="{{url('/')}}">Trang chủ</a></li>
-					<li><a href="{{url('product')}}">Sản phẩm</a></li>
-					<li><a href="{{url('product')}}">Tin tức</a></li>
-					@if(Session::has('khTen'))
-				    <li><a href="{{URL::to('listorder')}}">Danh sách đơn hàng của bạn</a></li>
-				    		  		@endif
-					<li>
-						<a href="{{URL::to('logout')}}">
-					 		Đăng xuất&nbsp;<i class="fas fa-sign-out-alt"></i>
-					 	</a>
-					</li>
-					
-				</ul>
-			</div>
-			<!----end menu con--->
-			<div class="col-sm-6 left">
-				<a href="{{URL::to('/')}}"><img src="{{URL::asset('public/fe/images/logo3.png')}}"></a>
-			</div>
-			<div class="col-sm-6 right">
-				<a style="color: black;font-size: 30px;" href="{{URL::to('/checkout')}}">
-						<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								({{Cart::count()}})
-						</a>
-				&nbsp;
-				<label for="show" class="show__menu">
-					<i class="fas fa-bars" style="font-size: 38px;"></i>
-				</label>
-			</div>
+  						
+  						
+  						<!--endphp-->
+  					
+  						
+  						
+  					</ul>
+  			</div>
+  		</div>
 
-	</div>
-	</div>
-
-<!--------CONTENT--------->
-
-
+  	</section>
 	
-@yield('content')
+@yield('content');
 
-<!-- footer -->
-<section class="footerr">
-		<div class="container-fluid">
-			<div class="row">
-			<div class="col-1_5"></div>
-			<div class="col-lg-9">
-				<div class="footerr__top">
-					<div class="row">
-						<div class="col-lg-7 footerr__top--left">
-						<i class="fas fa-caret-right" style="font-size: 48px;"></i>
-						<i class="fas fa-caret-right" style="font-size: 48px;"></i>
-						<i class="fas fa-caret-right" style="font-size: 48px;"></i>&nbsp;Nhận thông tin khuyến mãi và nhiều ưu đãi từ cửa hàng qua email</div>
-						<div class="col-lg-5 footerr__top--right">
-							<form>
-								<input type="email" name="email" placeholder="email của bạn..." />
-								<button type="submit" class="btn btn-danger btn-outline-dark text-white">Đăng ký</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="footerr__bot">
-					<div class="row">
-						<div class="col-lg-4 footerr__bot--left">
-							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.95441038776!2d106.6756434137993!3d10.737997192347606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f62a90e5dbd%3A0x674d5126513db295!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBDw7RuZyBOZ2jhu4cgU8OgaSBHw7Ju!5e0!3m2!1svi!2s!4v1624222399573!5m2!1svi!2s" style="border:0;height: 195px;width: 100%;border: 1px solid black;" allowfullscreen="" loading="lazy"></iframe>
-						</div>
-						<div class="col-lg-8 footerr__bot--right"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-1_5"></div>
-		</div>
-		</div>
-</section>
-<!-- //footer -->
+		<!-----------FOOTER------------->
+   				<div class="container-fluid box__footer">
+   					<div class="container">
+   						<div class="row footer">
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Hỗ trợ khách hàng</h5>
+   									<div class="border__span"></div>
+   									<li>Hotline chăm sóc khách hàng:<br/>
+   										19000091
+   									</li>
+   									<li>Email liên hệ:</li>
+   									<li>Hướng dẫn trả góp</li>
+   								</ul>
+   							</div>
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Về Compu-Care</h5>
+   									<div class="border__span"></div>
+   									<li>Giới thiệu Compu-Care</li>
+   									<li>Tuyển dụng</li>
+   									<li>Chính sách đổi trả</li>
+   									<li>Phương thức vận chuyển</li>
+   								</ul>
+   							</div>
+   							{{-- <div class="col-lg-3 list__footer">
+   								<ul><h5>Sản phẩm được quan tâm</h5>
+   									<div class="border__span"></div>
+   									<li>
+   										@foreach($dbrand as $v)
+   										<a class="col-lg-6" href="{{url('proinfo/'.$v->spMa)}}">
+   											<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" /><br/>
+   											<span>{{$v->spTen}}</span>
+   										</a>
+
+   										@endforeach
+   									
+   									</li>
+   								</ul>
+   							</div> --}}
+   							<div class="col-lg-3 list__footer">
+   								<ul><h5>Kết nối với chúng tối</h5>
+   									<div class="border__span"></div>
+   									<li>
+   										<a><i class="fab fa-facebook-square" style="font-size: 28px;color: #34A5F4"></i></a>&emsp;
+   										<a><i class="fab fa-twitter-square" style="font-size: 28px;color: #34A5F4"></i></a>
+   									</li>
+   									
+   								</ul>
+   							</div>
+   						</div>
+   						<br/>
+   						<div class="row footer__br"></div>
+   						<div class="row">
+   							<div class="col-lg-6 footer">
+   								<p>Địa chỉ cửa hàng: 180 Cao Lỗ, phường 10, Quận 8, thành phố Hồ Chí Minh</p>
+
+                  <p>Compu-Care nhận đặt hàng trực tuyến và giao hàng tận nơi, và đội ngũ nhân viên hướng dẫn khách hàng mua hàng tận tình tại cửa hàng</p>
+   							</div>
+   						</div>
+   						<div class="row footer__br"></div>
+   						<div class="row">
+   								<div class="col-lg-6 footer">
+   								<p>© 2021 - Bản quyền của Công Ty Cổ Phần Compu-Care - compucare.com</p>
+								<p>Giấy chứng nhận Đăng ký Kinh doanh số 0908712023 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 06/01/2021
+								</p>
+   							</div>
+   							<div class="col-lg-6 footer" style="text-align: right;">
+   								<img width="40" height="40" src="{{URL::asset('public/images/footer/bo-cong-thuong-2.png')}}" />
+   								<img src="{{URL::asset('public/images/footer/bo-cong-thuong.svg')}}"/>
+   							</div>
+   						</div>
+   					</div>
+   				</div>
+   				<!------------END FOOTER------------->
+
 <!-- js -->
 <script type="text/javascript" src="{{URL::asset("public/fe/js/jquery-2.1.4.min.js")}}"></script>
 <!-- //js -->
@@ -180,9 +164,4 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 </body>
-</html>
-
-
-
-
-
+</html>		
