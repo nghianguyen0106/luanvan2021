@@ -107,7 +107,7 @@
 			  	<div class="row justify-content-around">
 			  <button class="btn btn-dark" type="button" onclick="back()">Trở về</button>
 			
-			  <button class="btn_ok" type="submit" name="btn_khd" class="btn btn-primary">Thực hiện</button>
+			  <button id="btn__register" class="btn_ok" type="submit" name="btn_khd" >Thực hiện</button>
 			</div></div>
 			</form>
 			<br/>

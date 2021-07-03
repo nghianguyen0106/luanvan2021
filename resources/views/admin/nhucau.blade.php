@@ -28,7 +28,7 @@
                              </span>
                              &emsp;
                             <span style="color:red">{{$errors->first('ncTen')}}</span>
-                          <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
+                          <button type="submit" name="btn_edit" class="btn btn-primary">Thực hiện</button>
                         </form>
                         </div>
                         @if(Session::has('nc_del')!=null)

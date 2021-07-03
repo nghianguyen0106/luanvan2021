@@ -21,14 +21,13 @@ table
 {
 	font-size: 12px;
 	position: relative;
-	left: 7%;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	color: white;
-	height: 45px;
+	height: 40px;
 	width: 240px;
-	border-radius: 30px;
+	border-radius: 5px;
 	cursor: pointer;
 	background-color: #859BEC;
 	font-family: "Montserrat",san-serif;
@@ -380,10 +379,10 @@ table
 
 
 
-#btnCancel,#btnCancel2, #btnCancel3, #btnCancel4
+#btnCancel
 {
 	position: relative;
-	left: 52%;
+	left: 80%;
 	top: 10%;
 	color: red;
 	display: none;
@@ -396,7 +395,19 @@ table
 }
 
 
-
+.info__left
+{
+	background-color: white;
+	padding:0 20% 1% 20%;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.info__right
+{
+	background-color: white;
+	height: 310px;
+	padding:0 20% 5% 20%;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 
 
 

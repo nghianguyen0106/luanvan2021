@@ -23,7 +23,7 @@
                                  </span>
                               &emsp;
                                 <span style="color:red">{{$errors->first('thTen')}}</span>
-                              <button style="outline: none;" class="btn_ok" type="submit" name="btn_edit" class="btn btn-primary ">Thực hiện</button>
+                              <button style="outline: none;" type="submit" name="btn_edit" class="btn btn-primary ">Thực hiện</button>
                             </form>
                         </div>
                         
