@@ -1,7 +1,7 @@
 //Preview Image Input file
-const img = document.getElementById("img");
+const img = document.getElementById("imgtt");
 const inputImg = document.getElementById("inputImg");
-const btnCancel = document.getElementById("btnCancel");
+const btnCancel = document.getElementById("btnCanceltt");
 const text = document.getElementsByClassName("text")[0];
 function defaultAction()
 	{

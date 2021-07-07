@@ -87,11 +87,11 @@
 				<br/>
 				<div class="row justify-content-around">
 					<div class="col-lg-8">
-						<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 					   	<div id="box__img" class="box__img">
 					   		<span class="text">Chưa có ảnh</span>
 					   		<img id="img" src="" alt="" />
 					   	</div>
+					   	<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 					   	<div>
 					    <input id="inputImg" name="adHinh" type="file" class="form-control">
 					   

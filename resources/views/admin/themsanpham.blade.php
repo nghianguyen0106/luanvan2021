@@ -247,12 +247,12 @@
 					<div class="row justify-content-around">
 					<div class="col-lg-1"></div>
 					<div class="col-lg-8">
-				    <span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 				   	<div id="box__img" class="box__img">
 				   		<span class="text">Chưa có ảnh</span>
 				   		<img id="img" src="" alt="" />
 				   	</div>
 				   	<div>
+				   	<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 				    <input id="inputImg" name="img" type="file" class="form-control" accept="image/x-png,image/gif,image/jpeg,image/png,image/jpg">
 				   
 	 				<label for="exampleInputPassword1" class="form-label"></label>

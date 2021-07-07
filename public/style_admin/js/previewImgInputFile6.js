@@ -1,8 +1,8 @@
 //Preview Image Input file
-const img = document.getElementById("img");
-const inputImg = document.getElementById("inputImg");
-const btnCancel = document.getElementById("btnCancel");
-const text = document.getElementsByClassName("text")[0];
+let imgDefault = document.getElementById("imgDefaultTT");
+let img = document.getElementById("imgtt");
+let inputImg = document.getElementById("inputImg");
+let btnCancel = document.getElementById("btnCanceltt");
 function defaultAction()
 	{
 		inputImg.click();
@@ -15,16 +15,17 @@ inputImg.addEventListener("change", function(){
 		const reader = new FileReader();
 		reader.onload = function(){
 			const result = reader.result;
+			
+			imgDefault.style.display = 'none';
 			img.src = result;
 			img.style.display = 'block';
 			btnCancel.style.display = 'block';
-			text.style.display = 'none';
 		}
 		btnCancel.addEventListener("click",function(){
+			imgDefault.style.display = 'block';
 			img.src = "";
 			img.style.display = 'none';
 			btnCancel.style.display = 'none';
-			text.style.display = 'block';
 		});
 		reader.readAsDataURL(file);
 	}

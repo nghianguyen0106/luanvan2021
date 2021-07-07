@@ -88,7 +88,6 @@
 				<br/>
 				<div class="row justify-content-around">
 					<div class="col-lg-8">
-					<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 				   	<div id="box__img" class="box__img">
 				   		@if($value->adHinh!=null)
 						<img id="imgDefault" src="{{URL::asset('public/images/khachhang/'.$value->adHinh)}}" />
@@ -99,6 +98,7 @@
 						@endif
 				   	
 				   	</div>
+				   	<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 				   	<div>
 				    <input id="inputImg" name="adHinh" type="file" class="form-control">
 				   
@@ -115,7 +115,7 @@
 			<br/>
                                 
 		</div>
-			@if($value->adHinh!=null)
+		@if($value->adHinh!=null)
 		<script src="{{url('public/style_admin/js/previewImgInputFile2.js')}}"></script>
 		@else
 		<script src="{{url('public/style_admin/js/previewImgInputFile1.js')}}"></script>

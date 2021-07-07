@@ -5,7 +5,7 @@ $(document).ready(function() {
     "lengthMenu":"Số dòng hiển thị: _MENU_",
     "search":"Tìm:",
     "emptyTable":"Chưa có dữ liệu!",
-    "info":"Hiển thị _START_ trên _END_ của tổng _TOTAL_ dữ liệu",
+    "info":"Hiển thị _END_ của tổng _TOTAL_ dữ liệu",
     "infoEmpty":"Dữ liệu trống",
     "infoFiltered":"trên tổng _MAX_ dữ liệu đang có",
     "zeroRecords":"Không tìm thấy dữ liệu",

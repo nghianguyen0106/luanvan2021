@@ -253,19 +253,18 @@
                             <form action="{{URL::asset('/themhinh')}}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <input name="spMa" type="text" hidden value="{{$value->spMa}}" />
-                               
-                                <span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
                                 <div id="box__img" class="box__img">
                                     <span class="text">Chưa có ảnh</span>
                                     <img id="img" src="" alt="" />
                                 </div>
+                                 <span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
                                 <div class="col-lg-12 text-center">
                                 <input id="inputImg" name="img" type="file" class="form-control" accept="image/x-png,image/gif,image/jpeg,image/png,image/jpg">
-                               
-                                <label for="exampleInputPassword1" class="form-label"></label>
-                                <label id="btnImg" class="lb__spHinh" onclick="defaultAction()"><i class="fas fa-file-upload" >&nbsp;Chọn ảnh</i></label>
+                               <br/>
                                 <div class="row justify-content-around">
-                                    <button id="btnImg__editSP" class="btn btn-success" type="submit">Xác nhận</button>
+                                <button id="btnImg" class="btn btn-dark" type="button" onclick="defaultAction()"><i class="fas fa-file-upload" >&nbsp;Chọn ảnh</i></button>
+                                
+                                    <button id="btnImg__editSP" class="btn btn-primary" type="submit">Xác nhận</button>
                                  </div>
                             </div>
                                 </div>

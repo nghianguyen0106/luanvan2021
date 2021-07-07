@@ -11,15 +11,15 @@
 				 	<div class="col-lg-3"></div>
 				 	<div class="col-lg-5 info__left">
 				 		<br/>
-				<h5 class="text-dark">THÔNG TIN</h5>
-					<div class="form-group" style="text-align: center;">
+				<h5 class="text-dark text-center">THÔNG TIN</h5>
+					<div class="form-group">
 						<label>Tên nhà cung cấp<input  class="form-control"  type="text" name="nccTen" ></label><br><span class="alert-danger">{{$errors->first('nccTen')}}</span>
 					</div>
 
-					<div class="form-group" style="text-align: center;">
+					<div class="form-group">
 						<label>Số điện thoại<input  class="form-control"  type="number" name="nccSdt" ></label><br><span class="alert-danger">{{$errors->first('nccSdt')}}</span>
 					</div>
-					<div class="form-group" style="text-align: center;">
+					<div class="form-group">
 						<label>Địa chỉ<input  class="form-control"  type="text" name="nccDiachi"></label><br><span class="alert-danger">{{$errors->first('nccDiachi')}}</span>
 						<br/><br/>
 						 <button class="btn btn-secondary" type="button" onclick="back()">Trở về</button>

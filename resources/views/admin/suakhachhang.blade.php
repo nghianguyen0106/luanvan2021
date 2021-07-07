@@ -81,7 +81,6 @@
 				<br/>
 				<div class="row justify-content-around">
 				<div class="col-lg-8">
-				<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 			   	<div id="box__img" class="box__img">
 			   		@if($value->khHinh!=null)
 					<img id="imgDefault" src="{{URL::asset('public/images/khachhang/'.$value->khHinh)}}" />
@@ -92,6 +91,7 @@
 					@endif
 			   		
 			   	</div>
+			   	<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 			   	<div>
 			    <input id="inputImg" name="khHinh" type="file" class="form-control">
  				<label for="exampleInputPassword1" class="form-label"></label>

@@ -57,6 +57,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   							<i class="fas fa-tv" ></i>&nbsp;Sản phẩm
   							</a>
   						</li>
+  						<li class="menu__item">
+  							<a href="{{URL::to('danh-sach-tin-tuc')}}">
+  							<i class="fas fa-tv" ></i>&nbsp;Tin tức
+  							</a>
+  						</li>
   						<!--php-->
   						@if(Session::has('khTen'))
   						<li class="menu__item">

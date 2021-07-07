@@ -11,8 +11,7 @@
                         <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-primary text-center">Quản lý loại</h2>
                             <hr/>
-                            	<form class="form-inline" action="{{URL::to('checkAddLoai')}}" method="GET">
-
+                            	<form class="form-inline" action="{{URL::to('checkAddLoai')}}" method="POST">
 									 {{ csrf_field() }}
 								    <label for="exampleInputPassword1" class="form-label">Tên loại</label>
 								    &emsp;
@@ -51,7 +50,7 @@
                                     <tbody>
 
                                     @foreach($data as $value)
-                                        <tr>
+                                        <tr class="loai{{$value->loaiMa}}">
                                             <td>{{$value->loaiMa}}</td>
 
                                         <form action="{{URL::to('/editLoai/'.$value->loaiMa)}}" method="POST">
@@ -65,9 +64,11 @@
                                                 </button>
                                             </td>
                                         </form>
-                                            <td> <a class="btn btn-danger" href="{{URL::to('/deleteLoai/'.$value->loaiMa)}}" >
+                                            <td> 
+                                                <button class="btn btn-danger btnDel" value="{{$value->loaiMa}}" >
                                                    Xóa
-                                                </a></td>
+                                                </button>
+                                            </td>
 
                                         </tr>
                                     @endforeach
@@ -80,5 +81,33 @@
 
                 </div>
                 <!-- /.container-fluid -->
-<script src="{{URL::asset('public/fe/js/js-validate/validate-empty.js')}}"></script>
+<script>
+    $(document).on('click','.btnDel',function(e){
+    e.preventDefault();
+    var id = $(this).val();
+       $.ajax({
+        type:"GET",
+        cache:false,
+        url:'deleteLoai/'+id,
+        dataType:'JSON',
+        data:{
+            id:id
+        },
+        success:function(response){
+            result = response.message;
+            if(result==1)
+            {
+               alert("Đã có sản phẩm thuộc loại này")
+            }
+            else
+            {
+                alert("Xóa thành công");
+                $(".loai"+id).remove();
+            }
+           
+       }
+        });
+   });
+</script>
+
   @endsection

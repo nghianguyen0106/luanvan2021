@@ -146,6 +146,22 @@
                         <a class="collapse-item"  href="{{URL::to('lich-su-giao-hang')}}">lịch sử giao hàng</a>
                         <a class="collapse-item"  href="{{URL::to('/adBinhluan')}}">Bình luận khách hàng&nbsp;
                         <i class="far fa-comment-alt" style="font-size: 20px;"></i></a>
+                        
+                    </div>
+                </div>
+            </li>
+             <li class="nav-item">
+               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUti"
+                    aria-expanded="true" aria-controls="collapseUti">
+                 <i class="fas fa-window-maximize" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
+                    <span>Quản lý Website</span>
+                </a>
+                <div id="collapseUti" class="collapse" aria-labelledby="headingUti"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Danh mục quản lý:</h6>
+                         <a class="collapse-item"  href="{{URL::to('tin-tuc')}}">Tin tức</a>
+                        
                         <a class="collapse-item"  href="{{URL::to('adBanner')}}">Banner</a>
                     </div>
                 </div>
@@ -159,7 +175,7 @@
 
               <li class="nav-item">
                 <a class="nav-link" href="{{URL::to('/adLogout')}}">
-                    <i class="fas fa-fw fa-table"></i>
+                   <i class="fas fa-sign-out-alt" style="font-size: 18px;color:rgba(255,255,255,.8);"></i>
                     <span>Đăng xuất</span></a>
             </li>
 

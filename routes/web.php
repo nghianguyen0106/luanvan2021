@@ -1,6 +1,7 @@
 <?php
-
+use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -90,6 +91,9 @@ Route::get('wishlist','homeController@wishlist');
 Route::get('addtowishlist/{id}','homeController@addtowishlist');
 //--Đơn hàng--//
 Route::get('huy-don/{id}','homeController@huyDon');
+//--Tin tức-->
+Route::get('danh-sach-tin-tuc','homeController@viewTintuc');
+Route::get('chi-tiet-tin-tuc/{id}','homeController@chiTietTinTuc');
 //---------------------------------------------END USER--------------------------------------------//
 
 // test view
@@ -154,9 +158,9 @@ Route::post('editKho/{id}','adminController@editKho');
 
 //--Loai--//
 
-Route::get('/checkAddLoai','adminController@adCheckAddLoai');
+Route::post('/checkAddLoai','adminController@adCheckAddLoai');
 Route::post('editLoai/{id}','adminController@editLoai');
-Route::get('/deleteLoai/{id}','adminController@adDeleteLoai');
+Route::get('/deleteLoai/{id}',[adminController::class,'adDeleteLoai']);
 
 //--Nhu cầu --//
 
@@ -231,3 +235,12 @@ Route::get('chi-tiet-phieu-thu/{id}','adminController@viewCTDonhang');
 //-----Khóa tài khoản----->
 Route::get('khoa-nv/{id}','adminController@khoaNhanvien');
 Route::get('mokhoa-nv/{id}','adminController@moKhoaNhanvien');
+
+//------Tin tức--------->
+Route::get('tin-tuc','adminController@viewTintuc');
+Route::get('them-tin-tuc','adminController@themTintuc');
+Route::post('checkAddTT','adminController@adCheckAddTT');
+Route::get('cap-nhat-tin-tuc/{id}','adminController@adUpdateTintuc');
+Route::post('editTintuc/{id}','adminController@editTintuc');
+Route::get('xoa-tin-tuc/{id}',[adminController::class,'deleteTintuc']);
+

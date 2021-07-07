@@ -86,12 +86,13 @@
 				<br/>
 				<div class="row justify-content-around">
 				<div class="col-lg-8">
-				<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
+				
 			   	<div id="box__img" class="box__img">
 			   		<span class="text">Chưa có ảnh</span>
 			   		<img id="img" src="" alt="" />
 			   	</div>
 			   	<div>
+			   		<span id="btnCancel"><i class="fas fa-times" style="font-size: 20px;"></i></span>
 			    <input id="inputImg" name="khHinh" type="file" class="form-control">
  				<label for="exampleInputPassword1" class="form-label"></label>
 			    <label id="btnImg" class="lb__khHinh" onclick="defaultAction()"><i class="fas fa-file-upload" style="font-size: 20px;">&nbsp;Thêm ảnh khách hàng</i></label>

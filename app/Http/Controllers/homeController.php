@@ -970,6 +970,17 @@ class homeController extends Controller
             return redirect()->back();
         }
     }
+
+    //////////////////TIN TỨC ////////////////////
+    public function viewTintuc()
+    {
+        $data = DB::table('tintuc')->get();
+        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
+                ->where('hinh.thutu','=','1')
+                ->inRandomOrder()
+                ->limit(4)->get();
+        return view('Userpage.danh-sach-tin-tuc')->with('data',$data)->with('dbrand',$dbrand);
+    }
         
 }
 
