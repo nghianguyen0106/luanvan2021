@@ -32,7 +32,7 @@ class CreateDonhangTable extends Migration
             
             //foreign key
              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
-             $table->foreign('kmMa')->references('kmMa')->on('adKhuyenmai')->onDelete('cascade')->onUpdate('cascade');
+             $table->foreign('kmMa')->references('kmMa')->on('Khuyenmai')->onDelete('cascade')->onUpdate('cascade');
              
         });
     }

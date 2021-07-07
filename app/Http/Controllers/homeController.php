@@ -459,11 +459,14 @@ class homeController extends Controller
         Session::forget("note__errC");
        Session::forget("note__err");
        //end
-       
+       if(Cart::count()==0)
+       {
+        Session::forget('vcMa');
+       }
         $cate=loai::get();
         $cart=cart::content();
-        $total=0;
         $a=array();
+        $total=0;
         foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
@@ -490,8 +493,8 @@ class homeController extends Controller
             }
 
         }
-      //  dd($use,$unuse);
-        
+        Session::put('total',$total);
+
         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->where('hinh.thutu','=','1')
                 ->inRandomOrder()
@@ -499,7 +502,7 @@ class homeController extends Controller
         
             
         return view('Userpage.checkout',compact('cate','cart','total','dbrand','use','unuse'))->with('promotion',$checkexistKhuyenmai);
-    }
+        }
 
     public function order(Request $re)
     {
@@ -512,17 +515,17 @@ class homeController extends Controller
                 $cate=loai::get();
                 $leng=strlen($re->promo);
                 $str=strpos($re->promo,",");
-
                 $kmMa=substr($re->promo,0,$str);
                 $spMa=substr($re->promo,$str+1,$leng);
                 
-                //dd($proinfo);
                 $promoInfo=khuyenmai::where('khuyenmai.kmMa',$kmMa)->join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->first();
-                if($promoInfo)
-                {
-                    $proinfo=sanpham::where('spMa',$spMa)->first();
                     $pricePromo=0;
                     $total=0;
+                    $proinfo=sanpham::where('spMa',$spMa)->first();
+                // Apply promotion
+                if($promoInfo)
+                {
+                    
                     foreach ($cart as  $i) 
                     {
                         if($i->id==$spMa)
@@ -539,7 +542,7 @@ class homeController extends Controller
                       
                             }
                             $total+=$i->price*$i->qty-$pricePromo;
-                            // return $pricePromo;
+                             return $pricePromo;
                         }
                         else
                         {
@@ -547,45 +550,89 @@ class homeController extends Controller
                         }
                     }
                 }
-                $vcInfo=voucher::where('vcMa',Session::get('vcMa'))->first();
+
+                $priceVc=0;
+                $discountPercent=0;
                 
+                // Apply voucher
+                $vcInfo=voucher::where('vcMa',Session::get('vcMa'))->first();
                 if($vcInfo!=null)
-                {
+                { 
                     $proinfo=sanpham::where('spMa',$vcInfo->spMa)->first();
-
-                    $pricePromo=0;
-                    $total=0;
-                    foreach ($cart as  $i) 
+                    foreach ($cart as  $i)
                     {
-                        if($i->id==$spMa)
+                        if($vcInfo->vcLoai==0)//Theo san pham
                         {
-                            if($promoInfo->kmGiatritoida!=null)
-                            {
-                               $discountPercent=$promoInfo->kmTrigia/100;
-
-                               $pricePromo=($i->price*$i->qty*$discountPercent)*$i->qty;
-                                if($pricePromo>$promoInfo->kmGiatritoida)
-                               {
-                                   $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
-                               }
+                            if($i->id==$vcInfo->spMa)
+                            { 
+                                // Giam theo gia
+                                if($vcInfo->vcLoaigiamgia==0)
+                                {
+                                    $discountPercent=$vcInfo->vcMucgiam;
+                                    $priceVc=$discountPercent*$i->qty;
+                                    if($discountPercent > $vcInfo->vcGiatritoida)
+                                    {
+                                        $priceVc=$vcInfo->vcGiatritoida*$i->qty;
+                                    }
+                                    $total+=$i->price*$i->qty-$priceVc;
+                                }
+                                //Giam theo %
+                                if($vcInfo->vcLoaigiamgia==1)
+                                {
+                                    $discountPercent=$vcInfo->vcMucgiam/100;
+                                    $priceVc=$discountPercent*$i->price*$i->qty;
+                                    
+                                    if(($priceVc/$i->qty) > $vcInfo->vcGiatritoida)
+                                    {
+                                        $priceVc=$vcInfo->vcGiatritoida*$i->qty;
+                                    }
+                                    $total+=$i->price*$i->qty-$priceVc;
+                                }
                             }
-                            $total+=$i->price*$i->qty-$pricePromo;
-                            // return $pricePromo;
+                            else
+                            {
+                                $total+=$i->price*$i->qty;
+                            }
                         }
-                        else
+                        elseif($vcInfo->vcLoai==1)// Theo don hang
                         {
                             $total+=$i->price*$i->qty;
+                            // Giam theo gia
+                            if($vcInfo->vcLoaigiamgia==0)
+                            {
+                                $priceVc=$vcInfo->vcMucgiam;
+                            }
+                            //Giam theo %
+                            if($vcInfo->vcLoaigiamgia==1)
+                            {
+                               $discountPercent=$vcInfo->vcMucgiam/100;
+                            }                      
                         }
-                    }
+                    }//End foreach cart
                 }
-
-                //return $total;
+                            // Giam theo gia
+                            if($vcInfo->vcLoaigiamgia==0)
+                            {
+                                $total=$total-$priceVc;
+                            }
+                            //Giam theo %
+                            if($vcInfo->vcLoaigiamgia==1)
+                            {
+                               $priceVc=$total*$discountPercent;
+                               if($priceVc > $vcInfo->vcGiatritoida)
+                               {
+                                    $priceVc=$vcInfo->vcGiatritoida;
+                               }
+                               $total-=$priceVc;
+                            }
+                //return  number_format($priceVc)." ". number_format($total);
+                
                  $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->where('hinh.thutu','=','1')
                 ->inRandomOrder()
                 ->limit(4)->get();  
                 //dd($dbrand);
-                return view('Userpage.confirmcheckout',compact('vcInfo','pricePromo','promoInfo','proinfo','cate','cart','total','dbrand'));
+                return view('Userpage.confirmcheckout',compact('vcInfo','priceVc','pricePromo','promoInfo','proinfo','cate','cart','total','dbrand'));
 
             }
             else
@@ -916,11 +963,12 @@ class homeController extends Controller
         if($re->vcMa==null)
         {
             Session::flash('err','Mã voucher không được để trống !');
+            Session::forget('vcMa');
             return redirect()->back();
         }
         $checkExistVoucher=voucher::where('vcMa',$re->vcMa)->where('vcTinhtrang',1)->first();
         $countOrderusedVoucher=donhang::where('khMa',Session::get('khMa'))->where('vcMa',$re->vcMa)->count();
-        //dd($checkExistVoucher);
+        //dd($re->total);
         if($checkExistVoucher)
         {
            if($countOrderusedVoucher!=0)
@@ -945,7 +993,7 @@ class homeController extends Controller
                         $proName=sanpham::find($checkExistVoucher->spMa);
                         Session::flash('success','Đã áp dụng voucher cho sản phẩm: '.$proName->spTen.' ');
                         Session::put('vcMa',$re->vcMa);
-                        return redirect()->back();    
+                        return redirect()->back();
                     }
                     else
                     {
@@ -954,13 +1002,40 @@ class homeController extends Controller
                     }
                     
                 }
-                else
+                elseif($checkExistVoucher->vcLoai==1)
                 {
-                    Session::flash('success','Đã áp dụng voucher cho đơn hàng này !');
-                    Session::put('vcMa',$re->vcMa);
-                    return redirect()->back();
+                    if($checkExistVoucher->vcDkapdung==0)
+                    {
+                        if($re->total<$checkExistVoucher->vcGtcandat)
+                        {
+                            Session::flash('err','Tổng giá trị đơn hàng của bạn phải lớn hơn ' .number_format($checkExistVoucher->vcGtcandat)."đ mới có thể áp dụng voucher này !");
+                             Session::forget('vcMa');
+                            return redirect()->back();
+                        }
+                        else
+                        {
+                            Session::flash('success','Đã áp dụng voucher cho đơn hàng này !');
+                            Session::put('vcMa',$re->vcMa);
+                            return redirect()->back();
+                        }
+                    }
+                    if($checkExistVoucher->vcDkapdung==1)
+                    {
+                        if(Cart::count()<$checkExistVoucher->vcGtcandat)
+                        {
+                            Session::flash('err','Tổng số sản phẩm của bạn phải lớn hơn ' .number_format($checkExistVoucher->vcGtcandat)." mới có thể áp dụng voucher này !");
+                             Session::forget('vcMa');
+                            return redirect()->back();
+                        }
+                        else
+                        {
+                            Session::flash('success','Đã áp dụng voucher cho đơn hàng này !');
+                            Session::put('vcMa',$re->vcMa);
+                            return redirect()->back();
+                        }
+                    }
+                    
                 }
-                
            }
         }
         else
@@ -974,12 +1049,28 @@ class homeController extends Controller
     //////////////////TIN TỨC ////////////////////
     public function viewTintuc()
     {
-        $data = DB::table('tintuc')->get();
+        $data1 = DB::table('tintuc')->where('ttTinhtrang','0')->where('ttLoai','1')->orderBy('ttNgaydang','desc')->get();
+        $data2 = DB::table('tintuc')->where('ttTinhtrang','0')->where('ttLoai','2')->orderBy('ttNgaydang','desc')->get();
         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->where('hinh.thutu','=','1')
                 ->inRandomOrder()
                 ->limit(4)->get();
-        return view('Userpage.danh-sach-tin-tuc')->with('data',$data)->with('dbrand',$dbrand);
+        return view('Userpage.danh-sach-tin-tuc')->with('data1',$data1)->with('data2',$data2)->with('dbrand',$dbrand);
+    }
+     public function tintucInfo($id)
+    {
+       $data = DB::table('tintuc')->where('ttMa',$id)->get();
+    $data2 = DB::table('tintuc')->where('ttTinhtrang','0')->where('ttLoai','2')->orderBy('ttNgaydang','desc')->get();
+       $viewOld = DB::table('tintuc')->select('ttLuotxem')->where('ttMa',$id)->first();
+       $changeView = array();
+       $changeView['ttLuotxem']=$viewOld->ttLuotxem+1; 
+       DB::table('tintuc')->where('ttMa',$id)->update($changeView);
+
+        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
+                ->where('hinh.thutu','=','1')
+                ->inRandomOrder()
+                ->limit(4)->get();
+        return view('Userpage.chi-tiet-tin-tuc')->with('data',$data)->with('data2',$data2)->with('dbrand',$dbrand);
     }
         
 }

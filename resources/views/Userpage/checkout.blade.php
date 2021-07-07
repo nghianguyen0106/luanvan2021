@@ -79,6 +79,7 @@ Giỏ hàng
 				value="{{Session::get('vcMa')}}" 
 				@endif
 				>
+				<input type="text" style="display: none;" name="total" value="{{$total}}">
 				<button type="submit" class="btn btn-outline-info"><i class="fas fa-info-circle"></i> Kiểm tra</button>
 				@if(Session::has('vcMa'))
 				<span class="alert-success">Đã áp dụng voucher!</span>
@@ -135,7 +136,7 @@ Giỏ hàng
 					</div>
 				</div>
 			</div>
-
+				
 			<div class="row justify-content-center" style="margin-top: 1rem;">
 				<button type="submit" class="btn btn-success col-3" href="">Tiến hành đặt hàng</button>
 				</form>

@@ -16,7 +16,7 @@ class CreateKhoSpHongTable extends Migration
         Schema::create('kho_sp_hong', function (Blueprint $table) {
             $table->integer('spMa');
             $table->integer('khoSlsphong');
-
+            $table->engine="InnoDB";
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
         });
     }

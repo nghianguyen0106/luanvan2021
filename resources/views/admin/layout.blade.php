@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    {{-- <meta http-equiv="refresh" content="3"> --}}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,13 +28,10 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{URL::asset("admin")}}">
                 <div class="sidebar-brand-icon rotate-n-15">
@@ -44,13 +39,9 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Hi {{Session::get('adTen')}}</div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-           
-
+            <!-- Nav Item - Dashboard --> 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -59,7 +50,6 @@
                 Interface
             </div>
             <!-- Nav Item - Utilities Collapse Menu -->
-            
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">

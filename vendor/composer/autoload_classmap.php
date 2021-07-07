@@ -51,6 +51,8 @@ return array(
     'App\\Models\\slide' => $baseDir . '/app/Models/slide.php',
     'App\\Models\\thu' => $baseDir . '/app/Models/thu.php',
     'App\\Models\\thuonghieu' => $baseDir . '/app/Models/thuonghieu.php',
+    'App\\Models\\tintuc' => $baseDir . '/app/Models/tintuc.php',
+    'App\\Models\\tthinh' => $baseDir . '/app/Models/tthinh.php',
     'App\\Models\\voucher' => $baseDir . '/app/Models/voucher.php',
     'App\\Models\\voucher_log' => $baseDir . '/app/Models/voucher_log.php',
     'App\\Models\\wishlist' => $baseDir . '/app/Models/wishlist.php',

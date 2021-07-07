@@ -90,7 +90,7 @@
 					<div class="col-lg-8">
 				   	<div id="box__img" class="box__img">
 				   		@if($value->adHinh!=null)
-						<img id="imgDefault" src="{{URL::asset('public/images/khachhang/'.$value->adHinh)}}" />
+						<img id="imgDefault" src="{{URL::asset('public/images/nhanvien/'.$value->adHinh)}}" />
 						<img id="img" src="" alt="" />
 						@else
 						<span class="text">Chưa có ảnh</span>

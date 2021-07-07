@@ -16,12 +16,18 @@
 					<div class="form-group">
 						<br/>
 						<label>Tiêu đề</label><br>
-							<input name="ttTieude" class="form-control" type="text"/>
+						<input name="ttTieude" class="form-control" type="text"/>
+						<br/>
+						<label>Giới thiệu nội dung</label><br>
+						<input name="ttGioithieu" class="form-control" type="text"/>
 					</div>
 
 					<div class="form-group">
 						<label>Nội dung</label><br>
-					<textarea name="ttNoidung" style="width: 100%;height: 300px;"></textarea>
+					<textarea id="tintuc__noidung" name="ttNoidung" style="width: 100%;height: 300px;"></textarea>
+					<label>Thông tin về</label><br>
+					<input type="radio" name="ttLoai" value="1"/>&nbsp;Cửa hàng &emsp;
+					 <input type="radio" name="ttLoai" value="2" />&nbsp;Bên lề
 					</div>
 				
 					<label>Ảnh chủ đề</label><br>
@@ -49,6 +55,29 @@
 
 
 <script src="{{url('public/style_admin/js/previewImgInputFile5.js')}}"></script>
+<!-------checkdirto---->
+<script src="{{url('public/style_admin/ckeditor/ckeditor.js')}}"></script>
+<script>
+    // Thay thế <textarea id="post_content"> với CKEditor
+    
+  //  CKEDITOR.replace( 'post_content' );// tham số là biến name của textarea
+  CKEDITOR.replace( 'tintuc__noidung',
+{
+startupFocus : true,
+toolbar :
+[
+['ajaxsave'],['Styles', 'Format', 'Font', 'FontSize'],
+['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
+['Cut','Copy','Paste','PasteText'],
+['Undo','Redo','-','RemoveFormat'],
+['TextColor','BGColor'],
+['Maximize', 'Table']
+],
+//filebrowserUploadUrl : 'admin/view/action/edit_product.php' // you must write path to filemanager where you have copied it.
+});
+        
+</script>
+<!---------end checkdirto--------------------->
 @if(Session::has('err'))
  <script type="text/javascript" >
 Swal.fire({

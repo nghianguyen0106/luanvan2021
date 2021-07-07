@@ -20,9 +20,12 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
-                                            <th>Mã tin tức</th>
-                                            <th>Tiêu đề tin tức</th>
-                                            <th>Ngày nhập</th>
+                                            <th>Người đăng</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Thông tin về</th>
+                                            <th>Ngày viết</th>
+                                            <th>Lượt xem</th>
+                                            <th>Tình trạng</th>
                                             <th></th> 
                                              <th></th>  
                                         </tr>
@@ -30,9 +33,12 @@
                                    
                                      <tfoot  style="display:none;"> 
                                          <tr>
-                                            <th>Mã tin tức</th>
-                                            <th>Tiêu đề tin tức</th>
-                                            <th>Ngày nhập</th>
+                                            <th>Người đăng</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Thông tin về</th>
+                                            <th>Ngày viết</th>
+                                            <th>Lượt xem</th>
+                                            <th>Tình trạng</th>
                                             <th></th> 
                                             <th></th>  
                                         </tr>
@@ -41,9 +47,12 @@
 
                                     @foreach($data as $value)
                                         <tr class="tt{{$value->ttMa}}">
-                                            <td>{{$value->ttMa}}</td>
+                                            <td>{{$value->adTen}}</td>
                                             <td>{{$value->ttTieude}}</td>
-                                            <td>{{$value->ttNgay}}</td>
+                                            <td>{{$value->ttLoai==1?"Cửa hàng":"Bên lề"}}</td>
+                                            <td>{{$value->ttNgaydang}}</td>
+                                            <td>{{$value->ttLuotxem}}</td>
+                                            <td>{{$value->ttTinhtrang==0?"Hiện":"Ẩn"}}</td>
                                            <td>
                                             <a class="btn btn-primary" href="{{URL::to('cap-nhat-tin-tuc/'.$value->ttMa)}}">Cập nhật</a>
                                             </td>

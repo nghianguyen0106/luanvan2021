@@ -59,7 +59,7 @@
                                                 @endif</td>
                                             <td>
                                                 @if($value->vcLoai==0)
-                                                    Cho sản phẩm
+                                                    Cho sản phẩm {{$value->spTen}}
                                                 @else
                                                     Cho đơn hàng
                                                 @endif
@@ -91,9 +91,17 @@
                                             </td>
                                             <td>
                                                 @if($value->vcDkapdung==0)
-                                                    {{$value->vcGtcandat}} VND
+                                                    @if($value->vcGtcandat==0)
+                                                        Không giới hạn
+                                                    @else
+                                                    {{number_format($value->vcGtcandat)}} VND
+                                                    @endif
                                                 @else
+                                                    @if($value->vcGtcandat==0)
+                                                        Không giới hạn số lượng sản phẩm
+                                                    @else
                                                     {{$value->vcGtcandat}} Sản phẩm
+                                                    @endif
                                                 @endif
                                             </td>
                                             <td>

@@ -327,7 +327,7 @@ class adminController extends Controller
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         Session::put('hdTinhtrang1',$noteDonhang1);
 
-        $data = DB::table('tintuc')->get();
+        $data = DB::table('tintuc')->join('admin','admin.adMa','=','tintuc.adMa')->get();
         return view('admin.tin-tuc')
                                 ->with('data',$data)->with('noteDanhgia',$noteDanhgia)
                                 ->with('noteDonhang',$noteDonhang)
@@ -2426,7 +2426,11 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $vc= DB::table('voucher')->where('vcTinhtrang','!=' ,99)->get();
+// <<<<<<< HEAD
+//             $vc= DB::table('voucher')->where('vcTinhtrang','!=' ,99)->get();
+// =======
+//             $vc= DB::table('voucher')->leftjoin('sanpham','sanpham.spMa','voucher.spMa')->where('vcTinhtrang','!=' ,99)->get();;
+// >>>>>>> c1c73bb05b25ce16af2280091551c210c326cb29
             
             return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -2616,26 +2620,32 @@ public function adCheckAddKhuyenmai(Request $re)
         //dd($re->vcDkapdung);
         if($re->vcDkapdung==0)
         {
-            if($re->vcGtcandat>=1000)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>=1000)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         else
         {
-            if($re->vcGtcandat>0)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>0)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         if($re->vcTinhtrang!=null)
@@ -2794,26 +2804,32 @@ public function adCheckAddKhuyenmai(Request $re)
    
         if($re->vcDkapdung==0)
         {
-            if($re->vcGtcandat>=1000)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>=1000)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         else
         {
-            if($re->vcGtcandat>0)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>0)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         if($re->vcTinhtrang!=null)
@@ -2960,12 +2976,17 @@ public function adCheckAddKhuyenmai(Request $re)
             $data = array();
             $data['ttMa'] = rand(0,1000).strlen($re->ttTieude).strlen($re->ttNoidung);
             $data['ttTieude'] = $re->ttTieude;
+            $data['ttGioithieu'] = $re->ttGioithieu;
             $data['ttNoidung'] = $re->ttNoidung;
+            $data['ttLoai'] =$re->ttLoai; 
             $data['ttHinh'] = $re->file('ttHinh')->getClientOriginalName();
                 $imgextention=$re->file('ttHinh')->extension();
                 $file=$re->file('ttHinh');
                 $file->move('public/images/tintuc',$data['ttHinh']);
-            $data['ttNgay'] = now();
+            $data['ttNgaydang'] = now();
+            $data['ttTinhtrang'] =0;
+            $data['ttLuotxem'] =0;
+            $data['adMa'] =SESSION::get('adMa');
             DB::table('tintuc')->insert($data);
 
             $data1 = array();
@@ -3003,12 +3024,15 @@ public function adCheckAddKhuyenmai(Request $re)
         {
         $data = array();
         $data['ttTieude'] = $re->ttTieude;
+        $data['ttGioithieu'] = $re->ttGioithieu;
         $data['ttNoidung'] = $re->ttNoidung;
+        $data['ttLoai'] =$re->ttLoai; 
         $data['ttHinh'] = $re->file('ttHinh')->getClientOriginalName();
             $imgextention=$re->file('ttHinh')->extension();
             $file=$re->file('ttHinh');
             $file->move('public/images/tintuc',$data['ttHinh']);
-        DB::table('tintuc')->update($data);
+        $data['ttTinhtrang'] = $re->ttTinhtrang;
+        DB::table('tintuc')->where('ttMa',$id)->update($data);
 
         $data1 = array();
         $data1['adMa'] = Session::get('adMa');
@@ -3022,8 +3046,11 @@ public function adCheckAddKhuyenmai(Request $re)
         {
         $data = array();
         $data['ttTieude'] = $re->ttTieude;
+        $data['ttGioithieu'] = $re->ttGioithieu;
         $data['ttNoidung'] = $re->ttNoidung;
-        DB::table('tintuc')->update($data);
+        $data['ttLoai'] =$re->ttLoai; 
+        $data['ttTinhtrang'] = $re->ttTinhtrang;
+        DB::table('tintuc')->where('ttMa',$id)->update($data);
 
         $data1 = array();
         $data1['adMa'] = Session::get('adMa');

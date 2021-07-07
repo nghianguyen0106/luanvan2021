@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //---------------------------------------------USER---------------------------------------------------//Welcome page
-Route::get('/', 'homeController@welcome' )->name('abc');
+Route::get('/', 'homeController@welcome' );
 
 // user info
 Route::get('/infomation/{id}','homeController@viewInfomation');
@@ -83,7 +83,7 @@ Route::get('sendmail','cartController@sendmail');
 // ----
 
 //------ Check exist voucher---------//
-Route::post('checkvoucher','homeController@checkvoucher');
+Route::post('checkvoucher','homeController@checkvoucher')->name('checkvoucher');
 //---
 
 //Wishlist
@@ -93,7 +93,7 @@ Route::get('addtowishlist/{id}','homeController@addtowishlist');
 Route::get('huy-don/{id}','homeController@huyDon');
 //--Tin tức-->
 Route::get('danh-sach-tin-tuc','homeController@viewTintuc');
-Route::get('chi-tiet-tin-tuc/{id}','homeController@chiTietTinTuc');
+Route::get('chi-tiet-tin-tuc/{id}','homeController@tintucInfo');
 //---------------------------------------------END USER--------------------------------------------//
 
 // test view
