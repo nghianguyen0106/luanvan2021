@@ -1,6 +1,6 @@
 @extends('Userpage.layout')
 @section('title')
-Xác nhận hóa đơn
+Xác nhận đơn hàng
 @endsection
 @section('content')
 
