@@ -59,6 +59,7 @@
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Ảnh</th>
+                                            <th>Giá</th>
                                             <th>Loại sản phẩm</th>
                                             <th>Nhà cung cấp</th>
                                     
@@ -86,7 +87,9 @@
 												
                                                 </a>
                                             </td>
+
                                             <td><a href="{{URL::to('updateSanpham/'.$v->spMa)}}" class="active tooltips" ui-toggle-class=""><img style="width: auto;height: 100px;" src="{{URL::asset('public/images/products/'.$v->spHinh)}}" alt=""></td>
+                                            	<td style="color: Blue;">{{number_format($v->spGia)}}đ</td>
                                                 <td>{{$v->loaiTen}}</a></td>
                                           <td>
                                           	 <div class="tooltips">

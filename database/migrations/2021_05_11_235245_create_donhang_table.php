@@ -27,10 +27,12 @@ class CreateDonhangTable extends Migration
             $table->integer('hdGiakhuyenmai');
             $table->char('vcMa')->nullable(true);
             $table->integer('adMa')->nullable(true);
+            $table->integer('kmMa')->nullable(true);
             $table->engine = "InnoDB";
             
             //foreign key
              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
+             $table->foreign('kmMa')->references('kmMa')->on('Khuyenmai')->onDelete('cascade')->onUpdate('cascade');
              
         });
     }

@@ -553,6 +553,7 @@ class homeController extends Controller
 
                 $priceVc=0;
                 $discountPercent=0;
+                
                 // Apply voucher
                 $vcInfo=voucher::where('vcMa',Session::get('vcMa'))->first();
                 if($vcInfo!=null)
