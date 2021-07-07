@@ -2421,7 +2421,7 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $vc= DB::table('voucher')->where('vcTinhtrang','!=' ,99)->get();;
+            $vc= DB::table('voucher')->leftjoin('sanpham','sanpham.spMa','voucher.spMa')->where('vcTinhtrang','!=' ,99)->get();;
             
             return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -2611,26 +2611,32 @@ public function adCheckAddKhuyenmai(Request $re)
         //dd($re->vcDkapdung);
         if($re->vcDkapdung==0)
         {
-            if($re->vcGtcandat>=1000)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>=1000)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         else
         {
-            if($re->vcGtcandat>0)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>0)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         if($re->vcTinhtrang!=null)
@@ -2789,26 +2795,32 @@ public function adCheckAddKhuyenmai(Request $re)
    
         if($re->vcDkapdung==0)
         {
-            if($re->vcGtcandat>=1000)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>=1000)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo giá phải lớn hơn 1000đ !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         else
         {
-            if($re->vcGtcandat>0)
+            if($re->vcGtcandat!=null)
             {
-                $vc->vcGtcandat=$re->vcGtcandat;
-            }
-            else
-            {
-                Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
-                return "<script>window.history.back();</script>";
+                if($re->vcGtcandat>0)
+                {
+                    $vc->vcGtcandat=$re->vcGtcandat;
+                }
+                else
+                {
+                    Session::flash('err','Điều kiện áp dụng theo sản phẩm phải lớn hơn 0 !');
+                    return "<script>window.history.back();</script>";
+                }
             }
         }
         if($re->vcTinhtrang!=null)

@@ -44,9 +44,8 @@ Xác nhận hóa đơn
 				@endif
 				
 						<form action="{{URL::to('gocheckout/'.$total)}}" method="post">
-												{{ csrf_field()}}
-
-					@if($promoInfo)
+						{{ csrf_field()}}
+				@if($promoInfo)
 					<tfoot>
 					<tr>
 					<td colspan="5">
@@ -95,44 +94,62 @@ Xác nhận hóa đơn
 							<div class="col-lg-5">
 								<h5>Sản phẩm được giảm giá:&nbsp;{{$proinfo->spTen}}</h5>
 								<input type="text" hidden name="spMa" value="{{$proinfo->spMa}}">
-								<input type="text"  hidden  name="kmMa" value="{{$vcInfo->vcMa}}">
+								<input type="text"  hidden  name="vcMa" value="{{$vcInfo->vcMa}}">
 							</div>
 							@else
 							<div class="col-lg-5"></div>
 							@endif
 
-							<div class="col-lg-5">
-							
 								@if($vcInfo->vcLoaigiamgia==0)
+								<div class="col-lg-5">
 								<span style="color:#FF4242;font-weight: bold;">Giảm giá trực tiếp:&nbsp;
-									{{$vcInfo->vcMucgiam}} VND</span>
-									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
-								@elseif($vcInfo->vcLoai==1)
-								<span style="color:#FF4242;font-weight: bold;">Giảm giá:&nbsp;
-									{{$vcInfo->vcMucgiam}} % </span>
-									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
-								@endif
-
-								</div>
-						</div>
-						@if($vcInfo->vcLoaigiamgia==1)
-						<div class="row justify-content-around">
-							<div class="col-lg-5">
+									{{number_format($vcInfo->vcMucgiam)}} VND (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / 1 sản phẩm)</span>
+									</div>
+								<div class="col-lg-5">
 								<h5>Số tiền được giảm:</h5>
-							</div>
+								</div>
 							<div class="col-lg-5">
-								<span>{{number_format($pricePromo)}}&nbsp;VND</span>
-								<input readonly type="number" name="price" value="{{$pricePromo}}">
+								<span>{{number_format($priceVc)}}&nbsp;VND</span>
+								<input readonly type="number" name="price" value="{{$priceVc}}">
 							</div>
+									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
+								@elseif($vcInfo->vcLoaigiamgia==1)
+									@if($vcInfo->vcLoai==0)
+										<div class="col-lg-5">
+											<span style="color:#FF4242;font-weight: bold;">Giảm giá:&nbsp;
+												{{$vcInfo->vcMucgiam}} % (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / 1 sản phẩm)</span>
+												<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
+										</div>
+										<div class="col-lg-5">
+											<h5>Số tiền được giảm:</h5>
+										</div>
+										<div class="col-lg-5">
+											<span>{{number_format($priceVc)}}&nbsp;VND</span>
+											<input readonly type="number" name="price" value="{{$priceVc}}">
+										</div>
+									@elseif($vcInfo->vcLoai==1)
+										<div class="col-lg-5">
+										<span style="color:#FF4242;font-weight: bold;">Giảm giá:&nbsp;
+											{{$vcInfo->vcMucgiam}} % (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / Tổng giá trị đơn hàng)</span>
+											<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
+										</div>
+										<div class="col-lg-5">
+											<h5>Số tiền được giảm:</h5>
+										</div>
+										<div class="col-lg-5">
+											<span>{{number_format($priceVc)}}&nbsp;VND</span>
+											<input readonly type="number" name="price" value="{{$priceVc}}">
+										</div>
+									@endif
+								@endif
 						</div>
-						@endif
 						<hr>
 						<div class="row justify-content-around">
 							<div class="col-lg-5">
 								<h5>Tổng tiền:</h5>
 							</div>
 							<div class="col-lg-5">
-								<span>{{number_format($total)}}&nbsp;VND</span>
+								<span style="color: red;font-weight: bold; font-size: 20px;">{{number_format($total)}}&nbsp;VND</span>
 								<input readonly type="number" value="{{$total}}" name="total">  
 							</div>
 						</div>
@@ -140,7 +157,7 @@ Xác nhận hóa đơn
 				</tr>
 			</tfoot>
 			@else
-			<tfoot>
+				<tfoot>
 						<tr style="text-align: right;">
 								<td colspan="4" style="padding-right: 4px;"><span><strong>TỔNG TIỀN:</strong></span></td>
 								<td colspan="1" style="padding-right: 4px;">

@@ -11,7 +11,7 @@
 				 <legend>Sửa voucher {{$vc->vcTen}}</legend>
 				 <div class="row">
 				 	<div class="mb-4 col-4">
-						<label for="mota">Mã: <input type="text" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa" value="{{$vc->vcMa}}"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
+						<label for="mota">Mã: <input type="text" readonly="" title="Mã phải là chữ hoặc số không chứa ký tự đặc biệt. Độ dài từ 4-12 ký tự." pattern="[A-Za-z\d]{3,12}" minlength="5" class="form-control" name="vcMa" value="{{$vc->vcMa}}"><span style="color: red;">{{$errors->first('vcMa')}}</span></label>
 					</div>
 				 	<div class="mb-4 col-4">
 						<label for="mota">Tên: <input type="text" minlength="5" class="form-control" name="vcTen" value="{{$vc->vcTen}}"><span style="color: red;">{{$errors->first('vcTen')}}</span></label>
@@ -55,7 +55,7 @@
 					</div>
 					<div class="mb-3 col-4">
 						<label for="mota">Giá trị được giảm tối đa:
-						<input type="number" class="form-control" min="1" name="vcGiatritoida" style="width: 190px;" value="{{$vc->vcGiatritoida}}"><span style="color: red;">{{$errors->first('vcGiatritoida')}}</span></label>
+						<input type="number" title="Mức giảm giá tối đa cho 1 sản phẩm hoặc 1 đơn hàng." class="form-control" min="1" name="vcGiatritoida" style="width: 190px;" value="{{$vc->vcGiatritoida}}"><span style="color: red;">{{$errors->first('vcGiatritoida')}}</span></label>
 					</div>
 					<div class="mb-4 col-4">
 						<label for="mota">Loại voucher:<br>

@@ -568,6 +568,8 @@ class ComposerStaticInit9eb52166cf50f3ae5af27c780c593536
         'App\\Models\\slide' => __DIR__ . '/../..' . '/app/Models/slide.php',
         'App\\Models\\thu' => __DIR__ . '/../..' . '/app/Models/thu.php',
         'App\\Models\\thuonghieu' => __DIR__ . '/../..' . '/app/Models/thuonghieu.php',
+        'App\\Models\\tintuc' => __DIR__ . '/../..' . '/app/Models/tintuc.php',
+        'App\\Models\\tthinh' => __DIR__ . '/../..' . '/app/Models/tthinh.php',
         'App\\Models\\voucher' => __DIR__ . '/../..' . '/app/Models/voucher.php',
         'App\\Models\\voucher_log' => __DIR__ . '/../..' . '/app/Models/voucher_log.php',
         'App\\Models\\wishlist' => __DIR__ . '/../..' . '/app/Models/wishlist.php',

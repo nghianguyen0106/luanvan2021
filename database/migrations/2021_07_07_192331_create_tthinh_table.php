@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKhoSpHongTable extends Migration
+class CreateTthinhTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateKhoSpHongTable extends Migration
      */
     public function up()
     {
-        Schema::create('kho_sp_hong', function (Blueprint $table) {
-            $table->integer('spMa');
-            $table->integer('khoSlsphong');
+        Schema::create('tthinh', function (Blueprint $table) {
+            $table->char('ttHinh',50);
+            $table->integer('ttMa');
             $table->engine="InnoDB";
-            $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
+
+            $table->foreign('ttMa')->references('ttMa')->on('tintuc')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateKhoSpHongTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kho_sp_hong');
+        Schema::dropIfExists('tthinhs');
     }
 }

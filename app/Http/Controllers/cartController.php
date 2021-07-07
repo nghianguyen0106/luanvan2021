@@ -19,6 +19,7 @@ use App\Models\chitietdonhang;
 use App\Models\kho;
 use App\Models\khuyenmai;
 use App\Models\wishlist;
+use App\Models\voucher;
 
 
 
@@ -53,8 +54,8 @@ class cartController extends Controller
                 
         Cart::add($productInfo->spMa,$productInfo->spTen,$re->quanty,$productInfo->spGia,0,[ 'spHinh' => $productInfo->spHinh] );
 
-        Session::flash('addCart','Đã thêm sản phẩm vào giỏ hàng !');
-         return Redirect::to('product');
+        Session::flash('comment','Đã thêm sản phẩm vào giỏ hàng !');
+         return Redirect()->back();
     }
 
     public function destroy()
@@ -66,9 +67,7 @@ class cartController extends Controller
 
     public function removeitem(Request $re)
     {
-  
-        //dd(Cart::get($re->id)->id);
-      
+        Session::forget('vcMa');
         Cart::remove($re->id);
         return redirect()->back();
     }
@@ -81,30 +80,67 @@ class cartController extends Controller
         {
             $d=$check->qty;
             $d++;
+            $checkExistVoucher=voucher::find(Session::get('vcMa'));
+            if($checkExistVoucher)
+            {
+                if($checkExistVoucher->vcLoai == 0)
+                {
+                    Session::forget('vcMa');
+                }
+            }
             Cart::update($re->id,$d);
         }
         else
         {
             Session::flash('err','Số lượng sản phẩm: '.$check->name.' còn: '.$checkQty->khoSoluong);
         }
-       
         return Redirect::to('checkout');
     }
 
     public function changeQuantyDecrease(Request $re)
     {
-         
         $check=Cart::get($re->id);
+        $checkExistVoucher=voucher::find(Session::get('vcMa'));
+        $cart=Cart::content();
         if($check->qty==1)
         {
+            if($checkExistVoucher && $check->id == $checkExistVoucher->spMa)
+            {
+                Session::forget('vcMa');
+            }
             Cart::remove($re->id);
-            
             return Redirect::to('checkout');
         }
         $d=$check->qty;
         $d--;
         Cart::update($re->id,$d);
-        //dd(Cart::get($re->id));
+        $total=0;
+        $a=array();
+        foreach ($cart as  $i) 
+        {
+            $total+=$i->price*$i->qty;
+            array_push($a,$i->id);
+        }   
+        if($checkExistVoucher)
+        {
+            if($checkExistVoucher->vcLoai == 1  && $checkExistVoucher->vcDkapdung == 1)
+            {
+                if(Cart::count() <  $checkExistVoucher->vcGtcandat)
+                {
+                    Session::forget('vcMa');
+                    Session::flash('err','Đã bỏ áp dụng voucher vì không đủ số lượng !');
+                }
+            }
+            if($checkExistVoucher->vcLoai == 1  && $checkExistVoucher->vcDkapdung == 0)
+            {
+                    //dd($checkExistVoucher->vcGtcandat,Session::get('total'));
+                if( $total < $checkExistVoucher->vcGtcandat )
+                {   
+                    Session::forget('vcMa');
+                    Session::flash('err','Đã bỏ áp dụng voucher vì tổng giá trị đơn hàng của bạn phải lớn hơn ' .number_format($checkExistVoucher->vcGtcandat)."đ mới có thể áp dụng voucher này !");
+                }
+            }
+        }
         return Redirect::to('checkout');
     }
 
@@ -213,14 +249,12 @@ class cartController extends Controller
                             $proinfo->update();
                             $ct->cthdTrigiakm=$re->discount; 
                         }
-                        
                         $ct->save();
                     }
-
                     //clear cart
                     Cart::destroy();
                    // $this->sendmail($hdMa);
-                   Session::forget('vcMa');
+                    Session::forget('vcMa');
                     
                 }
                 else
@@ -245,8 +279,4 @@ class cartController extends Controller
         Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details,$order));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');
     }
-    
-
-
-    
 }
