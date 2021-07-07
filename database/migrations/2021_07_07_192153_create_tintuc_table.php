@@ -18,6 +18,7 @@ class CreateTintucTable extends Migration
             $table->string('ttTieude',50);
             $table->string('ttGioithieu',50);
             $table->longText('ttNoidung');
+            $table->integer('ttLoai');
             $table->string('ttHinh',50);
             $table->timestamp('ttNgaydang');
             $table->integer('ttTinhtrang');
