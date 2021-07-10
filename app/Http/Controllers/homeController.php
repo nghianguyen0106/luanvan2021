@@ -920,7 +920,7 @@ class homeController extends Controller
 
         DB::table('donhang')->where('hdMa',$id)->update($data);
         return redirect()->back();
-    }
+    }x 
 
 
     // Wish List

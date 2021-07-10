@@ -70,24 +70,26 @@
 
 <!-------checkdirto---->
 <script src="{{url('public/style_admin/ckeditor/ckeditor.js')}}"></script>
+<script src="{{url('public/style_admin/ckfinder/ckfinder.js')}}"></script>
 <script>
-    // Thay thế <textarea id="post_content"> với CKEditor
-    
-  //  CKEDITOR.replace( 'post_content' );// tham số là biến name của textarea
-  CKEDITOR.replace( 'tintuc__noidung',
-{
-startupFocus : true,
-toolbar :
-[
-['ajaxsave'],['Styles', 'Format', 'Font', 'FontSize'],
-['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
-['Cut','Copy','Paste','PasteText'],
-['Undo','Redo','-','RemoveFormat'],
-['TextColor','BGColor'],
-['Maximize', 'Table']
-],
-//filebrowserUploadUrl : 'admin/view/action/edit_product.php' // you must write path to filemanager where you have copied it.
-});
+// CKEDITOR.replace( 'tintuc__noidung',
+// {
+// startupFocus : true,
+// toolbar :
+// [
+// ['ajaxsave'],['Styles', 'Format', 'Font', 'FontSize'],
+// ['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
+// ['Cut','Copy','Paste','PasteText'],
+// ['Undo','Redo','-','RemoveFormat'],
+// ['TextColor','BGColor'],
+// ['Maximize', 'Table']
+// ],
+
+// you must write path to filemanager where you have copied it.
+// });
+var editor = CKEDITOR.replace('tintuc__noidung');
+CKFinder.setupCKEditor(editor);
+
         
 </script>
 <!---------end checkdirto--------------------->

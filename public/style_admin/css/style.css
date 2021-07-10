@@ -1,3 +1,24 @@
+:root {
+    --woocommerce: #a46497;
+    --wc-green: #7ad03a;
+    --wc-red: #a00;
+    --wc-orange: #ffba00;
+    --wc-blue: #2ea2cc;
+    --wc-skyblue:rgba(0,163,186,0.93);
+    --wc-primary: #a46497;
+    --wc-primary-text: white;
+    --wc-secondary: #ebe9eb;
+    --wc-secondary-text: #515151;
+    --wc-highlight: #77a464;
+    --wc-highligh-text: white;
+    --wc-content-bg: #fff;
+    --wc-subtext: #767676;
+    --wc-dark: #393D54;
+    --wc-grey: rgba(55,71,79,0.93);
+    --wc-lightred: #F54646;
+    --wc-lightgrey: #f7f7f7;
+    --wc-gray: #ddd;
+}
 
 .flex__form
 {
@@ -457,6 +478,166 @@ table
 }
 
 
+/*-----BANNER----*/
+
+.bn__header
+{
+	margin: 0;
+	padding: 0;
+}
+.bn__header .header__top,
+.bn__header .header__bot div,
+.bn__header .bn__video,
+.bn__header .bn__pro .bn__pro--left,
+.bn__header .bn__pro .bn__pro--right
+{
+	position: relative;
+	z-index: 1;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: white;
+	border: 1px solid var(--wc-dark);
+	background-color: grey;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.bn__header .header__top #img__header--top,
+.bn__header .header__bot div #img__logo
+{
+	position: relative;
+	z-index: 2;
+	display: none;
+}
+
+.bn__header .header__top,
+.bn__header .header__bot div
+{
+	height: 60px;
+}
+.bn__header .header__bot .img__logo
+{
+	height: 55px;
+	width: 250px;
+}
+.bn__header .bn__video
+{
+	height: 620px;
+}
+.bn__pro .bn__pro--left .content__left,
+.bn__pro .bn__pro--right .content__right
+{
+	display: none;
+	position: relative;
+	z-index: 3;
+	text-transform: none;
+}
+.bn__pro--left .content__left #content__title4,
+.bn__pro--right .content__right #content__title5
+{
+	font-size: 18px;
+	font-weight: bold;
+}
+.bn__pro--left .content__left #content__text4,
+.bn__pro--right .content__right #content__text5
+{
+	font-size: 14px;
+}
+.bn__header .bn__pro .bn__pro--left,
+.bn__header .bn__pro .bn__pro--right
+{
+	margin: 0;
+	padding: 0;
+	height: 260px;
+}
+.bn__header .bn__pro .bn__pro--left #img__pro--left,
+.bn__header .bn__pro .bn__pro--right #img__pro--right
+{
+	position: absolute;
+	z-index: 2;
+	display: none;
+	width: 100%;
+	height: 260px;
+}
+
+.bn__content
+{
+	margin: 0;
+	height: 261px;
+	padding: 50px 0 50px 0;
+}
+
+.bn__content .bn__content--text
+{
+	height: 261px;
+	text-transform: uppercase;
+	color: var(--wc-dark);
+	background-color: var(--wc-content-bg);
+}
+.bn__content .text__title
+{
+	font-size: 24px;
+}
+.bn__content .text__content,
+.bn__content a
+{
+	font-size: 16px;
+}
+.bn__content--border
+{
+	height: 50%;
+}
+.bn__content--border div
+{
+	height: 100%;
+	width: 1px;
+	border: 2px solid var(--wc-skyblue);
+}
+ .bn__content--img
+ {
+ 	height: 261px;
+ 	position: relative;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: white;
+	background-color: grey;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+ }
+.bn__content #bn__content--img1,
+.bn__content #bn__content--img2,
+.bn__content #bn__content--img3
+{
+	width: 100%;
+	height: 261px;
+	position: relative;
+	z-index: 2;
+	display: none;
+}
+.bn__video .bg__video
+{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+}
+.bg__video video,
+.bg__video video source
+{
+	width: 100%;
+}
+.bn__video .bg__content
+{
+	position: absolute;
+	z-index: 3;
+	top:20px;
+	left: 50px;
+	text-align: center;
+	text-transform: none;
+	font-size: 30px;
+}
 
 
 @media only screen and (max-width: 1024px)
