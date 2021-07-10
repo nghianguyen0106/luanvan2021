@@ -2426,11 +2426,8 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = donhang::where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-// <<<<<<< HEAD
-//             $vc= DB::table('voucher')->where('vcTinhtrang','!=' ,99)->get();
-// =======
-//             $vc= DB::table('voucher')->leftjoin('sanpham','sanpham.spMa','voucher.spMa')->where('vcTinhtrang','!=' ,99)->get();;
-// >>>>>>> c1c73bb05b25ce16af2280091551c210c326cb29
+            $vc= DB::table('voucher')->leftjoin('sanpham','sanpham.spMa','voucher.spMa')->where('vcTinhtrang','!=' ,99)->get();;
+
             
             return view('admin.voucher',compact('vc'))->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
         }
@@ -3073,8 +3070,6 @@ public function adCheckAddKhuyenmai(Request $re)
         DB::table('tintuc')->where('ttMa',$id)->delete();
         return response()->json(['message'=>0]);
     }
-
-
 }
 
 

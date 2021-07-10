@@ -20,8 +20,14 @@ class loginController extends Controller
         
     	$username=$re->username;
     	$password=md5($re->password);
-    	$result=khachhang::where('khTaikhoan',$username)->orwhere('khSdt',$username)->orwhere('khEmail',$username)->where('khMatkhau',$password)->first();
-    	if($result)
+    	$result=khachhang::where('khTaikhoan',$username)->orwhere('khSdt',$username)->orwhere('khEmail',$username)->first();
+        $result2=null;
+        if($result)
+        {
+            
+            $result2=khachhang::where('khTaikhoan',$result->khTaikhoan)->where('khMatkhau',$password)->first();    
+        }
+    	if($result2)
     	{
             session::put("khMa",$result->khMa);
             session::put("khTen",$result->khTen);
@@ -37,8 +43,8 @@ class loginController extends Controller
     	}
     	else
     	{
-	    	session::flash("loginmessage","Sai tên đăng nhập hoặc mật khảu!");
-    		return Redirect::to('login');
+	    	session::flash("loginmessage","Sai tên đăng nhập hoặc mật khẩu!");
+    		return Redirect()->back();
     	}
     }
     public function loginGoogle()

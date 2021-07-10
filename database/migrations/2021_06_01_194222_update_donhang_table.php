@@ -14,7 +14,7 @@ class UpdateDonhangTable extends Migration
     public function up()
     {
         Schema::table('donhang', function (Blueprint $table) {
-             $table->foreign('vcMa')->references('vcMa')->on('voucher');
+             $table->foreign('vcMa')->references('vcMa')->on('voucher')->onUpdate('cascade');
         });
     }
 

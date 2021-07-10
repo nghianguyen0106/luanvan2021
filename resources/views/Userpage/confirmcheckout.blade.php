@@ -77,7 +77,7 @@ Xác nhận đơn hàng
 								<h5>Tổng tiền:</h5>
 							</div>
 							<div class="col-lg-5">
-								<span>{{number_format($total)}}&nbsp;VND</span>
+								<span style="color: red;font-weight: bold; font-size: 20px;">{{number_format($total)}}&nbsp;VND</span>
 								<input readonly type="number" value="{{$total}}" name="total">  
 							</div>
 						</div>

@@ -233,20 +233,28 @@ Danh sách sản phẩm
 				@foreach($db as $k => $i)	
 				<div class="col-lg-1"></div>
 				<div class="col-lg-3 col-sm-8 item__product">
+					@if($i->kmMa!=null)
+					<div class="sale_tag"><i class="fas fa-tags"></i> {{$i->kmTrigia}} %</div>
+					@endif
 					<div class="item_info">
 												<a href="{{URL::to('proinfo/'.$i->spMa)}}">Xem sản phẩm</a>
-											</div>
-								<img src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="">
+					</div>
+								<img class="item_price" src="{{URL::asset('public/images/products/'.$i->spHinh)}}" alt="">
 										
 								<div class="item-info-product">
 									<label class="item_name"><a href="{{URL::to('proinfo/'.$i->spMa)}}">{{$i->spTen}}</a></label>
 									<br/>
+									@if($i->kmMa!=null)
+										<span><s>{{number_format($i->spGia)}} VND</s></span><br>
+										<span class="item_price"><i class="fas fa-tags"></i> {{number_format($i->spGia-($i->spGia*$i->kmTrigia/100))}} VND</span>
+									@else
 										<span class="item_price">{{number_format($i->spGia)}} VND</span>
+									@endif
 									<div class="row btn__action">
 									<a class="btn__addCart" href="{{URL::to('save-cart/'.$i->spMa)}}"><i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</a>
 									@if(Session::has('khMa'))
 										@if($i->khMa)
-											<a class="btn__heart btn__heart--checked" href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
+											<a class="btn__heart__checked " href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
 											@else
 									<a class="btn__heart" href="{{URL::to('addtowishlist/'.$i->spMa)}}"><i class="far fa-heart" style="margin-top:0.3rem ;"></i></a>
 										

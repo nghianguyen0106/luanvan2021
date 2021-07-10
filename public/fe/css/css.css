@@ -696,6 +696,8 @@ background:  var(--wc-blue);
 .item__product .item-info-product .item_price
 {
 	font-size: 20px;
+	color: red;
+	font-weight: bold;
 }
 .products-right .item__product .btn__action
 {
@@ -742,25 +744,22 @@ background:  var(--wc-blue);
 .btn__action .btn__heart:hover
 {
 	background: linear-gradient(135deg, var(--wc-blue) 0%, var(--wc-lightred) 100%);
-	transition: 0.2s;
-}
-.btn__action .btn__heart:hover 
-{
 	color: white;
 	transition: 0.2s;
 }
-.btn__action .btn__heart--checked
+
+.btn__action .btn__heart__checked
 {	
 	text-align: center;
 	padding:2px 0 0 0;
 	width: 15%;
-
 	color: white;
 	font-size: 16px;
-}
-.btn__action .btn__heart--checked:hover
-{
 	background: linear-gradient(135deg, var(--wc-blue) 0%, var(--wc-lightred) 100%);
+}
+.btn__action .btn__heart__checked:hover
+{
+	background: linear-gradient(135deg, #ba4ecf 0%, #6782c9 100%);
 	transition: 0.2s;
 }
 
@@ -1498,4 +1497,14 @@ background:  var(--wc-blue);
 		left: 0;
 	}
 
+}
+
+/*nghia */
+.sale_tag{
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	float: right;
+	width: 25%;
+	text-align: center;
 }

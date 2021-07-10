@@ -83,6 +83,7 @@ Giỏ hàng
 				<button type="submit" class="btn btn-outline-info"><i class="fas fa-info-circle"></i> Kiểm tra</button>
 				@if(Session::has('vcMa'))
 				<span class="alert-success">Đã áp dụng voucher!</span>
+				<a class="btn btn-primary" href="{{URL::to('clearVoucher')}}">Gỡ áp dụng voucher</a>
 				@endif
 				</form>
 			</div>

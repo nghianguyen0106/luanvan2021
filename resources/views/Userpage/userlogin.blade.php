@@ -66,7 +66,7 @@ Swal.fire({
   icon: 'error',
   title: 'Oops...',
   text: '{{Session::get('loginmessage')}}!',
-  footer: '<a href="{{URL::to('/register')}}">Register</a></span>'
+  footer: '<a class="btn-outline-primary" href="{{URL::to('/register')}}">Đăng ký</a>'
 })
 </script> 
 @endif
@@ -90,4 +90,4 @@ Swal.fire({
 </script> 
 @endif
 @endsection
-<script src="{{url('public/fe/js/js-validate/validate-login.js')}}"></script>
+<script src="{{URL::asset('public/fe/js/js-validate/validate-login.js')}}"></script>

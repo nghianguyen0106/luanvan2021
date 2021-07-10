@@ -146,19 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    								</ul>
    							</div>
    							<div class="col-lg-3 list__footer">
-   								<ul><h5>Sản phẩm được quan tâm</h5>
-   									<div class="border__span"></div>
-   									<li>
-   										@foreach($dbrand as $v)
-   										<a class="col-lg-6" href="{{url('proinfo/'.$v->spMa)}}">
-   											<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" /><br/>
-   											<span>{{$v->spTen}}</span>
-   										</a>
-
-   										@endforeach
-   									
-   									</li>
-   								</ul>
+   								
    							</div>
    							<div class="col-lg-3 list__footer">
    								<ul><h5>Kết nối với chúng tối</h5>

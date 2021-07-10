@@ -21,13 +21,7 @@ Thông tin sản phẩm
 						<img src="{{URL::asset('public/images/products/'.$imgDefault->spHinh)}}" />
 						</div>
 					</div>
-					<br/>
-					<div class="row pos__img justify-content-center">
-						{{-- <div id="pos__1" onclick="changeImg1()" class="col-lg-2"></div>&emsp;
-						<div id="pos__2" onclick="changeImg2()" class="col-lg-2"></div>&emsp;
-						<div id="pos__3" onclick="changeImg3()" class="col-lg-2"></div>&emsp;
-						<div id="pos__4" onclick="changeImg4()" class="col-lg-2"></div>&emsp; --}}
-					</div>
+	
 					<br/>
 					<div class="row multi__img justify-content-around">
 						@foreach($imgs as $key => $v)
@@ -35,20 +29,7 @@ Thông tin sản phẩm
 							<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
 						</div>
 						@endforeach
-					{{-- 	<div id="img__1" onclick="changeImg1()" class="col-lg-2 col-sm-5" />
-						@foreach($imgs as $v)
-						<img src="{{URL::asset('public/images/products/'.$v->spHinh)}}" />
-						@endforeach
-					</div>
-						<div id="img__2" onclick="changeImg2()" class="col-lg-2 col-sm-5" />
-							<img src="{{URL::asset('public/images/products/anh1.png')}}" />
-						</div>
-						<div id="img__3" onclick="changeImg3()" class="col-lg-2 col-sm-5" />
-							<img src="{{URL::asset('public/images/products/anh2.png')}}" />
-						</div>
-						<div id="img__4" onclick="changeImg4()" class="col-lg-2 col-sm-5" />
-							<img src="{{URL::asset('public/images/products/anh3.png')}}" />
-						</div> --}}
+				
 					</div>
 				</div>
 				<div class="col-lg-6 col-sm-12 info__right">
@@ -56,7 +37,7 @@ Thông tin sản phẩm
 				{{ csrf_field() }}
 					<span class="proName">{{$proinfo->spTen}}</span><br/>
 					<span class="proNSX">Thương hiệu:&nbsp; {{$proinfo->thTen}}</span><br/>
-					<span>Xuất xứ: Chính hãng</span><br/>
+
 					<span class="proHbh">Hạn bảo hành:&nbsp;
 						@if($proinfo->spHanbh == 0)
 						6 tháng
@@ -68,7 +49,21 @@ Thông tin sản phẩm
 					</span><br/>
 					<span>Tình trạng: mới 100%</span><br/>
 					<span>Số lượng: {{$proinfo->khoSoluong>0?$proinfo->khoSoluong:"Hết hàng"}}</span><br/>
+					@if($availPromo)
+					<span class=""><s>{{number_format($proinfo->spGia)}}&nbsp;VND</s></span><br/>	
+					<span class="proPrice">
+						@if($proinfo->spGia*$availPromo->kmTrigia/100 > $availPromo->kmGiatritoida)
+						{{number_format($proinfo->spGia- $availPromo->kmGiatritoida)}}&nbsp;VND
+						@else
+						{{number_format($proinfo->spGia-($proinfo->spGia*$availPromo->kmTrigia/100))}}&nbsp;VND
+						@endif
+					</span>
+						<br/>
+
+					@else
 					<span class="proPrice">{{number_format($proinfo->spGia)}}&nbsp;VND</span><br/>
+					@endif
+
 					@if($proinfo->khoSoluong>0)
 					<p>Chọn số lượng: 
 						<span>
@@ -85,17 +80,16 @@ Thông tin sản phẩm
 					@if($availPromo)
 					<span class="proKm">Chương trình khuyến mãi khả dụng:</span><br/>
 					<div class="proKm__content">
-						@foreach($availPromo as $v)
+						
 							<div class="row">
 								<div class="mb-3 col-12 promotionItem">
-									<span class="promoName"><i>{{$v->kmTen}}</i></span>
+									<span class="promoName"><i>{{$availPromo->kmTen}}</i></span>
 									<ul class="promoDescription">
-										<li>{{$v->kmMota}}</li>
-										<li>Bắt đầu từ ngày <strong>{{date_format(date_create($v->kmNgaybd),"d/m/Y H:i:s")}}</strong> Đến ngày <strong>{{date_format(date_create($v->kmNgaykt),"d/m/Y H:i:s")}}</strong></li>
+										<li>{{$availPromo->kmMota}}</li>
+										<li>Bắt đầu từ ngày <strong>{{date_format(date_create($availPromo->kmNgaybd),"d/m/Y H:i:s")}}</strong> Đến ngày <strong>{{date_format(date_create($availPromo->kmNgaykt),"d/m/Y H:i:s")}}</strong></li>
 									</ul>
 								</div>
 							</div>
-							@endforeach
 					</div>
 					@endif
 					<br>

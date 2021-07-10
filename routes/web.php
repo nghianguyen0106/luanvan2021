@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
+use Session;
 
 
 
@@ -82,8 +84,13 @@ Route::get('sendmail','cartController@sendmail');
 // 
 // ----
 
-//------ Check exist voucher---------//
+//------ Voucher---------//
 Route::post('checkvoucher','homeController@checkvoucher')->name('checkvoucher');
+Route::get('clearVoucher',function(){
+	Session::forget('vcMa');
+	Session::flash('success','Đã gỡ áp dụng voucher !');
+	return Redirect()->back();
+});
 //---
 
 //Wishlist

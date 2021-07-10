@@ -37,7 +37,7 @@ Thông tin cá nhân
 				<div class="flex__info">
 					<span class="info__item">Tên đăng nhập: </span>
 					<span  class="info__item">
-						<input class="ip" type="text" readonly value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
+						<input class="ip" type="text"  value="{{$v->khTaikhoan}}" name="khTaikhoan"/>
 					</span>
 					<span style="color:red">{{$errors->first('khTaikhoan')}}</span>
 				</div>

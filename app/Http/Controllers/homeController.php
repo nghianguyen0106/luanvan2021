@@ -98,19 +98,16 @@ class homeController extends Controller
         $brand=thuonghieu::all();
         $cate=loai::all();
         $needs=nhucau::all();
+        //slide
         $slide = slide::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
         $countSlide =slide::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
         $bnCon = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->limit(5)->get();
         $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
         $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-
+        
         if(Session::has('khMa'))
         {
-            $db=sanpham::leftjoin('wishlist','wishlist.spMa','sanpham.spMa')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->where('hinh.thutu','=','1')->get();
+            $db=sanpham::leftjoin('wishlist','wishlist.spMa','sanpham.spMa')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('hinh.thutu','=','1')->get();
         }
         else
         {
@@ -120,7 +117,7 @@ class homeController extends Controller
             
         //dd($cate);
         
-        return view('Userpage.product',compact('db','brand','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2','dbrand'));
+        return view('Userpage.product',compact('db','cate','needs','total','slide','bnCon','countSlide','countBnCon1','countBnCon2','brand'));
     }
    
     public function proinfo(Request $re)
@@ -150,8 +147,10 @@ class homeController extends Controller
         $details=mota::where('spMa',$re->id)->get(); 
         $proinfo=sanpham::join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->first();
 
+        //load promotion
         $today=now();
-        $availPromo=sanpham::leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('kmNgaybd','<=',$today)->where('khuyenmai.kmNgaykt','>=',$today)->where('sanpham.spMa',$re->id)->get();
+        $availPromo=sanpham::leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('khuyenmai.kmNgaybd','<=',$today)->where('khuyenmai.kmNgaykt','>=',$today)->where('sanpham.spMa',$re->id)->first();
+        // dd($availPromo);
         $related_prod=sanpham::join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$proinfo->loaiMa)->where('thuonghieu.thMa',$proinfo->thMa)->get();
         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
                 ->where('hinh.thutu','=','1')
@@ -539,10 +538,9 @@ class homeController extends Controller
                                 {
                                     $pricePromo=($promoInfo->kmGiatritoida)*$i->qty;
                                 }
-                      
                             }
                             $total+=$i->price*$i->qty-$pricePromo;
-                             return $pricePromo;
+                             
                         }
                         else
                         {
@@ -556,75 +554,84 @@ class homeController extends Controller
                 
                 // Apply voucher
                 $vcInfo=voucher::where('vcMa',Session::get('vcMa'))->first();
-                if($vcInfo!=null)
+                if($vcInfo)
                 { 
-                    $proinfo=sanpham::where('spMa',$vcInfo->spMa)->first();
-                    foreach ($cart as  $i)
+                    if($vcInfo->vcLoai==0)//Theo san pham
                     {
-                        if($vcInfo->vcLoai==0)//Theo san pham
+                        $proinfo=sanpham::where('spMa',$vcInfo->spMa)->first();
+                        foreach($cart as $i)
                         {
                             if($i->id==$vcInfo->spMa)
                             { 
+                                $total+=$i->price*$i->qty;
                                 // Giam theo gia
                                 if($vcInfo->vcLoaigiamgia==0)
                                 {
-                                    $discountPercent=$vcInfo->vcMucgiam;
-                                    $priceVc=$discountPercent*$i->qty;
-                                    if($discountPercent > $vcInfo->vcGiatritoida)
-                                    {
-                                        $priceVc=$vcInfo->vcGiatritoida*$i->qty;
-                                    }
-                                    $total+=$i->price*$i->qty-$priceVc;
+                                    $priceVc=$vcInfo->vcMucgiam;
                                 }
                                 //Giam theo %
                                 if($vcInfo->vcLoaigiamgia==1)
                                 {
                                     $discountPercent=$vcInfo->vcMucgiam/100;
-                                    $priceVc=$discountPercent*$i->price*$i->qty;
+                                    $priceVc=$i->price * $i->qty*$discountPercent;
                                     
-                                    if(($priceVc/$i->qty) > $vcInfo->vcGiatritoida)
+                                    if($priceVc > $vcInfo->vcGiatritoida)
                                     {
                                         $priceVc=$vcInfo->vcGiatritoida*$i->qty;
                                     }
-                                    $total+=$i->price*$i->qty-$priceVc;
                                 }
                             }
                             else
                             {
                                 $total+=$i->price*$i->qty;
                             }
+                        }//endforeach
+                        //Giam theo gia
+                        if($vcInfo->vcLoaigiamgia==0)
+                        {
+                            $total=$total-$priceVc;
                         }
-                        elseif($vcInfo->vcLoai==1)// Theo don hang
+                        //Giam theo %
+                        if($vcInfo->vcLoaigiamgia==1)
+                        {
+                            
+                            $total-=$priceVc;
+                        }
+                    }
+                    elseif($vcInfo->vcLoai==1)// Theo don hang
+                    {
+                        foreach($cart as $i)
                         {
                             $total+=$i->price*$i->qty;
                             // Giam theo gia
                             if($vcInfo->vcLoaigiamgia==0)
                             {
                                 $priceVc=$vcInfo->vcMucgiam;
-                            }
+                                    }
                             //Giam theo %
                             if($vcInfo->vcLoaigiamgia==1)
                             {
-                               $discountPercent=$vcInfo->vcMucgiam/100;
-                            }                      
+                                $discountPercent=$vcInfo->vcMucgiam/100;
+                            }  
+                        }//end foreach
+                        // Giam theo gia
+                        if($vcInfo->vcLoaigiamgia==0)
+                        {
+                            $total=$total-$priceVc;
                         }
-                    }//End foreach cart
+                        //Giam theo %
+                        if($vcInfo->vcLoaigiamgia==1)
+                        {
+                            $priceVc=$total*$discountPercent;
+                            if($priceVc > $vcInfo->vcGiatritoida)
+                            {
+                                $priceVc=$vcInfo->vcGiatritoida;
+                            }
+                            $total-=$priceVc;
+                        }              
+                    }
                 }
-                            // Giam theo gia
-                            if($vcInfo->vcLoaigiamgia==0)
-                            {
-                                $total=$total-$priceVc;
-                            }
-                            //Giam theo %
-                            if($vcInfo->vcLoaigiamgia==1)
-                            {
-                               $priceVc=$total*$discountPercent;
-                               if($priceVc > $vcInfo->vcGiatritoida)
-                               {
-                                    $priceVc=$vcInfo->vcGiatritoida;
-                               }
-                               $total-=$priceVc;
-                            }
+                
                 //return  number_format($priceVc)." ". number_format($total);
                 
                  $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
@@ -1045,7 +1052,7 @@ class homeController extends Controller
             return redirect()->back();
         }
     }
-
+    
     //////////////////TIN TỨC ////////////////////
     public function viewTintuc()
     {

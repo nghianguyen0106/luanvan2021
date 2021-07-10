@@ -194,7 +194,7 @@ class cartController extends Controller
                     $name=Session::get('khTaikhoan');
                     $dh->hdMa=''.$date['seconds'].$date['minutes'].substr($dh->hdTongtien,0,1).$date['yday'].$date['mon'];
                     $hdMa=$dh->hdMa;
-                
+                    
                     if($re->address !=null)
                     {
                         $dh->hdDiachi=$re->address;
@@ -225,6 +225,14 @@ class cartController extends Controller
                     {
                         $dh->hdSdtnguoinhan=$re->sdt;
                     }
+                    if(Session::has('vcMa'))
+                    {
+                        $vcInfo=DB::table('voucher')->where('vcMa',Session::get('vcMa'))->first();
+                        //update quanty of  voucher
+                        $sl['vcSoluot']=$vcInfo->vcSoluot-1;
+                        DB::table('voucher')->where('vcMa',Session::get('vcMa'))->update($sl);
+                        $dh->vcMa=$vcInfo->vcMa;
+                    }
                     $dh->save();
                     
                     //create order details
@@ -233,7 +241,7 @@ class cartController extends Controller
                         //update Quanty of Kho table
                         $productInfo=kho::where('spMa',$i->id)->first();
                         $updateKho['khoSoluong']=$productInfo->khoSoluong-$i->qty;
-                        //DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
+                        DB::table('kho')->where('spMa',$productInfo->spMa)->update($updateKho);
 
              
                         $ct=new chitietdonhang();
@@ -253,7 +261,7 @@ class cartController extends Controller
                     }
                     //clear cart
                     Cart::destroy();
-                   // $this->sendmail($hdMa);
+                    $this->sendmail($hdMa);
                     Session::forget('vcMa');
                     
                 }
