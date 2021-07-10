@@ -1,4 +1,4 @@
-@extends('admin.layout')
+ @extends('admin.layout')
 @section('content')
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -15,44 +15,15 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h1 class="m-0 font-weight-bold text-primary">Quản lý banner </h1>
-                            <hr/>
-                                <form class="form-inline " action="{{URL::to('checkAddBanner')}}" method="POST" enctype="multipart/form-data">
-                                     {{ csrf_field() }}
-                                 
-                                      <div class="flex__form" >
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Tiêu đề banner:</label>
-                                        <input name="bnTieude" type="text" class="form-control" id="bnTieude">
-                                         <span style="color:red">{{$errors->first('bnTieude')}}</span>
-                                      </div>
-                                       <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Thêm hình ảnh cho banner:</label>
-                                        <input name="bnHinh" type="file" class="form-control" id="bnHinh">
-                                        
-                                      </div>
-                                       <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">Vị trí:</label>
-                                        <input name="bnVitri" type="radio" value="0" class="form-control" id="bnVitri">&nbsp;Slide &emsp;
-                                        <input name="bnVitri" type="radio" value="1" class="form-control" id="bnVitri">&nbsp;Banner con&emsp;
-                                        <input name="bnVitri" type="radio" value="2" class="form-control" id="bnVitri">&nbsp;Banner quảng cáo
-                                         <span style="color:red">{{$errors->first('bnVitri')}}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                    <span style="color:red">
-                                        @if(Session::has('bnError'))
-                                            {{Session::get('bnError')}}
-
-                                        @endif
-                                    </span>
-
-                                    <div>
-                                        <button type="submit" name="btn_add" class="btn btn-primary">Thực hiện</button>
-                                    </div>
-                                </form>
                         </div>
-                        
                         <div class="card-body">
+                             <a  href="{{url('/them-banner')}}" class="btn btn-primary">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
+                                        </span>
+                                        <span class="text"><b>Thêm banner</b></span>
+                                    </a>
+                                    <br/><br/>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">

@@ -173,8 +173,8 @@ Route::get('/checkAddThuonghieu','adminController@adCheckAddThuonghieu');
 Route::get('/deleteThuonghieu/{id}','adminController@adDeleteThuonghieu');
 Route::get('/editThuonghieu/{id}','adminController@editThuonghieu');
 //--Banner--//
-
-Route::post('/checkAddBanner','adminController@adCheckAddBanner');
+Route::get('them-banner','adminController@themBanner');
+Route::post('checkAddBanner','adminController@adCheckAddBanner');
 Route::get('/deleteBanner/{id}','adminController@adDeleteBanner');
 Route::get('/updateBanner/{id}','adminController@adUpdateBanner');
 Route::post('/editBanner/{id}','adminController@editBanner');

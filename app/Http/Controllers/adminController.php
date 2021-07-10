@@ -1468,77 +1468,6 @@ class adminController extends Controller
         
     }
     //end thương hiệu
-  
-
-  //Banner
- 
-  public function adCheckAddBanner(Request $re)
-  {
-    if($re->bnTieude==null||$re->bnVitri==null)
-    {
-            $messages =[
-                'bnTieude.required'=>'Tiêu đề không được để trống',
-                 'bnVitri.required'=>'Vị trí banner không được để trống',
-            ];
-            $this->validate($re,[
-                'bnTieude'=>'required',
-                 'bnVitri'=>'required',
-            ],$messages);
-
-            $errors=$validate->errors();
-    }
-    else
-    {
-        if($re->hasFile('bnHinh')==true)
-        {
-            $data = array();
-            $re->bnMa = rand(0,100).strlen($re->file('bnHinh')).strlen(rand(0,1000));
-            $data['bnMa']= $re->bnMa;
-            $data['bnTieude']= $re->bnTieude;
-            $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
-                $imgextention = $re->file('bnHinh')->extension();
-                $file = $re->file('bnHinh');
-                $file->move('public/images/banners',$data['bnHinh']);
-           
-            $data['bnVitri']= $re->bnVitri;
-            $data['bnNgay']= now();
-            DB::table('slide')->insert($data);
-            Session::forget('bnError');
-            return redirect('adBanner');
-        }
-        else
-        {
-            Session::put('bnError',"Vui lòng thêm hình vào banner");
-            return redirect('themBanner');
-        }
-    }
-  }
-  public function adDeleteBanner($id)
-  {
-    DB::table('slide')->where('bnMa',$id)->delete();
-   
-    return redirect('adBanner');
-  }
-  public function adUpdateBanner($id)
-  {
-    $data =DB::table('banner')->get();
-    return view('admin.suabanner')->with('bnMaCu',$data);
-  }
-  public function editBanner(Request $re, $id)
-  {
-    if($re->hasFile('bnHinh')==true)
-    {
-        $data = array();
-        $data['bnMa'] = $id;
-        $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
-            $imgextention =$re->file('bnHinh')->extension();
-            $file=$re->file('bnHinh');
-            $file->move('public/images/banners',$data['bnHinh']);
-        DB::table('slide')->where('bnMa',$id)->update($data);
-        return redirect('adBanner');
-    }
-  }
-   //endbanner
 
   //Khuyến mãi
 public function viewKhuyenmai()
@@ -3073,6 +3002,82 @@ public function adCheckAddKhuyenmai(Request $re)
         DB::table('tintuc')->where('ttMa',$id)->delete();
         return response()->json(['message'=>0]);
     }
+
+
+
+        //Banner
+     public function themBanner()
+     {
+            $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+
+            return view('admin.thembanner')
+                                ->with('noteDanhgia',$noteDanhgia)
+                                ->with('noteDonhang',$noteDonhang)
+                                ->with('noteDonhang1',$noteDonhang1);
+     }
+      public function adCheckAddBanner(Request $re)
+      {
+             if($re->hasFile('bnHinh'))
+            {
+                foreach($re->file('bnHinh') as $key => $v)
+                {
+                    $data = array();
+                    $data['bnMa']= time().rand(0,1000).rand('bnNoidung').rand("bnTieude");
+                    $data['bnTieude']= $re->bnTieude[$key];
+                    $data['bnNoidung']= $re->bnNoidung[$key];
+                    $data['bnHinh'] = $v->getClientOriginalName();
+                        $imgextention = $v->extension();
+                        $file = $v;
+                        $file->move('public/images/banners',$data['bnHinh']);
+                    $data['bnNgay']= now();
+                    $data['bnVitri']= $re->bnVitri;
+                    $data['bnPage']= $re->bnPage;
+                    DB::table('slide')->insert($data);
+                    Session::forget('bnError');
+                    return redirect('adBanner');
+                }
+            }
+            else
+            {
+                dd($re->hasFile('bnHinh'));   
+            }
+            // else
+            // {
+            //     Session::put('bnError',"Vui lòng thêm hình");
+            //     return redirect('themBanner');
+            // }
+      }
+      public function adDeleteBanner($id)
+      {
+        DB::table('slide')->where('bnMa',$id)->delete();
+       
+        return redirect('adBanner');
+      }
+      public function adUpdateBanner($id)
+      {
+        $data =DB::table('banner')->get();
+        return view('admin.suabanner')->with('bnMaCu',$data);
+      }
+      public function editBanner(Request $re, $id)
+      {
+        if($re->hasFile('bnHinh')==true)
+        {
+            $data = array();
+            $data['bnMa'] = $id;
+            $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
+                $imgextention =$re->file('bnHinh')->extension();
+                $file=$re->file('bnHinh');
+                $file->move('public/images/banners',$data['bnHinh']);
+            DB::table('slide')->where('bnMa',$id)->update($data);
+            return redirect('adBanner');
+        }
+      }
+       //endbanner
 
 
 }
