@@ -30,7 +30,7 @@ function onAcc()
 	var acc_err_regis = document.getElementById("acc__err--regis");
 	acc_err_regis.style.display = 'none';
 	var btnRegis = document.getElementById("btn__register")
-	 if(ip_acc_val.trim().length<=3)
+	 if(ip_acc_val.trim().length<3)
 	 {
 	 	ip_acc.style.border = '2px solid red';
 	 	acc_err_regis.style.display = 'block';
@@ -56,7 +56,7 @@ function onPass1(){
          err_pass.style.display = 'none';
         //btn_regis
          var btn_regis = document.getElementById("btn__register");
-        if(ip_pass.trim().length<=8)
+        if(ip_pass.trim().length<8)
           {
             err_pass.style.color = 'red';
             ip_pass_css.style.border= '3px solid red';
@@ -80,7 +80,7 @@ function onPass1(){
          err_pass.style.display = 'none';
         //btn_regis
          var btn_regis = document.getElementById("btn__register");
-        if(ip_pass.trim().length<=8)
+        if(ip_pass.trim().length<8)
           {
             err_pass.style.color = 'red';
             ip_pass_css.style.border= '3px solid red';
@@ -110,7 +110,7 @@ function onPass1(){
             err_address.style.color = 'red';
             ip_address_css.style.border= '3px solid red';
             err_address.style.display = 'block';
-            err_address.innerHTML="&emsp;Địa chỉ không đúng";
+            err_address.innerHTML="&emsp;Địa chỉ không hợp lệ";
             btn_regis.setAttribute("type","button");
           }
           else { 
@@ -137,12 +137,12 @@ function onPass1(){
              err_sdt.innerHTML="";
              btn_regis.setAttribute("type","submit");
           }
-        else if(ip_sdt.trim().length!=10)
+        else if(ip_sdt.trim().length<10 && ip_sdt.trim().length()>11)
           {
             err_sdt.style.color = 'red';
             ip_sdt_css.style.border= '3px solid red';
             err_sdt.style.display = 'block';
-            err_sdt.innerHTML="&emsp;Số điện thoại không phù hợp";
+            err_sdt.innerHTML="&emsp;Số điện thoại không hợp lệ";
             btn_regis.setAttribute("type","button");
           }
           else { 

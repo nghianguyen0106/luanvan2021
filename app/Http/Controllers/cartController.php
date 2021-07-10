@@ -283,6 +283,7 @@ class cartController extends Controller
     public function sendmail($hdMa)
     {
         $details=chitietdonhang::where('hdMa',$hdMa)->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->get();
+        dd(Session::get('khEmail'));
         $order=donhang::Where('donhang.hdMa',$hdMa)->first();
         Mail::to(session::get('khEmail'))->send(new \App\Mail\mail($details,$order));
         Session::flash('addCart','Đặt hàng thành công! Vui lòng kiểm tra trong mục hóa đơn và hộp thư email của bạn ! Cảm ơn bạn đã mua hàng :DD !!!');

@@ -24,6 +24,7 @@ Danh sách đơn hàng
 							<td>Mã đơn hàng</td>
 							<td>Ngày đặt</td>
 							<td>Số lượng</td>
+							<td>Tổng tiền</td>
 							<td>Địa chỉ giao hàng</td>
 							<td>Số điện thoại nhận</td>
 							<td>Tình trạng</td>
@@ -37,6 +38,7 @@ Danh sách đơn hàng
 							<td>{{$i->hdMa}}</td>
 							<td>{{date_format(date_create($i->hdNgaytao),('d/m/Y'))}}</td>
 							<td>{{$i->hdSoluongsp}}</td>
+							<td>{{number_format($i->hdTongtien)}} VND</td>
 							<td>{{$i->hdDiachi}}</td>
 							<td>{{$i->hdSdtnguoinhan}}</td>
 							<td>

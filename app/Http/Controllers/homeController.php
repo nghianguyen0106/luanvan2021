@@ -607,7 +607,7 @@ class homeController extends Controller
                             if($vcInfo->vcLoaigiamgia==0)
                             {
                                 $priceVc=$vcInfo->vcMucgiam;
-                                    }
+                            }
                             //Giam theo %
                             if($vcInfo->vcLoaigiamgia==1)
                             {
@@ -629,6 +629,13 @@ class homeController extends Controller
                             }
                             $total-=$priceVc;
                         }              
+                    }
+                }
+                else
+                {
+                    foreach($cart as $i)
+                    {
+                        $total+=$i->price*$i->qty;
                     }
                 }
                 
@@ -833,10 +840,10 @@ class homeController extends Controller
         {
             $date=getdate();
             $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
-              //dd($details);
-            $kh=khachhang::where('khMa',Session::has('khMa'))->first();
-        $kh->khXtemail=$details;
-        $kh->update();
+            dd(Session::get('khEmail'));
+            $kh=khachhang::where('khMa',Session::get('khMa'))->first();
+            $kh->khXtemail=$details;
+            $kh->update();
             Mail::to(Session::get('khEmail'))->send(new \App\Mail\verifyemail($details));
             return redirect()->back();
         }
@@ -896,13 +903,8 @@ class homeController extends Controller
         {
             foreach ($list as  $v) 
         {
-            $data=DB::table('chitietdonhang')->join('donhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$v->khMa)->orderBy('donhang.hdNgaytao','asc')->get();
+            $details=DB::table('chitietdonhang')->join('donhang','donhang.hdMa','chitietdonhang.hdMa')->join('sanpham','chitietdonhang.spMa','sanpham.spMa')->join('hinh','hinh.spMa','sanpham.spMa')->where('khMa',$v->khMa)->orderBy('donhang.hdNgaytao','asc')->where('hinh.thutu',1)->get();
     
-            $details = array();
-            foreach ($data as $key => $value) 
-            {
-                array_push($details, $value);
-            }
         }
         
         return view('Userpage.order',compact('details','list','cate','cart','total','dbrand'));

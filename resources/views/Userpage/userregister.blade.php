@@ -83,6 +83,7 @@
         </div>
         </section>
         <br/>
+        {{-- @dd(Session::get('error')); --}}
 <!----Javascript code-->
 @if(Session::has('error'))
 <script type="text/javascript" >
