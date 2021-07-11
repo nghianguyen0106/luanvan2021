@@ -1966,16 +1966,7 @@ public function adCheckAddKhuyenmai(Request $re)
     return view('admin.chitietbinhluan')->with('dg',$dg)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
   }
   //Hóa đơn
-  public function themNVgiao($id)
-  {
-    $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
-            Session::put('hdTinhtrang',$noteDonhang);
-    $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
-            Session::put('hdTinhtrang1',$noteDonhang1);
-    $dataNV = DB::table('admin')->where('adQuyen',4)->get();
-    $data = DB::table('donhang')->where('hdMa',$id)->get();
-    return view('admin.them-nv-giao-hang')->with('dataNV',$dataNV)->with('data',$data)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
-  }
+ 
   public function giaohang(Request $re,$id)
   {
     $data = array();
@@ -2342,7 +2333,9 @@ public function adCheckAddKhuyenmai(Request $re)
                     ->leftjoin("donhang","donhang.adMa","=","admin.adMa")
                     ->where("donhang.hdMa","=",$id)
                     ->get();
-        return view('admin.chi-tiet-phieu-thu',compact('data','data2','data3','noteDanhgia','noteDonhang','noteDonhang1'));
+        $dataNV = DB::table('admin')->where('adQuyen',4)->get();
+
+        return view('admin.chi-tiet-phieu-thu',compact('data','data2','data3','dataNV','noteDanhgia','noteDonhang','noteDonhang1'));
     }
 // VOUCHER
     public function viewVoucher()

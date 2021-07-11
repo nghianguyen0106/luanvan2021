@@ -99,7 +99,6 @@
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                      <tfoot style="display:none;">
@@ -110,7 +109,6 @@
                                             <th>Số lượng</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
-                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -124,12 +122,8 @@
                                             <td>{{$donmoi->hdSoluongsp}}</td>
                                             <td>{{$donmoi->hdTongtien}}</td>
                                             <td style="color:red">{{$donmoi->hdTinhtrang==0?"Đơn hàng mới":""}}</td>
-                                            <td>
-                                                <a href="{{url('them-nv-giao-hang/'.$donmoi->hdMa)}}">
-                                                Bắt đầu giao hàng
-                                                </a>
-                                            </td>
-                                            <td><a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$donmoi->hdMa)}}">Chi tiết</a>
+                                           
+                                            <td><a class="btn btn-primary" href="{{url('chi-tiet-phieu-thu/'.$donmoi->hdMa)}}">Bắt đầu giao hàng</a>
                                             </td>
                                         </tr>
                                     @endforeach
