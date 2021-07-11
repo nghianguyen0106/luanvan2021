@@ -2,7 +2,7 @@
 use App\Http\Controllers\adminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 
 

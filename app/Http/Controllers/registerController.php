@@ -110,7 +110,7 @@ class registerController extends Controller
 	    	session::put("khMa",$khMa);
             session::put("khTen",$re->name);
             session::put('khTaikhoan',$re->username);
-            session::put('khEmail',$re->khEmail);
+            session::put('khEmail',$re->email);
             session::put('khDiachi',$re->address);	
             session::put('khSdt',$re->sdt);
 	    	Session::flash('success',' Đăng ký thành công vui lòng xác thực Email! ');

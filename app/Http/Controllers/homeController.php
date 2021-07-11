@@ -840,7 +840,7 @@ class homeController extends Controller
         {
             $date=getdate();
             $details=''.rand(0,10).strlen(Session::get('khTaikhoan')).strlen(Session::get('khTen')).$date['hours'].$date['yday'].$date['year'];
-            dd(Session::get('khEmail'));
+            //dd(Session::get('khEmail'));
             $kh=khachhang::where('khMa',Session::get('khMa'))->first();
             $kh->khXtemail=$details;
             $kh->update();

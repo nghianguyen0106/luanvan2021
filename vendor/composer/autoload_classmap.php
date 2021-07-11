@@ -37,6 +37,7 @@ return array(
     'App\\Models\\donhang' => $baseDir . '/app/Models/donhang.php',
     'App\\Models\\giohang' => $baseDir . '/app/Models/giohang.php',
     'App\\Models\\hinh' => $baseDir . '/app/Models/hinh.php',
+    'App\\Models\\imei' => $baseDir . '/app/Models/imei.php',
     'App\\Models\\khachhang' => $baseDir . '/app/Models/khachhang.php',
     'App\\Models\\kho' => $baseDir . '/app/Models/kho.php',
     'App\\Models\\kho_sp_hong' => $baseDir . '/app/Models/kho_sp_hong.php',
