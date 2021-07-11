@@ -21,10 +21,6 @@
                             <input class="form-control" name="spTen" type="text"  value="{{$value->spTen}}"/>
                             <span style="color:red">{{$errors->first('spTen')}}</span>
                         <br/>
-                             <label for="exampleInputPassword1" class="form-label">Giá</label>
-                             <input class="form-control" name="spGia" type="number"  value="{{$value->spGia}}"/>
-                             <span style="color:red">{{$errors->first('spGia')}}</span>
-                             <br/>
                           <label for="exampleInputPassword1" class="form-label">Hạn bảo hành:</label><br/>
                           <input name="spHanbh" {{$value->spHanbh==0?"checked":"unchecked"}} type="radio" value="0"  id="spHanbh"/>6 tháng &emsp;
                           <input name="spHanbh" {{$value->spHanbh==1?"checked":"unchecked"}} type="radio" value="1"id="spHanbh"/>12 tháng &emsp;

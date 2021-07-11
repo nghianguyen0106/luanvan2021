@@ -30,21 +30,21 @@
                                 </td>
                             </tr>
                                     <tr>
+                                        <td>Mã imei</td>
                                         <td>Sản phẩm</td>
                                         <td>Nhà cung cấp</td>
                                         <td>Số lượng</td>
                                         <td>Đơn giá</td>
-                                        <td>Thành tiền</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($data2 as $data2)
                                     <tr>
+                                        <td>{{$data2->imeiMa}}</td>
                                         <td>{{$data2->spTen}}</td>
                                         <td>{{$data2->nccTen}}</td>
                                         <td>{{$data2->ctpnSoluong}}</td>
                                         <td>{{number_format($data2->ctpnDongia)}}&nbsp;VND</td>
-                                        <td>{{number_format($data2->ctpnThanhtien)}}&nbsp;VND</td>
                                     </tr>
                                     @endforeach
                                     <tr>

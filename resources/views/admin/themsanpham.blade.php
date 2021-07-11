@@ -25,21 +25,6 @@
 			    	{{Session::get('sp_err')}}
 			    	@endif
 			    </span>
-			  <br/>
-			    <label for="exampleInputPassword1" class="form-label">Số lượng:</label>
-			    <input name="khoSoluong" type="number" class="form-control" id="soluong">
-			     <span style="color:red">{{$errors->first('khoSoluong')}}</span>
-			  
-			</div>
-			<div class="form-group">
-			  
-			    <label for="exampleInputPassword1" class="form-label">Giá:</label>
-			    <input name="spGia" type="number" class="form-control" id="spGia">
-			     <span style="color:red">{{$errors->first('spGia')}}</span>
-			 <br/>
-			    <label for="exampleInputPassword1" class="form-label">Giá thuế %:</label>
-			    <input name="giaThue" type="number" class="form-control">
-				
 			</div>
 				<!--field flex form-->
 				<div class="form-group">

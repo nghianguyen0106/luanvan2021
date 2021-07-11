@@ -80,7 +80,8 @@
 				 					<td>Nhà cung cấp</td>
 				 					<td>Số lượng</td>
 				 					<td>Giá sản phẩm</td>
-				 					<td>Tổng giá</td>
+				 					<td>Mã imei</td>
+				 					{{-- <td>Tổng giá</td> --}}
 				 				</tr>
 				 				</thead>
 				 			<tbody style="border: 0;" id="tbody__phieunhap">
@@ -155,14 +156,15 @@ Swal.fire({
 				 						<input class="input__phieunhap" name="nccMa[]" type="text" readonly value=${nccMa}>
 				 					</td>
 				 					<td>
-				 						<input class="sl input__phieunhap" name="soluong[]" type="text" readonly value=${soluong}>
+				 						<input class="sl input__phieunhap" name="soluong[]" type="text" readonly value="1">
 				 					</td>
 				 					<td>
-				 						<input  class="input__phieunhap" name="gia[]" type="text" readonly value=${gia}>
+				 						<input  class="gia input__phieunhap" name="gia[]" type="text" readonly value=${gia}>
+				 						<input hidden class="input__phieunhap" name="tonggiasp[]" type="text" readonly value=${gia*soluong}>
 				 					</td>
 				 					<td>
-				 						<input class="gia input__phieunhap" name="tonggiasp[]" type="text" readonly value=${gia*soluong}>
-				 					</td/>
+				 						<input name="imeiMa[]" type="text">
+				 					</td>	
 				 				</tr>`;
 		if(soluong=="")
 		{
@@ -190,7 +192,10 @@ Swal.fire({
 			return false;
 		}
 		else{
+			for(var n = 0;n<soluong;n++)
+			{
 				 table.innerHTML+= addRow;
+			}
 				 var ip__sl = document.querySelectorAll(".sl");
 				 var ip__gia = document.querySelectorAll(".gia");
 				 var sumSL = 0;

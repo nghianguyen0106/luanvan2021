@@ -23,7 +23,6 @@ class CreateSanphamTable extends Migration
             $table->integer('loaiMa');
             $table->integer('ncMa');
             $table->integer('nccMa');
-            $table->char('spImei');
             $table->integer('kmMa')->nullable(true);
             $table->integer('spSlkmtoida')->nullable(true);
           

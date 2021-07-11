@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImeisTable extends Migration
+class CreateImeisanphamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateImeisTable extends Migration
      */
     public function up()
     {
-        Schema::create('imeis', function (Blueprint $table) {
+        Schema::create('imeisanpham', function (Blueprint $table) {
             $table->integer('spMa');
-            $table->char('imei');
+            $table->char('imeiMa',20);
+            $table->integer('imeiTinhtrang');
             $table->engine="InnoDB";
 
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade')->onUpdate('cascade');
@@ -29,6 +30,6 @@ class CreateImeisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imeis');
+        Schema::dropIfExists('imeisanpham');
     }
 }

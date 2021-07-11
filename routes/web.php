@@ -250,3 +250,5 @@ Route::get('cap-nhat-tin-tuc/{id}','adminController@adUpdateTintuc');
 Route::post('editTintuc/{id}','adminController@editTintuc');
 Route::get('xoa-tin-tuc/{id}',[adminController::class,'deleteTintuc']);
 
+//--------Chi tiết kho------//
+Route::get('chi-tiet-kho/{id}','adminController@viewCTKho');

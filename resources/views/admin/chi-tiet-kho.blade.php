@@ -23,17 +23,15 @@
                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Sản phẩm</th>
-                                            <th>Số lượng sản phẩm</th>
-                                            <th>Ngày cập nhật</th>
-                                            <th></th>
+                                            <th>Mã imei</th>
+                                            <th>Tình trạng</th>
                                         </tr>
                                     </thead>
                                     <tfoot style="display:none;">
                                         <tr>
                                             <th>Sản phẩm</th>
-                                            <th>Số lượng sản phẩm</th>
-                                            <th>Ngày cập nhật</th>
-                                            <th></th>
+                                            <th>Mã imei</th>
+                                            <th>Tình trạng</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -42,12 +40,9 @@
                                         <tr>
                                             <td>{{$value->spTen}}</td>
                                             <td>
-                                               {{$value->khoSoluong}}
+                                               {{$value->imeiMa}}
                                             </td>
-                                            <td>{{$value->khoNgaynhap}}</td>
-                                           <td><a href="{{url('chi-tiet-kho/'.$value->spMa)}}">Chi tiết</a></td>
-                                           
-
+                                            <td>{{$value->imeiTinhtrang==0?"Chưa bán":"Đã bán"}}</td>
                                         </tr>
                                     @endforeach
                                        
@@ -61,4 +56,5 @@
                 <!-- /.container-fluid -->
 
   @endsection
- 
+
+          
