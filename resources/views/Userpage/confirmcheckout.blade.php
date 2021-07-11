@@ -99,19 +99,25 @@ Xác nhận đơn hàng
 							@else
 							<div class="col-lg-5"></div>
 							@endif
-
 								@if($vcInfo->vcLoaigiamgia==0)
-								<div class="col-lg-5">
-								<span style="color:#FF4242;font-weight: bold;">Giảm giá trực tiếp:&nbsp;
-									{{number_format($vcInfo->vcMucgiam)}} VND (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / 1 sản phẩm)</span>
+									@if($vcInfo->vcLoai==0)
+									<div class="col-lg-5">
+										<span style="color:#FF4242;font-weight: bold;">Giảm giá trực tiếp:&nbsp;
+											{{number_format($vcInfo->vcMucgiam)}} VND (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / 1 sản phẩm)</span>
 									</div>
+									@elseif($vcInfo->vcLoai==1)
+									<div class="col-lg-5">
+										<span style="color:#FF4242;font-weight: bold;">Giảm giá trực tiếp:&nbsp;
+											{{number_format($vcInfo->vcMucgiam)}} VND (Tối đa {{number_format($vcInfo->vcGiatritoida)}}đ / Tổng giá trị đơn hàng)</span>
+									</div>
+									@endif
 								<div class="col-lg-5">
 								<h5>Số tiền được giảm:</h5>
 								</div>
-							<div class="col-lg-5">
-								<span>{{number_format($priceVc)}}&nbsp;VND</span>
-								<input readonly type="number" name="price" value="{{$priceVc}}">
-							</div>
+								<div class="col-lg-5">
+									<span>{{number_format($priceVc)}}&nbsp;VND</span>
+									<input readonly type="number" name="price" value="{{$priceVc}}">
+								</div>
 									<input readonly type="number" name="discount" value="{{$vcInfo->vcMucgiam}}">
 								@elseif($vcInfo->vcLoaigiamgia==1)
 									@if($vcInfo->vcLoai==0)
