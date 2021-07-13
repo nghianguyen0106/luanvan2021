@@ -17,7 +17,20 @@
                             <h1 class="m-0 font-weight-bold text-primary">Quản lý banner </h1>
                         </div>
                         <div class="card-body">
-                             <a  href="{{url('/them-banner')}}" class="btn btn-primary">
+                            <span>Chọn danh sách banner:&nbsp;</span>
+                            <select id="chon__vitri" class="btn btn-outline-info">
+                                @foreach($default as $vt)
+                                     @foreach($vitri as $v)
+                                     @if($v->bnVitri == $vt->bnVitri)
+                                     <option value="{{$v->bnVitri}}" selected>Vị trí {{$v->bnVitri}}</option>
+                                     @else
+                                     <option value="{{$v->bnVitri}}">Vị trí {{$v->bnVitri}}</option>
+                                     @endif
+                                    @endforeach 
+                                @endforeach
+                            </select>
+                            &emsp;
+                             <a  href="{{url('/vi-tri-banner')}}" class="btn btn-primary">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-plus"style="color:white;font-weight: bold"></i>
                                         </span>
@@ -47,17 +60,16 @@
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
-                                            <td>{{-- {{$value->bnTieude}} --}}</td>
-                                            <td style="text-align: center"><img src="{{"public/images/banners/".$value->bnHinh}}" width="450" height="200" /></td>
-                                            <td>
-                                                @if($value->bnVitri==0)
-                                                Slide
-                                                @elseif($value->bnVitri==1)
-                                                Banner con
+                                            <td>{{$value->bnTieude}}</td>
+                                            <td style="text-align: center">
+                                                @if($value->bnVitri == 1)
+                                                <img src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" width="500" height="60" /></td>
                                                 @else
-                                                Banner quảng cáo
+                                                <img src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" width="450" height="200" /></td>
                                                 @endif
-                                                
+                                            <td>
+                                             {{$value->bnVitri}}
+                                               
                                             </td>
                                             <td>{{$value->bnNgay}}</td>
                                             <td>
@@ -75,7 +87,43 @@
                         </div>
                     </div>
 
-               
-                <!-- /.container-fluid -->
+<script>
+    var vitri = document.getElementById("chon__vitri");
+    vitri.addEventListener("change", function(){
+        if(vitri.value == 1)
+        { 
+           window.location=1; 
+        }
+        if(vitri.value == 2)
+        {
+           window.location=2;
+           
+        }
+        if(vitri.value == 3)
+        {
+           window.location=3;
+        }
+        if(vitri.value == 4)
+        {
+           window.location=4;
+        }
+        if(vitri.value == 5)
+        {
+           window.location=5;
+        }
+        if(vitri.value == 6)
+        {
+           window.location=6;
+        }
+        if(vitri.value == 7)
+        {
+           window.location=7;
+        }
+        if(vitri.value == 8)
+        {
+           window.location=8;
+        }
+    });
+</script>
 
   @endsection

@@ -261,7 +261,7 @@ class adminController extends Controller
     }
         
 
-   public function viewBanner()
+   public function viewBanner($vitri)
     {
          if(Session::has('adTaikhoan'))
         {
@@ -271,8 +271,16 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data = DB::table('slide')->orderBy('bnNgay','desc')->get();
-            return view('admin.banner')->with('data',$data)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+            $data = DB::table('slide')->where('bnVitri',$vitri)->orderBy('bnNgay','desc')->get();
+            $vt = DB::table('slide')->select('bnVitri')->orderBy('bnNgay','asc')->get();
+            $default = DB::table('slide')->select('bnVitri')->where('bnVitri',$vitri)->get();
+
+            return view('admin.banner')->with('data',$data)
+                                        ->with('vitri',$vt)
+                                        ->with('default',$default)
+                                        ->with('noteDanhgia',$noteDanhgia)
+                                        ->with('noteDonhang',$noteDonhang)
+                                        ->with('noteDonhang1',$noteDonhang1);
         }
         else 
         { return Redirect('/adLogin'); }
@@ -2196,7 +2204,7 @@ public function adCheckAddKhuyenmai(Request $re)
         $data2 = DB::table("chitietphieunhap")->where('pnMa',$id)
                 ->leftjoin('sanpham','sanpham.spMa','=','chitietphieunhap.spMa')
                 ->leftjoin('nhacungcap','nhacungcap.nccMa','=','chitietphieunhap.nccMa')
-                ->leftjoin('imeisanpham','imeisanpham.spMa','=','chitietphieunhap.spMa')
+                ->leftjoin('serial','serial.spMa','=','chitietphieunhap.spMa')
                 ->get();
         return view('admin.chi-tiet-phieu-nhap')->with('data',$data)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
     }
@@ -2234,23 +2242,43 @@ public function adCheckAddKhuyenmai(Request $re)
             $data2["ctpnThanhtien"]=$re->tonggiasp[$key];
             DB::table('chitietphieunhap')->insert($data2);
 
+            $data5 =array();
+            $data5['spMa']=$v;
+            $data5['serMa']=$re->serMa[$key];
+            $data5['serTinhtrang']=0;
+            DB::table('serial')->insert($data5);
+
+            $sumSerial = DB::table('serial')->where('spMa',$v)->count();
             $checkExist = DB::table('kho')->where('spMa',$v)->count();
+            $checkKho = DB::table('kho')->select('khoSoluong')->where('spMa',$v)->count();
             if($checkExist==0)
             {
                 $data3 = array();
-                $data3["spMa"] =  $v;
-                $data3["khoSoluong"] = $re->soluong[$key];
+                $data3["spMa"] = $v;
+                $data3["khoSoluong"] = $sumSerial;
                 $data3["khoNgaynhap"] = now(); 
                 $data3["khoSoluongdaban"] = 0;   
                 DB::table('kho')->insert($data3);
             }
             else
             {
-                $data3 = array();
-                $data3["khoSoluong"] = $re->soluong[$key];
-                $data3["khoNgaynhap"] = now(); 
-                $data3["khoSoluongdaban"] = 0;   
-                DB::table('kho')->where('spMa', $v)->update($data3);
+                if($checkKho > 0)
+                {
+                    $data3 = array();
+                    $data3["khoSoluong"] = $checkKho + $sumSerial;
+                    $data3["khoNgaynhap"] = now(); 
+                    $data3["khoSoluongdaban"] = 0;   
+                    DB::table('kho')->where('spMa', $v)->update($data3);
+                }
+                else
+                {
+                    $data3 = array();
+                    $data3["khoSoluong"] = $sumSerial;
+                    $data3["khoNgaynhap"] = now(); 
+                    $data3["khoSoluongdaban"] = 0;   
+                    DB::table('kho')->where('spMa', $v)->update($data3);
+                }
+                
             }
 
             $data4 = array();
@@ -2258,12 +2286,6 @@ public function adCheckAddKhuyenmai(Request $re)
             $data4['spGia'] =$re->gia[$key];
             $data4["nccMa"] =$re->nccMa[$key];
             DB::table('sanpham')->where('spMa', $v)->update($data4);
-
-            $data5 =array();
-            $data5['spMa']=$v;
-            $data5['imeiMa']=$re->imeiMa[$key];
-            $data5['imeiTinhtrang']=0;
-            DB::table('imeisanpham')->insert($data5);
          }
          
         
@@ -2957,7 +2979,7 @@ public function adCheckAddKhuyenmai(Request $re)
 
 
         //Banner
-     public function themBanner()
+     public function vitriBanner()
      {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
@@ -2966,36 +2988,45 @@ public function adCheckAddKhuyenmai(Request $re)
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
 
-            return view('admin.thembanner')
+            return view('admin.vi-tri-banner')
                                 ->with('noteDanhgia',$noteDanhgia)
                                 ->with('noteDonhang',$noteDonhang)
                                 ->with('noteDonhang1',$noteDonhang1);
      }
-      public function adCheckAddBanner(Request $re)
+      public function themBanner($id)
+     {
+         $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
+            Session::put('dgTrangthai',$noteDanhgia);
+            $noteDonhang = DB::table("donhang")->where('hdTinhtrang',0)->count();
+            Session::put('hdTinhtrang',$noteDonhang);
+            $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
+            Session::put('hdTinhtrang1',$noteDonhang1);
+
+            $vitri = $id;
+
+            return view('admin.them-banner',compact('vitri'))
+                                ->with('noteDanhgia',$noteDanhgia)
+                                ->with('noteDonhang',$noteDonhang)
+                                ->with('noteDonhang1',$noteDonhang1);
+     }
+      public function adCheckAddBanner(Request $re,$vitri)
       {
              if($re->hasFile('bnHinh'))
             {
-                foreach($re->file('bnHinh') as $key => $v)
-                {
                     $data = array();
-                    $data['bnMa']= time().rand(0,1000).rand('bnNoidung').rand("bnTieude");
-                    $data['bnTieude']= $re->bnTieude[$key];
-                    $data['bnNoidung']= $re->bnNoidung[$key];
-                    $data['bnHinh'] = $v->getClientOriginalName();
-                        $imgextention = $v->extension();
-                        $file = $v;
+                    $data['bnMa']= time();
+                    $data['bnTieude']= $re->bnTieude;
+                    $data['bnNoidung']= $re->bnNoidung;
+                    $data['bnHinh'] = $re->file('bnHinh')->getClientOriginalName();
+                        $imgextention = $re->file('bnHinh')->extension();
+                        $file = $re->file('bnHinh');
                         $file->move('public/images/banners',$data['bnHinh']);
                     $data['bnNgay']= now();
-                    $data['bnVitri']= $re->bnVitri;
-                    $data['bnPage']= $re->bnPage;
+                    $data['bnVitri']= $vitri;
+                    $data['bnTrangthai']= $re->bnTrangthai;
                     DB::table('slide')->insert($data);
-                    Session::forget('bnError');
+                   
                     return redirect('adBanner');
-                }
-            }
-            else
-            {
-                dd($re->hasFile('bnHinh'));   
             }
             // else
             // {
@@ -3039,7 +3070,7 @@ public function adCheckAddKhuyenmai(Request $re)
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         Session::put('hdTinhtrang1',$noteDonhang1);
 
-        $data = DB::table('imeisanpham')->join('sanpham','sanpham.spMa','=','imeisanpham.spMa')->get();
+        $data = DB::table('serial')->join('sanpham','sanpham.spMa','=','serial.spMa')->get();
         return view('admin.chi-tiet-kho')->with('data',$data);
       }
 

@@ -152,7 +152,7 @@
                         <h6 class="collapse-header">Danh mục quản lý:</h6>
                          <a class="collapse-item"  href="{{URL::to('tin-tuc')}}">Tin tức</a>
                         
-                        <a class="collapse-item"  href="{{URL::to('adBanner')}}">Banner</a>
+                        <a class="collapse-item"  href="{{URL::to('adBanner/'."1")}}">Banner</a>
                     </div>
                 </div>
             </li>

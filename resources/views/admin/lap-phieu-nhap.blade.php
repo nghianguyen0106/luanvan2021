@@ -80,7 +80,7 @@
 				 					<td>Nhà cung cấp</td>
 				 					<td>Số lượng</td>
 				 					<td>Giá sản phẩm</td>
-				 					<td>Mã imei</td>
+				 					<td>Mã serial</td>
 				 					{{-- <td>Tổng giá</td> --}}
 				 				</tr>
 				 				</thead>
@@ -163,7 +163,7 @@ Swal.fire({
 				 						<input hidden class="input__phieunhap" name="tonggiasp[]" type="text" readonly value=${gia*soluong}>
 				 					</td>
 				 					<td>
-				 						<input name="imeiMa[]" type="text">
+				 						<input name="serMa[]" type="text">
 				 					</td>	
 				 				</tr>`;
 		if(soluong=="")
