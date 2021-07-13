@@ -2202,9 +2202,9 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::put('hdTinhtrang1',$noteDonhang1);
         $data = DB::table("phieunhap")->where('pnMa',$id)->join('admin','admin.adMa','=','phieunhap.adMa')->get();
         $data2 = DB::table("chitietphieunhap")->where('pnMa',$id)
-                ->leftjoin('sanpham','sanpham.spMa','=','chitietphieunhap.spMa')
-                ->leftjoin('nhacungcap','nhacungcap.nccMa','=','chitietphieunhap.nccMa')
-                ->leftjoin('serial','serial.spMa','=','chitietphieunhap.spMa')
+                ->join('sanpham','sanpham.spMa','=','chitietphieunhap.spMa')
+                ->join('nhacungcap','nhacungcap.nccMa','=','chitietphieunhap.nccMa')
+                ->join('serial','serial.spMa','=','chitietphieunhap.spMa')
                 ->get();
         return view('admin.chi-tiet-phieu-nhap')->with('data',$data)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
     }
@@ -2265,7 +2265,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 if($checkKho > 0)
                 {
                     $data3 = array();
-                    $data3["khoSoluong"] = $checkKho + $sumSerial;
+                    $data3["khoSoluong"] = $checkKho + $sumSerial -1;
                     $data3["khoNgaynhap"] = now(); 
                     $data3["khoSoluongdaban"] = 0;   
                     DB::table('kho')->where('spMa', $v)->update($data3);
@@ -3026,7 +3026,7 @@ public function adCheckAddKhuyenmai(Request $re)
                     $data['bnTrangthai']= $re->bnTrangthai;
                     DB::table('slide')->insert($data);
                    
-                    return redirect('adBanner');
+                    return redirect('adBanner/'.$vitri);
             }
             // else
             // {

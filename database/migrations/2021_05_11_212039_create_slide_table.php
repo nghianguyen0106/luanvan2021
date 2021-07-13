@@ -16,9 +16,11 @@ class CreateSlideTable extends Migration
         Schema::create('slide', function (Blueprint $table) {
             $table->id('bnMa');
             $table->string('bnTieude');
+            $table->longtext('bnNoidung')->nullable(true);;
             $table->char('bnHinh',50);
             $table->timestamp('bnNgay');
             $table->integer('bnVitri');
+            $table->integer('bnTrangthai');
   
             $table->engine = "InnoDB";
         });
