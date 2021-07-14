@@ -83,6 +83,7 @@ class loginController extends Controller
            }
            else
            {
+                Auth::guard('khachhang')->logout();
                 //if Account is not exist go to auto register
                 if(Auth::guard('khachhang')->check() == false)
                 {
@@ -100,8 +101,6 @@ class loginController extends Controller
                     $kh->khXtemail=1;
                     $date=getdate();
                     $kh->khMa=$date['seconds'].strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
-                    
-                    
                     //login
                     Session::put("khMa",$kh->khMa);
                     Session::put("khTen",$kh->khTen);

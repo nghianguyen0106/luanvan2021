@@ -20,6 +20,7 @@ class CreateSlideTable extends Migration
             $table->char('bnHinh',50);
             $table->timestamp('bnNgay');
             $table->integer('bnVitri');
+            $table->integer('bnTrang');
             $table->integer('bnTrangthai');
   
             $table->engine = "InnoDB";

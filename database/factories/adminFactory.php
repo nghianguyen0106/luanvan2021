@@ -28,7 +28,7 @@ class adminFactory extends Factory
             'adEmail'=>$this->faker->safeemail,
             'adSdt'=>'0392522094',
             'adMatkhau'=>'112233',
-            'adDiachi'=>$this->faker->address,
+            'adDiachi'=>'180 cao lo',
             'adTinhtrang'=>0,
             'adQuyen'=>'1',
         ];
