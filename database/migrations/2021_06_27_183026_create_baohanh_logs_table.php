@@ -14,7 +14,7 @@ class CreateBaohanhLogsTable extends Migration
     public function up()
     {
         Schema::create('baohanh_logs', function (Blueprint $table) {
-            $table->char('imeisp',30);
+            $table->char('serial',30);
             $table->timestamp('bhNgay');
             $table->integer('khMa');
             $table->engine = "InnoDB";

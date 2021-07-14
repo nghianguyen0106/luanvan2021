@@ -16,9 +16,9 @@ class CreatePhieunhapTable extends Migration
            Schema::create('phieunhap', function (Blueprint $table) {
             $table->integer('pnMa')->autoIncrement();
             $table->timestamp('pnNgaylap');
-            $table->integer('adMa');
             $table->integer('pnSoluongsp');
             $table->float('pnTongtien',20,2);
+            $table->integer('adMa');
             $table->engine = "InnoDB";
 
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');

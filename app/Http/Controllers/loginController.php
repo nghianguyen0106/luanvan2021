@@ -9,8 +9,10 @@ use DB;
 use Session;
 use Mail;
 use Cart;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 session_start();
-
+//Models
 use App\Models\khachhang;
 use App\Models\giohang;
 class loginController extends Controller
@@ -24,11 +26,12 @@ class loginController extends Controller
         $result2=null;
         if($result)
         {
-            
             $result2=khachhang::where('khTaikhoan',$result->khTaikhoan)->where('khMatkhau',$password)->first();    
+            // dd($result2);
         }
     	if($result2)
     	{
+            Auth::guard('khachhang')->login($result2);
             session::put("khMa",$result->khMa);
             session::put("khTen",$result->khTen);
             session::put('khTaikhoan',$result->khTaikhoan);
@@ -37,6 +40,7 @@ class loginController extends Controller
             session::put('khHinh',$result->khHinh);
             session::put('khDiachi',$result->khDiachi);
             session::put('khSdt',$result->khSdt);
+            
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
     		return Redirect::to('product');
@@ -103,9 +107,9 @@ class loginController extends Controller
                 session::put("khTen",$kh->khTen);
                 session::put('khTaikhoan',$kh->khTaikhoan);
                 session::put('khEmail',$kh->khEmail);
-               
-                $kh->save();
-                return Redirect::to('product');
+                Session::flash('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
+                // $kh->save();
+                return view('userpage.addInfomation');
            }
     }
 
@@ -248,6 +252,19 @@ class loginController extends Controller
             DB::table('khachhang')->where('khMa',$re->id)->update(['khMatkhau'=>md5($re->password)]);
             session::flash('changepassword',' Vui lòng đăng nhập lại ! ');
             return Redirect::to('login');
+        }
+    }
+    public function addInfomation(Request $re)
+    {
+        $userInfo=khachhang::find(Session::get('khMa'));
+        if($userInfo)
+        {
+
+        }
+        else
+        {
+            Session::flash('Một sự cố đã xảy ra vui lòng đăng ký lại !');
+            return Redirect()->route('loginpage');
         }
     }
 }

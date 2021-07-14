@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSerialTable extends Migration
+class CreatePhieunhapSersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateSerialTable extends Migration
      */
     public function up()
     {
-        Schema::create('serial', function (Blueprint $table) {
+        Schema::create('phieunhap_sers', function (Blueprint $table) {
             $table->char('serMa',20);
-            $table->integer('serTinhtrang');
+            $table->integer('pnMa');
             $table->integer('spMa');
-            $table->engine="InnoDB";
+            $table->engine = "InnoDB";
 
+            //Foreign key
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('pnMa')->references('pnMa')->on('phieunhap')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateSerialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('serial');
+        Schema::dropIfExists('phieunhap_sers');
     }
 }

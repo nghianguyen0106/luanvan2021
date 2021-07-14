@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', 'homeController@welcome' );
 
 // user info
-Route::get('/infomation/{id}','homeController@viewInfomation');
-Route::post('edit_infomation/{id}','homeController@editInfomation');
-Route::get('updatePass/{id}','homeController@updatePass');
-Route::post('editPass/{id}','homeController@editPass');
-Route::get('changeEmail/{id}','homeController@changeEmail');
-Route::get('listorder','homeController@listorder');
+Route::get('/infomation/{id}','homeController@viewInfomation')->middleware('checkAuth');
+Route::post('edit_infomation/{id}','homeController@editInfomation')->middleware('checkAuth');
+Route::get('updatePass/{id}','homeController@updatePass')->middleware('checkAuth');
+Route::post('editPass/{id}','homeController@editPass')->middleware('checkAuth');
+Route::get('changeEmail/{id}','homeController@changeEmail')->middleware('checkAuth');
+Route::get('listorder','homeController@listorder')->middleware('checkAuth');
 Route::post('addInfomation/{id}','loginController@addInfomation');
 Route::get('cancelinfo','homeController@cancelinfo');
 //--------User register------//
@@ -24,7 +24,7 @@ Route::get('/register','registerController@index');
 Route::post('/getregister','registerController@getregister');
 Route::post('/registerForApi','registerController@registerForApi');
 //--------User Login------//
-Route::get('login','homeController@login' );
+Route::get('login','homeController@login' )->name('loginpage');
 Route::post('/checklogin','loginController@userlogin');
 Route::get('logout','homeController@logout');
 // User forgot password

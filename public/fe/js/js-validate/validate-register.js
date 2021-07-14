@@ -105,7 +105,7 @@ function onPass1(){
          err_address.style.display = 'none';
         //btn_regis
          var btn_regis = document.getElementById("btn__register");
-        if(ip_address.trim().length<15)
+        if(ip_address.trim().length<10)
           {
             err_address.style.color = 'red';
             ip_address_css.style.border= '3px solid red';
@@ -151,4 +151,10 @@ function onPass1(){
              err_sdt.innerHTML="";
              btn_regis.setAttribute("type","submit");
           }  
+    }
+
+    //nghia
+    function onSubmit()
+    {
+      var
     }

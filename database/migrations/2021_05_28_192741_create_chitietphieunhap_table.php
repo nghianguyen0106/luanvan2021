@@ -14,12 +14,12 @@ class CreateChitietphieunhapTable extends Migration
     public function up()
     {
         Schema::create('chitietphieunhap', function (Blueprint $table) {
-            $table->integer('pnMa');
-            $table->integer('spMa');
-            $table->integer('nccMa');
             $table->integer('ctpnSoluong');
             $table->float('ctpnDongia',20,2);
             $table->float('ctpnThanhtien',20,2);
+            $table->integer('spMa');
+            $table->integer('nccMa');
+            $table->integer('pnMa');
                 
             $table->engine = "InnoDB";
             

@@ -8,6 +8,8 @@ use DB;
 use Session;
 use Cart;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 //Models
 use App\Models\thuonghieu;
 use App\Models\loai;
@@ -67,6 +69,7 @@ class homeController extends Controller
     }
     public function logout()
     {
+        Auth::logout();
         Cart::destroy();
         session::forget("khMa");
         session::forget("khTen");

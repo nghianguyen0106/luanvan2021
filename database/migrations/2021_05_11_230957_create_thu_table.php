@@ -18,7 +18,7 @@ class CreateThuTable extends Migration
             $table->timestamp('alNgaygio');
             $table->integer('thuSoluong');
             $table->float('thuTongtien',20,2);
-            $table->string('thuNoidung');
+            $table->text('thuNoidung');
             $table->engine = "InnoDB";
             
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');

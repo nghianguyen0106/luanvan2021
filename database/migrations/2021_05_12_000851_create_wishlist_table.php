@@ -16,11 +16,10 @@ class CreateWishlistTable extends Migration
         Schema::create('wishlist', function (Blueprint $table) {
             $table->integer('khMa');
             $table->integer('spMa');
-
             $table->engine = "InnoDB";
 
             $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade')->onUpdate('cascade');
-             $table->foreign('spMa')->references('spMa')->on('sanpham')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('spMa')->references('spMa')->on('sanpham')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -16,7 +16,7 @@ class CreateNhacungcapTable extends Migration
         Schema::create('nhacungcap', function (Blueprint $table) {
             $table->integer('nccMa')->autoIncrement();
             $table->string('nccTen',50)->unique();
-            $table->string('nccSdt',50);
+            $table->char('nccSdt',11);
             $table->string('nccDiachi',50);
             $table->integer('nccTinhtrang');
             $table->engine = "InnoDB";

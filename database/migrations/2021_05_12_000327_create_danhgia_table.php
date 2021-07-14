@@ -18,13 +18,13 @@ class CreateDanhgiaTable extends Migration
             $table->string('dgNoidung');
             $table->timestamp('dgNgay');
             $table->integer('dgTrangthai');
-            $table->engine = "InnoDB";
             $table->integer('khMa');
             $table->integer('spMa');
+            $table->engine = "InnoDB";
+
             //foreign key
-            
             $table->foreign('spMa')->references('spMa')->on('sanpham')->onDelete('cascade');
-              $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');
+            $table->foreign('khMa')->references('khMa')->on('khachhang')->onDelete('cascade');
         });
     }
 

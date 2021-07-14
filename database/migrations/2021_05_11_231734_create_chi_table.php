@@ -18,7 +18,7 @@ class CreateChiTable extends Migration
             $table->timestamp('chiNgaygiolap');
             $table->integer('chiSoluong');
             $table->float('chiTongtien',20,2);
-            $table->string('chiNoidung');
+            $table->text('chiNoidung');
             $table->engine = "InnoDB";
             
             $table->foreign('adMa')->references('adMa')->on('admin')->onDelete('cascade')->onUpdate('cascade');

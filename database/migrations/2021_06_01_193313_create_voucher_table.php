@@ -16,7 +16,6 @@ class CreateVoucherTable extends Migration
         Schema::create('voucher', function (Blueprint $table) {
             $table->char('vcMa')->primary();
             $table->string('vcTen')->unique();
-            $table->integer('vcTinhtrang');
             $table->integer('vcSoluot');
             $table->integer('vcLoai');
             $table->timestamp('vcNgaybd');
@@ -26,6 +25,7 @@ class CreateVoucherTable extends Migration
             $table->integer('vcGiatritoida')->nullable(true);
             $table->integer('vcDkapdung')->nullable(true);
             $table->integer('vcGtcandat')->nullable(true);
+            $table->integer('vcTinhtrang');
             $table->integer('spMa')->nullable(true);
 
             $table->engine = "InnoDB";

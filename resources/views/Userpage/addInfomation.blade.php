@@ -2,38 +2,26 @@
 @section('title')
   Đăng ký tài khoản
 @endsection
-@section('login')
-  Đăng nhập
-@endsection
 @section("content")
 <br/>
-<section class="container content__register">
+<section class="container content__register" onload="loadpage()">
     <div class="row">
       <div class="col-lg-2"></div>
       <div class="col-lg-8 col-sm-12">
-            <form action="{{URL::to('addInfomation/'.$khMa)}}" method="post">
+            <form action="{{URL::to('addInfomation/'.Session::get('khMa'))}}" method="post">
              <legend>Đăng ký tài khoản</legend>
             {{csrf_field()}}
-            {{Session::get('khMa')}}
+   
             <br/>
             <div class="content__register--form">
               
-               <div class="form-group">
-                <input type="date" name="date" required class="form-control input__register" placeholder=" ">
-                <label for="" class="form__label">Ngày sinh</label>
-              </div>
-               <div class="form-group">
-                <input onblur="onAcc()" id="ip__acc" type="text" name="username" required class="form-control input__register" placeholder=" ">
-                <label for="" class="form__label">Tên đăng nhập</label>
-                <span id="acc__err--regis"></span>
-              </div>
                <div class="form-group ">
                 <input onblur="onPass1()" id="password" type="password" name="password" required class="form-control input__register" placeholder=" ">
                  <label for="" class="form__label">Mật khẩu</label>
                 <i id="show__pass1" class="far fa-eye" style="font-size: 23px;"></i>
                 <span id="pass__err"></span>
               </div>
-              <div class="form-group  ">
+              <div class="form-group ">
                 <input onblur="onPass2()" id="repassword" type="password" name="repassword" required class="form-control input__register" placeholder=" ">
                  <label for="" class="form__label">Nhập lại mật khẩu</label>
                  <i id="show__pass2" class="far fa-eye" style="font-size: 23px;"></i>
@@ -41,7 +29,7 @@
               </div>
               
               <div class="form-group  ">
-                <input onblur="onAddress()" id="address" type="text" name="address" required class="form-control input__register" placeholder=" ">
+                <input onblur="onAddress()" minlength="10" title="Địa chỉ bao gồm: Số nhà, Tên đường, phường xã (Độ dài phải hơn 10 ký tự)" id="address" type="text" name="address" required class="form-control input__register" placeholder=" ">
                 <label for="" class="form__label">Địa chỉ</label>
                  <span id="address__err--regis"></span>
               </div>
@@ -77,4 +65,19 @@ Swal.fire({
 </script> 
 @endif
 @endsection
+<script type="text/javascript">
+          window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+// Show notification register
+@if(Session::has('ok'))
+Swal.fire({
+  icon: 'info',
+  title: 'Thông báo',
+  text: '{{Session::get('ok')}}!',
+})
+
+@endif
+</script>
 <script src="{{url('public/fe/js/js-validate/validate-register.js')}}"></script>

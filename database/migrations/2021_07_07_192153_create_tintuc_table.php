@@ -19,10 +19,10 @@ class CreateTintucTable extends Migration
             $table->string('ttGioithieu',50);
             $table->longText('ttNoidung');
             $table->integer('ttLoai');
-            $table->string('ttHinh',50);
             $table->timestamp('ttNgaydang');
-            $table->integer('ttTinhtrang');
             $table->integer('ttLuotxem')->default(0);
+            $table->integer('ttTinhtrang');
+            $table->string('ttHinh',50);
             $table->integer('adMa');
             $table->engine="InnoDB";
 

@@ -20,9 +20,9 @@ class CreateKhachhangTable extends Migration
             $table->char('khTaikhoan')->unique();
             $table->char('khMatkhau',50);
             $table->date('khNgaysinh');
-            $table->string('khDiachi');
-            $table->char('khSdt',11);
             $table->integer('khGioitinh');
+            $table->string('khDiachi');
+            $table->char('khSdt',11)->unique();
             $table->char('khHinh')->nullable(true);
             $table->char('khXtemail')->nullable(true);
             $table->char('khResetpassword')->nullable(true);

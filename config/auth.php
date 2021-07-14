@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'khachhang',
         'passwords' => 'users',
     ],
 
@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'khachhang' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'khachhang',
         ],
 
         'api' => [
@@ -46,6 +46,8 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+
     ],
 
     /*
@@ -66,9 +68,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'khachhang' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\khachhang::class,
         ],
 
         // 'users' => [

@@ -18,18 +18,16 @@ class CreateSanphamTable extends Migration
             $table->string('spTen',50);
             $table->float('spGia',20,2);
             $table->integer('spHanbh');
-            $table->integer('spTinhtrang');
             $table->integer('thMa');
             $table->integer('loaiMa');
             $table->integer('ncMa');
             $table->integer('nccMa');
             $table->integer('kmMa')->nullable(true);
             $table->integer('spSlkmtoida')->nullable(true);
-          
             $table->engine = "InnoDB";
+            
             // foreign key
             $table->foreign('ncMa')->references('ncMa')->on('nhucau')->onDelete('cascade')->onUpdate('cascade');
-           
             $table->foreign('loaiMa')->references('loaiMa')->on('loai')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('thMa')->references('thMa')->on('thuonghieu')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('kmMa')->references('kmMa')->on('khuyenmai')->onUpdate('cascade')->onDelete('cascade');
