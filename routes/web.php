@@ -132,7 +132,7 @@ Route::get('/adLoai','adminController@viewLoai');
 Route::get('/adThuonghieu','adminController@viewThuonghieu');
 Route::get('/adNhucau','adminController@viewNhucau');
 Route::get('/adKhuyenmai','adminController@viewKhuyenmai');
-Route::get('/adBanner/{vitri}','adminController@viewBanner');
+Route::get('/adBanner/{trang}/{vitri}','adminController@viewBanner');
 Route::get('/adBinhluan','adminController@viewBinhluan');
 
 //--------Admin Add Manage View------//
@@ -180,9 +180,9 @@ Route::get('/checkAddThuonghieu','adminController@adCheckAddThuonghieu');
 Route::get('/deleteThuonghieu/{id}','adminController@adDeleteThuonghieu');
 Route::get('/editThuonghieu/{id}','adminController@editThuonghieu');
 //--Banner--//
-Route::get('vi-tri-banner','adminController@vitriBanner');
-Route::get('them-banner/{id}','adminController@themBanner');
-Route::post('checkAddBanner/{vitri}','adminController@adCheckAddBanner');
+Route::get('vi-tri-banner/{trang}','adminController@vitriBanner');
+Route::get('them-banner/{trang}/{id}','adminController@themBanner');
+Route::post('checkAddBanner/{trang}/{vitri}','adminController@adCheckAddBanner');
 Route::get('/deleteBanner/{id}','adminController@adDeleteBanner');
 Route::get('/updateBanner/{id}','adminController@adUpdateBanner');
 Route::post('/editBanner/{id}','adminController@editBanner');
