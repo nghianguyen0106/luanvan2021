@@ -14,7 +14,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 session_start();
 //Models
 use App\Models\khachhang;
-use App\Models\giohang;
 class loginController extends Controller
 {
      public function userlogin(Request $re)
@@ -65,7 +64,7 @@ class loginController extends Controller
     public function googleredirect()
     {
             $userInfo=Socialite::driver('google')->user();
-            //dd($userInfo);
+            // dd($userInfo);
             $checkEmail=khachhang::where('khEmail',$userInfo->email)->first();
            if($checkEmail!=null)
            {
@@ -85,30 +84,35 @@ class loginController extends Controller
            else
            {
                 //if Account is not exist go to auto register
-                $kh=new khachhang();
-                $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
-                $kh->khMatkhau=md5("12345678");
-                $kh->khEmail=$userInfo->email;            
-                $kh->khNgaysinh=date_create();
-                $kh->khDiachi='';
-                $kh->khQuyen=0;
-                $kh->khGioitinh=0;
-                $kh->khSdt="";
-                $kh->khTaikhoan=$userInfo->id;
-                $kh->khNgaythamgia=date_create();
-                $kh->khXtemail=1;
-                $date=getdate();
-                //dd($data);
-                $kh->khMa=strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
-                
-                
-                //login
-                session::put("khMa",$kh->khMa);
-                session::put("khTen",$kh->khTen);
-                session::put('khTaikhoan',$kh->khTaikhoan);
-                session::put('khEmail',$kh->khEmail);
-                Session::flash('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
-                // $kh->save();
+                if(Auth::guard('khachhang')->check() == false)
+                {
+                    $kh=new khachhang();
+                    $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
+                    $kh->khMatkhau=md5("12345678");
+                    $kh->khEmail=$userInfo->email;            
+                    $kh->khNgaysinh=date_create();
+                    $kh->khDiachi='';
+                    $kh->khQuyen=0;
+                    $kh->khGioitinh=0;
+                    $kh->khSdt="";
+                    $kh->khTaikhoan=$userInfo->id;
+                    $kh->khNgaythamgia=date_create();
+                    $kh->khXtemail=1;
+                    $date=getdate();
+                    $kh->khMa=$date['seconds'].strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
+                    
+                    
+                    //login
+                    Session::put("khMa",$kh->khMa);
+                    Session::put("khTen",$kh->khTen);
+                    Session::put('khTaikhoan',$kh->khTaikhoan);
+                    Session::put('khEmail',$kh->khEmail);
+                    Session::flash('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
+                    Auth::guard('khachhang')->login($kh);
+
+                    
+                    $kh->save();
+                }
                 return view('userpage.addInfomation');
            }
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhieunhapSersTable extends Migration
+class CreatePhieunhapSerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePhieunhapSersTable extends Migration
      */
     public function up()
     {
-        Schema::create('phieunhap_sers', function (Blueprint $table) {
+        Schema::create('phieunhap_ser', function (Blueprint $table) {
             $table->char('serMa',20);
             $table->integer('pnMa');
             $table->integer('spMa');
@@ -32,6 +32,6 @@ class CreatePhieunhapSersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phieunhap_sers');
+        Schema::dropIfExists('phieunhap_ser');
     }
 }

@@ -4,12 +4,12 @@
 @endsection
 @section("content")
 <br/>
-<section class="container content__register" onload="loadpage()">
+<section class="container content__register" >
     <div class="row">
       <div class="col-lg-2"></div>
       <div class="col-lg-8 col-sm-12">
-            <form action="{{URL::to('addInfomation/'.Session::get('khMa'))}}" method="post">
-             <legend>Đăng ký tài khoản</legend>
+            <form action="{{URL::to('addInfomation/'.Auth::guard('khachhang')->user()->khMa)}}" method="post">
+             <legend>Đăng ký tài khoản  {{Session::get('khMa')}} {{Auth::guard('khachhang')->user()->khTen}}</legend>
             {{csrf_field()}}
    
             <br/>
@@ -69,14 +69,16 @@ Swal.fire({
           window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
             e.returnValue = '';
+            window.location.href="{{URL::to('login')}}";
         });
+       
 // Show notification register
 @if(Session::has('ok'))
 Swal.fire({
   icon: 'info',
   title: 'Thông báo',
   text: '{{Session::get('ok')}}!',
-})
+});
 
 @endif
 </script>

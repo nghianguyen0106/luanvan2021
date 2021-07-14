@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonhangSersTable extends Migration
+class CreateDonhangSerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDonhangSersTable extends Migration
      */
     public function up()
     {
-        Schema::create('donhang_sers', function (Blueprint $table) {
+        Schema::create('donhang_ser', function (Blueprint $table) {
             $table->char('serMa',20);
             $table->integer('hdMa');
             $table->integer('spMa');
@@ -32,6 +32,6 @@ class CreateDonhangSersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donhang_sers');
+        Schema::dropIfExists('donhang_ser');
     }
 }
