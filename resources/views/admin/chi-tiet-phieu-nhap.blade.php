@@ -30,7 +30,7 @@
                                 </td>
                             </tr>
                                     <tr>
-                                        <td>Mã imei</td>
+                                        <td>Mã serial</td>
                                         <td>Sản phẩm</td>
                                         <td>Nhà cung cấp</td>
                                         <td>Số lượng</td>
@@ -40,7 +40,7 @@
                                 <tbody>
                                     @foreach($data2 as $data2)
                                     <tr>
-                                        <td>{{$data2->imeiMa}}</td>
+                                        <td>{{$data2->serMa}}</td>
                                         <td>{{$data2->spTen}}</td>
                                         <td>{{$data2->nccTen}}</td>
                                         <td>{{$data2->ctpnSoluong}}</td>

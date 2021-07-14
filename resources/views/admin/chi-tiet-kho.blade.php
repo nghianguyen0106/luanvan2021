@@ -23,14 +23,14 @@
                                    <thead style="background:linear-gradient(to right,#627FFD,#8572FA ); ;color: white;">
                                         <tr>
                                             <th>Sản phẩm</th>
-                                            <th>Mã imei</th>
+                                            <th>Mã serial</th>
                                             <th>Tình trạng</th>
                                         </tr>
                                     </thead>
                                     <tfoot style="display:none;">
                                         <tr>
                                             <th>Sản phẩm</th>
-                                            <th>Mã imei</th>
+                                            <th>Mã serial</th>
                                             <th>Tình trạng</th>
                                         </tr>
                                     </tfoot>
@@ -40,9 +40,9 @@
                                         <tr>
                                             <td>{{$value->spTen}}</td>
                                             <td>
-                                               {{$value->imeiMa}}
+                                               {{$value->serMa}}
                                             </td>
-                                            <td>{{$value->imeiTinhtrang==0?"Chưa bán":"Đã bán"}}</td>
+                                            <td>{{$value->serTinhtrang==0?"Chưa bán":"Đã bán"}}</td>
                                         </tr>
                                     @endforeach
                                        
