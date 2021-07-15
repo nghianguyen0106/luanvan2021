@@ -30,7 +30,7 @@
                                 </td>
                             </tr>
                                     <tr>
-                                        {{-- <td>Mã serial</td> --}}
+                                        <td>Mã serial</td>
                                         <td>Sản phẩm</td>
                                         <td>Nhà cung cấp</td>
                                         <td>Số lượng</td>
@@ -38,17 +38,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data2 as $data2)
-                                    <tr>
-                                       {{--  @foreach($data3 as $data3)
-                                        <td>{{$data3->serMa}}</td>
-                                        @endforeach --}}
-                                        <td>{{$data2->spTen}}</td>
-                                        <td>{{$data2->nccTen}}</td>
-                                        <td>{{$data2->ctpnSoluong}}</td>
-                                        <td>{{number_format($data2->ctpnDongia)}}&nbsp;VND</td>
-                                    </tr>
-                                    @endforeach
+                                     
+                                            @foreach($data2 as $data2)
+                                            <tr>
+                                                <td>{{$data2->serMa}}</td>
+                                                <td>{{$data2->spTen}}</td>
+                                                <td>{{$data2->nccTen}}</td>
+                                                <td>{{$data2->ctpnSoluong}}</td>
+                                                <td>{{number_format($data2->ctpnDongia)}}&nbsp;VND</td>
+                                            </tr>
+                                            @endforeach
+                                         
+                                  
                                     <tr>
                                         <td colspan="5" style="text-align: right">Tổng sản phẩm:&nbsp;{{$data->pnSoluongsp}}</td>
                                     </tr>
@@ -60,7 +61,9 @@
                         @endforeach
                          </div>
                     </div>
+                  
                    
+                  
                 	<button class="btn btn-info" type="button" onclick="back()">Trở về</button>
                     &emsp; <button class="btn btn-secondary" onclick="printt('content__print')">In phiếu nhập</button>
                 </div>

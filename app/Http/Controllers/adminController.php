@@ -16,6 +16,7 @@ use App\Models\kho;
 use App\Models\hinh;
 use App\Models\mota;
 use App\Models\phieunhap;
+use App\Models\phieunhap_ser;
 use App\Models\danhgia;
 use App\Models\thuonghieu;
 use App\Models\loai;
@@ -2222,12 +2223,16 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::put('hdTinhtrang',$noteDonhang);
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         Session::put('hdTinhtrang1',$noteDonhang1);
-        $data = DB::table("phieunhap")->where('pnMa',$id)->join('admin','admin.adMa','=','phieunhap.adMa')->get();
+        $data = DB::table("phieunhap")
+                ->where('pnMa',$id)
+                ->join('admin','admin.adMa','=','phieunhap.adMa')
+                ->get();
         $data2 = DB::table("chitietphieunhap")->where('pnMa',$id)
                 ->join('sanpham','sanpham.spMa','=','chitietphieunhap.spMa')
                 ->join('nhacungcap','nhacungcap.nccMa','=','chitietphieunhap.nccMa')
                 ->get();
-        
+
+       
         return view('admin.chi-tiet-phieu-nhap')
                     ->with('data',$data)
                     ->with('data2',$data2)
@@ -2261,12 +2266,14 @@ public function adCheckAddKhuyenmai(Request $re)
         foreach($re->spMa as $key => $v)
         {
             $data2 = array();
-            $data2["pnMa"] =  $data['pnMa'];
-            $data2["spMa"] =  $v;
-            $data2["nccMa"] = $re->nccMa[$key];
             $data2["ctpnSoluong"]=$re->soluong[$key];
             $data2["ctpnDongia"]= $re->gia[$key];
             $data2["ctpnThanhtien"]=$re->tonggiasp[$key];
+            $data2["spMa"] =  $v;
+            $data2["nccMa"] = $re->nccMa[$key];
+            $data2["pnMa"] =  $data['pnMa'];
+            $data2["serMa"] =  $re->serMa[$key];
+           
             DB::table('chitietphieunhap')->insert($data2);
 
             $data5 =array();
@@ -2298,7 +2305,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 if($checkKho > 0)
                 {
                     $data3 = array();
-                    $data3["khoSoluong"] = $checkKho + $sumSerial;
+                    $data3["khoSoluong"] = $checkKho + $sumSerial - 1;
                     $data3["khoNgaynhap"] = now(); 
                     $data3["khoSoluongdaban"] = 0;   
                     DB::table('kho')->where('spMa', $v)->update($data3);
