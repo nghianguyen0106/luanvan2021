@@ -273,38 +273,88 @@ class adminController extends Controller
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
 
-            $vtTopdb = DB::table('slide')->select('bnVitri')->where('bnVitri',$vitri)
-                    ->where('bnTrang',$trang)->orderBy('bnVitri','asc')->limit(1)->first();
-             $vtTop = DB::table('slide')->select('bnVitri')->where('bnVitri',$vitri)
+            $vtTopdb = DB::table('slide')->select('bnVitri')
                     ->where('bnTrang',$trang)->orderBy('bnVitri','asc')->limit(1)->get();
-            $top = $vtTopdb->bnVitri;
-            $data = DB::table('slide')->where('bnVitri',$top)
-                    ->where('bnTrang',$trang)
-                    ->orderBy('bnNgay','desc')->get();
-            $page = $trang;
+          
+           $vtDB = DB::table('slide')->select('bnVitri')
+                    ->where('bnTrang',$trang)->orderBy('bnVitri','asc')->limit(1)->first();
+            $vtDb = $vtDB->bnVitri;
+             $page = $trang;
             $vtEmpty = DB::table('slide')
                     ->where('bnTrang',$trang)->count();
+
             $vt1Empty = DB::table('slide')
                     ->where('bnVitri',1)
                     ->where('bnTrang',$trang)->count();
+
             $vt = DB::table('slide')->select('bnVitri')
                     ->where('bnTrang',$trang)
                     ->orderBy('bnVitri','asc')->get();
+
             $default = DB::table('slide')
                     ->select('bnVitri')
                     ->where('bnVitri',$vitri)
                     ->where('bnTrang',$trang)->get();
 
-            return view('admin.banner')->with('data',$data)
+            $default2 = DB::table('slide')
+                    ->select('bnVitri')
+                    ->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)->first();
+           
+           if($vitri == 1 && $vitri != $vtDB)
+           {
+              $data = DB::table('slide')->where('bnVitri',$vtDb)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
                                         ->with('page',$page)
                                         ->with('vtEmpty',$vtEmpty)
                                         ->with('vt1Empty',$vt1Empty)
-                                        ->with('vtTop',$vtTop)
+                                        ->with('vtTop',$vtTopdb)
                                         ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
                                         ->with('vitri',$vt)
                                         ->with('noteDanhgia',$noteDanhgia)
                                         ->with('noteDonhang',$noteDonhang)
                                         ->with('noteDonhang1',$noteDonhang1);
+           }
+           elseif($vitri != 1 && $vitri != $vtDB)
+           {
+            $data = DB::table('slide')->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
+                                        ->with('page',$page)
+                                        ->with('vtEmpty',$vtEmpty)
+                                        ->with('vt1Empty',$vt1Empty)
+                                        ->with('vtTop',$vtTopdb)
+                                        ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
+                                        ->with('vitri',$vt)
+                                        ->with('noteDanhgia',$noteDanhgia)
+                                        ->with('noteDonhang',$noteDonhang)
+                                        ->with('noteDonhang1',$noteDonhang1);
+           }
+           elseif($vitri == 1 && $vitri != $vtDB)
+           {
+            $data = DB::table('slide')->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
+                                        ->with('page',$page)
+                                        ->with('vtEmpty',$vtEmpty)
+                                        ->with('vt1Empty',$vt1Empty)
+                                        ->with('vtTop',$vtTopdb)
+                                        ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
+                                        ->with('vitri',$vt)
+                                        ->with('noteDanhgia',$noteDanhgia)
+                                        ->with('noteDonhang',$noteDonhang)
+                                        ->with('noteDonhang1',$noteDonhang1);
+           }
+           
+
+           
         }
         else 
         { return Redirect('/adLogin'); }
@@ -2281,12 +2331,6 @@ public function adCheckAddKhuyenmai(Request $re)
             $data5['serMa']=$re->serMa[$key];
             $data5['serTinhtrang']=0;
             DB::table('serial')->insert($data5);
-
-            $data7 =array();
-            $data7['serMa']=$re->serMa[$key];
-            $data7['spMa']=$v;
-            $data7["pnMa"] = $data['pnMa'];
-            DB::table('phieunhap_ser')->insert($data7);
 
             $sumSerial = DB::table('serial')->where('spMa',$v)->count();
             $checkExist = DB::table('kho')->where('spMa',$v)->count();

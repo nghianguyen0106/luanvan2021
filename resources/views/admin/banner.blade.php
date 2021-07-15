@@ -36,19 +36,43 @@
                                 @if($vtEmpty == 0)
                                     <option value="0" selected>Chưa có vị trí được thêm
                                     </option>
-                                @endif
-                                @if($vt1Empty==0)
-                                 @foreach($vtTop as $vt) 
+                                <!--------Chưa có vị trí 1------->
+                                 @elseif($vt1Empty==0)
+                                    @if($vtDefault2==null)
+                                     @foreach($vtTop as $vt) 
+                                         @foreach($vitri as $value)  
+                                             @if($value->bnVitri == $vt->bnVitri)
+                                                <option value="{{$value->bnVitri}}" selected>Vị trí {{$value->bnVitri}}</option>
+                                             @else
+                                                <option value="{{$value->bnVitri}}">Vị trí {{$value->bnVitri}}</option>
+                                             @endif
+                                        @endforeach 
+                                        @endforeach  
+                                    @elseif($vtDefault2!=null)
+                                      @foreach($vtDefault as $vt)
+                                        @foreach($vitri as $value)  
+                                         @if($value->bnVitri == $vt->bnVitri)
+                                            <option value="{{$value->bnVitri}}" selected>Vị trí {{$value->bnVitri}}</option>
+                                         @else
+                                            <option value="{{$value->bnVitri}}">Vị trí {{$value->bnVitri}}</option>
+                                         @endif
+                                         @endforeach
+                                    @endforeach 
+                                    @endif  
+                                
+                                <!-----Đã có vị trí 1---->
+                                @elseif($vt1Empty!=0)
+                                    @foreach($vtDefault as $vt)
                                      @foreach($vitri as $value)  
                                          @if($value->bnVitri == $vt->bnVitri)
                                             <option value="{{$value->bnVitri}}" selected>Vị trí {{$value->bnVitri}}</option>
                                          @else
                                             <option value="{{$value->bnVitri}}">Vị trí {{$value->bnVitri}}</option>
                                          @endif
-                                    @endforeach  
-                                @endforeach 
-                                @endif  
+                                         @endforeach
+                                    @endforeach 
                                 
+                                @endif
                             </select>
                             <!----->
                             <br/><br/>
@@ -58,32 +82,39 @@
                                         <tr>
                                             <th>Tiêu đề</th>
                                             <th>Banner</td>
-                                            <th>Ngày tạo</td>
+                                            
                                             <th>Cập nhật</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot style="display:none;">
                                         <tr>
                                             <th>Tiêu đề</th>
                                             <th>Banner</td>
-                                            <th>Ngày tạo</td>
+                                           
                                             <th>Cập nhật</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $value)
                                         <tr>
                                             <td>{{$value->bnTieude}}</td>
-                                            <td style="text-align: center">
-                                                @if($value->bnVitri == 1)
-                                                <img src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" width="500" height="60" /></td>
-                                                @else
+                                            @if($value->bnVitri == 1 && $value->bnTrang == 1)
+                                            <td style="text-align: center; margin: 0;padding: 0;width: 50%;">
+                                                
+                                                <img src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" style="width: 100%;" height="60" />
+                                            </td>
+                                            @elseif($value->bnVitri == 3 && $value->bnTrang == 1)
+                                            <td>
+                                               <video muted loop autoplay>
+                                                   <source src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" type="video/mp4">
+                                               </video>
+                                            </td>
+                                             @else
+                                                <td>
                                                 <img src="{{URL::asset('public/images/banners/'.$value->bnHinh)}}" width="450" height="200" /></td>
                                                 @endif
-                                            <td>
-                                             {{$value->bnVitri}}
-                                               
-                                            </td>
                                             <td>{{$value->bnNgay}}</td>
                                             <td>
                                                 <a class="btn btn-danger" href="{{url('/deleteBanner/'.$value->bnMa)}}" >
