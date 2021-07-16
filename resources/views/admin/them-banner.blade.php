@@ -8,7 +8,7 @@
             </div>
         <div id="content" class="container">
         	<br/>
-			<form class="row" action="{{URL::to('checkAddBanner/'.$vitri)}}" method="POST" enctype="multipart/form-data">
+			<form class="row" action="{{URL::to('checkAddBanner/'.$trang."/".$vitri)}}" method="POST" enctype="multipart/form-data">
 				 {{ csrf_field()}}
 
 				 	<div class="col-lg-2"></div>

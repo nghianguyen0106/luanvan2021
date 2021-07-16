@@ -20,6 +20,7 @@ class CreateChitietphieunhapTable extends Migration
             $table->integer('spMa');
             $table->integer('nccMa');
             $table->integer('pnMa');
+            $table->char('serMa');
                 
             $table->engine = "InnoDB";
             

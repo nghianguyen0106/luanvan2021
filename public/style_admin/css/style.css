@@ -493,9 +493,6 @@ table
 {
 	position: relative;
 	z-index: 1;
-	text-transform: uppercase;
-	font-size: 20px;
-	color: white;
 	border: 1px solid var(--wc-dark);
 	background-color: grey;
 	display: flex;
@@ -570,7 +567,7 @@ table
 .bn__content .bn__content--text
 {
 	height: 261px;
-	text-transform: uppercase;
+	
 	color: var(--wc-dark);
 	background-color: var(--wc-content-bg);
 }
@@ -597,9 +594,6 @@ table
  {
  	height: 261px;
  	position: relative;
-	text-transform: uppercase;
-	font-size: 20px;
-	color: white;
 	background-color: grey;
 	display: flex;
 	justify-content: space-around;
@@ -639,6 +633,66 @@ table
 	font-size: 30px;
 }
 
+.bn__vitri1,.bn__vitri8
+{
+	height: 495px;
+	width: 12.3%;
+	border: 1px solid black;
+	background-color:grey;
+}
+.bn__vitri2
+{
+	border: 1px solid black;
+	width: 100%;
+	background-color:grey;
+	height: 330px;
+}
+.bn__vitri3,
+.bn__vitri4,
+.bn__vitri5,
+.bn__vitri6,
+.bn__vitri7
+{
+	height: 165px;
+	border: 1px solid black;
+	background-color:grey;
+}
+.bn__vitri1,
+.bn__vitri2,
+.bn__vitri5,
+.bn__vitri6,
+.bn__vitri7,
+.bn__vitri8
+{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.bn__vitri1,
+.bn__vitri2,
+.bn__vitri3,
+.bn__vitri4,
+.bn__vitri5,
+.bn__vitri6,
+.bn__vitri7,
+.bn__vitri8
+{
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+.style__together,
+.style__together div
+{
+	font-size: 20px;
+	color: white;
+}
+.style__together:hover,
+.style__together:hover div
+{
+	color: var(--wc-blue);
+	text-decoration: none;
+}
 
 @media only screen and (max-width: 1024px)
 {

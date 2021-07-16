@@ -26,7 +26,7 @@
                                             <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Giá</th>
-                                            <th>Tình trạng</th>
+                                          
                                             <th>Hạn bảo hành</th>
                                            <th>Khuyến mãi</th>
                                             
@@ -39,7 +39,7 @@
                                              <th>Mã sản phẩm</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Giá</th>
-                                             <th>Tình trạng</th>
+                                            
                                             <th>Hạn bảo hành</th>
                                            <th>Khuyến mãi</th>
                                            
@@ -54,7 +54,7 @@
                                            <th>{{$value->spMa}}</th>
                                             <th>{{$value->spTen}}</th>
                                             <th>{{number_format($value->spGia)}}&nbsp;VND</th>
-                                            <th>{{$value->spTinhtrang==0?"Hết hàng":"Còn hàng"}}</th>
+                                            
                                             <th>
                                                 @if($value->spHanbh==0)
                                                 6 tháng

@@ -16,6 +16,7 @@ use App\Models\kho;
 use App\Models\hinh;
 use App\Models\mota;
 use App\Models\phieunhap;
+use App\Models\phieunhap_ser;
 use App\Models\danhgia;
 use App\Models\thuonghieu;
 use App\Models\loai;
@@ -52,7 +53,7 @@ class adminController extends Controller
                 ->get();
             $dh = DB::table('donhang')->where('hdTinhtrang',2)->count();
             $total_price = DB::table('donhang')->where('hdTinhtrang',2)->sum('hdTongtien');
-            $total_sp = DB::table('sanpham')->where('spTinhtrang',1)->count();
+            $total_sp = DB::table('sanpham')->count();
             $total_pay = DB::table('phieunhap')->sum('pnTongtien');
             return view('admin.index',compact('nv','sp','dh','total_price','total_sp','total_pay','noteDonhang','noteDonhang1','noteDanhgia'));
         }
@@ -91,7 +92,7 @@ class adminController extends Controller
                     ->where('hinh.thutu','=','1')
                     ->join('kho','kho.spMa','=','sanpham.spMa')
                     ->get();
-                $total_sp = DB::table('sanpham')->where('spTinhtrang',1)->count();
+                $total_sp = DB::table('sanpham')->count();
                 $dh = DB::table('donhang')->where('hdTinhtrang',2)->count();
                 $total_price = DB::table('donhang')->where('hdTinhtrang',2)->sum('hdTongtien');
                 $total_pay = DB::table('phieunhap')->sum('pnTongtien');
@@ -261,7 +262,7 @@ class adminController extends Controller
     }
         
 
-   public function viewBanner($vitri)
+   public function viewBanner($trang,$vitri)
     {
          if(Session::has('adTaikhoan'))
         {
@@ -271,20 +272,93 @@ class adminController extends Controller
             Session::put('hdTinhtrang',$noteDonhang);
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
-            $data = DB::table('slide')->where('bnVitri',$vitri)->orderBy('bnNgay','desc')->get();
-            $vt = DB::table('slide')->select('bnVitri')->orderBy('bnNgay','asc')->get();
-            $default = DB::table('slide')->select('bnVitri')->where('bnVitri',$vitri)->get();
 
-            return view('admin.banner')->with('data',$data)
+            $vtTopdb = DB::table('slide')->select('bnVitri')
+                    ->where('bnTrang',$trang)->orderBy('bnVitri','asc')->limit(1)->get();
+          
+           $vtDB = DB::table('slide')->select('bnVitri')
+                    ->where('bnTrang',$trang)->orderBy('bnVitri','asc')->limit(1)->first();
+            $vtDb = $vtDB->bnVitri;
+             $page = $trang;
+            $vtEmpty = DB::table('slide')
+                    ->where('bnTrang',$trang)->count();
+
+            $vt1Empty = DB::table('slide')
+                    ->where('bnVitri',1)
+                    ->where('bnTrang',$trang)->count();
+
+            $vt = DB::table('slide')->select('bnVitri')
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnVitri','asc')->get();
+
+            $default = DB::table('slide')
+                    ->select('bnVitri')
+                    ->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)->get();
+
+            $default2 = DB::table('slide')
+                    ->select('bnVitri')
+                    ->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)->first();
+           
+           if($vitri == 1 && $vitri != $vtDB)
+           {
+              $data = DB::table('slide')->where('bnVitri',$vtDb)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
+                                        ->with('page',$page)
+                                        ->with('vtEmpty',$vtEmpty)
+                                        ->with('vt1Empty',$vt1Empty)
+                                        ->with('vtTop',$vtTopdb)
+                                        ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
                                         ->with('vitri',$vt)
-                                        ->with('default',$default)
                                         ->with('noteDanhgia',$noteDanhgia)
                                         ->with('noteDonhang',$noteDonhang)
                                         ->with('noteDonhang1',$noteDonhang1);
+           }
+           elseif($vitri != 1 && $vitri != $vtDB)
+           {
+            $data = DB::table('slide')->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
+                                        ->with('page',$page)
+                                        ->with('vtEmpty',$vtEmpty)
+                                        ->with('vt1Empty',$vt1Empty)
+                                        ->with('vtTop',$vtTopdb)
+                                        ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
+                                        ->with('vitri',$vt)
+                                        ->with('noteDanhgia',$noteDanhgia)
+                                        ->with('noteDonhang',$noteDonhang)
+                                        ->with('noteDonhang1',$noteDonhang1);
+           }
+           elseif($vitri == 1 && $vitri != $vtDB)
+           {
+            $data = DB::table('slide')->where('bnVitri',$vitri)
+                    ->where('bnTrang',$trang)
+                    ->orderBy('bnNgay','desc')->get();
+             return view('admin.banner')->with('data',$data)
+                                        ->with('page',$page)
+                                        ->with('vtEmpty',$vtEmpty)
+                                        ->with('vt1Empty',$vt1Empty)
+                                        ->with('vtTop',$vtTopdb)
+                                        ->with('vtDefault',$default)
+                                        ->with('vtDefault2',$default2)
+                                        ->with('vitri',$vt)
+                                        ->with('noteDanhgia',$noteDanhgia)
+                                        ->with('noteDonhang',$noteDonhang)
+                                        ->with('noteDonhang1',$noteDonhang1);
+           }
+           
+
+           
         }
         else 
         { return Redirect('/adLogin'); }
-       
+
     }
     public function viewLShoatdong()
     {
@@ -863,7 +937,6 @@ class adminController extends Controller
                 $data['spTen']=$re->spTen;
                 $data['spGia']=0;
                 $data['spHanbh']=$re->spHanbh;
-                $data['spTinhtrang']=0;
                 $data['kmMa']=$re->kmMa;
                 $data['thMa']=$re->thMa;
                 $data['loaiMa']=$re->loaiMa;
@@ -2200,13 +2273,22 @@ public function adCheckAddKhuyenmai(Request $re)
         Session::put('hdTinhtrang',$noteDonhang);
         $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
         Session::put('hdTinhtrang1',$noteDonhang1);
-        $data = DB::table("phieunhap")->where('pnMa',$id)->join('admin','admin.adMa','=','phieunhap.adMa')->get();
+        $data = DB::table("phieunhap")
+                ->where('pnMa',$id)
+                ->join('admin','admin.adMa','=','phieunhap.adMa')
+                ->get();
         $data2 = DB::table("chitietphieunhap")->where('pnMa',$id)
                 ->join('sanpham','sanpham.spMa','=','chitietphieunhap.spMa')
                 ->join('nhacungcap','nhacungcap.nccMa','=','chitietphieunhap.nccMa')
-                ->join('serial','serial.spMa','=','chitietphieunhap.spMa')
                 ->get();
-        return view('admin.chi-tiet-phieu-nhap')->with('data',$data)->with('data2',$data2)->with('noteDanhgia',$noteDanhgia)->with('noteDonhang',$noteDonhang)->with('noteDonhang1',$noteDonhang1);
+
+       
+        return view('admin.chi-tiet-phieu-nhap')
+                    ->with('data',$data)
+                    ->with('data2',$data2)
+                    ->with('noteDanhgia',$noteDanhgia)
+                    ->with('noteDonhang',$noteDonhang)
+                    ->with('noteDonhang1',$noteDonhang1);
     }
     public function viewLapPhieuNhap()
     {
@@ -2234,12 +2316,14 @@ public function adCheckAddKhuyenmai(Request $re)
         foreach($re->spMa as $key => $v)
         {
             $data2 = array();
-            $data2["pnMa"] =  $data['pnMa'];
-            $data2["spMa"] =  $v;
-            $data2["nccMa"] = $re->nccMa[$key];
             $data2["ctpnSoluong"]=$re->soluong[$key];
             $data2["ctpnDongia"]= $re->gia[$key];
             $data2["ctpnThanhtien"]=$re->tonggiasp[$key];
+            $data2["spMa"] =  $v;
+            $data2["nccMa"] = $re->nccMa[$key];
+            $data2["pnMa"] =  $data['pnMa'];
+            $data2["serMa"] =  $re->serMa[$key];
+           
             DB::table('chitietphieunhap')->insert($data2);
 
             $data5 =array();
@@ -2265,7 +2349,7 @@ public function adCheckAddKhuyenmai(Request $re)
                 if($checkKho > 0)
                 {
                     $data3 = array();
-                    $data3["khoSoluong"] = $checkKho + $sumSerial -1;
+                    $data3["khoSoluong"] = $checkKho + $sumSerial - 1;
                     $data3["khoNgaynhap"] = now(); 
                     $data3["khoSoluongdaban"] = 0;   
                     DB::table('kho')->where('spMa', $v)->update($data3);
@@ -2282,7 +2366,6 @@ public function adCheckAddKhuyenmai(Request $re)
             }
 
             $data4 = array();
-            $data4['spTinhtrang'] =1;
             $data4['spGia'] =$re->gia[$key];
             $data4["nccMa"] =$re->nccMa[$key];
             DB::table('sanpham')->where('spMa', $v)->update($data4);
@@ -2979,7 +3062,7 @@ public function adCheckAddKhuyenmai(Request $re)
 
 
         //Banner
-     public function vitriBanner()
+     public function vitriBanner($trang)
      {
             $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
@@ -2988,12 +3071,14 @@ public function adCheckAddKhuyenmai(Request $re)
             $noteDonhang1 = DB::table("donhang")->where('hdTinhtrang',3)->count();
             Session::put('hdTinhtrang1',$noteDonhang1);
 
+            $page = $trang;
             return view('admin.vi-tri-banner')
+                                ->with('page',$page)
                                 ->with('noteDanhgia',$noteDanhgia)
                                 ->with('noteDonhang',$noteDonhang)
                                 ->with('noteDonhang1',$noteDonhang1);
      }
-      public function themBanner($id)
+      public function themBanner($trang,$id)
      {
          $noteDanhgia = DB::table("danhgia")->where('dgTrangthai',1)->count();
             Session::put('dgTrangthai',$noteDanhgia);
@@ -3003,13 +3088,14 @@ public function adCheckAddKhuyenmai(Request $re)
             Session::put('hdTinhtrang1',$noteDonhang1);
 
             $vitri = $id;
+            $trang = $trang;
 
-            return view('admin.them-banner',compact('vitri'))
+            return view('admin.them-banner',compact('vitri','trang'))
                                 ->with('noteDanhgia',$noteDanhgia)
                                 ->with('noteDonhang',$noteDonhang)
                                 ->with('noteDonhang1',$noteDonhang1);
      }
-      public function adCheckAddBanner(Request $re,$vitri)
+      public function adCheckAddBanner(Request $re,$trang,$vitri)
       {
              if($re->hasFile('bnHinh'))
             {
@@ -3024,9 +3110,10 @@ public function adCheckAddKhuyenmai(Request $re)
                     $data['bnNgay']= now();
                     $data['bnVitri']= $vitri;
                     $data['bnTrangthai']= $re->bnTrangthai;
+                     $data['bnTrang']= $trang;
                     DB::table('slide')->insert($data);
                    
-                    return redirect('adBanner/'.$vitri);
+                    return redirect('adBanner/'.$trang."/".$vitri);
             }
             // else
             // {
