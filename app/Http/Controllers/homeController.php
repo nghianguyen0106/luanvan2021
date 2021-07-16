@@ -49,7 +49,6 @@ class homeController extends Controller
                 ->inRandomOrder()
                 ->limit(4)->get();
         return view('welcome',compact('db','dblap','dbpc','dbrand'));
-
     }
     
      // forgot password
@@ -65,11 +64,12 @@ class homeController extends Controller
     }
     public function login()
     {
+        Auth::guard('khachhang')->logout();
         return view('Userpage.userlogin');
     }
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('khachhang')->logout();
         Cart::destroy();
         session::forget("khMa");
         session::forget("khTen");

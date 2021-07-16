@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 class checkAuthentication
 {
     /**
@@ -18,10 +19,12 @@ class checkAuthentication
     {
         if(Auth::guard('khachhang')->check())
         {
+            
             return $next($request);    
         }
         else
-        {
+        {   
+            Session::flash('loginmessage','Vui lòng đăng nhập trước khi sử dụng chức năng này !');
             return Redirect()->route('loginpage');
         }
         

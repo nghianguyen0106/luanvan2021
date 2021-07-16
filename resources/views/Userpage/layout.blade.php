@@ -63,21 +63,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   							</a>
   						</li>
   						<!--php-->
-  						@if(Session::has('khTen'))
+  						@if(Auth::guard('khachhang')->check())
   						<li class="menu__item">
-	  						<a  href="{{url("/infomation/".Session::get('khMa'))}}">
-	  							@if(Session::get('khHinh')!=null)
-									<img style="width: 30px;height: 30px;border-radius: 360px;" src="{{URL::asset('public/images/khachhang/'.Session::get('khHinh'))}}" />
+	  						<a  href="{{url("/infomation/".Auth::guard('khachhang')->user()->khMa)}}">
+	  							@if(Auth::guard('khachhang')->user()->khHinh!=null)
+									<img style="width: 30px;height: 30px;border-radius: 360px;" src="{{URL::asset('public/images/khachhang/'.Auth::guard('khachhang')->user()->khHinh)}}" />
 									@else
 						   			<i class="fas fa-user-circle" style="font-size: 28px;color: lightgrey;position: relative;top:3px"></i>
 									@endif 
-									&nbsp;{{Session::get('khTen')}}
+									&nbsp;{{Auth::guard('khachhang')->user()->khTen}}
 	  						</a>
 	  						<ul class="item__menu--child">
 	  							<li class="item__triangle"></li>
 	  							<div class="box__list--item">
 	  							<li class="menu__child--item">
-	  								<a href="{{url("/infomation/".Session::get('khMa'))}}">
+	  								<a href="{{url("/infomation/".Auth::guard('khachhang')->user()->khMa)}}">
 					 				<i class="fas fa-info-circle" ></i>&nbsp;Thông tin cá nhân
 					 				</a>
 	  							</li>

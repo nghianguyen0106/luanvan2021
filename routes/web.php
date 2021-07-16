@@ -49,7 +49,7 @@ Route::get('facebookredirect','loginController@facebookredirect');
 //---
 
 // -------Product page-----------//
-Route::get('/product','homeController@product' );
+Route::get('/product','homeController@product' )->name('productpage');
 Route::get('proinfo/{id}','homeController@proinfo');
 Route::get('findpro','homeController@findpro');
 //---

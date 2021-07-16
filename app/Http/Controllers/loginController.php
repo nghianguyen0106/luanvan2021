@@ -53,7 +53,8 @@ class loginController extends Controller
     public function loginGoogle()
     {
         try
-        {
+        {   
+            Auth::guard('khachhang')->logout();
             return Socialite::driver('google')->redirect();
         }
         catch(Exception $e)
@@ -64,26 +65,17 @@ class loginController extends Controller
     public function googleredirect()
     {
             $userInfo=Socialite::driver('google')->user();
-            // dd($userInfo);
             $checkEmail=khachhang::where('khEmail',$userInfo->email)->first();
-           if($checkEmail!=null)
-           {
-                session::put("khMa",$checkEmail->khMa);
-                session::put("khTen",$checkEmail->khTen);
-                session::put('khTaikhoan',$checkEmail->khTaikhoan);
-                session::put('khMa',$checkEmail->khMa);
-                session::put('khEmail',$checkEmail->khEmail);
-                session::put('khHinh',$checkEmail->khHinh);
-                session::put('khDiachi',$checkEmail->khDiachi);
-                session::put('khSdt',$checkEmail->khSdt);
+            if($checkEmail!=null)
+            {   
+                // dd('sadsa');
+                Auth::guard('khachhang')->login($checkEmail);
                 Session::flash('loginmess','Đăng nhập thành công !');
                 Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
-
                 return Redirect::to('product');
-           }
-           else
-           {
-                Auth::guard('khachhang')->logout();
+            }
+            else
+            {
                 //if Account is not exist go to auto register
                 if(Auth::guard('khachhang')->check() == false)
                 {
@@ -95,25 +87,19 @@ class loginController extends Controller
                     $kh->khDiachi='';
                     $kh->khQuyen=0;
                     $kh->khGioitinh=0;
-                    $kh->khSdt="";
+                    $kh->khSdt=substr($userInfo->id,12);
                     $kh->khTaikhoan=$userInfo->id;
                     $kh->khNgaythamgia=date_create();
                     $kh->khXtemail=1;
                     $date=getdate();
                     $kh->khMa=$date['seconds'].strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
                     //login
-                    Session::put("khMa",$kh->khMa);
-                    Session::put("khTen",$kh->khTen);
-                    Session::put('khTaikhoan',$kh->khTaikhoan);
-                    Session::put('khEmail',$kh->khEmail);
                     Session::flash('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
                     Auth::guard('khachhang')->login($kh);
-
-                    
                     $kh->save();
                 }
                 return view('userpage.addInfomation');
-           }
+            }
     }
 
     public function loginFacebook()
@@ -259,10 +245,36 @@ class loginController extends Controller
     }
     public function addInfomation(Request $re)
     {
-        $userInfo=khachhang::find(Session::get('khMa'));
+        $userInfo=khachhang::find(Auth::guard('khachhang')->user()->khMa);
         if($userInfo)
         {
-
+            if($re->password != $re->repassword)
+            {
+                Session::flash('err','Mật khẩu xác thực chưa trùng khớp ');
+                return "<script>window.history.back();</script>";
+            }
+            $userInfo->khMatkhau=$re->password;
+            if(strlen($re->address)<10)
+            {
+                Session::flash('err','Địa chỉ không hợp lệ ');
+                return "<script>window.history.back();</script>";
+            }
+            $userInfo->khDiachi=$re->address;
+            if(strlen($re->sdt)<10 || strlen($re->sdt) >11)
+            {
+                Session::flash('err','Số điện thoại không hợp lệ ');
+                return "<script>window.history.back();</script>";
+            }
+            $checkExistPhonenumber=khachhang::where('khSdt',$re->sdt)->first();
+            if($checkExistPhonenumber!=null && $checkExistPhonenumber->khMa != Auth::guard('khachhang')->user()->khMa)
+            {
+                Session::flash('err','Số điện thoại này đã dùng cho tài khoản khác ');
+                return "<script>window.history.back();</script>";
+            }
+            $userInfo->khSdt=$re->sdt;
+            $userInfo->update();
+            Session::flash('success','Đăng ký thành công ! ');
+            return Redirect()->route('productpage');
         }
         else
         {

@@ -39,15 +39,11 @@
                 <span id="sdt__err--regis"></span>
               </div>
               <div class="form-group last  mb-3">
-                <input type="radio" name="sex" class="form-check-input" checked value="0" >&nbsp;Nam &nbsp;&nbsp;
-                <input type="radio" name="sex" class="form-check-input" value="1" >&nbsp;Nữ
-              </div>
-              <div class="form-group last  mb-3">
               <input id="btn__register" type="submit" value="Xác nhận" class="btn btn-block btn-primary">
               </div>
-              <br/>
+              <br>
                 </div>
-                <br/>
+                <br>
             </form>
           </div>
           <div class="col-lg-2"></div>
@@ -64,12 +60,23 @@ Swal.fire({
 })
 </script> 
 @endif
+
+@if(Session::has('err'))
+<script type="text/javascript" >
+Swal.fire({
+  icon: 'error',
+  title: 'Thông báo',
+  text: '{{Session::get('err')}}!',
+})
+</script> 
+@endif
+
 @endsection
 <script type="text/javascript">
           window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = '';
-            window.location.href="{{URL::to('login')}}";
+            // e.preventDefault();
+            // e.returnValue = '';
+            // window.location.href="{{URL::to('login')}}";
         });
        
 // Show notification register
