@@ -78,8 +78,8 @@ Route::get('remove-item/{id}','cartController@removeitem');
 //
 //
 //create order 
-Route::get('order','homeController@order');
-Route::post('gocheckout/{id}','cartController@gocheckout');
+Route::get('order','homeController@order')->middleware('checkAuth');
+Route::post('gocheckout/{id}','cartController@gocheckout')->middleware('checkAuth');
 Route::get('sendmail','cartController@sendmail');
 // 
 // ----

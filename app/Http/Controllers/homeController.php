@@ -44,11 +44,8 @@ class homeController extends Controller
                 ->where('sanpham.loaiMa',2)
                 ->where('hinh.thutu','=','1')
                 ->limit(8)->get();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-        return view('welcome',compact('db','dblap','dbpc','dbrand'));
+       
+        return view('welcome',compact('db','dblap','dbpc'));
     }
     
      // forgot password
@@ -64,7 +61,7 @@ class homeController extends Controller
     }
     public function login()
     {
-        Auth::guard('khachhang')->logout();
+        // Auth::guard('khachhang')->logout();
         return view('Userpage.userlogin');
     }
     public function logout()
@@ -91,16 +88,16 @@ class homeController extends Controller
                 return Redirect::to('infomation/'.Session::get('khMa'));
             }
         }
-
+        $brand=thuonghieu::all();
+        $cate=loai::all();
+        $needs=nhucau::all();
         $cart=Cart::content();
         $total=0;
         foreach ($cart as  $i) 
         {
             $total+=$i->price*$i->qty;
         }
-        $brand=thuonghieu::all();
-        $cate=loai::all();
-        $needs=nhucau::all();
+        
         //slide
         $slide = slide::where('bnVitri',0)->orderBy('bnNgay','desc')->limit(3)->get();
         $countSlide =slide::where('bnVitri',0)->orderBy('bnNgay','desc')->count();
@@ -108,9 +105,18 @@ class homeController extends Controller
         $countBnCon1 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
         $countBnCon2 = slide::where('bnVitri',1)->orderBy('bnNgay','desc')->count();
         
-        if(Session::has('khMa'))
+        if(Auth::guard('khachhang')->check())
         {
-            $db=sanpham::leftjoin('wishlist','wishlist.spMa','sanpham.spMa')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('hinh.thutu','=','1')->get();
+            $loadproduct=sanpham::leftjoin('wishlist','wishlist.spMa','sanpham.spMa')->leftjoin('hinh', 'hinh.spMa', '=', 'sanpham.spMa')->leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('hinh.thutu','=','1')->get();
+            $db=array();
+            foreach($loadproduct as $i )
+            {
+                if($i->kmTinhtrang ==1 || $i->kmTinhtrang ==null)
+                {
+                    array_push($db,$i);
+                }
+             
+            }
         }
         else
         {
@@ -139,7 +145,7 @@ class homeController extends Controller
         }
         $cart=Cart::content();
         $total=0;
-        foreach ($cart as  $i) 
+        foreach ($cart as  $i)
         {
             $total+=$i->price*$i->qty;
         }
@@ -149,18 +155,15 @@ class homeController extends Controller
         $imgs=hinh::where('spMa',$re->id)->limit(3)->get();
         $details=mota::where('spMa',$re->id)->get(); 
         $proinfo=sanpham::join('kho','kho.spMa','sanpham.spMa')->join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->where('sanpham.spMa',$re->id)->first();
-
+        // dd($proinfo);
         //load promotion
         $today=now();
         $availPromo=sanpham::leftjoin('khuyenmai','khuyenmai.kmMa','sanpham.kmMa')->where('khuyenmai.kmNgaybd','<=',$today)->where('khuyenmai.kmNgaykt','>=',$today)->where('sanpham.spMa',$re->id)->first();
-        // dd($availPromo);
-        $related_prod=sanpham::join('loai','loai.loaiMa','=','sanpham.loaiMa')->join('thuonghieu','thuonghieu.thMa','=','sanpham.thMa')->join('hinh','hinh.spMa','=','sanpham.spMa')->where('loai.loaiMa',$proinfo->loaiMa)->where('thuonghieu.thMa',$proinfo->thMa)->get();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
+     
+        
+      
         //dd($availPromo);
-        return view('Userpage.productinfo',compact('proinfo','imgDefault','imgs','details','related_prod','total','comment','checkordered','availPromo','dbrand'));
+        return view('Userpage.productinfo',compact('proinfo','imgDefault','imgs','details','total','comment','checkordered','availPromo'));
     }
      //---Find product
     public function findpro(Request $re)
@@ -461,6 +464,8 @@ class homeController extends Controller
         Session::forget("note__errC");
        Session::forget("note__err");
        //end
+       //
+      
        if(Cart::count()==0)
        {
         Session::forget('vcMa');
@@ -479,39 +484,40 @@ class homeController extends Controller
         $checkexistKhuyenmai=khuyenmai::join('sanpham','sanpham.kmMa','khuyenmai.kmMa')->where('kmNgaybd','<=',$today)->whereIn('sanpham.spMa',$a)->where('kmNgaykt','>=',$today)->where('kmTinhtrang','!=',99)->get();
         $use=array();
         $unuse=array();
-        if(Session::has('khMa'))
+        if(Auth::guard('khachhang')->check())
         {
             foreach($checkexistKhuyenmai as $i)
             {
-                $checkordered=donhang::where('khMa',Session::get('khMa'))->where('kmMa',$i->kmMa)->count();
-                if($i->kmGioihanmoikh > $checkordered)
+                $checkordered=donhang::where('khMa',Auth::guard('khachhang')->user()->khMa)->where('kmMa',$i->kmMa)->count();
+               //dd(Auth::guard('khachhang')->user()->khMa);
+                if($i->kmGioihanmoikh!=null)
                 {
-                    array_push($use,$i);
+                    if($i->kmGioihanmoikh > $checkordered)
+                    {
+                        array_push($use,$i);
+                    }
+                    else
+                    {
+                        array_push($unuse,$i);
+                    }
                 }
                 else
                 {
-                    array_push($unuse,$i);
+                    array_push($use,$i);
                 }
             }
-
         }
+        // dd($use,$unuse);
         Session::put('total',$total);
-
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-        
-            
-        return view('Userpage.checkout',compact('cate','cart','total','dbrand','use','unuse'))->with('promotion',$checkexistKhuyenmai);
+        return view('Userpage.checkout',compact('cate','cart','total','use','unuse'))->with('promotion',$checkexistKhuyenmai);
         }
 
     public function order(Request $re)
     {
-        
+         // dd(Auth::guard('khachhang')->check());
         if(Cart::count()>0)
         {
-            if(session::has('khTaikhoan'))
+            if(Auth::guard('khachhang')->check())
             {
                 $cart=Cart::content();
                 $cate=loai::get();
@@ -550,6 +556,7 @@ class homeController extends Controller
                             $total+=$i->price*$i->qty;
                         }
                     }
+
                 }
 
                 $priceVc=0;
@@ -633,23 +640,20 @@ class homeController extends Controller
                             $total-=$priceVc;
                         }              
                     }
-                }
-                else
-                {
-                    foreach($cart as $i)
+                    else
                     {
-                        $total+=$i->price*$i->qty;
+                        foreach($cart as $i)
+                        {
+                            $total+=$i->price*$i->qty;
+                        }
                     }
                 }
                 
+                
                 //return  number_format($priceVc)." ". number_format($total);
                 
-                 $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();  
-                //dd($dbrand);
-                return view('Userpage.confirmcheckout',compact('vcInfo','priceVc','pricePromo','promoInfo','proinfo','cate','cart','total','dbrand'));
+                
+                return view('Userpage.confirmcheckout',compact('vcInfo','priceVc','pricePromo','promoInfo','proinfo','cate','cart','total'));
 
             }
             else
@@ -681,12 +685,8 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
         }
         $data = DB::table('khachhang')->where('khMa',$id)->get();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-       // dd($data);
-        return view('Userpage.infomation')->with('data',$data)->with('cate',$cate)->with('total',$total)->with('dbrand',$dbrand);
+      
+        return view('Userpage.infomation')->with('data',$data)->with('cate',$cate)->with('total',$total);
     }
     public function editInfomation(Request $re, $id)
     {
@@ -760,11 +760,8 @@ class homeController extends Controller
             $total+=$i->price*$i->qty;
         }
         $data = DB::table('khachhang')->where('khMa',$id)->get();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-        return view('Userpage.updatePass')->with('data',$data)->with('cate',$cate)->with('total',$total)->with('dbrand',$dbrand);
+      
+        return view('Userpage.updatePass')->with('data',$data)->with('cate',$cate)->with('total',$total);
     }
     public function editPass(Request $re ,$id)
     {
@@ -884,10 +881,6 @@ class homeController extends Controller
 
     public function listorder()
     {
-         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
         $cate=loai::get();
         $cart=Cart::content();
         $total=0;
@@ -900,7 +893,7 @@ class homeController extends Controller
         //dd(count($list));
         if(count($list)==0)
         {
-            return view('userpage.order',compact('list','cate','cart','total','dbrand'));
+            return view('userpage.order',compact('list','cate','cart','total'));
         }
         else
         {
@@ -910,7 +903,7 @@ class homeController extends Controller
     
         }
         
-        return view('Userpage.order',compact('details','list','cate','cart','total','dbrand'));
+        return view('Userpage.order',compact('details','list','cate','cart','total'));
         }
         
     }   
@@ -940,12 +933,8 @@ class homeController extends Controller
                 array_push($wl,$i);
            }
         }
-         $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
         //dd($wl);
-        return view('Userpage.wishlist',compact('wl','dbrand'));
+        return view('Userpage.wishlist',compact('wl'));
     }
 
     public function addtowishlist(Request $re)
@@ -1063,11 +1052,8 @@ class homeController extends Controller
     {
         $data1 = DB::table('tintuc')->where('ttTinhtrang','0')->where('ttLoai','1')->orderBy('ttNgaydang','desc')->get();
         $data2 = DB::table('tintuc')->where('ttTinhtrang','0')->where('ttLoai','2')->orderBy('ttNgaydang','desc')->get();
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-        return view('Userpage.danh-sach-tin-tuc')->with('data1',$data1)->with('data2',$data2)->with('dbrand',$dbrand);
+     
+        return view('Userpage.danh-sach-tin-tuc')->with('data1',$data1)->with('data2',$data2);
     }
      public function tintucInfo($id)
     {
@@ -1078,11 +1064,8 @@ class homeController extends Controller
        $changeView['ttLuotxem']=$viewOld->ttLuotxem+1; 
        DB::table('tintuc')->where('ttMa',$id)->update($changeView);
 
-        $dbrand=sanpham::join('hinh','hinh.spMa','=','sanpham.spMa')
-                ->where('hinh.thutu','=','1')
-                ->inRandomOrder()
-                ->limit(4)->get();
-        return view('Userpage.chi-tiet-tin-tuc')->with('data',$data)->with('data2',$data2)->with('dbrand',$dbrand);
+       
+        return view('Userpage.chi-tiet-tin-tuc')->with('data',$data)->with('data2',$data2);
     }
         
 }

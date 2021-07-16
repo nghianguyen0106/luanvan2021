@@ -52,7 +52,7 @@ Xác nhận đơn hàng
 						<br/>
 						<div class="row justify-content-around">
 							<div class="col-lg-5">
-								<h5>Sản phẩm khuyến mãi:&nbsp;{{$proinfo->spTen}}</h5>
+								<h5>Sản phẩm khuyến mãi:&nbsp;<span style="color: #2684ED;">{{$proinfo->spTen}}</span></h5>
 								<input type="text" hidden name="spMa" value="{{$proinfo->spMa}}">
 								<input type="text"  hidden  name="kmMa" value="{{$promoInfo->kmMa}}">
 							</div>

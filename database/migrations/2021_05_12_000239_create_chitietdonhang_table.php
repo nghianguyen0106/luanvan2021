@@ -16,8 +16,8 @@ class CreateChitietdonhangTable extends Migration
         Schema::create('chitietdonhang', function (Blueprint $table) {
             $table->integer('hdMa');
             $table->integer('spMa');
-            $table->integer('cthdSoluong');
             $table->float('cthdGia',20,2);
+            $table->char('serMa',20)->nullable();
             $table->integer('cthdTrigiakm')->default(0);
             $table->engine = "InnoDB";
             

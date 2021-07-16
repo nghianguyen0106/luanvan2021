@@ -17,15 +17,14 @@ class checkAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('khachhang')->check())
+        if(Auth::guard('khachhang')->check()==false)
         {
-            
-            return $next($request);    
+            Session::flash('loginmessage','Vui lòng đăng nhập trước khi sử dụng chức năng này !');
+            return Redirect()->route('loginpage');
         }
         else
         {   
-            Session::flash('loginmessage','Vui lòng đăng nhập trước khi sử dụng chức năng này !');
-            return Redirect()->route('loginpage');
+            return $next($request);    
         }
         
     }

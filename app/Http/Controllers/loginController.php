@@ -31,15 +31,6 @@ class loginController extends Controller
     	if($result2)
     	{
             Auth::guard('khachhang')->login($result2);
-            session::put("khMa",$result->khMa);
-            session::put("khTen",$result->khTen);
-            session::put('khTaikhoan',$result->khTaikhoan);
-            session::put('khMa',$result->khMa);
-            session::put('khEmail',$result->khEmail);
-            session::put('khHinh',$result->khHinh);
-            session::put('khDiachi',$result->khDiachi);
-            session::put('khSdt',$result->khSdt);
-            
             Session::flash('loginmess','Đăng nhập thành công !');
             Session::flash('name','Chào '.$result->khTen.' !!!');
     		return Redirect::to('product');
@@ -82,7 +73,11 @@ class loginController extends Controller
                     $kh=new khachhang();
                     $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
                     $kh->khMatkhau=md5("12345678");
-                    $kh->khEmail=$userInfo->email;            
+                    $kh->khEmail=$userInfo->email;
+                    if($kh->khEmail==null)
+                    {
+                        return Redirect()->route('loginpage');
+                    }         
                     $kh->khNgaysinh=date_create();
                     $kh->khDiachi='';
                     $kh->khQuyen=0;
@@ -94,7 +89,7 @@ class loginController extends Controller
                     $date=getdate();
                     $kh->khMa=$date['seconds'].strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
                     //login
-                    Session::flash('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
+                    Session::put('ok','Vui lòng điền thông tin của bạn để hoàn tất việc đăng ký !');
                     Auth::guard('khachhang')->login($kh);
                     $kh->save();
                 }
@@ -102,67 +97,67 @@ class loginController extends Controller
             }
     }
 
-    public function loginFacebook()
-        {
-            try
-            {
-                return Socialite::driver('facebook')->redirect();
-            }
-            catch(Exception $e)
-            {
-                return Redirect::to('login');
-            }
-        }
-        public function facebookredirect()
-        {
-                $userInfo=Socialite::driver('facebook')->user();
-                //dd($userInfo);
-               $checkEmail=khachhang::where('khEmail',$userInfo->email)->first();
-           if($checkEmail!=null)
-           {
-                session::put("khMa",$checkEmail->khMa);
-                session::put("khTen",$checkEmail->khTen);
-                session::put('khTaikhoan',$checkEmail->khTaikhoan);
-                session::put('khMa',$checkEmail->khMa);
-                session::put('khEmail',$checkEmail->khEmail);
-                session::put('khHinh',$checkEmail->khHinh);
-                session::put('khDiachi',$checkEmail->khDiachi);
-                session::put('khSdt',$checkEmail->khSdt);
-                Session::flash('loginmess','Đăng nhập thành công !');
-                Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
+    // public function loginFacebook()
+    //     {
+    //         try
+    //         {
+    //             return Socialite::driver('facebook')->redirect();
+    //         }
+    //         catch(Exception $e)
+    //         {
+    //             return Redirect::to('login');
+    //         }
+    //     }
+    //     public function facebookredirect()
+    //     {
+    //             $userInfo=Socialite::driver('facebook')->user();
+    //             //dd($userInfo);
+    //            $checkEmail=khachhang::where('khEmail',$userInfo->email)->first();
+    //        if($checkEmail!=null)
+    //        {
+    //             session::put("khMa",$checkEmail->khMa);
+    //             session::put("khTen",$checkEmail->khTen);
+    //             session::put('khTaikhoan',$checkEmail->khTaikhoan);
+    //             session::put('khMa',$checkEmail->khMa);
+    //             session::put('khEmail',$checkEmail->khEmail);
+    //             session::put('khHinh',$checkEmail->khHinh);
+    //             session::put('khDiachi',$checkEmail->khDiachi);
+    //             session::put('khSdt',$checkEmail->khSdt);
+    //             Session::flash('loginmess','Đăng nhập thành công !');
+    //             Session::flash('name','Chào '.$checkEmail->khTen.' !!!');
 
-                return Redirect::to('product');
-           }
-           else
-           {
-                //if Account is not exist go to auto register
-                $kh=new khachhang();
-                $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
-                $kh->khMatkhau=md5("123456789");
-                $kh->khEmail=$userInfo->email;            
-                $kh->khNgaysinh=date_create();
-                $kh->khDiachi='';
-                $kh->khQuyen=0;
-                $kh->khGioitinh=0;
-                $kh->khSdt="";
-                $kh->khTaikhoan=$userInfo->id;
-                $kh->khNgaythamgia=date_create();
-                $kh->khXtemail=1;
-                $date=getdate();
-                //dd($data);
-                $kh->khMa=strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
+    //             return Redirect::to('product');
+    //        }
+    //        else
+    //        {
+    //             //if Account is not exist go to auto register
+    //             $kh=new khachhang();
+    //             $kh->khTen=substr($userInfo->name,0,stripos($userInfo->name," "));
+    //             $kh->khMatkhau=md5("123456789");
+    //             $kh->khEmail=$userInfo->email;            
+    //             $kh->khNgaysinh=date_create();
+    //             $kh->khDiachi='';
+    //             $kh->khQuyen=0;
+    //             $kh->khGioitinh=0;
+    //             $kh->khSdt="";
+    //             $kh->khTaikhoan=$userInfo->id;
+    //             $kh->khNgaythamgia=date_create();
+    //             $kh->khXtemail=1;
+    //             $date=getdate();
+    //             //dd($data);
+    //             $kh->khMa=strlen( $kh->khTen).strlen($kh->khDiachi).strlen($kh->khTaikhoan).$date['yday'];
                 
                 
-                //login
-                session::put("khMa",$kh->khMa);
-                session::put("khTen",$kh->khTen);
-                session::put('khTaikhoan',$kh->khTaikhoan);
-                session::put('khEmail',$kh->khEmail);
-                $kh->save();
-                return Redirect::to('product');
+    //             //login
+    //             session::put("khMa",$kh->khMa);
+    //             session::put("khTen",$kh->khTen);
+    //             session::put('khTaikhoan',$kh->khTaikhoan);
+    //             session::put('khEmail',$kh->khEmail);
+    //             $kh->save();
+    //             return Redirect::to('product');
           
-               }
-        }
+    //            }
+    //     }
 
     public function sendCodeGetAcc(Request $re)
     {

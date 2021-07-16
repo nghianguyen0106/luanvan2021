@@ -2316,7 +2316,6 @@ public function adCheckAddKhuyenmai(Request $re)
         foreach($re->spMa as $key => $v)
         {
             $data2 = array();
-            $data2["ctpnSoluong"]=$re->soluong[$key];
             $data2["ctpnDongia"]= $re->gia[$key];
             $data2["ctpnThanhtien"]=$re->tonggiasp[$key];
             $data2["spMa"] =  $v;

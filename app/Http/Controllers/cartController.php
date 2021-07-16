@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Cart;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Session;
 session_start();
 
@@ -157,14 +158,14 @@ class cartController extends Controller
                     return Redirect::to('checkout');    
                 }
             }
-            if(session::has('khTaikhoan'))
+            if(Auth::guard('khachhang')->check())
             {
-                $customerInfo=khachhang::where('khMa',Session::get('khMa'))->first();
+                $customerInfo=khachhang::where('khMa',Auth::guard('khachhang')->user()->khMa)->first();
                 if($customerInfo->khXtemail==1)
                 {
                     //create order
                     $dh= new donhang();
-                    $dh->khMa=Session::get('khMa');
+                    $dh->khMa=$customerInfo->khMa;
                     $dh->hdSoluongsp=Cart::count();
                     $dh->hdTongtien=$money;
                     $dh->hdNgaytao=date_create();
@@ -234,6 +235,7 @@ class cartController extends Controller
                         $dh->vcMa=$vcInfo->vcMa;
                     }
                     $dh->save();
+                   
                     
                     //create order details
                     foreach (Cart::content() as $k => $i)
@@ -247,8 +249,7 @@ class cartController extends Controller
                         $ct=new chitietdonhang();
                         $ct->hdMa=$hdMa;
                         $ct->spMa= $i->id;
-                        $ct->cthdSoluong=$i->qty;
-                        $ct->cthdGia=$i->price * $i->qty;  
+                        $ct->cthdGia=$i->price;  
                         $proinfo=sanpham::where('spMa',$re->spMa)->first();
                         if($productInfo->spMa==$re->spMa && $proinfo->spSlkmtoida != 0 )
                         {
@@ -260,8 +261,8 @@ class cartController extends Controller
                         $ct->save();
                     }
                     //clear cart
-                    Cart::destroy();
-                    $this->sendmail($hdMa);
+                    //Cart::destroy();
+                    // $this->sendmail($hdMa);
                     Session::forget('vcMa');
                     
                 }

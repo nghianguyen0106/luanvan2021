@@ -10,5 +10,5 @@ class chitietphieunhap extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table='chitietpheunhap';
-    protected $fillable=['ctpnSoluong','ctpnDongia','ctpnThanhtien','spMa','nccMa','pnMa'];
+    protected $fillable=['ctpnDongia','ctpnThanhtien','spMa','nccMa','pnMa','serMa'];
 }

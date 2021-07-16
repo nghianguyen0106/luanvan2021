@@ -34,7 +34,7 @@
                  <span id="address__err--regis"></span>
               </div>
               <div class="form-group  ">
-                <input onblur="onSDT()" id="sdt" type="number" name="sdt" required class="form-control input__register" placeholder=" ">
+                <input onblur="onSDT()" id="sdt" type="number" name="sdt" maxlength="11" minlength="10" required class="form-control input__register" placeholder=" ">
                 <label for="" class="form__label">Số điện thoại</label>
                 <span id="sdt__err--regis"></span>
               </div>
@@ -78,7 +78,6 @@ Swal.fire({
             // e.returnValue = '';
             // window.location.href="{{URL::to('login')}}";
         });
-       
 // Show notification register
 @if(Session::has('ok'))
 Swal.fire({
